@@ -37,7 +37,7 @@ removeBgButton.addEventListener('click', async () => {
     const response = await fetch('https://api.remove.bg/v1.0/removebg', {
       method: 'POST',
       headers: {
-        'X-Api-Key': '9kHcnd5Nq8CDGKYxkZP8tatj', // استخدم مفتاح API الخاص بك
+        'X-Api-Key': 'PW9BZxc9T6CDTYHYcD1GEwtQ', // استخدم مفتاح API الخاص بك
       },
       body: formData,
     });
