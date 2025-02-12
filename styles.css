@@ -48,3 +48,8 @@ body {
 .thumbnail:hover {
     border: 2px solid #ff1493;
 }
+
+/* إخفاء الرسالة */
+.hidden {
+    display: none;
+}
