@@ -53,3 +53,23 @@ body {
 .hidden {
     display: none;
 }
+/* تحسين مظهر السلايدر */
+.swiper {
+    width: 80%;
+    height: auto;
+    margin: auto;
+}
+
+.swiper-slide img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.swiper-button-next, .swiper-button-prev {
+    color: #ff1493; /* لون أزرار التنقل */
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #ff1493; /* لون النقاط النشطة */
+}
