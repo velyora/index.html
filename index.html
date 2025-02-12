@@ -18,11 +18,21 @@
         </p>
 
         <!-- سلايدر صور المنتج -->
-        <div class="relative mt-8">
-            <button id="prev" class="slider-btn">❮</button>
-            <img id="productImage" src="product1.jpg" class="rounded-lg shadow-lg mx-auto w-1/2">
-            <button id="next" class="slider-btn">❯</button>
-        </div>
+        <!-- سلايدر احترافي لعرض المنتج -->
+<div class="swiper mySwiper mt-8">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="product1.jpg" class="rounded-lg shadow-lg"></div>
+        <div class="swiper-slide"><img src="product2.jpg" class="rounded-lg shadow-lg"></div>
+        <div class="swiper-slide"><img src="product3.jpg" class="rounded-lg shadow-lg"></div>
+    </div>
+    
+    <!-- أزرار التنقل -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    
+    <!-- النقاط السفلية -->
+    <div class="swiper-pagination"></div>
+</div>
 
         <!-- ألوان المنتج -->
         <div class="mt-4 flex justify-center space-x-4">
