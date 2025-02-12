@@ -29,7 +29,7 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
 
     let message = `📦 طلب جديد:\n\n👤 الاسم: ${name}\n📞 رقم الجوال: ${phone}\n🔢 الكمية المطلوبة: ${quantity} قطعة\n🚚 الشحن: من 1 إلى 7 أيام`;
 
-    let telegramBotToken = "YOUR_TELEGRAM_BOT_TOKEN"; // استبدل بمفتاح البوت الخاص بك
+    let telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A"; // استبدل بمفتاح البوت الخاص بك
     let telegramChatId = "@tt90010"; // معرف تيليجرام الخاص بك
 
     let url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${telegramChatId}&text=${encodeURIComponent(message)}`;
