@@ -19,9 +19,9 @@
 
         <!-- سلايدر صور المنتج -->
         <div class="relative mt-8">
-            <button id="prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white p-2 rounded-full">❮</button>
+            <button id="prev" class="slider-btn">❮</button>
             <img id="productImage" src="product1.jpg" class="rounded-lg shadow-lg mx-auto w-1/2">
-            <button id="next" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white p-2 rounded-full">❯</button>
+            <button id="next" class="slider-btn">❯</button>
         </div>
 
         <!-- ألوان المنتج -->
@@ -34,16 +34,21 @@
         <!-- نموذج الطلب -->
         <div class="mt-8 bg-white p-6 rounded-lg shadow-lg">
             <h2 class="text-2xl font-bold text-pink-600">📋 قم بملء النموذج لطلب المنتج</h2>
-            <form action="submit.php" method="POST" class="mt-4">
-                <input type="text" name="name" placeholder="الاسم الكامل" required class="input-field">
-                <input type="tel" name="phone" placeholder="رقم الجوال" required class="input-field">
-                <select name="quantity" required class="input-field">
+            <form id="orderForm" class="mt-4">
+                <input type="text" id="name" placeholder="الاسم الكامل" required class="input-field">
+                <input type="tel" id="phone" placeholder="رقم الجوال" required class="input-field">
+                <select id="quantity" required class="input-field">
                     <option value="1">1 قطعة - 9.99$</option>
                     <option value="2">2 قطع - 18.99$ (خصم!)</option>
                     <option value="3">3 قطع - 25.99$ (خصم أكبر!)</option>
                 </select>
                 <button type="submit" class="btn-glow">🚀 اطلب الآن والدفع عند الاستلام</button>
             </form>
+
+            <!-- رسالة التأكيد -->
+            <div id="confirmationMessage" class="hidden mt-4 bg-green-500 text-white p-4 rounded-lg">
+                ✅ تم استلام طلبك! سيتم التواصل معك في أسرع وقت ممكن.
+            </div>
         </div>
 
         <footer class="mt-10 opacity-70 text-sm">
