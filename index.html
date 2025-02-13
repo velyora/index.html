@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
     <!-- مكتبة Swiper.js -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 <body class="bg-pink-100 text-gray-900">
     
@@ -20,27 +20,28 @@
         </p>
 
         <!-- سلايدر صور المنتج -->
-        <!-- سلايدر احترافي لعرض المنتج -->
-<div class="swiper mySwiper mt-8">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="product1.jpeg" class="rounded-lg shadow-lg"></div>
-        <div class="swiper-slide"><img src="product2.jpeg" class="rounded-lg shadow-lg"></div>
-        <div class="swiper-slide"><img src="product3.jpeg" class="rounded-lg shadow-lg"></div>
-    </div>
-    
-    <!-- أزرار التنقل -->
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-    
-    <!-- النقاط السفلية -->
-    <div class="swiper-pagination"></div>
-</div>
+        <div class="swiper mySwiper mt-8">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="product1.jpeg" class="rounded-lg shadow-lg"></div>
+                <div class="swiper-slide"><img src="product2.jpeg" class="rounded-lg shadow-lg"></div>
+                <div class="swiper-slide"><img src="product3.jpeg" class="rounded-lg shadow-lg"></div>
+                <div class="swiper-slide"><img src="product4.jpeg" class="rounded-lg shadow-lg"></div>
+            </div>
 
-        <!-- ألوان المنتج -->
+            <!-- أزرار التنقل -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+            <!-- النقاط السفلية -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <!-- صور مصغرة لتغيير الصورة الرئيسية -->
         <div class="mt-4 flex justify-center space-x-4">
-            <img src="product1.jpg" class="thumbnail w-16 h-16 rounded-lg cursor-pointer" onclick="changeImage('product1.jpg')">
-            <img src="product2.jpg" class="thumbnail w-16 h-16 rounded-lg cursor-pointer" onclick="changeImage('product2.jpg')">
-            <img src="product3.jpg" class="thumbnail w-16 h-16 rounded-lg cursor-pointer" onclick="changeImage('product3.jpg')">
+            <img src="product1.jpeg" class="thumbnail w-16 h-16 rounded-lg cursor-pointer" onclick="changeImage('product1.jpeg')">
+            <img src="product2.jpeg" class="thumbnail w-16 h-16 rounded-lg cursor-pointer" onclick="changeImage('product2.jpeg')">
+            <img src="product3.jpeg" class="thumbnail w-16 h-16 rounded-lg cursor-pointer" onclick="changeImage('product3.jpeg')">
+            <img src="product4.jpeg" class="thumbnail w-16 h-16 rounded-lg cursor-pointer" onclick="changeImage('product4.jpeg')">
         </div>
 
         <!-- نموذج الطلب -->
@@ -69,9 +70,8 @@
         </footer>
     </div>
 
-    <script src="script.js"></script>
     <!-- مكتبة Swiper.js -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
