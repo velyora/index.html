@@ -1,4 +1,4 @@
-const images = ["product1.jpg", "product2.jpg", "product3.jpg"];
+const images = ["product1.jpeg", "product2.jpeg", "product3.jpeg"];
 let currentIndex = 0;
 
 document.getElementById("prev").addEventListener("click", () => {
