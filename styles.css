@@ -1,112 +1,43 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff; /* خلفية بيضاء */
-    text-align: center;
-    margin: 0;
-    padding: 0;
+    font-family: 'Tajawal', sans-serif;
 }
 
-/* 🔹 إضافة شريط الشحن السريع أسفل الهيدر */
-.shipping-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f8f9fa;
-    padding: 12px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-top: -20px; /* تعديل المسافة بين الهيدر والنموذج */
-    border-radius: 10px;
-}
-
-.shipping-info img {
-    width: 24px;
-    height: 24px;
-    margin-left: 8px;
-}
-
-/* 🔹 تحسين العنوان الرئيسي لنموذج الطلب */
-.form-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #222;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.form-title img {
-    width: 28px;
-    height: 28px;
-    margin-left: 8px;
-}
-
-/* 🔹 تحسين مظهر النموذج */
-.container {
-    max-width: 600px;
-    margin: 20px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* 🔹 تنسيق الحقول */
+/* 🔹 تحسين المدخلات */
 .input-field {
     width: 100%;
     padding: 12px;
+    margin-top: 8px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 16px;
     text-align: right;
 }
 
-/* 🔹 محاذاة مفتاح الدولة إلى اليسار */
-.phone-container {
-    display: flex;
-    align-items: center;
-}
-
-.country-code {
-    background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    margin-right: 8px;
-    min-width: 50px;
-}
-
-/* 🔹 زر "الدفع عند الاستلام" بتأثير التوهج */
+/* 🔹 زر الدفع عند الاستلام */
 .btn-glow {
-    background: linear-gradient(45deg, #ff5722, #ff9800);
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(90deg, #ff7e5f, #ffbb00);
     color: white;
     font-size: 18px;
-    padding: 12px;
+    font-weight: bold;
     border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-    box-shadow: 0px 0px 10px rgba(255, 87, 34, 0.7);
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
+    transition: 0.3s;
 }
 
 .btn-glow:hover {
-    background: linear-gradient(45deg, #ff9800, #ff5722);
-    box-shadow: 0px 0px 20px rgba(255, 87, 34, 1);
-    transform: scale(1.05);
+    background: linear-gradient(90deg, #ffbb00, #ff7e5f);
+    box-shadow: 0 4px 20px rgba(255, 126, 95, 0.6);
 }
 
-.confirmation-message {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px;
-    font-size: 18px;
-    border-radius: 5px;
-    margin-top: 15px;
+/* 🔹 تحسين التباعد بين العناصر */
+.container {
+    max-width: 600px;
 }
 
-.hidden {
-    display: none;
+/* 🔹 تحسين النص بين الهيدر والنموذج */
+.text-lg {
+    font-weight: bold;
 }
