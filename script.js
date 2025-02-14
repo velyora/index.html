@@ -18,7 +18,7 @@ function updateShippingInfo() {
     }
 }
 
-// إرسال الطلب إلى تيليجرام + مسح البيانات بعد الإرسال
+// إرسال الطلب إلى تيليجرام + عرض رسالة تأكيد دون مسح البيانات
 document.getElementById("orderForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
@@ -49,8 +49,16 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
     .then(response => response.json())
     .then(data => {
         if (data.ok) {
-            document.getElementById("orderForm").reset();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            let orderButton = document.querySelector(".btn-glow");
+            orderButton.textContent = "✅ تم استلام طلبك!";
+            orderButton.classList.remove("bg-blue-500");
+            orderButton.classList.add("bg-green-500");
+
+            let confirmationMessage = document.createElement("p");
+            confirmationMessage.textContent = "📦 تم استلام طلبك، سيتم التواصل معك في أسرع وقت!";
+            confirmationMessage.classList.add("text-green-600", "mt-4", "font-bold", "text-lg");
+
+            document.getElementById("orderForm").appendChild(confirmationMessage);
         } else {
             alert("⚠️ حدث خطأ أثناء إرسال الطلب إلى تيليجرام.");
         }
