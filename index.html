@@ -9,57 +9,56 @@
 </head>
 <body class="bg-gray-100 text-gray-900">
 
-    <!-- 🔹 القسم الرئيسي -->
-    <section class="relative bg-white py-16 text-center">
-        <div class="container mx-auto">
-            <h1 class="text-5xl font-extrabold text-gray-800">حوّل الزائر إلى عميل</h1>
-            <p class="mt-4 text-lg text-gray-600">أفضل منتج بأعلى جودة، جربه الآن!</p>
-        </div>
-    </section>
+    <!-- 🔹 صورة الهيدر -->
+    <div class="header-container">
+        <img src="images/header-image.jpeg" alt="الهيدر" class="header-image">
+    </div>
 
     <!-- 🔹 نموذج الطلب -->
-    <section class="py-16">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold text-gray-800">📋 قم بملء النموذج لطلب المنتج</h2>
-            <form id="orderForm" class="mt-8 bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
-                <input type="text" id="name" placeholder="الاسم الكامل" required class="input-field">
+    <section class="container">
+        <h2 class="title">📋 قم بملء النموذج لطلب المنتج</h2>
+        <form id="orderForm" class="form-container">
+            <input type="text" id="name" placeholder="الاسم الكامل" required class="input-field">
 
-                <!-- اختيار الدولة -->
-                <select id="country" required class="input-field">
-                    <option value="sa" data-code="+966">🇸🇦 السعودية</option>
-                    <option value="qa" data-code="+974">🇶🇦 قطر</option>
-                    <option value="ae" data-code="+971">🇦🇪 الإمارات</option>
-                    <option value="kw" data-code="+965">🇰🇼 الكويت</option>
-                    <option value="om" data-code="+968">🇴🇲 عمان</option>
-                    <option value="bh" data-code="+973">🇧🇭 البحرين</option>
-                    <option value="eg" data-code="+20">🇪🇬 مصر</option>
-                    <option value="jo" data-code="+962">🇯🇴 الأردن</option>
-                    <option value="iq" data-code="+964">🇮🇶 العراق</option>
-                    <option value="lb" data-code="+961">🇱🇧 لبنان</option>
-                </select>
+            <!-- اختيار الدولة -->
+            <select id="country" required class="input-field">
+                <option value="sa" data-code="+966">🇸🇦 السعودية</option>
+                <option value="qa" data-code="+974">🇶🇦 قطر</option>
+                <option value="ae" data-code="+971">🇦🇪 الإمارات</option>
+                <option value="kw" data-code="+965">🇰🇼 الكويت</option>
+                <option value="om" data-code="+968">🇴🇲 عمان</option>
+                <option value="bh" data-code="+973">🇧🇭 البحرين</option>
+                <option value="eg" data-code="+20">🇪🇬 مصر</option>
+                <option value="jo" data-code="+962">🇯🇴 الأردن</option>
+                <option value="iq" data-code="+964">🇮🇶 العراق</option>
+                <option value="lb" data-code="+961">🇱🇧 لبنان</option>
+            </select>
 
-                <input type="text" id="city" placeholder="المدينة" required class="input-field">
-                <input type="text" id="address" placeholder="العنوان" required class="input-field">
-                <input type="text" id="postalCode" placeholder="الرمز البريدي" required class="input-field">
+            <input type="text" id="city" placeholder="المدينة" required class="input-field">
+            <input type="text" id="address" placeholder="العنوان" required class="input-field">
+            <input type="text" id="postalCode" placeholder="الرمز البريدي" required class="input-field">
 
-                <!-- رقم الجوال مع مفتاح الدولة -->
-                <div class="flex items-center">
-                    <span id="country-code" class="bg-gray-300 p-2 rounded-lg ml-2">+966</span>
-                    <input type="tel" id="phone" placeholder="رقم الجوال" required class="input-field">
-                </div>
+            <!-- رقم الجوال مع مفتاح الدولة -->
+            <div class="flex items-center">
+                <span id="country-code" class="bg-gray-300 p-2 rounded-lg ml-2">+966</span>
+                <input type="tel" id="phone" placeholder="رقم الجوال" required class="input-field">
+            </div>
 
-                <select id="quantity" required class="input-field">
-                    <option value="1">1 قطعة - 9.99$</option>
-                    <option value="2">2 قطع - 18.99$ (خصم!)</option>
-                    <option value="3">3 قطع - 25.99$ (خصم أكبر!)</option>
-                </select>
-                
-                <button type="submit" class="btn-glow">🚀 اطلب الآن والدفع عند الاستلام</button>
-            </form>
+            <select id="quantity" required class="input-field">
+                <option value="1">1 قطعة - 9.99$</option>
+                <option value="2">2 قطع - 18.99$ (خصم!)</option>
+                <option value="3">3 قطع - 25.99$ (خصم أكبر!)</option>
+            </select>
+            
+            <!-- 🔹 زر الطلب مع التأكيد -->
+            <button type="submit" class="btn-glow" id="submitBtn">🚀 اطلب الآن والدفع عند الاستلام</button>
 
-            <!-- مدة الشحن -->
-            <p id="shipping-text" class="mt-4 text-gray-700 font-semibold">🚚 شحن سريع من 1 إلى 7 أيام.</p>
-        </div>
+            <!-- رسالة التأكيد -->
+            <p id="confirmationMessage" class="confirmation-message hidden">✅ تم استلام طلبك! سيتم التواصل معك في أسرع وقت ممكن.</p>
+        </form>
+
+        <!-- مدة الشحن -->
+        <p id="shipping-text" class="mt-4 text-gray-700 font-semibold">🚚 شحن سريع من 1 إلى 7 أيام.</p>
     </section>
 
     <!-- 🔹 قسم المعلومات في الأسفل -->
