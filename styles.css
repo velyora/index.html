@@ -41,3 +41,20 @@ body {
 .text-lg {
     font-weight: bold;
 }
+.btn-glow {
+    background: linear-gradient(to right, #f7971e, #ff4500);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50px;
+    padding: 12px 24px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-glow:hover {
+    transform: scale(1.05);
+}
