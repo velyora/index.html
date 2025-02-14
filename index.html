@@ -43,9 +43,15 @@
                     <option value="lb">🇱🇧 لبنان</option>
                 </select>
 
+                <!-- بيانات إضافية -->
+                <input type="text" id="city" placeholder="المدينة" required class="input-field">
+                <input type="text" id="address" placeholder="العنوان" required class="input-field">
+                <input type="text" id="postalCode" placeholder="الرمز البريدي" required class="input-field">
+
+                <!-- رقم الجوال مع مفتاح الدولة على اليسار -->
                 <div class="flex items-center">
-                    <span id="country-code" class="bg-gray-300 p-2 rounded-lg">+966</span>
                     <input type="tel" id="phone" placeholder="رقم الجوال" required class="input-field">
+                    <span id="country-code" class="bg-gray-300 p-2 rounded-lg ml-2">+966</span>
                 </div>
 
                 <select id="quantity" required class="input-field">
@@ -63,7 +69,25 @@
             </div>
         </div>
 
-        <!-- عرض الصور بشكل عمودي -->
+        <!-- قسم الخدمات -->
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 bg-gray-200 p-6 rounded-lg">
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-lg font-bold mt-4">مسوق معتمد للمنتجات</h3>
+                <p>- المنتجات الملموسة</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-lg font-bold mt-4">مرونة وسرعة وصول الشحنات</h3>
+                <p>- من علي إكسبرس</p>
+                <p>- و أمازون</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-lg font-bold mt-4">يتم التواصل معك فوراً بعد طلبك</h3>
+                <p>- برسالة نصية</p>
+                <p>- رسالة واتساب</p>
+            </div>
+        </div>
+
+        <!-- صور المنتج أسفل الصفحة -->
         <div class="mt-8 flex flex-col items-center space-y-4">
             <img src="images/product1.jpeg" class="w-full max-w-md rounded-lg shadow-lg">
             <img src="images/product2.jpeg" class="w-full max-w-md rounded-lg shadow-lg">
@@ -71,30 +95,12 @@
             <img src="images/product4.jpeg" class="w-full max-w-md rounded-lg shadow-lg">
         </div>
 
-        <!-- قسم الخدمات -->
-        <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-                <img src="images/service1.png" class="w-12 mx-auto">
-                <h3 class="text-lg font-bold mt-4">مسوق معتمد للمنتجات</h3>
-                <p>- المنتجات الملموسة</p>
+        <!-- هيدر أسود في أسفل الصفحة -->
+        <footer class="mt-10 bg-black text-white py-6 text-center">
+            <div class="container mx-auto">
+                <p class="text-lg">من نحن | سياسة الخصوصية | سياسة الاسترجاع | اتصل بنا</p>
+                <p class="mt-2 text-gray-400">📧 solbtcmana@gmail.com</p>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-                <img src="images/service2.png" class="w-12 mx-auto">
-                <h3 class="text-lg font-bold mt-4">مرونة وسرعة وصول الشحنات</h3>
-                <p>- من علي إكسبرس</p>
-                <p>- و أمازون</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-                <img src="images/service3.png" class="w-12 mx-auto">
-                <h3 class="text-lg font-bold mt-4">يتم التواصل معك فوراً بعد طلبك</h3>
-                <p>- برسالة نصية</p>
-                <p>- رسالة واتساب</p>
-            </div>
-        </div>
-
-        <footer class="mt-10 opacity-70 text-sm">
-            <p>🚚 مدة التوصيل: من 1 إلى 7 أيام</p>
-            <p>جميع الحقوق محفوظة © 2025</p>
         </footer>
     </div>
 
