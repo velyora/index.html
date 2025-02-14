@@ -9,13 +9,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 <body class="bg-pink-100 text-gray-900">
-    
-    <div class="container mx-auto px-6 py-16 text-center">
+
+    <!-- الشعار الاحترافي -->
+    <div class="text-center py-6">
+        <img src="images/logo.png" alt="شعار الشركة" class="mx-auto w-40">
+    </div>
+
+    <div class="container mx-auto px-6 py-8 text-center">
         <h1 class="text-4xl md:text-5xl font-extrabold text-pink-600">
             ✨ أداة تنظيف الزجاج بجودة عالية! ✨
         </h1>
-        <p class="mt-4 text-lg md:text-xl opacity-80">
-            احصل على المنتج الآن، والدفع عند الاستلام! 🚚 شحن سريع من 1 إلى 7 أيام.
+        <p id="shipping-text" class="mt-4 text-lg md:text-xl opacity-80">
+            🚚 شحن سريع من 1 إلى 7 أيام.
         </p>
 
         <!-- نموذج الطلب -->
@@ -23,11 +28,26 @@
             <h2 class="text-2xl font-bold text-pink-600">📋 قم بملء النموذج لطلب المنتج</h2>
             <form id="orderForm" class="mt-4">
                 <input type="text" id="name" placeholder="الاسم الكامل" required class="input-field">
-                <input type="text" id="address" placeholder="العنوان" required class="input-field">
-                <input type="text" id="city" placeholder="المدينة" required class="input-field">
-                <input type="text" id="postalCode" placeholder="الرمز البريدي" required class="input-field">
-                <input type="tel" id="phone" placeholder="رقم الجوال" required class="input-field">
-                
+
+                <!-- اختيار الدولة -->
+                <select id="country" required class="input-field">
+                    <option value="sa">🇸🇦 السعودية</option>
+                    <option value="qa">🇶🇦 قطر</option>
+                    <option value="ae">🇦🇪 الإمارات</option>
+                    <option value="kw">🇰🇼 الكويت</option>
+                    <option value="om">🇴🇲 عمان</option>
+                    <option value="bh">🇧🇭 البحرين</option>
+                    <option value="eg">🇪🇬 مصر</option>
+                    <option value="jo">🇯🇴 الأردن</option>
+                    <option value="iq">🇮🇶 العراق</option>
+                    <option value="lb">🇱🇧 لبنان</option>
+                </select>
+
+                <div class="flex items-center">
+                    <span id="country-code" class="bg-gray-300 p-2 rounded-lg">+966</span>
+                    <input type="tel" id="phone" placeholder="رقم الجوال" required class="input-field">
+                </div>
+
                 <select id="quantity" required class="input-field">
                     <option value="1">1 قطعة - 9.99$</option>
                     <option value="2">2 قطع - 18.99$ (خصم!)</option>
@@ -49,6 +69,27 @@
             <img src="images/product2.jpeg" class="w-full max-w-md rounded-lg shadow-lg">
             <img src="images/product3.jpeg" class="w-full max-w-md rounded-lg shadow-lg">
             <img src="images/product4.jpeg" class="w-full max-w-md rounded-lg shadow-lg">
+        </div>
+
+        <!-- قسم الخدمات -->
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <img src="images/service1.png" class="w-12 mx-auto">
+                <h3 class="text-lg font-bold mt-4">مسوق معتمد للمنتجات</h3>
+                <p>- المنتجات الملموسة</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <img src="images/service2.png" class="w-12 mx-auto">
+                <h3 class="text-lg font-bold mt-4">مرونة وسرعة وصول الشحنات</h3>
+                <p>- من علي إكسبرس</p>
+                <p>- و أمازون</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <img src="images/service3.png" class="w-12 mx-auto">
+                <h3 class="text-lg font-bold mt-4">يتم التواصل معك فوراً بعد طلبك</h3>
+                <p>- برسالة نصية</p>
+                <p>- رسالة واتساب</p>
+            </div>
         </div>
 
         <footer class="mt-10 opacity-70 text-sm">
