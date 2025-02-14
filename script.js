@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // ✅ التأكد من أن الزر يعمل عند النقر عليه
-    orderButton.addEventListener("click", function (event) {
+    orderForm.addEventListener("submit", function (event) {
         event.preventDefault(); // منع إعادة تحميل الصفحة
         console.log("✅ الزر تم النقر عليه بنجاح!");
 
@@ -79,19 +79,18 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             if (data.ok) {
-                alert("✅ تم استلام طلبك! سيتم التواصل معك في أسرع وقت ممكن.");
-
                 // 🔹 تغيير لون الزر إلى الأخضر بعد نجاح الطلب
                 orderButton.style.backgroundColor = "#28a745";
-                orderButton.textContent = "✅ تم استلام الطلب بنجاح";
-                orderButton.disabled = true; // تعطيل الزر بعد الإرسال
+                orderButton.textContent = "✅ تم إرسال الطلب بنجاح";
+
+                // 🔹 إظهار رسالة تأكيد
+                alert("✅ تم إرسال الطلب بنجاح! سيتم التواصل معك في أسرع وقت ممكن.");
 
                 // 🔹 إعادة ضبط النموذج بعد 3 ثواني
                 setTimeout(() => {
                     orderForm.reset();
                     orderButton.style.backgroundColor = "#ff6600"; // اللون البرتقالي السابق
                     orderButton.textContent = "🚀 اطلب الآن والدفع عند الاستلام";
-                    orderButton.disabled = false;
                 }, 3000);
             } else {
                 alert("⚠️ حدث خطأ أثناء إرسال الطلب إلى تيليجرام.");
