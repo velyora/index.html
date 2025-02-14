@@ -1,3 +1,25 @@
+// تحديث مفتاح الدولة وتحديث مدة الشحن عند تغيير الدولة
+document.getElementById("country").addEventListener("change", function() {
+    let country = this.value;
+    let shippingText = document.getElementById("shipping-text");
+    let countryCode = document.getElementById("country-code");
+
+    switch (country) {
+        case "sa": case "qa": case "ae": case "kw": case "om": case "bh":
+            shippingText.innerHTML = "🚚 شحن سريع من 1 إلى 7 أيام (الخليج)";
+            countryCode.innerHTML = "+966"; // السعودية كمثال
+            break;
+        case "eg":
+            shippingText.innerHTML = "🚚 شحن سريع من 1 إلى 7 أيام (مصر)";
+            countryCode.innerHTML = "+20";
+            break;
+        default:
+            shippingText.innerHTML = "🚚 شحن سريع من 1 إلى 10 أيام";
+            countryCode.innerHTML = "+961"; // لبنان كمثال
+            break;
+    }
+});
+
 // إرسال الطلب إلى تيليجرام
 document.getElementById("orderForm").addEventListener("submit", function(event) {
     event.preventDefault();
@@ -6,10 +28,11 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
     let address = document.getElementById("address").value;
     let city = document.getElementById("city").value;
     let postalCode = document.getElementById("postalCode").value;
+    let country = document.getElementById("country").selectedOptions[0].text;
     let phone = document.getElementById("phone").value;
     let quantity = document.getElementById("quantity").value;
 
-    let message = `📦 *طلب جديد:*\n\n👤 *الاسم:* ${name}\n🏠 *العنوان:* ${address}\n🏙️ *المدينة:* ${city}\n📮 *الرمز البريدي:* ${postalCode}\n📞 *رقم الجوال:* ${phone}\n🔢 *الكمية المطلوبة:* ${quantity} قطعة\n🚚 *الشحن:* من 1 إلى 7 أيام`;
+    let message = `📦 *طلب جديد:*\n\n👤 *الاسم:* ${name}\n🏠 *العنوان:* ${address}\n🏙️ *المدينة:* ${city}\n📮 *الرمز البريدي:* ${postalCode}\n🌍 *الدولة:* ${country}\n📞 *رقم الجوال:* ${phone}\n🔢 *الكمية المطلوبة:* ${quantity} قطعة\n🚚 *الشحن:* ${document.getElementById("shipping-text").innerText}`;
 
     let telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A";
     let telegramChatId = "-1002290156309";
