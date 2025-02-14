@@ -43,7 +43,7 @@ body {
     gap: 10px;
 }
 
-.input-field {
+input, select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -51,7 +51,7 @@ body {
     font-size: 16px;
 }
 
-.btn-glow {
+.btn-order {
     background-color: #ff5722;
     color: white;
     font-size: 18px;
@@ -59,10 +59,9 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease;
 }
 
-.btn-glow:hover {
+.btn-order:hover {
     background-color: #e64a19;
 }
 
@@ -79,10 +78,16 @@ body {
     display: none;
 }
 
-.text-gray-700 {
-    color: #4a4a4a;
+.product-images {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
 }
 
-.text-sm {
-    font-size: 14px;
+.product-images img {
+    width: 100px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
