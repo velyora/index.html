@@ -1,38 +1,36 @@
-// تحديث مفتاح الدولة وتحديث مدة الشحن عند تغيير الدولة
-document.getElementById("country").addEventListener("change", function() {
-    let country = this.value;
-    let shippingText = document.getElementById("shipping-text");
-    let countryCode = document.getElementById("country-code");
+// تحديث معلومات الشحن ومفتاح الدولة عند تغيير الدولة
+function updateShippingInfo() {
+    var country = document.getElementById("country");
+    var selectedOption = country.options[country.selectedIndex];
+    var countryCode = selectedOption.getAttribute("data-code");
+    var shippingText = document.getElementById("shipping-text");
 
-    switch (country) {
-        case "sa": case "qa": case "ae": case "kw": case "om": case "bh":
-            shippingText.innerHTML = "🚚 شحن سريع من 1 إلى 7 أيام (الخليج)";
-            countryCode.innerHTML = "+966"; // السعودية كمثال
-            break;
-        case "eg":
-            shippingText.innerHTML = "🚚 شحن سريع من 1 إلى 7 أيام (مصر)";
-            countryCode.innerHTML = "+20";
-            break;
-        default:
-            shippingText.innerHTML = "🚚 شحن سريع من 1 إلى 10 أيام";
-            countryCode.innerHTML = "+961"; // لبنان كمثال
-            break;
+    // تحديث مفتاح الدولة
+    document.getElementById("country-code").innerText = countryCode;
+
+    // تحديث مدة الشحن بناءً على الدولة
+    if (["sa", "qa", "ae", "kw", "om", "bh"].includes(country.value)) {
+        shippingText.innerText = "🚚 شحن سريع من 1 إلى 7 أيام.";
+    } else if (country.value === "eg") {
+        shippingText.innerText = "🚚 شحن سريع من 1 إلى 7 أيام.";
+    } else {
+        shippingText.innerText = "🚚 شحن سريع من 1 إلى 10 أيام.";
     }
-});
+}
 
-// إرسال الطلب إلى تيليجرام
+// إرسال الطلب إلى تيليجرام + مسح البيانات بعد الإرسال
 document.getElementById("orderForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
     let name = document.getElementById("name").value;
-    let address = document.getElementById("address").value;
-    let city = document.getElementById("city").value;
-    let postalCode = document.getElementById("postalCode").value;
-    let country = document.getElementById("country").selectedOptions[0].text;
     let phone = document.getElementById("phone").value;
+    let city = document.getElementById("city").value;
+    let address = document.getElementById("address").value;
+    let postalCode = document.getElementById("postalCode").value;
     let quantity = document.getElementById("quantity").value;
+    let country = document.getElementById("country").options[document.getElementById("country").selectedIndex].text;
 
-    let message = `📦 *طلب جديد:*\n\n👤 *الاسم:* ${name}\n🏠 *العنوان:* ${address}\n🏙️ *المدينة:* ${city}\n📮 *الرمز البريدي:* ${postalCode}\n🌍 *الدولة:* ${country}\n📞 *رقم الجوال:* ${phone}\n🔢 *الكمية المطلوبة:* ${quantity} قطعة\n🚚 *الشحن:* ${document.getElementById("shipping-text").innerText}`;
+    let message = `📦 *طلب جديد:*\n\n👤 *الاسم:* ${name}\n📍 *الدولة:* ${country}\n🏙️ *المدينة:* ${city}\n📮 *الرمز البريدي:* ${postalCode}\n📞 *رقم الجوال:* ${phone}\n🏠 *العنوان:* ${address}\n🔢 *الكمية المطلوبة:* ${quantity} قطعة\n🚚 *مدة الشحن:* ${document.getElementById("shipping-text").innerText}`;
 
     let telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A";
     let telegramChatId = "-1002290156309";
@@ -41,9 +39,7 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
 
     fetch(telegramUrl, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             chat_id: telegramChatId,
             text: message,
@@ -53,8 +49,8 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
     .then(response => response.json())
     .then(data => {
         if (data.ok) {
-            document.getElementById("orderForm").style.display = "none";
-            document.getElementById("confirmationMessage").classList.remove("hidden");
+            document.getElementById("orderForm").reset();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
             alert("⚠️ حدث خطأ أثناء إرسال الطلب إلى تيليجرام.");
         }
@@ -63,23 +59,4 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
         console.error("❌ خطأ أثناء إرسال الطلب إلى تيليجرام:", error);
         alert("❌ تعذر إرسال الطلب. تحقق من الاتصال بالإنترنت.");
     });
-});
-
-// تفعيل Swiper.js للسلايدر
-var swiper = new Swiper(".mySwiper", {
-    loop: true, 
-    autoplay: {
-        delay: 3000, 
-        disableOnInteraction: false,
-    },
-    slidesPerView: 1, 
-    spaceBetween: 10,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
 });
