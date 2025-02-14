@@ -1,31 +1,15 @@
-// تفعيل Swiper.js للسلايدر
-var swiper = new Swiper(".mySwiper", {
-    loop: true,
-    autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-    },
-    slidesPerView: 1,
-    spaceBetween: 10,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
-});
-
 // إرسال الطلب إلى تيليجرام
 document.getElementById("orderForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
     let name = document.getElementById("name").value;
+    let address = document.getElementById("address").value;
+    let city = document.getElementById("city").value;
+    let postalCode = document.getElementById("postalCode").value;
     let phone = document.getElementById("phone").value;
     let quantity = document.getElementById("quantity").value;
 
-    let message = `📦 *طلب جديد:*\n\n👤 *الاسم:* ${name}\n📞 *رقم الجوال:* ${phone}\n🔢 *الكمية المطلوبة:* ${quantity} قطعة\n🚚 *الشحن:* من 1 إلى 7 أيام`;
+    let message = `📦 *طلب جديد:*\n\n👤 *الاسم:* ${name}\n🏠 *العنوان:* ${address}\n🏙️ *المدينة:* ${city}\n📮 *الرمز البريدي:* ${postalCode}\n📞 *رقم الجوال:* ${phone}\n🔢 *الكمية المطلوبة:* ${quantity} قطعة\n🚚 *الشحن:* من 1 إلى 7 أيام`;
 
     let telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A";
     let telegramChatId = "-1002290156309";
@@ -56,4 +40,23 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
         console.error("❌ خطأ أثناء إرسال الطلب إلى تيليجرام:", error);
         alert("❌ تعذر إرسال الطلب. تحقق من الاتصال بالإنترنت.");
     });
+});
+
+// تفعيل Swiper.js للسلايدر
+var swiper = new Swiper(".mySwiper", {
+    loop: true, 
+    autoplay: {
+        delay: 3000, 
+        disableOnInteraction: false,
+    },
+    slidesPerView: 1, 
+    spaceBetween: 10,
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
 });
