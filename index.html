@@ -3,73 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>احصل على منتجك الآن!</title>
+    <title>طلب المنتج</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body>
 
-    <!-- 🔹 القسم الرئيسي -->
-    <section class="relative bg-white py-16 text-center">
-        <div class="container mx-auto">
-            <h1 class="text-5xl font-extrabold text-gray-800">حوّل الزائر إلى عميل</h1>
-            <p class="mt-4 text-lg text-gray-600">أفضل منتج بأعلى جودة، جربه الآن!</p>
-        </div>
-    </section>
+    <!-- الهيدر -->
+    <header class="header-container">
+        <img src="images/header-image.jpeg" alt="معلومات المنتجات والخدمات" class="header-image">
+    </header>
 
-    <!-- 🔹 نموذج الطلب -->
-    <section class="py-16">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold text-gray-800">📋 قم بملء النموذج لطلب المنتج</h2>
-            <form id="orderForm" class="mt-8 bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
-                <input type="text" id="name" placeholder="الاسم الكامل" required class="input-field">
+    <!-- المحتوى الرئيسي -->
+    <main class="container">
+        <h1 class="title">📋 قم بملء النموذج لطلب المنتج</h1>
+        <form id="orderForm" class="form-container">
+            <label for="fullName">الاسم الكامل</label>
+            <input type="text" id="fullName" placeholder="أدخل اسمك بالكامل" required>
 
-                <!-- اختيار الدولة -->
-                <select id="country" required class="input-field">
-                    <option value="sa" data-code="+966">🇸🇦 السعودية</option>
-                    <option value="qa" data-code="+974">🇶🇦 قطر</option>
-                    <option value="ae" data-code="+971">🇦🇪 الإمارات</option>
-                    <option value="kw" data-code="+965">🇰🇼 الكويت</option>
-                    <option value="om" data-code="+968">🇴🇲 عمان</option>
-                    <option value="bh" data-code="+973">🇧🇭 البحرين</option>
-                    <option value="eg" data-code="+20">🇪🇬 مصر</option>
-                    <option value="jo" data-code="+962">🇯🇴 الأردن</option>
-                    <option value="iq" data-code="+964">🇮🇶 العراق</option>
-                    <option value="lb" data-code="+961">🇱🇧 لبنان</option>
+            <label for="country">الدولة</label>
+            <select id="country" onchange="updateShippingInfo()">
+                <option value="السعودية" data-ship="شحن سريع من 1 إلى 7 أيام">السعودية</option>
+                <option value="قطر" data-ship="شحن سريع من 1 إلى 7 أيام">قطر</option>
+                <option value="الإمارات" data-ship="شحن سريع من 1 إلى 7 أيام">الإمارات</option>
+                <option value="الكويت" data-ship="شحن سريع من 1 إلى 7 أيام">الكويت</option>
+                <option value="عمان" data-ship="شحن سريع من 1 إلى 7 أيام">عمان</option>
+                <option value="البحرين" data-ship="شحن سريع من 1 إلى 7 أيام">البحرين</option>
+                <option value="مصر" data-ship="شحن سريع من 1 إلى 7 أيام">مصر</option>
+                <option value="الأردن" data-ship="شحن سريع من 1 إلى 10 أيام">الأردن</option>
+                <option value="العراق" data-ship="شحن سريع من 1 إلى 10 أيام">العراق</option>
+                <option value="لبنان" data-ship="شحن سريع من 1 إلى 10 أيام">لبنان</option>
+            </select>
+
+            <label for="city">المدينة</label>
+            <input type="text" id="city" placeholder="أدخل اسم المدينة" required>
+
+            <label for="address">العنوان</label>
+            <input type="text" id="address" placeholder="أدخل عنوانك بالتفصيل" required>
+
+            <label for="postalCode">الرمز البريدي</label>
+            <input type="text" id="postalCode" placeholder="أدخل الرمز البريدي" required>
+
+            <label for="phone">رقم الجوال</label>
+            <div class="phone-container">
+                <select id="phoneCode">
+                    <option value="+966">+966 🇸🇦</option>
+                    <option value="+974">+974 🇶🇦</option>
+                    <option value="+971">+971 🇦🇪</option>
+                    <option value="+965">+965 🇰🇼</option>
+                    <option value="+968">+968 🇴🇲</option>
+                    <option value="+973">+973 🇧🇭</option>
+                    <option value="+20">+20 🇪🇬</option>
+                    <option value="+962">+962 🇯🇴</option>
+                    <option value="+964">+964 🇮🇶</option>
+                    <option value="+961">+961 🇱🇧</option>
                 </select>
+                <input type="tel" id="phone" placeholder="رقم الجوال" required>
+            </div>
 
-                <input type="text" id="city" placeholder="المدينة" required class="input-field">
-                <input type="text" id="address" placeholder="العنوان" required class="input-field">
-                <input type="text" id="postalCode" placeholder="الرمز البريدي" required class="input-field">
+            <label for="quantity">عدد القطع المطلوبة</label>
+            <select id="quantity">
+                <option value="1">1 قطعة</option>
+                <option value="2">2 قطع</option>
+                <option value="3">3 قطع</option>
+            </select>
 
-                <!-- رقم الجوال مع مفتاح الدولة -->
-                <div class="flex items-center">
-                    <span id="country-code" class="bg-gray-300 p-2 rounded-lg ml-2">+966</span>
-                    <input type="tel" id="phone" placeholder="رقم الجوال" required class="input-field">
-                </div>
+            <p id="shippingInfo" class="shipping-info">شحن سريع من 1 إلى 7 أيام</p>
 
-                <select id="quantity" required class="input-field">
-                    <option value="1">1 قطعة - 9.99$</option>
-                    <option value="2">2 قطع - 18.99$ (خصم!)</option>
-                    <option value="3">3 قطع - 25.99$ (خصم أكبر!)</option>
-                </select>
-                
-                <button type="submit" class="btn-glow">🚀 اطلب الآن والدفع عند الاستلام</button>
-            </form>
+            <button type="submit" class="btn-order">🚀 اطلب الآن والدفع عند الاستلام</button>
+        </form>
 
-            <!-- مدة الشحن -->
-            <p id="shipping-text" class="mt-4 text-gray-700 font-semibold">🚚 شحن سريع من 1 إلى 7 أيام.</p>
+        <!-- رسالة التأكيد -->
+        <div id="confirmationMessage" class="hidden confirmation-message">
+            ✅ تم استلام طلبك! سيتم التواصل معك في أسرع وقت ممكن.
         </div>
-    </section>
 
-    <!-- 🔹 قسم المعلومات في الأسفل -->
-    <section class="text-center text-sm text-gray-600 mt-10 pb-10">
-        <p>من نحن</p>
-        <p>سياسة الخصوصية</p>
-        <p>سياسة الاسترجاع</p>
-        <p>اتصل بنا</p>
-        <p class="mt-2 text-gray-500">📧 solbtcmana@gmail.com</p>
-    </section>
+        <!-- صور المنتج -->
+        <div class="product-images">
+            <img src="images/product1.jpeg" alt="المنتج 1">
+            <img src="images/product2.jpeg" alt="المنتج 2">
+            <img src="images/product3.jpeg" alt="المنتج 3">
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
