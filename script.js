@@ -1,69 +1,88 @@
-//تحديث معلومات الشحن ومفتاح الدولة عند تغييرالدولة
-function updateShippingInfo() {
-    var country = document.getElementById("country");
-    var selectedOption = country.options[country.selectedIndex];
-    var countryCode = selectedOption.getAttribute("data-code");
-    var shippingText = document.getElementById("shipping-text");
+document.addEventListener("DOMContentLoaded", function() {
+    const orderForm = document.getElementById("orderForm");
+    const confirmationMessage = document.getElementById("confirmationMessage");
+    const countrySelect = document.getElementById("country");
+    const countryCodeSpan = document.getElementById("country-code");
+    const shippingText = document.getElementById("shipping-text");
 
-    // تحديث مفتاح الدولة
-    document.getElementById("country-code").innerText = countryCode;
+    // تحديث مفتاح الدولة عند تغيير الدولة
+    countrySelect.addEventListener("change", function() {
+        const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+        const countryCode = selectedOption.getAttribute("data-code");
+        countryCodeSpan.textContent = countryCode;
 
-    // تحديث مدة الشحن بناءً على الدولة
-    if (["sa", "qa", "ae", "kw", "om", "bh"].includes(country.value)) {
-        shippingText.innerText = "🚚 شحن سريع من 1 إلى 7 أيام.";
-    } else if (country.value === "eg") {
-        shippingText.innerText = "🚚 شحن سريع من 1 إلى 7 أيام.";
-    } else {
-        shippingText.innerText = "🚚 شحن سريع من 1 إلى 10 أيام.";
-    }
-}
-
-// إرسال الطلب إلى تيليجرام + عرض رسالة تأكيد دون مسح البيانات
-document.getElementById("orderForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    let name = document.getElementById("name").value;
-    let phone = document.getElementById("phone").value;
-    let city = document.getElementById("city").value;
-    let address = document.getElementById("address").value;
-    let postalCode = document.getElementById("postalCode").value;
-    let quantity = document.getElementById("quantity").value;
-    let country = document.getElementById("country").options[document.getElementById("country").selectedIndex].text;
-
-    let message = `📦 *طلب جديد:*\n\n👤 *الاسم:* ${name}\n📍 *الدولة:* ${country}\n🏙️ *المدينة:* ${city}\n📮 *الرمز البريدي:* ${postalCode}\n📞 *رقم الجوال:* ${phone}\n🏠 *العنوان:* ${address}\n🔢 *الكمية المطلوبة:* ${quantity} قطعة\n🚚 *مدة الشحن:* ${document.getElementById("shipping-text").innerText}`;
-
-    let telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A";
-    let telegramChatId = "-1002290156309";
-
-    let telegramUrl = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
-
-    fetch(telegramUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            chat_id: telegramChatId,
-            text: message,
-            parse_mode: "Markdown"
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.ok) {
-            let orderButton = document.querySelector(".btn-glow");
-            orderButton.textContent = "✅ تم استلام طلبك!";
-            orderButton.classList.remove("bg-blue-500");
-            orderButton.classList.add("bg-green-500");
-
-            let confirmationMessage = document.createElement("p");
-            confirmationMessage.textContent = "📦 تم استلام طلبك، سيتم التواصل معك في أسرع وقت!";
-            confirmationMessage.classList.add("text-green-600", "mt-4", "font-bold", "text-lg");
-
-            document.getElementById("orderForm").appendChild(confirmationMessage);
+        // تحديث نص الشحن بناءً على الدولة المختارة
+        const gulfCountries = ["sa", "qa", "ae", "kw", "om", "bh"];
+        if (gulfCountries.includes(selectedOption.value)) {
+            shippingText.textContent = "🚚 شحن سريع من 1 إلى 7 أيام";
+        } else if (selectedOption.value === "eg") {
+            shippingText.textContent = "🚚 شحن سريع من 1 إلى 7 أيام";
         } else {
-            alert("⚠️ حدث خطأ أثناء إرسال الطلب إلى تيليجرام.");
+            shippingText.textContent = "🚚 شحن سريع من 1 إلى 10 أيام";
         }
-    })
-    .catch(error => {
-        console.error("❌ خطأ أثناء إرسال الطلب إلى تيليجرام:", error);
-        alert("❌ تعذر إرسال الطلب. تحقق من الاتصال بالإنترنت.");
     });
+
+    // إرسال الطلب إلى تيليجرام
+    orderForm.addEventListener("submit", function(event) {
+        event.preventDefault(); // منع إعادة تحميل الصفحة
+
+        // جلب بيانات المستخدم
+        const name = document.getElementById("name").value;
+        const country = countrySelect.options[countrySelect.selectedIndex].text;
+        const city = document.getElementById("city").value;
+        const address = document.getElementById("address").value;
+        const postalCode = document.getElementById("postalCode").value;
+        const phone = document.getElementById("phone").value;
+        const quantity = document.getElementById("quantity").value;
+        const shippingInfo = shippingText.textContent;
+
+        // التحقق من عدم ترك الحقول فارغة
+        if (!name || !phone || !city || !address || !postalCode) {
+            alert("⚠️ يرجى ملء جميع الحقول المطلوبة.");
+            return;
+        }
+
+        // تنسيق الرسالة لإرسالها إلى تيليجرام
+        const message = `📦 *طلب جديد:*\n\n` +
+                        `👤 *الاسم:* ${name}\n` +
+                        `🌍 *الدولة:* ${country}\n` +
+                        `🏙 *المدينة:* ${city}\n` +
+                        `📍 *العنوان:* ${address}\n` +
+                        `📬 *الرمز البريدي:* ${postalCode}\n` +
+                        `📞 *رقم الجوال:* ${phone}\n` +
+                        `🔢 *الكمية المطلوبة:* ${quantity} قطعة\n` +
+                        `🚚 *مدة الشحن:* ${shippingInfo}`;
+
+        // إعداد بيانات الطلب
+        const telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A"; // ضع التوكن الخاص بك هنا
+        const telegramChatId = "-1002290156309"; // ضع معرف القناة أو المجموعة الخاصة بك هنا
+        const telegramUrl = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
+
+        // إرسال الطلب إلى تيليجرام
+        fetch(telegramUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                chat_id: telegramChatId,
+                text: message,
+                parse_mode: "Markdown"
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                confirmationMessage.classList.remove("hidden");
+                confirmationMessage.textContent = "✅ تم استلام طلبك! سيتم التواصل معك في أسرع وقت ممكن.";
+                orderForm.reset(); // إعادة تعيين النموذج بعد الإرسال
+            } else {
+                alert("⚠️ حدث خطأ أثناء إرسال الطلب إلى تيليجرام.");
+            }
+        })
+        .catch(error => {
+            console.error("❌ خطأ أثناء إرسال الطلب إلى تيليجرام:", error);
+            alert("❌ تعذر إرسال الطلب. تحقق من الاتصال بالإنترنت.");
+        });
+    });
+});
