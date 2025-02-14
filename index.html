@@ -8,76 +8,73 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
-<body class="bg-pink-100 text-gray-900">
+<body class="bg-gray-100 text-gray-900">
 
-    <!-- 🔹 هيدر احترافي بأسلوب البطاقة -->
+    <!-- 🔹 هيدر احترافي -->
     <header class="bg-white shadow-lg py-6">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-6">
-            
-            <!-- شعار الشركة -->
             <div class="flex items-center space-x-4">
                 <img src="images/logo.png" alt="شعار الشركة" class="w-16">
                 <div>
-                    <h1 class="text-xl font-bold text-blue-600">اسم الشركة</h1>
+                    <h1 class="text-xl font-bold text-green-600">اسم الشركة</h1>
                     <p class="text-sm text-gray-600">أفضل المنتجات بأعلى جودة</p>
                 </div>
             </div>
-
-            <!-- معلومات الهيدر -->
-            <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8 text-gray-700 text-sm">
-                <div class="flex items-center space-x-2">
-                    <img src="images/phone-icon.png" class="w-5">
-                    <span>+966 123 456 789</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                    <img src="images/email-icon.png" class="w-5">
-                    <span>email@company.com</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                    <img src="images/location-icon.png" class="w-5">
-                    <span>الرياض، السعودية</span>
-                </div>
-            </div>
+            <nav class="hidden md:flex space-x-6 text-gray-700 text-sm">
+                <a href="#" class="hover:text-green-600">الميزات</a>
+                <a href="#" class="hover:text-green-600">العروض</a>
+                <a href="#" class="hover:text-green-600">المنتجات</a>
+                <a href="#" class="hover:text-green-600">اتصل بنا</a>
+            </nav>
         </div>
     </header>
 
-    <div class="container mx-auto px-6 py-8 text-center">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-pink-600">
-            ✨ أداة تنظيف الزجاج بجودة عالية! ✨
-        </h1>
-        <p id="shipping-text" class="mt-4 text-lg md:text-xl opacity-80">
-            🚚 شحن سريع من 1 إلى 7 أيام.
-        </p>
+    <!-- 🔹 القسم الرئيسي -->
+    <section class="relative bg-white py-16">
+        <div class="container mx-auto flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 text-center md:text-right">
+                <h1 class="text-5xl font-extrabold text-gray-800">حوّل الزائر إلى عميل</h1>
+                <p class="mt-4 text-lg text-gray-600">أفضل منتج بأعلى جودة، جربه الآن!</p>
+                <div class="mt-6">
+                    <button class="bg-green-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-700 transition">عرض الميزات</button>
+                    <button class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition ml-4">شراء المنتج</button>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="images/product-preview.png" alt="صورة المنتج" class="w-3/4 rounded-lg shadow-lg">
+            </div>
+        </div>
+    </section>
 
-        <!-- نموذج الطلب -->
-        <div class="mt-8 bg-white p-6 rounded-lg shadow-lg">
-            <h2 class="text-2xl font-bold text-pink-600">📋 قم بملء النموذج لطلب المنتج</h2>
-            <form id="orderForm" class="mt-4">
+    <!-- 🔹 نموذج الطلب -->
+    <section class="py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold text-gray-800">📋 قم بملء النموذج لطلب المنتج</h2>
+            <form id="orderForm" class="mt-8 bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
                 <input type="text" id="name" placeholder="الاسم الكامل" required class="input-field">
 
                 <!-- اختيار الدولة -->
-                <select id="country" required class="input-field">
-                    <option value="sa">🇸🇦 السعودية</option>
-                    <option value="qa">🇶🇦 قطر</option>
-                    <option value="ae">🇦🇪 الإمارات</option>
-                    <option value="kw">🇰🇼 الكويت</option>
-                    <option value="om">🇴🇲 عمان</option>
-                    <option value="bh">🇧🇭 البحرين</option>
-                    <option value="eg">🇪🇬 مصر</option>
-                    <option value="jo">🇯🇴 الأردن</option>
-                    <option value="iq">🇮🇶 العراق</option>
-                    <option value="lb">🇱🇧 لبنان</option>
+                <select id="country" required class="input-field" onchange="updateShippingInfo()">
+                    <option value="sa" data-code="+966">🇸🇦 السعودية</option>
+                    <option value="qa" data-code="+974">🇶🇦 قطر</option>
+                    <option value="ae" data-code="+971">🇦🇪 الإمارات</option>
+                    <option value="kw" data-code="+965">🇰🇼 الكويت</option>
+                    <option value="om" data-code="+968">🇴🇲 عمان</option>
+                    <option value="bh" data-code="+973">🇧🇭 البحرين</option>
+                    <option value="eg" data-code="+20">🇪🇬 مصر</option>
+                    <option value="jo" data-code="+962">🇯🇴 الأردن</option>
+                    <option value="iq" data-code="+964">🇮🇶 العراق</option>
+                    <option value="lb" data-code="+961">🇱🇧 لبنان</option>
                 </select>
 
-                <!-- بيانات إضافية -->
                 <input type="text" id="city" placeholder="المدينة" required class="input-field">
                 <input type="text" id="address" placeholder="العنوان" required class="input-field">
                 <input type="text" id="postalCode" placeholder="الرمز البريدي" required class="input-field">
 
-                <!-- رقم الجوال مع مفتاح الدولة على اليسار -->
+                <!-- رقم الجوال مع مفتاح الدولة -->
                 <div class="flex items-center">
-                    <input type="tel" id="phone" placeholder="رقم الجوال" required class="input-field">
                     <span id="country-code" class="bg-gray-300 p-2 rounded-lg ml-2">+966</span>
+                    <input type="tel" id="phone" placeholder="رقم الجوال" required class="input-field">
                 </div>
 
                 <select id="quantity" required class="input-field">
@@ -89,30 +86,39 @@
                 <button type="submit" class="btn-glow">🚀 اطلب الآن والدفع عند الاستلام</button>
             </form>
 
-            <!-- رسالة التأكيد -->
-            <div id="confirmationMessage" class="hidden mt-4 bg-green-500 text-white p-4 rounded-lg">
-                ✅ تم استلام طلبك! سيتم التواصل معك في أسرع وقت ممكن.
-            </div>
+            <!-- مدة الشحن -->
+            <p id="shipping-text" class="mt-4 text-gray-700 font-semibold">🚚 شحن سريع من 1 إلى 7 أيام.</p>
         </div>
+    </section>
 
-        <!-- 🔹 صور المنتج في أسفل الصفحة -->
-        <div class="mt-8 flex flex-col items-center space-y-4">
-            <img src="images/product1.jpeg" class="w-full max-w-md rounded-lg shadow-lg">
-            <img src="images/product2.jpeg" class="w-full max-w-md rounded-lg shadow-lg">
-            <img src="images/product3.jpeg" class="w-full max-w-md rounded-lg shadow-lg">
-            <img src="images/product4.jpeg" class="w-full max-w-md rounded-lg shadow-lg">
+    <!-- 🔹 هيدر سفلي -->
+    <footer class="mt-10 bg-black text-white py-6 text-center">
+        <div class="container mx-auto">
+            <p class="text-lg">من نحن | سياسة الخصوصية | سياسة الاسترجاع | اتصل بنا</p>
+            <p class="mt-2 text-gray-400">📧 solbtcmana@gmail.com</p>
         </div>
+    </footer>
 
-        <!-- 🔹 هيدر سفلي مشابه للهيدر العلوي -->
-        <footer class="mt-10 bg-black text-white py-6 text-center">
-            <div class="container mx-auto">
-                <p class="text-lg">من نحن | سياسة الخصوصية | سياسة الاسترجاع | اتصل بنا</p>
-                <p class="mt-2 text-gray-400">📧 solbtcmana@gmail.com</p>
-            </div>
-        </footer>
-    </div>
+    <script>
+        function updateShippingInfo() {
+            var country = document.getElementById("country");
+            var selectedOption = country.options[country.selectedIndex];
+            var countryCode = selectedOption.getAttribute("data-code");
+            var shippingText = document.getElementById("shipping-text");
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="script.js"></script>
+            // تحديث مفتاح الدولة
+            document.getElementById("country-code").innerText = countryCode;
+
+            // تحديث مدة الشحن بناءً على الدولة
+            if (["sa", "qa", "ae", "kw", "om", "bh"].includes(country.value)) {
+                shippingText.innerText = "🚚 شحن سريع من 1 إلى 7 أيام.";
+            } else if (country.value === "eg") {
+                shippingText.innerText = "🚚 شحن سريع من 1 إلى 7 أيام.";
+            } else {
+                shippingText.innerText = "🚚 شحن سريع من 1 إلى 10 أيام.";
+            }
+        }
+    </script>
+
 </body>
 </html>
