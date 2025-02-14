@@ -1,9 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
+    console.log("✅ تم تحميل JavaScript بنجاح!");
+
     const orderForm = document.getElementById("orderForm");
+    const orderButton = document.querySelector(".btn-glow");
     const countrySelect = document.getElementById("country");
     const countryCode = document.getElementById("country-code");
     const shippingText = document.getElementById("shipping-text");
-    const orderButton = document.querySelector(".btn-glow");
+
+    // ✅ التأكد من أن النموذج موجود
+    if (!orderForm || !orderButton) {
+        console.error("❌ خطأ: لم يتم العثور على النموذج أو الزر!");
+        return;
+    }
 
     // 🔹 تحديث مفتاح الدولة عند تغيير الدولة
     countrySelect.addEventListener("change", function () {
@@ -21,9 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // 🔹 التأكد من أن الزر يعمل عند النقر
+    // ✅ التأكد من أن الزر يعمل عند النقر عليه
     orderButton.addEventListener("click", function (event) {
         event.preventDefault(); // منع إعادة تحميل الصفحة
+        console.log("✅ الزر تم النقر عليه بنجاح!");
 
         let name = document.getElementById("name").value.trim();
         let phone = document.getElementById("phone").value.trim();
@@ -79,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // 🔹 إعادة ضبط النموذج بعد 3 ثواني
                 setTimeout(() => {
-                    document.getElementById("orderForm").reset();
+                    orderForm.reset();
                     orderButton.style.backgroundColor = "#ff6600"; // اللون البرتقالي السابق
                     orderButton.textContent = "🚀 اطلب الآن والدفع عند الاستلام";
                     orderButton.disabled = false;
