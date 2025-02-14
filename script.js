@@ -1,4 +1,4 @@
-// تحديث معلومات الشحن ومفتاح الدولة عند تغيير الدولة
+//تحديث معلومات الشحن ومفتاح الدولة عند تغييرالدولة
 function updateShippingInfo() {
     var country = document.getElementById("country");
     var selectedOption = country.options[country.selectedIndex];
@@ -67,4 +67,3 @@ document.getElementById("orderForm").addEventListener("submit", function(event) 
         console.error("❌ خطأ أثناء إرسال الطلب إلى تيليجرام:", error);
         alert("❌ تعذر إرسال الطلب. تحقق من الاتصال بالإنترنت.");
     });
-});
