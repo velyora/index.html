@@ -1,64 +1,59 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const orderForm = document.getElementById("orderForm");
-    const confirmationMessage = document.getElementById("confirmationMessage");
     const countrySelect = document.getElementById("country");
-    const countryCodeSpan = document.getElementById("country-code");
+    const countryCode = document.getElementById("country-code");
     const shippingText = document.getElementById("shipping-text");
 
     // تحديث مفتاح الدولة عند تغيير الدولة
-    countrySelect.addEventListener("change", function() {
+    countrySelect.addEventListener("change", function () {
         const selectedOption = countrySelect.options[countrySelect.selectedIndex];
-        const countryCode = selectedOption.getAttribute("data-code");
-        countryCodeSpan.textContent = countryCode;
+        const code = selectedOption.getAttribute("data-code");
+        countryCode.textContent = code;
 
-        // تحديث نص الشحن بناءً على الدولة المختارة
-        const gulfCountries = ["sa", "qa", "ae", "kw", "om", "bh"];
-        if (gulfCountries.includes(selectedOption.value)) {
-            shippingText.textContent = "🚚 شحن سريع من 1 إلى 7 أيام";
-        } else if (selectedOption.value === "eg") {
-            shippingText.textContent = "🚚 شحن سريع من 1 إلى 7 أيام";
+        // تحديث مدة الشحن بناءً على الدولة
+        if (["sa", "qa", "ae", "kw", "om", "bh"].includes(countrySelect.value)) {
+            shippingText.textContent = "🚚 شحن سريع من 1 يوم إلى 7 أيام";
+        } else if (countrySelect.value === "eg") {
+            shippingText.textContent = "🚚 شحن سريع من 1 يوم إلى 7 أيام";
         } else {
-            shippingText.textContent = "🚚 شحن سريع من 1 إلى 10 أيام";
+            shippingText.textContent = "🚚 شحن سريع من 1 يوم إلى 10 أيام";
         }
     });
 
-    // إرسال الطلب إلى تيليجرام
-    orderForm.addEventListener("submit", function(event) {
+    // إرسال الطلب عند الضغط على زر الدفع عند الاستلام
+    orderForm.addEventListener("submit", function (event) {
         event.preventDefault(); // منع إعادة تحميل الصفحة
 
-        // جلب بيانات المستخدم
-        const name = document.getElementById("name").value;
-        const country = countrySelect.options[countrySelect.selectedIndex].text;
-        const city = document.getElementById("city").value;
-        const address = document.getElementById("address").value;
-        const postalCode = document.getElementById("postalCode").value;
-        const phone = document.getElementById("phone").value;
-        const quantity = document.getElementById("quantity").value;
-        const shippingInfo = shippingText.textContent;
+        let name = document.getElementById("name").value;
+        let phone = document.getElementById("phone").value;
+        let city = document.getElementById("city").value;
+        let address = document.getElementById("address").value;
+        let postalCode = document.getElementById("postalCode").value;
+        let country = countrySelect.options[countrySelect.selectedIndex].text;
+        let quantity = document.getElementById("quantity").value;
 
-        // التحقق من عدم ترك الحقول فارغة
-        if (!name || !phone || !city || !address || !postalCode) {
-            alert("⚠️ يرجى ملء جميع الحقول المطلوبة.");
+        if (!name || !phone || !city || !address || !postalCode || !quantity) {
+            alert("⚠️ يرجى تعبئة جميع الحقول المطلوبة قبل إرسال الطلب.");
             return;
         }
 
-        // تنسيق الرسالة لإرسالها إلى تيليجرام
-        const message = `📦 *طلب جديد:*\n\n` +
-                        `👤 *الاسم:* ${name}\n` +
-                        `🌍 *الدولة:* ${country}\n` +
-                        `🏙 *المدينة:* ${city}\n` +
-                        `📍 *العنوان:* ${address}\n` +
-                        `📬 *الرمز البريدي:* ${postalCode}\n` +
-                        `📞 *رقم الجوال:* ${phone}\n` +
-                        `🔢 *الكمية المطلوبة:* ${quantity} قطعة\n` +
-                        `🚚 *مدة الشحن:* ${shippingInfo}`;
+        // 🔹 **تنسيق الرسالة لإرسالها إلى تيليجرام**
+        let message = `📦 *طلب جديد!*\n\n`
+            + `👤 *الاسم:* ${name}\n`
+            + `📞 *رقم الجوال:* ${phone}\n`
+            + `🏙 *المدينة:* ${city}\n`
+            + `📍 *العنوان:* ${address}\n`
+            + `📮 *الرمز البريدي:* ${postalCode}\n`
+            + `🌍 *الدولة:* ${country}\n`
+            + `🔢 *الكمية المطلوبة:* ${quantity} قطعة\n`
+            + `🚚 *مدة الشحن:* ${shippingText.textContent}\n\n`
+            + `🛍 *تم استلام طلب جديد عبر الموقع، يرجى المتابعة مع العميل.*`;
 
-        // إعداد بيانات الطلب
-        const telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A"; // ضع التوكن الخاص بك هنا
-        const telegramChatId = "-1002290156309"; // ضع معرف القناة أو المجموعة الخاصة بك هنا
-        const telegramUrl = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
+        let telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A"; // 🔹 **استبدل بمفتاح البوت الخاص بك**
+        let telegramChatId = "-1002290156309"; // 🔹 **استبدل بمعرف تيليجرام الخاص بك**
 
-        // إرسال الطلب إلى تيليجرام
+        let telegramUrl = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
+
         fetch(telegramUrl, {
             method: "POST",
             headers: {
@@ -73,9 +68,8 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
             if (data.ok) {
-                confirmationMessage.classList.remove("hidden");
-                confirmationMessage.textContent = "✅ تم استلام طلبك! سيتم التواصل معك في أسرع وقت ممكن.";
-                orderForm.reset(); // إعادة تعيين النموذج بعد الإرسال
+                document.getElementById("orderForm").reset(); // 🔄 **إعادة تعيين النموذج**
+                alert("✅ تم استلام طلبك! سيتم التواصل معك في أسرع وقت ممكن.");
             } else {
                 alert("⚠️ حدث خطأ أثناء إرسال الطلب إلى تيليجرام.");
             }
