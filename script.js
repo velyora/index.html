@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let phoneCode = document.getElementById("country-code");
     let quantitySelect = document.getElementById("quantity");
     let priceDisplay = document.getElementById("priceDisplay");
+    let orderContainer = document.getElementById("orderContainer"); // عنصر النموذج
 
     // 🔹 **أسعار المنتج لكل دولة (بالعملة المحلية)**
     const prices = {
@@ -114,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // ✅ **عرض رسالة النجاح وتغيير المحتوى لرقم الطلب**
+    // ✅ **إخفاء النموذج وعرض رقم الطلب**
     function showSuccessMessage(orderNumber) {
         let button = document.querySelector(".btn-glow");
         button.innerHTML = "✅ تم إرسال الطلب بنجاح";
@@ -123,7 +124,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // ✅ **إخفاء نموذج الطلب وعرض رقم الطلب**
         setTimeout(() => {
-            let orderContainer = document.getElementById("orderContainer");
             orderContainer.innerHTML = `
                 <div class="order-success text-center">
                     <h2 class="text-green-600 text-2xl font-bold">🎉 تم إرسال طلبك بنجاح!</h2>
@@ -136,6 +136,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     </a>
                 </div>
             `;
-        }, 1500);
+        }, 1000);
     }
 });
