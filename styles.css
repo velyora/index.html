@@ -65,28 +65,21 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.btn-glow:hover {
-    transform: scale(1.05);
-}
-
-/* 🔹 تنسيقات زر واتساب العائم */
 #whatsapp-button {
     position: fixed;
-    bottom: 16px;
-    right: 16px;
-    background-color: #25D366; /* لون واتساب */
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
     color: white;
-    padding: 12px;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
     text-decoration: none;
-    font-size: 24px;
-    z-index: 1000;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
 }
 
-#whatsapp-button:hover {
-    background-color: #128C7E;
-}
 #whatsapp-button:hover {
     background-color: #1EBE5D;
 }
