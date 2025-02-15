@@ -1,39 +1,35 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // ✅ كود الطلب إلى تيليجرام والتسعير ومفتاح الدولة (موجود مسبقًا)
-
+    // ✅ العناصر الأساسية
     let countrySelect = document.getElementById("country");
     let phoneCode = document.getElementById("country-code");
     let quantitySelect = document.getElementById("quantity");
     let priceDisplay = document.getElementById("priceDisplay");
     let reviewTrack = document.getElementById("reviewTrack");
     let reviewForm = document.getElementById("reviewForm");
+    let orderForm = document.getElementById("orderForm");
+
+    // ✅ التأكد من أن العناصر موجودة قبل تشغيل أي كود
+    if (!orderForm) {
+        console.error("❌ خطأ: لم يتم العثور على `orderForm`. تأكد من أن لديك `id='orderForm'` في HTML.");
+        return;
+    }
+
+    if (!reviewTrack) {
+        console.error("❌ خطأ: لم يتم العثور على `reviewTrack`. تأكد من أن لديك `id='reviewTrack'` في HTML.");
+        return;
+    }
 
     // 🔹 **أسعار المنتج لكل دولة (بالعملة المحلية)**
     const prices = {
-        "sa": "٣٧",   // السعودية (ريال سعودي)
-        "qa": "٣٥",   // قطر (ريال قطري)
-        "ae": "٣٦",   // الإمارات (درهم إماراتي)
-        "kw": "٣",    // الكويت (دينار كويتي)
-        "om": "٣٫٧",  // عمان (ريال عماني)
-        "bh": "٣٫٨",  // البحرين (دينار بحريني)
-        "eg": "٣٠٠",  // مصر (جنيه مصري)
-        "jo": "٧",    // الأردن (دينار أردني)
-        "iq": "١٤٥٠٠",// العراق (دينار عراقي)
-        "lb": "٩٠٠٠٠٠" // لبنان (ليرة لبنانية)
+        "sa": "٣٧", "qa": "٣٥", "ae": "٣٦", "kw": "٣", "om": "٣٫٧",
+        "bh": "٣٫٨", "eg": "٣٠٠", "jo": "٧", "iq": "١٤٥٠٠", "lb": "٩٠٠٠٠٠"
     };
 
     // 🔹 **رموز العملات لكل دولة**
     const currencies = {
-        "sa": "ريال",
-        "qa": "ريال",
-        "ae": "درهم",
-        "kw": "دينار",
-        "om": "ريال",
-        "bh": "دينار",
-        "eg": "جنيه",
-        "jo": "دينار",
-        "iq": "دينار",
-        "lb": "ليرة"
+        "sa": "ريال", "qa": "ريال", "ae": "درهم", "kw": "دينار",
+        "om": "ريال", "bh": "دينار", "eg": "جنيه", "jo": "دينار",
+        "iq": "دينار", "lb": "ليرة"
     };
 
     // ✅ **تحديث مفتاح الدولة عند تغيير الدولة**
@@ -50,18 +46,17 @@ document.addEventListener("DOMContentLoaded", function () {
         let quantity = parseInt(quantitySelect.value);
         let pricePerPiece = prices[country] || "٠";
         let currency = currencies[country] || "";
-        let totalPrice = parseFloat(pricePerPiece.replace(",", ".")) * quantity;
+        let totalPrice = parseFloat(pricePerPiece.replace("٫", ".").replace(",", ".")) * quantity;
 
         // 🔹 عرض السعر المحدث
         priceDisplay.textContent = `💰 السعر: ${totalPrice.toLocaleString("ar-EG")} ${currency}`;
     }
 
-    // ✅ تحديث السعر عند تغيير الدولة أو الكمية
     quantitySelect.addEventListener("change", updatePrice);
     updatePrice(); // تحديث السعر عند تحميل الصفحة
 
     // ✅ **إرسال الطلب عند النقر على الزر**
-    document.getElementById("orderForm").addEventListener("submit", function(event) {
+    orderForm.addEventListener("submit", function(event) {
         event.preventDefault();
 
         let name = document.getElementById("name").value;
@@ -72,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let postalCode = document.getElementById("postalCode").value;
         let quantity = quantitySelect.value;
         let totalPrice = priceDisplay.textContent;
-        let orderNumber = Math.floor(١٠٠٠٠٠ + Math.random() * ٩٠٠٠٠٠); // توليد رقم طلب عشوائي بالأرقام العربية
+        let orderNumber = Math.floor(100000 + Math.random() * 900000); // توليد رقم طلب عشوائي
 
         // 📢 **تنسيق الرسالة المرسلة إلى تيليجرام**
         let message = `📢 *طلب جديد!* 🚀\n\n` +
@@ -91,9 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A"; 
         let telegramChatId = "-1002290156309"; 
 
-        let telegramUrl = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
-
-        fetch(telegramUrl, {
+        fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -118,48 +111,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ **عرض رسالة النجاح وتغيير المحتوى لرقم الطلب**
     function showSuccessMessage(orderNumber) {
-        let button = document.querySelector(".btn-glow");
-        button.innerHTML = "✅ تم إرسال الطلب بنجاح";
-        button.style.background = "linear-gradient(to right, #16a085, #27ae60)";
-        button.style.transition = "background 0.5s ease-in-out";
-
-        // ✅ **إخفاء النموذج بعد الإرسال وعرض رقم الطلب**
         document.getElementById("orderForm").classList.add("hidden");
         document.getElementById("orderNumber").textContent = orderNumber;
         document.getElementById("orderNumberContainer").classList.remove("hidden");
 
-        // ✅ **إعادة تعيين النموذج بعد ١٠٠ ثانية**
         setTimeout(() => {
-            button.innerHTML = "🚀 اطلب الآن والدفع عند الاستلام";
-            button.style.background = "linear-gradient(to right, #f7971e, #ff4500)";
             document.getElementById("orderForm").reset();
             document.getElementById("orderForm").classList.remove("hidden");
             document.getElementById("orderNumberContainer").classList.add("hidden");
-            updatePrice(); // إعادة حساب السعر بعد إعادة التعيين
+            updatePrice();
         }, 100000);
     }
 
-    // ✅ **تحريك الشريط المتحرك تلقائيًا**
-    function startMarquee() {
-        let firstChild = reviewTrack.firstElementChild.cloneNode(true);
-        reviewTrack.appendChild(firstChild);
-        reviewTrack.removeChild(reviewTrack.firstElementChild);
-    }
-    setInterval(startMarquee, 4000); // **تحريك الشريط كل 4 ثوانٍ**
-
-    // ✅ **إضافة تقييم جديد للشريط المتحرك**
+    // ✅ **إضافة تقييم جديد**
     reviewForm.addEventListener("submit", function (event) {
         event.preventDefault();
         let name = document.getElementById("reviewerName").value;
         let rating = document.getElementById("reviewRating").value;
         let comment = document.getElementById("reviewText").value;
 
-        let newReview = document.createElement("span");
+        let newReview = document.createElement("div");
         newReview.classList.add("review-item");
         newReview.textContent = `${rating} ${name}: ${comment}`;
 
         reviewTrack.appendChild(newReview);
-        reviewForm.reset(); // **إعادة تعيين الحقول بعد الإرسال**
+        reviewForm.reset();
     });
 
 });
