@@ -1,21 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // ✅ العناصر الأساسية
+    // ✅ جلب العناصر من HTML
     let countrySelect = document.getElementById("country");
     let phoneCode = document.getElementById("country-code");
     let quantitySelect = document.getElementById("quantity");
     let priceDisplay = document.getElementById("priceDisplay");
-    let reviewTrack = document.getElementById("reviewTrack");
     let reviewForm = document.getElementById("reviewForm");
+    let reviewsList = document.getElementById("reviewsList");
     let orderForm = document.getElementById("orderForm");
 
-    // ✅ التأكد من أن العناصر موجودة قبل تشغيل أي كود
+    // ✅ التحقق من وجود العناصر قبل تشغيل الأكواد
     if (!orderForm) {
-        console.error("❌ خطأ: لم يتم العثور على `orderForm`. تأكد من أن لديك `id='orderForm'` في HTML.");
+        console.error("❌ خطأ: `orderForm` غير موجود في `index.html`");
         return;
     }
 
-    if (!reviewTrack) {
-        console.error("❌ خطأ: لم يتم العثور على `reviewTrack`. تأكد من أن لديك `id='reviewTrack'` في HTML.");
+    if (!reviewForm) {
+        console.error("❌ خطأ: `reviewForm` غير موجود في `index.html`");
         return;
     }
 
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 100000);
     }
 
-    // ✅ **إضافة تقييم جديد**
+    // ✅ **إضافة تقييم جديد إلى القائمة أسفل النموذج**
     reviewForm.addEventListener("submit", function (event) {
         event.preventDefault();
         let name = document.getElementById("reviewerName").value;
@@ -131,10 +131,10 @@ document.addEventListener("DOMContentLoaded", function () {
         let comment = document.getElementById("reviewText").value;
 
         let newReview = document.createElement("div");
-        newReview.classList.add("review-item");
-        newReview.textContent = `${rating} ${name}: ${comment}`;
+        newReview.classList.add("review-item", "bg-gray-100", "p-2", "rounded-lg", "mt-2", "shadow");
+        newReview.innerHTML = `<strong>${name}</strong>: ${rating} - ${comment}`;
 
-        reviewTrack.appendChild(newReview);
+        reviewsList.appendChild(newReview);
         reviewForm.reset();
     });
 
