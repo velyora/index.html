@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let phoneCode = document.getElementById("country-code");
     let quantitySelect = document.getElementById("quantity");
     let priceDisplay = document.getElementById("priceDisplay");
-    let orderContainer = document.getElementById("orderContainer"); // عنصر النموذج
 
     // 🔹 **أسعار المنتج لكل دولة (بالعملة المحلية)**
     const prices = {
@@ -69,13 +68,11 @@ document.addEventListener("DOMContentLoaded", function() {
         let postalCode = document.getElementById("postalCode").value;
         let quantity = quantitySelect.value;
         let totalPrice = priceDisplay.textContent;
-
-        // 🔹 **توليد رقم طلب فريد**
-        let orderNumber = Math.floor(100000 + Math.random() * 900000);
+        let orderNumber = Math.floor(100000 + Math.random() * 900000); // توليد رقم طلب عشوائي
 
         // 📢 **تنسيق الرسالة المرسلة إلى تيليجرام**
         let message = `📢 *طلب جديد!* 🚀\n\n` +
-                      `🆔 *رقم الطلب:* ${orderNumber}\n` +
+                      `🔢 *رقم الطلب:* ${orderNumber}\n` +
                       `👤 *الاسم:* ${name}\n` +
                       `🌍 *الدولة:* ${countryName}\n` +
                       `🏙️ *المدينة:* ${city}\n` +
@@ -115,27 +112,26 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // ✅ **إخفاء النموذج وعرض رقم الطلب**
+    // ✅ **عرض رسالة النجاح وتغيير المحتوى لرقم الطلب**
     function showSuccessMessage(orderNumber) {
         let button = document.querySelector(".btn-glow");
         button.innerHTML = "✅ تم إرسال الطلب بنجاح";
         button.style.background = "linear-gradient(to right, #16a085, #27ae60)";
         button.style.transition = "background 0.5s ease-in-out";
 
-        // ✅ **إخفاء نموذج الطلب وعرض رقم الطلب**
+        // ✅ **إخفاء النموذج بعد الإرسال وعرض رقم الطلب**
+        document.getElementById("orderForm").classList.add("hidden");
+        document.getElementById("orderNumber").textContent = orderNumber;
+        document.getElementById("orderNumberContainer").classList.remove("hidden");
+
+        // ✅ **إعادة تعيين النموذج بعد 5 ثوانٍ**
         setTimeout(() => {
-            orderContainer.innerHTML = `
-                <div class="order-success text-center">
-                    <h2 class="text-green-600 text-2xl font-bold">🎉 تم إرسال طلبك بنجاح!</h2>
-                    <p class="text-gray-700 text-lg mt-2">✅ رقم طلبك: <span class="font-bold text-green-600">${orderNumber}</span></p>
-                    <p class="text-gray-600 text-sm mt-2">📞 سيتم التواصل معك قريبًا لتأكيد الطلب.</p>
-                    <p class="text-gray-600 text-sm mt-2">💬 يمكنك التواصل معنا عبر واتساب:</p>
-                    <a href="https://wa.me/966541827904?text=مرحبًا، أريد المساعدة في طلبي رقم ${orderNumber}" 
-                       class="whatsapp-button">
-                       <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon"> تواصل معنا عبر واتساب
-                    </a>
-                </div>
-            `;
-        }, 1000);
+            button.innerHTML = "🚀 اطلب الآن والدفع عند الاستلام";
+            button.style.background = "linear-gradient(to right, #f7971e, #ff4500)";
+            document.getElementById("orderForm").reset();
+            document.getElementById("orderForm").classList.remove("hidden");
+            document.getElementById("orderNumberContainer").classList.add("hidden");
+            updatePrice(); // إعادة حساب السعر بعد إعادة التعيين
+        }, 5000);
     }
 });
