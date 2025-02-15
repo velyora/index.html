@@ -60,10 +60,13 @@
                
 
                 <select id="quantity" required class="input-field">
-                    <option value="1">1 قطعة - 9.99$</option>
-                    <option value="2">2 قطع - 18.99$ (خصم!)</option>
-                    <option value="3">3 قطع - 25.99$ (خصم أكبر!)</option>
+                  <option value="1">1 قطعة</option>
+                  <option value="2">2 قطع (خصم!)</option>
+                  <option value="3">3 قطع (خصم أكبر!)</option>
                 </select>
+
+                <!-- 🔹 عنصر لعرض السعر بجانب اختيار الكمية -->
+                <p id="priceDisplay" class="text-lg font-semibold text-gray-700 mt-2"></p>
                 
                 <!-- 🔹 زر الدفع عند الاستلام -->
                 <button type="submit" class="btn-glow mt-4">🚀 اطلب الآن والدفع عند الاستلام</button>
