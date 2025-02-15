@@ -1,21 +1,25 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+    // ✅ كود الطلب إلى تيليجرام والتسعير ومفتاح الدولة (موجود مسبقًا)
+
     let countrySelect = document.getElementById("country");
     let phoneCode = document.getElementById("country-code");
     let quantitySelect = document.getElementById("quantity");
     let priceDisplay = document.getElementById("priceDisplay");
+    let reviewTrack = document.getElementById("reviewTrack");
+    let reviewForm = document.getElementById("reviewForm");
 
     // 🔹 **أسعار المنتج لكل دولة (بالعملة المحلية)**
     const prices = {
-        "sa": 37,   // السعودية (ريال سعودي)
-        "qa": 35,   // قطر (ريال قطري)
-        "ae": 36,   // الإمارات (درهم إماراتي)
-        "kw": 3,    // الكويت (دينار كويتي)
-        "om": 3.7,  // عمان (ريال عماني)
-        "bh": 3.8,  // البحرين (دينار بحريني)
-        "eg": 300,  // مصر (جنيه مصري)
-        "jo": 7,    // الأردن (دينار أردني)
-        "iq": 14500,// العراق (دينار عراقي)
-        "lb": 900000 // لبنان (ليرة لبنانية)
+        "sa": "٣٧",   // السعودية (ريال سعودي)
+        "qa": "٣٥",   // قطر (ريال قطري)
+        "ae": "٣٦",   // الإمارات (درهم إماراتي)
+        "kw": "٣",    // الكويت (دينار كويتي)
+        "om": "٣٫٧",  // عمان (ريال عماني)
+        "bh": "٣٫٨",  // البحرين (دينار بحريني)
+        "eg": "٣٠٠",  // مصر (جنيه مصري)
+        "jo": "٧",    // الأردن (دينار أردني)
+        "iq": "١٤٥٠٠",// العراق (دينار عراقي)
+        "lb": "٩٠٠٠٠٠" // لبنان (ليرة لبنانية)
     };
 
     // 🔹 **رموز العملات لكل دولة**
@@ -44,12 +48,12 @@ document.addEventListener("DOMContentLoaded", function() {
     function updatePrice() {
         let country = countrySelect.value;
         let quantity = parseInt(quantitySelect.value);
-        let pricePerPiece = prices[country] || 0;
+        let pricePerPiece = prices[country] || "٠";
         let currency = currencies[country] || "";
-        let totalPrice = pricePerPiece * quantity;
+        let totalPrice = parseFloat(pricePerPiece.replace(",", ".")) * quantity;
 
         // 🔹 عرض السعر المحدث
-        priceDisplay.textContent = `💰 السعر: ${totalPrice} ${currency}`;
+        priceDisplay.textContent = `💰 السعر: ${totalPrice.toLocaleString("ar-EG")} ${currency}`;
     }
 
     // ✅ تحديث السعر عند تغيير الدولة أو الكمية
@@ -68,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let postalCode = document.getElementById("postalCode").value;
         let quantity = quantitySelect.value;
         let totalPrice = priceDisplay.textContent;
-        let orderNumber = Math.floor(100000 + Math.random() * 900000); // توليد رقم طلب عشوائي
+        let orderNumber = Math.floor(١٠٠٠٠٠ + Math.random() * ٩٠٠٠٠٠); // توليد رقم طلب عشوائي بالأرقام العربية
 
         // 📢 **تنسيق الرسالة المرسلة إلى تيليجرام**
         let message = `📢 *طلب جديد!* 🚀\n\n` +
@@ -81,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function() {
                       `📞 *رقم الجوال:* ${phone}\n` +
                       `🛒 *الكمية المطلوبة:* ${quantity} قطع\n` +
                       `${totalPrice}\n` +
-                      `🚚 *مدة الشحن:* من 1 إلى 7 أيام\n\n` +
+                      `🚚 *مدة الشحن:* من ١ إلى ٧ أيام\n\n` +
                       `✅ *تم إرسال الطلب بنجاح!*`;
 
         let telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A"; 
@@ -124,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("orderNumber").textContent = orderNumber;
         document.getElementById("orderNumberContainer").classList.remove("hidden");
 
-        // ✅ **إعادة تعيين النموذج بعد 5 ثوانٍ**
+        // ✅ **إعادة تعيين النموذج بعد ١٠٠ ثانية**
         setTimeout(() => {
             button.innerHTML = "🚀 اطلب الآن والدفع عند الاستلام";
             button.style.background = "linear-gradient(to right, #f7971e, #ff4500)";
@@ -134,4 +138,28 @@ document.addEventListener("DOMContentLoaded", function() {
             updatePrice(); // إعادة حساب السعر بعد إعادة التعيين
         }, 100000);
     }
+
+    // ✅ **تحريك الشريط المتحرك تلقائيًا**
+    function startMarquee() {
+        let firstChild = reviewTrack.firstElementChild.cloneNode(true);
+        reviewTrack.appendChild(firstChild);
+        reviewTrack.removeChild(reviewTrack.firstElementChild);
+    }
+    setInterval(startMarquee, 4000); // **تحريك الشريط كل 4 ثوانٍ**
+
+    // ✅ **إضافة تقييم جديد للشريط المتحرك**
+    reviewForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        let name = document.getElementById("reviewerName").value;
+        let rating = document.getElementById("reviewRating").value;
+        let comment = document.getElementById("reviewText").value;
+
+        let newReview = document.createElement("span");
+        newReview.classList.add("review-item");
+        newReview.textContent = `${rating} ${name}: ${comment}`;
+
+        reviewTrack.appendChild(newReview);
+        reviewForm.reset(); // **إعادة تعيين الحقول بعد الإرسال**
+    });
+
 });
