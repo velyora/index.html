@@ -83,3 +83,30 @@ body {
 #whatsapp-button:hover {
     background-color: #1EBE5D;
 }
+
+.whatsapp-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #25D366;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s ease-in-out;
+    margin-top: 10px;
+    width: fit-content;
+    margin: auto;
+}
+
+.whatsapp-button:hover {
+    background-color: #1EBE5D;
+}
+
+.whatsapp-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
