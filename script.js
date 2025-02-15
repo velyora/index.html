@@ -1,76 +1,84 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const orderForm = document.getElementById("orderForm");
-    const countrySelect = document.getElementById("country");
-    const countryCode = document.getElementById("country-code");
-    const quantitySelect = document.getElementById("quantity");
+document.addEventListener("DOMContentLoaded", function() {
+    let countrySelect = document.getElementById("country");
+    let phoneCode = document.getElementById("country-code");
+    let quantitySelect = document.getElementById("quantity");
+    let priceDisplay = document.getElementById("priceDisplay");
 
-    // ✅ قائمة أسعار المنتجات لكل دولة
+    // 🔹 **أسعار المنتج لكل دولة (بالعملة المحلية)**
     const prices = {
-        "sa": 39, // السعودية - بالريال
-        "qa": 35, // قطر - بالريال القطري
-        "ae": 36, // الإمارات - بالدرهم
-        "kw": 3, // الكويت - بالدينار
-        "om": 4, // عمان - بالريال العماني
-        "bh": 4, // البحرين - بالدينار البحريني
-        "eg": 250, // مصر - بالجنيه
-        "jo": 28, // الأردن - بالدينار
-        "iq": 40000, // العراق - بالدينار العراقي
-        "lb": 500000, // لبنان - بالليرة اللبنانية
+        "sa": 37,   // السعودية (ريال سعودي)
+        "qa": 35,   // قطر (ريال قطري)
+        "ae": 36,   // الإمارات (درهم إماراتي)
+        "kw": 3,    // الكويت (دينار كويتي)
+        "om": 3.7,  // عمان (ريال عماني)
+        "bh": 3.8,  // البحرين (دينار بحريني)
+        "eg": 300,  // مصر (جنيه مصري)
+        "jo": 7,    // الأردن (دينار أردني)
+        "iq": 14500,// العراق (دينار عراقي)
+        "lb": 900000 // لبنان (ليرة لبنانية)
     };
 
-    // ✅ قائمة عملات لكل دولة
+    // 🔹 **رموز العملات لكل دولة**
     const currencies = {
-        "sa": "ريال سعودي",
-        "qa": "ريال قطري",
-        "ae": "درهم إماراتي",
-        "kw": "دينار كويتي",
-        "om": "ريال عماني",
-        "bh": "دينار بحريني",
-        "eg": "جنيه مصري",
-        "jo": "دينار أردني",
-        "iq": "دينار عراقي",
-        "lb": "ليرة لبنانية",
+        "sa": "ريال",
+        "qa": "ريال",
+        "ae": "درهم",
+        "kw": "دينار",
+        "om": "ريال",
+        "bh": "دينار",
+        "eg": "جنيه",
+        "jo": "دينار",
+        "iq": "دينار",
+        "lb": "ليرة"
     };
 
-    // ✅ تحديث مفتاح الدولة والسعر عند تغيير الدولة
-    countrySelect.addEventListener("change", function () {
-        const selectedOption = countrySelect.options[countrySelect.selectedIndex];
-        const code = selectedOption.getAttribute("data-code");
-        if (code) {
-            countryCode.textContent = code;
-        }
+    // ✅ **تحديث مفتاح الدولة عند تغيير الدولة**
+    countrySelect.addEventListener("change", function() {
+        let selectedOption = countrySelect.options[countrySelect.selectedIndex];
+        let countryCode = selectedOption.getAttribute("data-code");
+        phoneCode.textContent = countryCode;
+        updatePrice();
     });
 
-    // ✅ إرسال الطلب عند الضغط على زر الدفع عند الاستلام
-    orderForm.addEventListener("submit", function(event) {
-        event.preventDefault(); // منع إعادة تحميل الصفحة
+    // ✅ **تحديث السعر عند تغيير الدولة أو الكمية**
+    function updatePrice() {
+        let country = countrySelect.value;
+        let quantity = parseInt(quantitySelect.value);
+        let pricePerPiece = prices[country] || 0;
+        let currency = currencies[country] || "";
+        let totalPrice = pricePerPiece * quantity;
+
+        // 🔹 عرض السعر المحدث
+        priceDisplay.textContent = `💰 السعر: ${totalPrice} ${currency}`;
+    }
+
+    // ✅ تحديث السعر عند تغيير الدولة أو الكمية
+    quantitySelect.addEventListener("change", updatePrice);
+    updatePrice(); // تحديث السعر عند تحميل الصفحة
+
+    // ✅ **إرسال الطلب عند النقر على الزر**
+    document.getElementById("orderForm").addEventListener("submit", function(event) {
+        event.preventDefault();
 
         let name = document.getElementById("name").value;
-        let countryCodeValue = countryCode.textContent;
-        let country = document.getElementById("country");
-        let countryName = country.options[country.selectedIndex].text;
+        let countryName = countrySelect.options[countrySelect.selectedIndex].text;
         let phone = document.getElementById("phone").value;
         let city = document.getElementById("city").value;
         let address = document.getElementById("address").value;
         let postalCode = document.getElementById("postalCode").value;
-        let quantity = parseInt(document.getElementById("quantity").value);
-        let countryCodeKey = country.value;
+        let quantity = quantitySelect.value;
+        let totalPrice = priceDisplay.textContent;
 
-        // ✅ حساب السعر حسب الدولة والكمية
-        let pricePerPiece = prices[countryCodeKey] || 0;
-        let currency = currencies[countryCodeKey] || "";
-        let totalPrice = pricePerPiece * quantity;
-
-        // 📦 **تنسيق الرسالة المرسلة إلى تيليجرام**
+        // 📢 **تنسيق الرسالة المرسلة إلى تيليجرام**
         let message = `📢 *طلب جديد!* 🚀\n\n` +
                       `👤 *الاسم:* ${name}\n` +
                       `🌍 *الدولة:* ${countryName}\n` +
                       `🏙️ *المدينة:* ${city}\n` +
                       `📍 *العنوان:* ${address}\n` +
                       `📬 *الرمز البريدي:* ${postalCode}\n` +
-                      `📞 *رقم الجوال:* ${countryCodeValue} ${phone}\n` +
-                      `🛒 *الكمية المطلوبة:* ${quantity} قطعة\n` +
-                      `💰 *السعر:* ${totalPrice} ${currency}\n` +
+                      `📞 *رقم الجوال:* ${phone}\n` +
+                      `🛒 *الكمية المطلوبة:* ${quantity} قطع\n` +
+                      `${totalPrice}\n` +
                       `🚚 *مدة الشحن:* من 1 إلى 7 أيام\n\n` +
                       `✅ *تم إرسال الطلب بنجاح!*`;
 
@@ -109,13 +117,12 @@ document.addEventListener("DOMContentLoaded", function () {
         button.style.background = "linear-gradient(to right, #16a085, #27ae60)";
         button.style.transition = "background 0.5s ease-in-out";
 
-        // ✅ **إخفاء الرسالة بعد 3 ثوانٍ**
+        // ✅ **إخفاء الرسالة بعد 3 ثوانٍ وإعادة تعيين النموذج**
         setTimeout(() => {
             button.innerHTML = "🚀 اطلب الآن والدفع عند الاستلام";
             button.style.background = "linear-gradient(to right, #f7971e, #ff4500)";
-            
-            // 🔹 **إعادة تعيين النموذج**
             document.getElementById("orderForm").reset();
+            updatePrice(); // إعادة حساب السعر بعد إعادة التعيين
         }, 3000);
     }
 });
