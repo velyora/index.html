@@ -132,6 +132,6 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("orderForm").classList.remove("hidden");
             document.getElementById("orderNumberContainer").classList.add("hidden");
             updatePrice(); // إعادة حساب السعر بعد إعادة التعيين
-        }, 5000);
+        }, 100000);
     }
 });
