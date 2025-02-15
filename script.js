@@ -9,30 +9,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ **أسعار المنتج لكل دولة (بالعملة المحلية)**
     const prices = {
-        "sa": 37,   // السعودية (ريال سعودي)
-        "qa": 35,   // قطر (ريال قطري)
-        "ae": 36,   // الإمارات (درهم إماراتي)
-        "kw": 3,    // الكويت (دينار كويتي)
-        "om": 3.7,  // عمان (ريال عماني)
-        "bh": 3.8,  // البحرين (دينار بحريني)
-        "eg": 300,  // مصر (جنيه مصري)
-        "jo": 7,    // الأردن (دينار أردني)
-        "iq": 14500,// العراق (دينار عراقي)
-        "lb": 900000 // لبنان (ليرة لبنانية)
+        "sa": 37, "qa": 35, "ae": 36, "kw": 3, "om": 3.7, "bh": 3.8,
+        "eg": 300, "jo": 7, "iq": 14500, "lb": 900000
     };
 
     // ✅ **رموز العملات لكل دولة**
     const currencies = {
-        "sa": "ريال",
-        "qa": "ريال",
-        "ae": "درهم",
-        "kw": "دينار",
-        "om": "ريال",
-        "bh": "دينار",
-        "eg": "جنيه",
-        "jo": "دينار",
-        "iq": "دينار",
-        "lb": "ليرة"
+        "sa": "ريال", "qa": "ريال", "ae": "درهم", "kw": "دينار", "om": "ريال",
+        "bh": "دينار", "eg": "جنيه", "jo": "دينار", "iq": "دينار", "lb": "ليرة"
     };
 
     // ✅ **تحديث مفتاح الدولة عند تغيير الدولة**
@@ -51,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
         let currency = currencies[country] || "";
         let totalPrice = pricePerPiece * quantity;
 
-        // 🔹 عرض السعر المحدث
         priceDisplay.textContent = `💰 السعر: ${totalPrice.toLocaleString()} ${currency}`;
     }
 
@@ -78,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // 📢 **تنسيق الرسالة المرسلة إلى تيليجرام**
+        // 📢 **إرسال الطلب إلى تيليجرام**
         let message = `📢 *طلب جديد!* 🚀\n\n` +
                       `🔢 *رقم الطلب:* ${orderNumber}\n` +
                       `👤 *الاسم:* ${name}\n` +
@@ -125,21 +108,18 @@ document.addEventListener("DOMContentLoaded", function () {
         let button = document.querySelector(".btn-glow");
         button.innerHTML = "✅ تم إرسال الطلب بنجاح";
         button.style.background = "linear-gradient(to right, #16a085, #27ae60)";
-        button.style.transition = "background 0.5s ease-in-out";
 
-        // ✅ **إخفاء النموذج بعد الإرسال وعرض رقم الطلب**
         document.getElementById("orderForm").classList.add("hidden");
         document.getElementById("orderNumber").textContent = orderNumber;
         document.getElementById("orderNumberContainer").classList.remove("hidden");
 
-        // ✅ **إعادة تعيين النموذج بعد 100 ثانية**
         setTimeout(() => {
             button.innerHTML = "🚀 اطلب الآن والدفع عند الاستلام";
             button.style.background = "linear-gradient(to right, #f7971e, #ff4500)";
             document.getElementById("orderForm").reset();
             document.getElementById("orderForm").classList.remove("hidden");
             document.getElementById("orderNumberContainer").classList.add("hidden");
-            updatePrice(); // إعادة حساب السعر بعد إعادة التعيين
+            updatePrice(); 
         }, 100000);
     }
 
