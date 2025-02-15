@@ -9,15 +9,6 @@
 </head>
 <body class="bg-white text-gray-900">
 
-    <!-- 🔹 شريط التقييمات المتحرك -->
-    <div class="review-marquee">
-        <div class="review-track" id="reviewTrack">
-            <span class="review-item">⭐⭐⭐⭐⭐ محمد: منتج رائع جدًا! أنصح به. </span>
-            <span class="review-item">⭐⭐⭐⭐ خالد: الجودة ممتازة وخدمة العملاء رائعة! </span>
-            <span class="review-item">⭐⭐⭐⭐⭐ فاطمة: الشحن كان سريعًا والمنتج مطابق للوصف. </span>
-        </div>
-    </div>
-
     <!-- 🔹 صورة الهيدر -->
     <div class="header-container">
         <img src="IMG_3185.jpeg" alt="الهيدر" class="header-image">
@@ -46,7 +37,6 @@
             <form id="orderForm" class="mt-4 bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
                 <input type="text" id="name" placeholder="الاسم الكامل" required class="input-field">
 
-                <!-- اختيار الدولة -->
                 <div class="relative">
                     <select id="country" required class="input-field pr-12">
                         <option value="sa" data-code="+966">🇸🇦 السعودية</option>
@@ -66,7 +56,6 @@
                 <input type="text" id="address" placeholder="العنوان" required class="input-field">
                 <input type="text" id="postalCode" placeholder="الرمز البريدي" required class="input-field">
 
-                <!-- رقم الجوال مع مفتاح الدولة على الجهة اليسرى -->
                 <div class="flex items-center">
                     <input type="tel" id="phone" placeholder="رقم الجوال" required class="input-field flex-1">
                     <span id="country-code" class="bg-gray-300 p-2 rounded-lg ml-2">+966</span>
@@ -78,10 +67,8 @@
                     <option value="3">3 قطع (خصم أكبر!)</option>
                 </select>
 
-                <!-- 🔹 عنصر لعرض السعر بجانب اختيار الكمية -->
                 <p id="priceDisplay" class="text-lg font-semibold text-gray-700 mt-2"></p>
 
-                <!-- 🔹 زر الدفع عند الاستلام -->
                 <button type="submit" class="btn-glow mt-4">🚀 اطلب الآن والدفع عند الاستلام</button>
             </form>
         </div>
@@ -89,7 +76,7 @@
 
     <!-- 🔹 نموذج التقييم -->
     <section class="py-6 text-center">
-        <h3 class="text-xl font-bold text-gray-900">شاركنا رأيك في المنتج</h3>
+        <h3 class="text-xl font-bold text-gray-900">📝 شاركنا رأيك في المنتج</h3>
         <form id="reviewForm" class="mt-4 bg-white p-4 rounded-lg shadow-lg max-w-lg mx-auto">
             <input type="text" id="reviewerName" placeholder="اسمك" required class="input-field">
             <select id="reviewRating" required class="input-field">
@@ -104,12 +91,21 @@
         </form>
     </section>
 
+    <!-- 🔹 عرض التقييمات -->
+    <section id="reviewsContainer" class="py-6 text-center">
+        <h3 class="text-xl font-bold text-gray-900">💬 آراء العملاء</h3>
+        <div id="reviewsList" class="mt-4 bg-gray-100 p-4 rounded-lg shadow-lg max-w-lg mx-auto">
+            <p class="text-gray-700">لا توجد تقييمات بعد. كن أول من يشارك برأيه!</p>
+        </div>
+    </section>
+
     <!-- 🔹 زر واتساب العائم -->
     <a href="https://wa.me/966541827904?text=مرحبًا، أريد المساعدة في طلبي" 
        id="whatsapp-button" 
        target="_blank"
        class="fixed bottom-4 right-4 bg-green-500 text-white p-3 rounded-full shadow-lg flex items-center">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" class="w-6 h-6 mr-2"> تواصل معنا عبر واتساب
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="واتساب" class="w-6 h-6 mr-2">
+        تواصل معنا عبر واتساب
     </a>
 
     <script src="script.js"></script>
