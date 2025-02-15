@@ -9,6 +9,15 @@
 </head>
 <body class="bg-white text-gray-900">
 
+    <!-- 🔹 شريط التقييمات المتحرك -->
+    <div class="review-marquee">
+        <div class="review-track" id="reviewTrack">
+            <span class="review-item">⭐⭐⭐⭐⭐ محمد: منتج رائع جدًا! أنصح به. </span>
+            <span class="review-item">⭐⭐⭐⭐ خالد: الجودة ممتازة وخدمة العملاء رائعة! </span>
+            <span class="review-item">⭐⭐⭐⭐⭐ فاطمة: الشحن كان سريعًا والمنتج مطابق للوصف. </span>
+        </div>
+    </div>
+
     <!-- 🔹 صورة الهيدر -->
     <div class="header-container">
         <img src="IMG_3185.jpeg" alt="الهيدر" class="header-image">
@@ -78,12 +87,29 @@
         </div>
     </section>
 
+    <!-- 🔹 نموذج التقييم -->
+    <section class="py-6 text-center">
+        <h3 class="text-xl font-bold text-gray-900">شاركنا رأيك في المنتج</h3>
+        <form id="reviewForm" class="mt-4 bg-white p-4 rounded-lg shadow-lg max-w-lg mx-auto">
+            <input type="text" id="reviewerName" placeholder="اسمك" required class="input-field">
+            <select id="reviewRating" required class="input-field">
+                <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐ (5/5)</option>
+                <option value="⭐⭐⭐⭐">⭐⭐⭐⭐ (4/5)</option>
+                <option value="⭐⭐⭐">⭐⭐⭐ (3/5)</option>
+                <option value="⭐⭐">⭐⭐ (2/5)</option>
+                <option value="⭐">⭐ (1/5)</option>
+            </select>
+            <textarea id="reviewText" placeholder="اكتب تعليقك..." required class="input-field"></textarea>
+            <button type="submit" class="btn-glow mt-4">📢 إرسال التقييم</button>
+        </form>
+    </section>
+
     <!-- 🔹 زر واتساب العائم -->
     <a href="https://wa.me/966541827904?text=مرحبًا، أريد المساعدة في طلبي" 
        id="whatsapp-button" 
        target="_blank"
        class="fixed bottom-4 right-4 bg-green-500 text-white p-3 rounded-full shadow-lg flex items-center">
-        تواصل معنا عبر واتساب
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" class="w-6 h-6 mr-2"> تواصل معنا عبر واتساب
     </a>
 
     <script src="script.js"></script>
