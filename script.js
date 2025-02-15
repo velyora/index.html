@@ -9,16 +9,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ **أسعار المنتج لكل دولة (بالعملة المحلية)**
     const prices = {
-        "sa": "٣٧",   // السعودية (ريال سعودي)
-        "qa": "٣٥",   // قطر (ريال قطري)
-        "ae": "٣٦",   // الإمارات (درهم إماراتي)
-        "kw": "٣",    // الكويت (دينار كويتي)
-        "om": "٣٫٧",  // عمان (ريال عماني)
-        "bh": "٣٫٨",  // البحرين (دينار بحريني)
-        "eg": "٣٠٠",  // مصر (جنيه مصري)
-        "jo": "٧",    // الأردن (دينار أردني)
-        "iq": "١٤٥٠٠",// العراق (دينار عراقي)
-        "lb": "٩٠٠٠٠٠" // لبنان (ليرة لبنانية)
+        "sa": 37,   // السعودية (ريال سعودي)
+        "qa": 35,   // قطر (ريال قطري)
+        "ae": 36,   // الإمارات (درهم إماراتي)
+        "kw": 3,    // الكويت (دينار كويتي)
+        "om": 3.7,  // عمان (ريال عماني)
+        "bh": 3.8,  // البحرين (دينار بحريني)
+        "eg": 300,  // مصر (جنيه مصري)
+        "jo": 7,    // الأردن (دينار أردني)
+        "iq": 14500,// العراق (دينار عراقي)
+        "lb": 900000 // لبنان (ليرة لبنانية)
     };
 
     // ✅ **رموز العملات لكل دولة**
@@ -40,38 +40,43 @@ document.addEventListener("DOMContentLoaded", function () {
         let selectedOption = countrySelect.options[countrySelect.selectedIndex];
         let countryCode = selectedOption.getAttribute("data-code");
         phoneCode.textContent = countryCode;
-        updatePrice();
+        updatePrice(); // تحديث السعر عند تغيير الدولة
     });
 
     // ✅ **تحديث السعر عند تغيير الدولة أو الكمية**
     function updatePrice() {
         let country = countrySelect.value;
-        let quantity = parseInt(quantitySelect.value);
-        let pricePerPiece = prices[country] || "٠";
+        let quantity = parseInt(quantitySelect.value) || 1;
+        let pricePerPiece = prices[country] || 0;
         let currency = currencies[country] || "";
-        let totalPrice = parseFloat(pricePerPiece.replace(",", ".")) * quantity;
+        let totalPrice = pricePerPiece * quantity;
 
         // 🔹 عرض السعر المحدث
-        priceDisplay.textContent = `💰 السعر: ${totalPrice.toLocaleString("ar-EG")} ${currency}`;
+        priceDisplay.textContent = `💰 السعر: ${totalPrice.toLocaleString()} ${currency}`;
     }
 
     // ✅ تحديث السعر عند تغيير الدولة أو الكمية
     quantitySelect.addEventListener("change", updatePrice);
     updatePrice(); // تحديث السعر عند تحميل الصفحة
 
-    // ✅ **إرسال الطلب عند النقر على الزر**
+    // ✅ **إرسال الطلب عند النقر على زر الدفع**
     document.getElementById("orderForm").addEventListener("submit", function(event) {
         event.preventDefault();
 
-        let name = document.getElementById("name").value;
+        let name = document.getElementById("name").value.trim();
         let countryName = countrySelect.options[countrySelect.selectedIndex].text;
-        let phone = document.getElementById("phone").value;
-        let city = document.getElementById("city").value;
-        let address = document.getElementById("address").value;
-        let postalCode = document.getElementById("postalCode").value;
+        let phone = document.getElementById("phone").value.trim();
+        let city = document.getElementById("city").value.trim();
+        let address = document.getElementById("address").value.trim();
+        let postalCode = document.getElementById("postalCode").value.trim();
         let quantity = quantitySelect.value;
         let totalPrice = priceDisplay.textContent;
-        let orderNumber = Math.floor(١٠٠٠٠٠ + Math.random() * ٩٠٠٠٠٠); // توليد رقم طلب عشوائي بالأرقام العربية
+        let orderNumber = Math.floor(100000 + Math.random() * 900000); // توليد رقم طلب عشوائي
+
+        if (!name || !phone || !city || !address || !postalCode) {
+            alert("❌ يرجى تعبئة جميع الحقول المطلوبة.");
+            return;
+        }
 
         // 📢 **تنسيق الرسالة المرسلة إلى تيليجرام**
         let message = `📢 *طلب جديد!* 🚀\n\n` +
@@ -84,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
                       `📞 *رقم الجوال:* ${phone}\n` +
                       `🛒 *الكمية المطلوبة:* ${quantity} قطع\n` +
                       `${totalPrice}\n` +
-                      `🚚 *مدة الشحن:* من ١ إلى ٧ أيام\n\n` +
+                      `🚚 *مدة الشحن:* من 1 إلى 7 أيام\n\n` +
                       `✅ *تم إرسال الطلب بنجاح!*`;
 
         let telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A"; 
@@ -127,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("orderNumber").textContent = orderNumber;
         document.getElementById("orderNumberContainer").classList.remove("hidden");
 
-        // ✅ **إعادة تعيين النموذج بعد ١٠٠ ثانية**
+        // ✅ **إعادة تعيين النموذج بعد 100 ثانية**
         setTimeout(() => {
             button.innerHTML = "🚀 اطلب الآن والدفع عند الاستلام";
             button.style.background = "linear-gradient(to right, #f7971e, #ff4500)";
@@ -151,9 +156,14 @@ document.addEventListener("DOMContentLoaded", function () {
     reviewForm.addEventListener("submit", function (event) {
         event.preventDefault();
         
-        let name = document.getElementById("reviewerName").value;
+        let name = document.getElementById("reviewerName").value.trim();
         let rating = document.getElementById("reviewRating").value;
-        let comment = document.getElementById("reviewText").value;
+        let comment = document.getElementById("reviewText").value.trim();
+
+        if (!name || !comment) {
+            alert("❌ يرجى إدخال الاسم والتعليق.");
+            return;
+        }
 
         let newReview = document.createElement("div");
         newReview.classList.add("review-item", "bg-white", "p-3", "rounded-lg", "shadow-md", "mt-2");
