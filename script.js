@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     let countrySelect = document.getElementById("country");
     let phoneCode = document.getElementById("country-code");
     let quantitySelect = document.getElementById("quantity");
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     // ✅ **تحديث مفتاح الدولة عند تغيير الدولة**
-    countrySelect.addEventListener("change", function() {
+    countrySelect.addEventListener("change", function () {
         let selectedOption = countrySelect.options[countrySelect.selectedIndex];
         let countryCode = selectedOption.getAttribute("data-code");
         phoneCode.textContent = countryCode;
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
     updatePrice(); // تحديث السعر عند تحميل الصفحة
 
     // ✅ **إرسال الطلب عند النقر على الزر**
-    document.getElementById("orderForm").addEventListener("submit", function(event) {
+    document.getElementById("orderForm").addEventListener("submit", function (event) {
         event.preventDefault();
 
         let name = document.getElementById("name").value;
@@ -69,21 +69,25 @@ document.addEventListener("DOMContentLoaded", function() {
         let quantity = quantitySelect.value;
         let totalPrice = priceDisplay.textContent;
 
+        // 📢 **توليد رقم طلب فريد**
+        let orderNumber = Math.floor(100000 + Math.random() * 900000);
+
         // 📢 **تنسيق الرسالة المرسلة إلى تيليجرام**
         let message = `📢 *طلب جديد!* 🚀\n\n` +
-                      `👤 *الاسم:* ${name}\n` +
-                      `🌍 *الدولة:* ${countryName}\n` +
-                      `🏙️ *المدينة:* ${city}\n` +
-                      `📍 *العنوان:* ${address}\n` +
-                      `📬 *الرمز البريدي:* ${postalCode}\n` +
-                      `📞 *رقم الجوال:* ${phone}\n` +
-                      `🛒 *الكمية المطلوبة:* ${quantity} قطع\n` +
-                      `${totalPrice}\n` +
-                      `🚚 *مدة الشحن:* من 1 إلى 7 أيام\n\n` +
-                      `✅ *تم إرسال الطلب بنجاح!*`;
+            `📌 *رقم الطلب:* ${orderNumber}\n` +
+            `👤 *الاسم:* ${name}\n` +
+            `🌍 *الدولة:* ${countryName}\n` +
+            `🏙️ *المدينة:* ${city}\n` +
+            `📍 *العنوان:* ${address}\n` +
+            `📬 *الرمز البريدي:* ${postalCode}\n` +
+            `📞 *رقم الجوال:* ${phone}\n` +
+            `🛒 *الكمية المطلوبة:* ${quantity} قطع\n` +
+            `${totalPrice}\n` +
+            `🚚 *مدة الشحن:* من 1 إلى 7 أيام\n\n` +
+            `✅ *تم إرسال الطلب بنجاح!*`;
 
-        let telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A"; 
-        let telegramChatId = "-1002290156309"; 
+        let telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A";
+        let telegramChatId = "-1002290156309";
 
         let telegramUrl = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
 
@@ -99,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
             if (data.ok) {
-                showSuccessMessage();
+                showSuccessMessage(orderNumber);
             } else {
                 alert("⚠️ حدث خطأ أثناء إرسال الطلب إلى تيليجرام.");
             }
@@ -110,19 +114,23 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // ✅ **عرض رسالة النجاح وتغيير لون الزر**
-    function showSuccessMessage() {
+    // ✅ **عرض رسالة النجاح وتغيير المحتوى لرقم الطلب**
+    function showSuccessMessage(orderNumber) {
         let button = document.querySelector(".btn-glow");
         button.innerHTML = "✅ تم إرسال الطلب بنجاح";
         button.style.background = "linear-gradient(to right, #16a085, #27ae60)";
         button.style.transition = "background 0.5s ease-in-out";
 
-        // ✅ **إخفاء الرسالة بعد 3 ثوانٍ وإعادة تعيين النموذج**
+        // ✅ **إخفاء نموذج الطلب وعرض رقم الطلب**
         setTimeout(() => {
-            button.innerHTML = "🚀 اطلب الآن والدفع عند الاستلام";
-            button.style.background = "linear-gradient(to right, #f7971e, #ff4500)";
-            document.getElementById("orderForm").reset();
-            updatePrice(); // إعادة حساب السعر بعد إعادة التعيين
-        }, 3000);
+            let orderContainer = document.getElementById("orderContainer");
+            orderContainer.innerHTML = `
+                <div class="order-success text-center">
+                    <h2 class="text-green-600 text-2xl font-bold">🎉 تم إرسال طلبك بنجاح!</h2>
+                    <p class="text-gray-700 text-lg mt-2">✅ رقم طلبك: <span class="font-bold text-green-600">${orderNumber}</span></p>
+                    <p class="text-gray-600 text-sm mt-2">سيتم التواصل معك قريبًا لتأكيد الطلب.</p>
+                </div>
+            `;
+        }, 1500);
     }
 });
