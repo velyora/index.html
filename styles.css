@@ -92,3 +92,11 @@ body {
     height: 24px;
     margin-right: 8px;
 }
+
+.review-item {
+    background-color: white; /* يجعل الخلفية بيضاء */
+    padding: 10px;
+    border-radius: 8px; /* زوايا مستديرة */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+    margin-bottom: 8px;
+}
