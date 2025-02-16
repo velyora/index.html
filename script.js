@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     // ✅ تعريف متغيرات API
     const JSONBIN_API = "https://api.jsonbin.io/v3/b/67b25350acd3cb34a8e4bf28";
-    const JSONBIN_SECRET = "$2a$10$cR8U3fnhRtMfoC722GP31eOWZghfYOja3xo8ZR0OxFM/MbMyG2viq"; // مفتاح JSONBin
+    const JSONBIN_SECRET = "$2a$10$cR8U3fnhRtMfoC722GP31eOWZghfYOja3xo8ZR0OxFM/MbMyG2viq";
     const TELEGRAM_BOT_TOKEN = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A";
     const TELEGRAM_CHAT_ID = "-1002290156309";
 
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let adminLoginButton = document.getElementById("adminLoginFooter");
     let logoutButton = document.getElementById("logoutAdmin");
     let clearReviewsButton = document.getElementById("clearReviews");
+    let orderNumberContainer = document.getElementById("orderNumberContainer");
     let orderNumberElement = document.getElementById("orderNumber");
 
     const ADMIN_PASSWORD = "123456"; // كلمة مرور المالك
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
     quantitySelect.addEventListener("change", updatePrice);
     updatePrice();
 
-    // ✅ إرسال الطلب إلى تيليجرام
+    // ✅ إرسال الطلب
     orderForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
@@ -73,16 +74,19 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // ✅ عرض رقم الطلب في الصفحة
         orderNumberElement.textContent = `رقم الطلب: ${orderNumber}`;
+        orderNumberContainer.classList.remove("hidden");
 
         let message = `📢 *طلب جديد!* 🚀\n\n` +
-                      `🔢 *رقم الطلب:* ${orderNumber}\n` +
                       `👤 *الاسم:* ${name}\n` +
                       `🌍 *الدولة:* ${countryName}\n` +
+                      `🏙️ *المدينة:* ${city}\n` +
+                      `📍 *العنوان:* ${address}\n` +
+                      `📬 *الرمز البريدي:* ${postalCode}\n` +
                       `📞 *رقم الجوال:* ${phone}\n` +
                       `🛒 *الكمية:* ${quantity} قطع\n` +
-                      `${totalPrice}\n` +
-                      `🚚 *مدة الشحن:* من 1 إلى 7 أيام\n`;
+                      `${totalPrice}`;
 
         fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
             method: "POST",
@@ -116,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (reviews.length === 0) {
                 reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد.</p>`;
             } else {
-                reviews.forEach((review, index) => {
+                reviews.forEach(review => {
                     let reviewElement = document.createElement("div");
                     reviewElement.classList = "review p-3 shadow-md";
                     reviewElement.innerHTML = `<strong>${review.rating} ${review.name}:</strong> ${review.comment}`;
