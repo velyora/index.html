@@ -1,3 +1,9 @@
+// ✅ بيانات API الخاصة بـ JSONBin و تيليجرام
+const JSONBIN_API = "https://api.jsonbin.io/v3/b/67b25350acd3cb34a8e4bf28";
+const JSONBIN_SECRET = "$2a$10$cR8U3fnhRtMfoC722GP31eOWZghfYOja3xo8ZR0OxFM/MbMyG2viq"; // مفتاح API من JSONBin
+const TELEGRAM_BOT_TOKEN = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A";  // توكن بوت تيليجرام
+const TELEGRAM_CHAT_ID = "-1002290156309";  // معرف محادثة تيليجرام
+
 document.addEventListener("DOMContentLoaded", function () {
     // ✅ جلب عناصر الصفحة
     let countrySelect = document.getElementById("country");
@@ -6,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let priceDisplay = document.getElementById("priceDisplay");
     let reviewForm = document.getElementById("reviewForm");
     let reviewsList = document.getElementById("reviewsList");
-    let adminLoginButton = document.getElementById("adminLoginFooter"); // زر تسجيل الدخول
-    let logoutButton = document.createElement("button"); // زر تسجيل الخروج
+    let adminLoginButton = document.getElementById("adminLoginFooter");
+    let logoutButton = document.createElement("button");
 
     logoutButton.id = "logoutAdmin";
     logoutButton.textContent = "🚪 تسجيل الخروج";
@@ -83,14 +89,11 @@ document.addEventListener("DOMContentLoaded", function () {
                       `🚚 *مدة الشحن:* من 1 إلى 7 أيام\n\n` +
                       `✅ *تم إرسال الطلب بنجاح!*`;
 
-        let telegramBotToken = "TOKEN_HERE";
-        let telegramChatId = "CHAT_ID_HERE";
-
-        fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+        fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                chat_id: telegramChatId,
+                chat_id: TELEGRAM_CHAT_ID,
                 text: message,
                 parse_mode: "Markdown"
             })
@@ -109,76 +112,65 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ✅ تحميل التقييمات عند فتح الصفحة
+    // ✅ تحميل التقييمات من JSONBin
     function loadReviews() {
-        let storedReviews = JSON.parse(localStorage.getItem("reviews")) || [];
-        reviewsList.innerHTML = "";
+        fetch(JSONBIN_API + "/latest", {
+            method: "GET",
+            headers: { "X-Master-Key": JSONBIN_SECRET }
+        })
+        .then(response => response.json())
+        .then(data => {
+            let reviews = data.record.reviews || [];
+            reviewsList.innerHTML = "";
 
-        if (storedReviews.length === 0) {
-            reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد. كن أول من يشارك برأيه!</p>`;
-        } else {
-            storedReviews.forEach((review, index) => {
-                let reviewElement = document.createElement("div");
-                reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md flex justify-between items-center mt-2 relative";
-                reviewElement.innerHTML = `
-                    <span class="text-gray-800"><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
-                    <button class="delete-review text-red-500 absolute bottom-1 left-1 p-1 rounded" data-index="${index}">🗑️</button>
-                `;
-                reviewsList.appendChild(reviewElement);
-            });
-        }
+            if (reviews.length === 0) {
+                reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد. كن أول من يشارك برأيه!</p>`;
+            } else {
+                reviews.forEach((review, index) => {
+                    let reviewElement = document.createElement("div");
+                    reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md flex justify-between items-center mt-2 relative";
+                    reviewElement.innerHTML = `
+                        <span class="text-gray-800"><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
+                        <button class="delete-review text-red-500 absolute bottom-1 left-1 p-1 rounded" data-index="${index}">🗑️</button>
+                    `;
+                    reviewsList.appendChild(reviewElement);
+                });
+            }
+        })
+        .catch(error => console.error("❌ خطأ في تحميل التقييمات:", error));
     }
 
-    loadReviews();
-
-    // ✅ إضافة التقييمات الجديدة
-    reviewForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        let name = document.getElementById("reviewerName").value.trim();
-        let rating = document.getElementById("reviewRating").value;
-        let comment = document.getElementById("reviewText").value.trim();
-
-        if (!name || !comment) {
-            alert("❌ يرجى إدخال الاسم والتعليق.");
-            return;
-        }
-
-        let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
-        reviews.push({ name, rating, comment });
-        localStorage.setItem("reviews", JSON.stringify(reviews));
-
-        loadReviews();
-        reviewForm.reset();
-    });
-
-    // ✅ حذف تعليق معين
+    // ✅ حذف تقييم معين
     reviewsList.addEventListener("click", function (event) {
         if (event.target.classList.contains("delete-review")) {
             let index = event.target.getAttribute("data-index");
-            let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
-            reviews.splice(index, 1);
-            localStorage.setItem("reviews", JSON.stringify(reviews));
-            loadReviews();
+
+            fetch(JSONBIN_API + "/latest", {
+                method: "GET",
+                headers: { "X-Master-Key": JSONBIN_SECRET }
+            })
+            .then(response => response.json())
+            .then(data => {
+                let reviews = data.record.reviews || [];
+                reviews.splice(index, 1);
+
+                return fetch(JSONBIN_API, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Master-Key": JSONBIN_SECRET
+                    },
+                    body: JSON.stringify({ reviews })
+                });
+            })
+            .then(() => {
+                alert("🗑️ تم حذف التقييم بنجاح!");
+                loadReviews();
+            })
+            .catch(error => console.error("❌ خطأ في حذف التقييم:", error));
         }
     });
 
-    // ✅ تسجيل الدخول للمالك
-    adminLoginButton.addEventListener("click", function () {
-        let password = prompt("🔑 أدخل كلمة المرور:");
-        if (password === ADMIN_PASSWORD) {
-            alert("✅ تسجيل الدخول ناجح!");
-            localStorage.setItem("isAdmin", "true");
-            logoutButton.classList.remove("hidden");
-        } else {
-            alert("❌ كلمة المرور غير صحيحة.");
-        }
-    });
-
-    // ✅ تسجيل الخروج للمالك
-    logoutButton.addEventListener("click", function () {
-        localStorage.removeItem("isAdmin");
-        logoutButton.classList.add("hidden");
-        alert("🚪 تم تسجيل الخروج بنجاح.");
-    });
+    // ✅ تحميل التقييمات عند فتح الصفحة
+    loadReviews();
 });
