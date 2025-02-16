@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
     let priceDisplay = document.getElementById("priceDisplay");
     let reviewForm = document.getElementById("reviewForm");
     let reviewsList = document.getElementById("reviewsList");
+    let adminPasswordInput = document.getElementById("adminPassword");
+    let adminLoginButton = document.getElementById("adminLogin");
+    let clearReviewsButton = document.getElementById("clearReviews");
 
     // ✅ **أسعار المنتج لكل دولة (بالعملة المحلية)**
     const prices = {
@@ -103,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ✅ **عرض رسالة النجاح وتغيير المحتوى لرقم الطلب**
+    // ✅ **عرض رسالة النجاح مع رقم الطلب**
     function showSuccessMessage(orderNumber) {
         let button = document.querySelector(".btn-glow");
         button.innerHTML = "✅ تم إرسال الطلب بنجاح";
@@ -127,12 +130,12 @@ document.addEventListener("DOMContentLoaded", function () {
     function loadReviews() {
         let storedReviews = localStorage.getItem("reviews");
         if (storedReviews) {
-            reviewsList.innerHTML = storedReviews; // عرض التقييمات المحفوظة
+            reviewsList.innerHTML = storedReviews;
         }
     }
     loadReviews(); // تحميل التقييمات عند فتح الصفحة
 
-    // ✅ **إضافة تقييم جديد وحفظه في Local Storage**
+    // ✅ **إضافة تقييم جديد وحفظه**
     reviewForm.addEventListener("submit", function (event) {
         event.preventDefault();
         
