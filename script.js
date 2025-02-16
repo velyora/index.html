@@ -20,14 +20,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const ADMIN_PASSWORD = "123456"; // كلمة مرور المالك
 
-    // ✅ التحقق من حالة تسجيل الدخول عند تحميل الصفحة
-    function checkAdminLogin() {
-        let isAdmin = localStorage.getItem("isAdmin") === "true";
-        logoutButton.classList.toggle("hidden", !isAdmin);
-        loadReviews();
-    }
+    // ✅ قائمة الأسعار لكل دولة
+    const prices = {
+        "sa": 37, "qa": 35, "ae": 36, "kw": 3, "om": 3.7, "bh": 3.8,
+        "eg": 300, "jo": 7, "iq": 14500, "lb": 900000
+    };
 
-    checkAdminLogin();
+    const currencies = {
+        "sa": "ريال", "qa": "ريال", "ae": "درهم", "kw": "دينار", "om": "ريال",
+        "bh": "دينار", "eg": "جنيه", "jo": "دينار", "iq": "دينار", "lb": "ليرة"
+    };
 
     // ✅ تحديث مفتاح الدولة عند تغيير الدولة
     countrySelect.addEventListener("change", function () {
@@ -36,6 +38,29 @@ document.addEventListener("DOMContentLoaded", function () {
         phoneCode.textContent = countryCode;
         updatePrice();
     });
+
+    // ✅ تحديث السعر عند تغيير الدولة أو الكمية
+    function updatePrice() {
+        let country = countrySelect.value;
+        let quantity = parseInt(quantitySelect.value) || 1;
+        let pricePerPiece = prices[country] || 0;
+        let currency = currencies[country] || "";
+        let totalPrice = pricePerPiece * quantity;
+        priceDisplay.textContent = `💰 السعر: ${totalPrice.toLocaleString()} ${currency}`;
+    }
+
+    quantitySelect.addEventListener("change", updatePrice);
+    updatePrice();
+
+    // ✅ التحقق من حالة تسجيل الدخول عند تحميل الصفحة
+    function checkAdminLogin() {
+        let isAdmin = localStorage.getItem("isAdmin") === "true";
+        logoutButton.classList.toggle("hidden", !isAdmin);
+        adminLoginButton.classList.toggle("hidden", isAdmin);
+        loadReviews();
+    }
+
+    checkAdminLogin();
 
     // ✅ إرسال الطلب
     orderForm.addEventListener("submit", function (event) {
@@ -57,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         orderForm.classList.add("hidden");
-        orderNumberElement.textContent = `رقم الطلب: ${orderNumber}`;
+        orderNumberElement.textContent = `✅ رقم الطلب: ${orderNumber}`;
         orderNumberContainer.classList.remove("hidden");
 
         setTimeout(() => {
@@ -113,6 +138,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         deleteButton.textContent = "🗑️";
                         deleteButton.classList = "delete-review text-red-500 absolute bottom-1 left-1 p-1 rounded";
                         deleteButton.setAttribute("data-index", index);
+                        deleteButton.addEventListener("click", function () {
+                            deleteReview(index);
+                        });
                         reviewElement.appendChild(deleteButton);
                     }
                     reviewsList.appendChild(reviewElement);
@@ -141,19 +169,8 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("🚪 تم تسجيل الخروج بنجاح.");
     });
 
-    // ✅ إضافة التقييم إلى JSONBin
-    reviewForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        let name = document.getElementById("reviewerName").value.trim();
-        let rating = document.getElementById("reviewRating").value;
-        let comment = document.getElementById("reviewText").value.trim();
-
-        if (!name || !comment) {
-            alert("❌ يرجى إدخال الاسم والتعليق.");
-            return;
-        }
-
+    // ✅ حذف تعليق معين
+    function deleteReview(index) {
         fetch(`${JSONBIN_API}/latest`, {
             method: "GET",
             headers: { "X-Master-Key": JSONBIN_SECRET }
@@ -161,8 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             let reviews = data.record.reviews || [];
-            reviews.push({ name, rating, comment });
-
+            reviews.splice(index, 1);
             return fetch(JSONBIN_API, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_SECRET },
@@ -170,9 +186,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         })
         .then(() => {
-            alert("✅ تم حفظ التقييم بنجاح!");
+            alert("🗑️ تم حذف التقييم!");
             loadReviews();
-            reviewForm.reset();
         });
-    });
+    }
 });
