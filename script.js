@@ -15,11 +15,25 @@ document.addEventListener("DOMContentLoaded", function () {
     let orderForm = document.getElementById("orderForm");
     let adminLoginButton = document.getElementById("adminLoginFooter");
     let logoutButton = document.getElementById("logoutAdmin");
-    let orderNumberContainer = document.getElementById("orderNumberContainer");
-    let orderNumberElement = document.getElementById("orderNumber");
     let clearReviewsButton = document.getElementById("clearReviews");
 
     const ADMIN_PASSWORD = "123456"; // كلمة مرور المالك
+
+    // ✅ التحقق من حالة تسجيل الدخول عند تحميل الصفحة
+    function checkAdminLogin() {
+        let isAdmin = localStorage.getItem("isAdmin");
+        if (isAdmin === "true") {
+            logoutButton.classList.remove("hidden");
+            clearReviewsButton.classList.remove("hidden");
+            document.body.classList.add("admin-mode");
+        } else {
+            logoutButton.classList.add("hidden");
+            clearReviewsButton.classList.add("hidden");
+            document.body.classList.remove("admin-mode");
+        }
+    }
+
+    checkAdminLogin();
 
     // ✅ أسعار المنتج لكل دولة
     const prices = {
@@ -95,9 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }).then(response => response.json())
           .then(data => {
               if (data.ok) {
-                  orderForm.classList.add("hidden");
-                  orderNumberElement.textContent = orderNumber;
-                  orderNumberContainer.classList.remove("hidden");
+                  alert("✅ تم إرسال الطلب بنجاح!");
               } else {
                   alert("⚠️ حدث خطأ أثناء إرسال الطلب.");
               }
@@ -123,6 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md mt-2";
                     reviewElement.innerHTML = `
                         <span><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
+                        ${localStorage.getItem("isAdmin") === "true" ? `<button class="delete-review text-red-500 ml-2" data-index="${index}">🗑️</button>` : ""}
                     `;
                     reviewsList.appendChild(reviewElement);
                 });
@@ -138,8 +151,9 @@ document.addEventListener("DOMContentLoaded", function () {
         let password = prompt("🔑 أدخل كلمة المرور:");
         if (password === ADMIN_PASSWORD) {
             alert("✅ تسجيل الدخول ناجح!");
-            logoutButton.classList.remove("hidden");
-            clearReviewsButton.classList.remove("hidden");
+            localStorage.setItem("isAdmin", "true");
+            checkAdminLogin();
+            loadReviews();
         } else {
             alert("❌ كلمة المرور غير صحيحة.");
         }
@@ -147,8 +161,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ تسجيل الخروج للمالك
     logoutButton.addEventListener("click", function () {
-        logoutButton.classList.add("hidden");
-        clearReviewsButton.classList.add("hidden");
+        localStorage.removeItem("isAdmin");
+        checkAdminLogin();
+        loadReviews();
         alert("🚪 تم تسجيل الخروج بنجاح.");
     });
 
@@ -156,10 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
     clearReviewsButton.addEventListener("click", function () {
         fetch(JSONBIN_API, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "X-Master-Key": JSONBIN_SECRET
-            },
+            headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_SECRET },
             body: JSON.stringify({ reviews: [] })
         }).then(() => {
             alert("🗑️ تم حذف جميع التقييمات!");
