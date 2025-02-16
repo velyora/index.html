@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let logoutButton = document.getElementById("logoutAdmin");
     let orderNumberContainer = document.getElementById("orderNumberContainer");
     let orderNumberElement = document.getElementById("orderNumber");
-    
+    let clearReviewsButton = document.getElementById("clearReviews");
+
     const ADMIN_PASSWORD = "123456"; // كلمة مرور المالك
 
     // ✅ أسعار المنتج لكل دولة
@@ -122,6 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md mt-2";
                     reviewElement.innerHTML = `
                         <span><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
+                        <button class="delete-review text-red-500 ml-2" data-index="${index}">🗑️</button>
                     `;
                     reviewsList.appendChild(reviewElement);
                 });
@@ -132,51 +134,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadReviews();
 
-    // ✅ إضافة التقييمات إلى JSONBin
-    reviewForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        let name = document.getElementById("reviewerName").value.trim();
-        let rating = document.getElementById("reviewRating").value;
-        let comment = document.getElementById("reviewText").value.trim();
-
-        if (!name || !comment) {
-            alert("❌ يرجى إدخال الاسم والتعليق.");
-            return;
-        }
-
-        fetch(JSONBIN_API + "/latest", {
-            method: "GET",
-            headers: { "X-Master-Key": JSONBIN_SECRET }
-        })
-        .then(response => response.json())
-        .then(data => {
-            let reviews = data.record.reviews || [];
-            reviews.push({ name, rating, comment });
-
-            return fetch(JSONBIN_API, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-Master-Key": JSONBIN_SECRET
-                },
-                body: JSON.stringify({ reviews })
-            });
-        })
-        .then(() => {
-            alert("✅ تم حفظ التقييم بنجاح!");
-            loadReviews();
-            reviewForm.reset();
-        })
-        .catch(error => console.error("❌ خطأ في إضافة التقييم:", error));
-    });
-
     // ✅ تسجيل الدخول للمالك
     adminLoginButton.addEventListener("click", function () {
         let password = prompt("🔑 أدخل كلمة المرور:");
         if (password === ADMIN_PASSWORD) {
             alert("✅ تسجيل الدخول ناجح!");
             logoutButton.classList.remove("hidden");
+            clearReviewsButton.classList.remove("hidden");
         } else {
             alert("❌ كلمة المرور غير صحيحة.");
         }
@@ -185,6 +149,48 @@ document.addEventListener("DOMContentLoaded", function () {
     // ✅ تسجيل الخروج للمالك
     logoutButton.addEventListener("click", function () {
         logoutButton.classList.add("hidden");
+        clearReviewsButton.classList.add("hidden");
         alert("🚪 تم تسجيل الخروج بنجاح.");
+    });
+
+    // ✅ حذف جميع التقييمات
+    clearReviewsButton.addEventListener("click", function () {
+        fetch(JSONBIN_API, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Master-Key": JSONBIN_SECRET
+            },
+            body: JSON.stringify({ reviews: [] })
+        }).then(() => {
+            alert("🗑️ تم حذف جميع التقييمات!");
+            loadReviews();
+        }).catch(error => console.error("❌ خطأ في حذف التقييمات:", error));
+    });
+
+    // ✅ حذف تعليق معين
+    reviewsList.addEventListener("click", function (event) {
+        if (event.target.classList.contains("delete-review")) {
+            let index = event.target.getAttribute("data-index");
+            fetch(JSONBIN_API + "/latest", {
+                method: "GET",
+                headers: { "X-Master-Key": JSONBIN_SECRET }
+            })
+            .then(response => response.json())
+            .then(data => {
+                let reviews = data.record.reviews || [];
+                reviews.splice(index, 1);
+                return fetch(JSONBIN_API, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_SECRET },
+                    body: JSON.stringify({ reviews })
+                });
+            })
+            .then(() => {
+                alert("🗑️ تم حذف التقييم!");
+                loadReviews();
+            })
+            .catch(error => console.error("❌ خطأ في حذف التقييم:", error));
+        }
     });
 });
