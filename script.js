@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         orderForm.classList.add("hidden");
         orderNumberElement.textContent = `رقم الطلب: ${orderNumber}`;
         orderNumberContainer.classList.remove("hidden");
+
         setTimeout(() => {
             orderNumberContainer.classList.add("hidden");
             orderForm.classList.remove("hidden");
@@ -100,12 +101,17 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 reviews.forEach((review, index) => {
                     let reviewElement = document.createElement("div");
-                    reviewElement.classList = "review p-3 shadow-md";
-                    reviewElement.innerHTML = `<strong>${review.rating} ${review.name}:</strong> ${review.comment}`;
+                    reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md mt-2 flex justify-between items-center relative";
+                    reviewElement.innerHTML = `
+                        <div class="flex items-center">
+                            <img src="https://www.w3schools.com/howto/img_avatar.png" class="w-10 h-10 rounded-full mr-2" alt="User">
+                            <span class="text-gray-800"><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
+                        </div>
+                    `;
                     if (localStorage.getItem("isAdmin") === "true") {
                         let deleteButton = document.createElement("button");
                         deleteButton.textContent = "🗑️";
-                        deleteButton.classList = "delete-review text-red-500 ml-2";
+                        deleteButton.classList = "delete-review text-red-500 absolute bottom-1 left-1 p-1 rounded";
                         deleteButton.setAttribute("data-index", index);
                         reviewElement.appendChild(deleteButton);
                     }
@@ -168,30 +174,5 @@ document.addEventListener("DOMContentLoaded", function () {
             loadReviews();
             reviewForm.reset();
         });
-    });
-
-    // ✅ حذف تعليق معين
-    reviewsList.addEventListener("click", function (event) {
-        if (event.target.classList.contains("delete-review")) {
-            let index = event.target.getAttribute("data-index");
-            fetch(`${JSONBIN_API}/latest`, {
-                method: "GET",
-                headers: { "X-Master-Key": JSONBIN_SECRET }
-            })
-            .then(response => response.json())
-            .then(data => {
-                let reviews = data.record.reviews || [];
-                reviews.splice(index, 1);
-                return fetch(JSONBIN_API, {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_SECRET },
-                    body: JSON.stringify({ reviews })
-                });
-            })
-            .then(() => {
-                alert("🗑️ تم حذف التقييم!");
-                loadReviews();
-            });
-        }
     });
 });
