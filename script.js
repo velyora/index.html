@@ -129,7 +129,6 @@ document.addEventListener("DOMContentLoaded", function () {
         let storedReviews = localStorage.getItem("reviews");
         if (storedReviews && storedReviews.trim() !== "") {
             reviewsList.innerHTML = storedReviews;
-            document.getElementById("reviewsContainer").style.display = "block";
         } else {
             reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد. كن أول من يشارك برأيه!</p>`;
         }
