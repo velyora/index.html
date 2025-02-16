@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // ✅ تعريف متغيرات API
     const JSONBIN_API = "https://api.jsonbin.io/v3/b/67b25350acd3cb34a8e4bf28";
     const JSONBIN_SECRET = "$2a$10$cR8U3fnhRtMfoC722GP31eOWZghfYOja3xo8ZR0OxFM/MbMyG2viq"; // مفتاح JSONBin
-    const TELEGRAM_BOT_TOKEN = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A"; // توكين تيليجرام
-    const TELEGRAM_CHAT_ID = "-1002290156309"; // معرف تيليجرام
+    const TELEGRAM_BOT_TOKEN = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A";
+    const TELEGRAM_CHAT_ID = "-1002290156309";
 
     // ✅ جلب عناصر الصفحة
     let countrySelect = document.getElementById("country");
@@ -16,21 +16,15 @@ document.addEventListener("DOMContentLoaded", function () {
     let adminLoginButton = document.getElementById("adminLoginFooter");
     let logoutButton = document.getElementById("logoutAdmin");
     let clearReviewsButton = document.getElementById("clearReviews");
+    let orderNumberElement = document.getElementById("orderNumber");
 
     const ADMIN_PASSWORD = "123456"; // كلمة مرور المالك
 
     // ✅ التحقق من حالة تسجيل الدخول عند تحميل الصفحة
     function checkAdminLogin() {
-        let isAdmin = localStorage.getItem("isAdmin");
-        if (isAdmin === "true") {
-            logoutButton.classList.remove("hidden");
-            clearReviewsButton.classList.remove("hidden");
-            document.body.classList.add("admin-mode");
-        } else {
-            logoutButton.classList.add("hidden");
-            clearReviewsButton.classList.add("hidden");
-            document.body.classList.remove("admin-mode");
-        }
+        let isAdmin = localStorage.getItem("isAdmin") === "true";
+        logoutButton.classList.toggle("hidden", !isAdmin);
+        clearReviewsButton.classList.toggle("hidden", !isAdmin);
     }
 
     checkAdminLogin();
@@ -56,13 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
         priceDisplay.textContent = `💰 السعر: ${totalPrice.toLocaleString()} ${currency}`;
     }
 
-    countrySelect.addEventListener("change", function () {
-        let selectedOption = countrySelect.options[countrySelect.selectedIndex];
-        let countryCode = selectedOption.getAttribute("data-code");
-        phoneCode.textContent = countryCode;
-        updatePrice();
-    });
-
+    countrySelect.addEventListener("change", updatePrice);
     quantitySelect.addEventListener("change", updatePrice);
     updatePrice();
 
@@ -78,25 +66,23 @@ document.addEventListener("DOMContentLoaded", function () {
         let postalCode = document.getElementById("postalCode").value.trim();
         let quantity = quantitySelect.value;
         let totalPrice = priceDisplay.textContent;
-        let orderNumber = Math.floor(100000 + Math.random() * 900000); // توليد رقم الطلب
+        let orderNumber = Math.floor(100000 + Math.random() * 900000);
 
         if (!name || !phone || !city || !address || !postalCode) {
             alert("❌ يرجى تعبئة جميع الحقول المطلوبة.");
             return;
         }
 
+        orderNumberElement.textContent = `رقم الطلب: ${orderNumber}`;
+
         let message = `📢 *طلب جديد!* 🚀\n\n` +
                       `🔢 *رقم الطلب:* ${orderNumber}\n` +
                       `👤 *الاسم:* ${name}\n` +
                       `🌍 *الدولة:* ${countryName}\n` +
-                      `🏙️ *المدينة:* ${city}\n` +
-                      `📍 *العنوان:* ${address}\n` +
-                      `📬 *الرمز البريدي:* ${postalCode}\n` +
                       `📞 *رقم الجوال:* ${phone}\n` +
-                      `🛒 *الكمية المطلوبة:* ${quantity} قطع\n` +
+                      `🛒 *الكمية:* ${quantity} قطع\n` +
                       `${totalPrice}\n` +
-                      `🚚 *مدة الشحن:* من 1 إلى 7 أيام\n\n` +
-                      `✅ *تم إرسال الطلب بنجاح!*`;
+                      `🚚 *مدة الشحن:* من 1 إلى 7 أيام\n`;
 
         fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
             method: "POST",
@@ -117,9 +103,9 @@ document.addEventListener("DOMContentLoaded", function () {
           .catch(error => console.error("❌ خطأ:", error));
     });
 
-    // ✅ تحميل التقييمات من JSONBin
+    // ✅ تحميل التقييمات
     function loadReviews() {
-        fetch(JSONBIN_API + "/latest", {
+        fetch(`${JSONBIN_API}/latest`, {
             method: "GET",
             headers: { "X-Master-Key": JSONBIN_SECRET }
         })
@@ -132,11 +118,8 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 reviews.forEach((review, index) => {
                     let reviewElement = document.createElement("div");
-                    reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md mt-2";
-                    reviewElement.innerHTML = `
-                        <span><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
-                        ${localStorage.getItem("isAdmin") === "true" ? `<button class="delete-review text-red-500 ml-2" data-index="${index}">🗑️</button>` : ""}
-                    `;
+                    reviewElement.classList = "review p-3 shadow-md";
+                    reviewElement.innerHTML = `<strong>${review.rating} ${review.name}:</strong> ${review.comment}`;
                     reviewsList.appendChild(reviewElement);
                 });
             }
@@ -146,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadReviews();
 
-    // ✅ تسجيل الدخول للمالك
+    // ✅ تسجيل الدخول والخروج
     adminLoginButton.addEventListener("click", function () {
         let password = prompt("🔑 أدخل كلمة المرور:");
         if (password === ADMIN_PASSWORD) {
@@ -159,11 +142,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // ✅ تسجيل الخروج للمالك
     logoutButton.addEventListener("click", function () {
         localStorage.removeItem("isAdmin");
         checkAdminLogin();
-        loadReviews();
         alert("🚪 تم تسجيل الخروج بنجاح.");
     });
 
