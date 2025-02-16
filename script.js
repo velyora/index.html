@@ -47,6 +47,70 @@ document.addEventListener("DOMContentLoaded", function () {
     quantitySelect.addEventListener("change", updatePrice);
     updatePrice(); // تحديث السعر عند تحميل الصفحة
 
+    // ✅ **تحميل التقييمات عند فتح الصفحة**
+    function loadReviews() {
+        let storedReviews = localStorage.getItem("reviews");
+        if (storedReviews) {
+            reviewsList.innerHTML = storedReviews; // ✅ **عرض التقييمات المحفوظة**
+        }
+        checkEmptyReviews();
+    }
+
+    // ✅ **التأكد مما إذا كانت هناك تقييمات أم لا**
+    function checkEmptyReviews() {
+        if (!reviewsList.innerHTML.trim()) {
+            reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد. كن أول من يشارك برأيه!</p>`;
+        }
+    }
+
+    loadReviews(); // ✅ **تحميل التقييمات عند فتح الصفحة**
+
+    // ✅ **إضافة تقييم جديد وحفظه في Local Storage**
+    reviewForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        
+        let name = document.getElementById("reviewerName").value.trim();
+        let rating = document.getElementById("reviewRating").value;
+        let comment = document.getElementById("reviewText").value.trim();
+
+        if (!name || !comment) {
+            alert("❌ يرجى إدخال الاسم والتعليق.");
+            return;
+        }
+
+        let newReview = document.createElement("div");
+        newReview.classList.add("review-item", "bg-white", "p-3", "rounded-lg", "shadow-md", "mt-2");
+        newReview.innerHTML = `<strong>${rating} ${name}:</strong> ${comment}`;
+
+        reviewsList.appendChild(newReview);
+        localStorage.setItem("reviews", reviewsList.innerHTML);
+
+        reviewForm.reset();
+        checkEmptyReviews();
+    });
+
+    // ✅ **تفعيل زر حذف التقييمات عند إدخال كلمة المرور الصحيحة**
+    adminLoginButton.addEventListener("click", function () {
+        let enteredPassword = adminPasswordInput.value.trim();
+        
+        if (enteredPassword === ADMIN_PASSWORD) {
+            alert("🔑 تم تسجيل الدخول بنجاح! يمكنك الآن حذف التقييمات.");
+            clearReviewsButton.classList.remove("hidden"); // ✅ إظهار زر الحذف
+        } else {
+            alert("❌ كلمة المرور غير صحيحة!");
+        }
+    });
+
+    // ✅ **حذف جميع التقييمات عند النقر على زر الحذف**
+    clearReviewsButton.addEventListener("click", function () {
+        if (confirm("⚠️ هل أنت متأكد أنك تريد حذف جميع التقييمات؟")) {
+            localStorage.removeItem("reviews");
+            reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد. كن أول من يشارك برأيه!</p>`;
+            alert("✅ تم حذف جميع التقييمات بنجاح!");
+            clearReviewsButton.classList.add("hidden"); // ✅ إخفاء زر الحذف بعد الحذف
+        }
+    });
+
     // ✅ **إرسال الطلب عند النقر على زر الدفع**
     document.getElementById("orderForm").addEventListener("submit", function(event) {
         event.preventDefault();
@@ -106,57 +170,6 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("❌ خطأ أثناء إرسال الطلب إلى تيليجرام:", error);
             alert("❌ تعذر إرسال الطلب. تحقق من الاتصال بالإنترنت.");
         });
-    });
-
-    // ✅ **عرض رسالة النجاح وتغيير المحتوى لرقم الطلب**
-    function showSuccessMessage(orderNumber) {
-        let button = document.querySelector(".btn-glow");
-        button.innerHTML = "✅ تم إرسال الطلب بنجاح";
-        button.style.background = "linear-gradient(to right, #16a085, #27ae60)";
-
-        document.getElementById("orderForm").classList.add("hidden");
-        document.getElementById("orderNumber").textContent = orderNumber;
-        document.getElementById("orderNumberContainer").classList.remove("hidden");
-
-        setTimeout(() => {
-            button.innerHTML = "🚀 اطلب الآن والدفع عند الاستلام";
-            button.style.background = "linear-gradient(to right, #f7971e, #ff4500)";
-            document.getElementById("orderForm").reset();
-            document.getElementById("orderForm").classList.remove("hidden");
-            document.getElementById("orderNumberContainer").classList.add("hidden");
-            updatePrice(); 
-        }, 100000);
-    }
-
-    // ✅ **تحميل التقييمات المحفوظة عند فتح الصفحة**
-    function loadReviews() {
-        let storedReviews = localStorage.getItem("reviews");
-        if (storedReviews) {
-            reviewsList.innerHTML = storedReviews; // ✅ **عرض التقييمات المحفوظة**
-        }
-    }
-    loadReviews(); // ✅ **تحميل التقييمات عند فتح الصفحة**
-
-    // ✅ **إضافة تقييم جديد وحفظه في Local Storage**
-    reviewForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        
-        let name = document.getElementById("reviewerName").value.trim();
-        let rating = document.getElementById("reviewRating").value;
-        let comment = document.getElementById("reviewText").value.trim();
-
-        if (!name || !comment) {
-            alert("❌ يرجى إدخال الاسم والتعليق.");
-            return;
-        }
-
-        let newReview = document.createElement("div");
-        newReview.classList.add("review-item", "bg-white", "p-3", "rounded-lg", "shadow-md", "mt-2");
-        newReview.innerHTML = `<strong>${rating} ${name}:</strong> ${comment}`;
-
-        reviewsList.appendChild(newReview);
-        localStorage.setItem("reviews", reviewsList.innerHTML);
-        reviewForm.reset();
     });
 
 });
