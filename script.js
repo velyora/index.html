@@ -8,9 +8,15 @@ document.addEventListener("DOMContentLoaded", function () {
     let reviewsList = document.getElementById("reviewsList");
     let adminLoginButton = document.getElementById("adminLoginFooter"); // زر تسجيل الدخول
     let clearReviewsButton = document.getElementById("clearReviews"); // زر حذف التقييمات
-    let logoutButton = document.getElementById("logoutAdmin"); // زر تسجيل الخروج (يجب إضافته في `index.html`)
+    let logoutButton = document.createElement("button"); // زر تسجيل الخروج
 
     const ADMIN_PASSWORD = "123456"; // ✅ **كلمة مرور المالك**
+
+    // ✅ **إضافة زر تسجيل الخروج ديناميكياً**
+    logoutButton.id = "logoutAdmin";
+    logoutButton.textContent = "🚪 تسجيل الخروج";
+    logoutButton.classList = "btn-glow mt-4 bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded hidden";
+    document.body.appendChild(logoutButton);
 
     // ✅ **أسعار المنتج لكل دولة (بالعملة المحلية)**
     const prices = {
@@ -125,35 +131,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 100000);
     }
 
-    // ✅ **تحميل التقييمات عند فتح الصفحة**
-    function loadReviews() {
-        let storedReviews = localStorage.getItem("reviews");
-        if (storedReviews && storedReviews.trim() !== "") {
-            reviewsList.innerHTML = storedReviews;
+    // ✅ **التحقق من حالة تسجيل الدخول**
+    function checkAdminStatus() {
+        if (localStorage.getItem("isAdmin") === "true") {
+            clearReviewsButton.classList.remove("hidden");
+            logoutButton.classList.remove("hidden");
         } else {
-            reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد. كن أول من يشارك برأيه!</p>`;
+            clearReviewsButton.classList.add("hidden");
+            logoutButton.classList.add("hidden");
         }
     }
 
-    loadReviews();
-
-    reviewForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        let name = document.getElementById("reviewerName").value.trim();
-        let rating = document.getElementById("reviewRating").value;
-        let comment = document.getElementById("reviewText").value.trim();
-
-        if (!name || !comment) {
-            alert("❌ يرجى إدخال الاسم والتعليق.");
-            return;
-        }
-
-        let newReview = `<div><strong>${rating} ${name}:</strong> ${comment}</div>`;
-        reviewsList.innerHTML += newReview;
-        localStorage.setItem("reviews", reviewsList.innerHTML);
-        reviewForm.reset();
-    });
+    checkAdminStatus();
 
     // ✅ **تسجيل الدخول للمالك**
     adminLoginButton.addEventListener("click", function () {
@@ -161,14 +150,23 @@ document.addEventListener("DOMContentLoaded", function () {
         if (password === ADMIN_PASSWORD) {
             alert("✅ تسجيل الدخول ناجح!");
             localStorage.setItem("isAdmin", "true");
-            clearReviewsButton.style.display = "block";
+            checkAdminStatus();
         } else {
             alert("❌ كلمة المرور غير صحيحة.");
         }
     });
 
-    // ✅ **إظهار زر الحذف عند تسجيل الدخول**
-    if (localStorage.getItem("isAdmin") === "true") {
-        clearReviewsButton.style.display = "block";
-    }
+    // ✅ **تسجيل الخروج للمالك**
+    logoutButton.addEventListener("click", function () {
+        localStorage.removeItem("isAdmin");
+        checkAdminStatus();
+        alert("🚪 تم تسجيل الخروج بنجاح.");
+    });
+
+    // ✅ **حذف التقييمات**
+    clearReviewsButton.addEventListener("click", function () {
+        localStorage.removeItem("reviews");
+        reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد. كن أول من يشارك برأيه!</p>`;
+        alert("🗑️ تم حذف جميع التقييمات!");
+    });
 });
