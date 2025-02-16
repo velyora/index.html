@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let reviewsList = document.getElementById("reviewsList");
     let adminLoginButton = document.getElementById("adminLoginFooter"); // زر تسجيل الدخول
     let logoutButton = document.createElement("button"); // زر تسجيل الخروج
+
     logoutButton.id = "logoutAdmin";
     logoutButton.textContent = "🚪 تسجيل الخروج";
     logoutButton.classList = "btn-glow mt-4 bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded hidden";
@@ -118,10 +119,10 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             storedReviews.forEach((review, index) => {
                 let reviewElement = document.createElement("div");
-                reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md flex justify-between items-center";
+                reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md flex justify-between items-center mt-2 relative";
                 reviewElement.innerHTML = `
-                    <span><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
-                    <button class="delete-review text-red-500" data-index="${index}">🗑️</button>
+                    <span class="text-gray-800"><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
+                    <button class="delete-review text-red-500 absolute bottom-1 left-1 p-1 rounded" data-index="${index}">🗑️</button>
                 `;
                 reviewsList.appendChild(reviewElement);
             });
