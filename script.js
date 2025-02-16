@@ -123,7 +123,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md mt-2";
                     reviewElement.innerHTML = `
                         <span><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
-                        <button class="delete-review text-red-500 ml-2" data-index="${index}">🗑️</button>
                     `;
                     reviewsList.appendChild(reviewElement);
                 });
@@ -166,31 +165,5 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("🗑️ تم حذف جميع التقييمات!");
             loadReviews();
         }).catch(error => console.error("❌ خطأ في حذف التقييمات:", error));
-    });
-
-    // ✅ حذف تعليق معين
-    reviewsList.addEventListener("click", function (event) {
-        if (event.target.classList.contains("delete-review")) {
-            let index = event.target.getAttribute("data-index");
-            fetch(JSONBIN_API + "/latest", {
-                method: "GET",
-                headers: { "X-Master-Key": JSONBIN_SECRET }
-            })
-            .then(response => response.json())
-            .then(data => {
-                let reviews = data.record.reviews || [];
-                reviews.splice(index, 1);
-                return fetch(JSONBIN_API, {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_SECRET },
-                    body: JSON.stringify({ reviews })
-                });
-            })
-            .then(() => {
-                alert("🗑️ تم حذف التقييم!");
-                loadReviews();
-            })
-            .catch(error => console.error("❌ خطأ في حذف التقييم:", error));
-        }
     });
 });
