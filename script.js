@@ -20,7 +20,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const ADMIN_PASSWORD = "123456"; // كلمة مرور المالك
 
-    // ✅ قائمة الأسعار لكل دولة
+    // ✅ التحقق من حالة تسجيل الدخول عند تحميل الصفحة
+    function checkAdminLogin() {
+        let isAdmin = localStorage.getItem("isAdmin") === "true";
+        logoutButton.classList.toggle("hidden", !isAdmin);
+        adminLoginButton.classList.toggle("hidden", isAdmin);
+        loadReviews();
+    }
+
+    checkAdminLogin();
+
+    // ✅ تعريف قائمة العملات والأسعار
     const prices = {
         "sa": 37, "qa": 35, "ae": 36, "kw": 3, "om": 3.7, "bh": 3.8,
         "eg": 300, "jo": 7, "iq": 14500, "lb": 900000
@@ -30,14 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
         "sa": "ريال", "qa": "ريال", "ae": "درهم", "kw": "دينار", "om": "ريال",
         "bh": "دينار", "eg": "جنيه", "jo": "دينار", "iq": "دينار", "lb": "ليرة"
     };
-
-    // ✅ تحديث مفتاح الدولة عند تغيير الدولة
-    countrySelect.addEventListener("change", function () {
-        let selectedOption = countrySelect.options[countrySelect.selectedIndex];
-        let countryCode = selectedOption.getAttribute("data-code");
-        phoneCode.textContent = countryCode;
-        updatePrice();
-    });
 
     // ✅ تحديث السعر عند تغيير الدولة أو الكمية
     function updatePrice() {
@@ -49,18 +51,15 @@ document.addEventListener("DOMContentLoaded", function () {
         priceDisplay.textContent = `💰 السعر: ${totalPrice.toLocaleString()} ${currency}`;
     }
 
+    countrySelect.addEventListener("change", function () {
+        let selectedOption = countrySelect.options[countrySelect.selectedIndex];
+        let countryCode = selectedOption.getAttribute("data-code");
+        phoneCode.textContent = countryCode;
+        updatePrice();
+    });
+
     quantitySelect.addEventListener("change", updatePrice);
     updatePrice();
-
-    // ✅ التحقق من حالة تسجيل الدخول عند تحميل الصفحة
-    function checkAdminLogin() {
-        let isAdmin = localStorage.getItem("isAdmin") === "true";
-        logoutButton.classList.toggle("hidden", !isAdmin);
-        adminLoginButton.classList.toggle("hidden", isAdmin);
-        loadReviews();
-    }
-
-    checkAdminLogin();
 
     // ✅ إرسال الطلب
     orderForm.addEventListener("submit", function (event) {
@@ -168,26 +167,4 @@ document.addEventListener("DOMContentLoaded", function () {
         checkAdminLogin();
         alert("🚪 تم تسجيل الخروج بنجاح.");
     });
-
-    // ✅ حذف تعليق معين
-    function deleteReview(index) {
-        fetch(`${JSONBIN_API}/latest`, {
-            method: "GET",
-            headers: { "X-Master-Key": JSONBIN_SECRET }
-        })
-        .then(response => response.json())
-        .then(data => {
-            let reviews = data.record.reviews || [];
-            reviews.splice(index, 1);
-            return fetch(JSONBIN_API, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_SECRET },
-                body: JSON.stringify({ reviews })
-            });
-        })
-        .then(() => {
-            alert("🗑️ تم حذف التقييم!");
-            loadReviews();
-        });
-    }
 });
