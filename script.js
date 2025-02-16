@@ -130,6 +130,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (storedReviews && storedReviews.trim() !== "") {
             reviewsList.innerHTML = storedReviews;
             document.getElementById("reviewsContainer").style.display = "block";
+        } else {
+            reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد. كن أول من يشارك برأيه!</p>`;
         }
     }
 
@@ -158,13 +160,19 @@ document.addEventListener("DOMContentLoaded", function () {
         let password = prompt("🔑 أدخل كلمة المرور:");
         if (password === ADMIN_PASSWORD) {
             alert("✅ تسجيل الدخول ناجح!");
-            clearReviewsButton.classList.remove("hidden");
+            if (clearReviewsButton) {
+                clearReviewsButton.classList.remove("hidden");
+            }
+        } else {
+            alert("❌ كلمة المرور غير صحيحة.");
         }
     });
 
-    clearReviewsButton.addEventListener("click", function () {
-        localStorage.removeItem("reviews");
-        reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد. كن أول من يشارك برأيه!</p>`;
-        alert("🗑️ تم حذف جميع التقييمات!");
-    });
+    if (clearReviewsButton) {
+        clearReviewsButton.addEventListener("click", function () {
+            localStorage.removeItem("reviews");
+            reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد. كن أول من يشارك برأيه!</p>`;
+            alert("🗑️ تم حذف جميع التقييمات!");
+        });
+    }
 });
