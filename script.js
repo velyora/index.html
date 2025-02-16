@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let orderForm = document.getElementById("orderForm");
     let adminLoginButton = document.getElementById("adminLoginFooter");
     let logoutButton = document.getElementById("logoutAdmin");
-    let clearReviewsButton = document.getElementById("clearReviews");
     let orderNumberContainer = document.getElementById("orderNumberContainer");
     let orderNumberElement = document.getElementById("orderNumber");
 
@@ -25,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function checkAdminLogin() {
         let isAdmin = localStorage.getItem("isAdmin") === "true";
         logoutButton.classList.toggle("hidden", !isAdmin);
-        clearReviewsButton.classList.toggle("hidden", !isAdmin);
+        loadReviews();
     }
 
     checkAdminLogin();
@@ -51,7 +50,14 @@ document.addEventListener("DOMContentLoaded", function () {
         priceDisplay.textContent = `💰 السعر: ${totalPrice.toLocaleString()} ${currency}`;
     }
 
-    countrySelect.addEventListener("change", updatePrice);
+    // ✅ تحديث مفتاح الدولة عند تغيير الدولة
+    countrySelect.addEventListener("change", function () {
+        let selectedOption = countrySelect.options[countrySelect.selectedIndex];
+        let countryCode = selectedOption.getAttribute("data-code");
+        phoneCode.textContent = countryCode;
+        updatePrice();
+    });
+
     quantitySelect.addEventListener("change", updatePrice);
     updatePrice();
 
@@ -74,9 +80,14 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // ✅ عرض رقم الطلب في الصفحة
+        // ✅ عرض رقم الطلب وإخفاء النموذج لمدة 100 ثانية
+        orderForm.classList.add("hidden");
         orderNumberElement.textContent = `رقم الطلب: ${orderNumber}`;
         orderNumberContainer.classList.remove("hidden");
+        setTimeout(() => {
+            orderNumberContainer.classList.add("hidden");
+            orderForm.classList.remove("hidden");
+        }, 100000);
 
         let message = `📢 *طلب جديد!* 🚀\n\n` +
                       `👤 *الاسم:* ${name}\n` +
@@ -96,15 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 text: message,
                 parse_mode: "Markdown"
             })
-        }).then(response => response.json())
-          .then(data => {
-              if (data.ok) {
-                  alert("✅ تم إرسال الطلب بنجاح!");
-              } else {
-                  alert("⚠️ حدث خطأ أثناء إرسال الطلب.");
-              }
-          })
-          .catch(error => console.error("❌ خطأ:", error));
+        });
     });
 
     // ✅ تحميل التقييمات
@@ -120,15 +123,21 @@ document.addEventListener("DOMContentLoaded", function () {
             if (reviews.length === 0) {
                 reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد.</p>`;
             } else {
-                reviews.forEach(review => {
+                reviews.forEach((review, index) => {
                     let reviewElement = document.createElement("div");
                     reviewElement.classList = "review p-3 shadow-md";
                     reviewElement.innerHTML = `<strong>${review.rating} ${review.name}:</strong> ${review.comment}`;
+                    if (localStorage.getItem("isAdmin") === "true") {
+                        let deleteButton = document.createElement("button");
+                        deleteButton.textContent = "🗑️";
+                        deleteButton.classList = "delete-review text-red-500 ml-2";
+                        deleteButton.setAttribute("data-index", index);
+                        reviewElement.appendChild(deleteButton);
+                    }
                     reviewsList.appendChild(reviewElement);
                 });
             }
-        })
-        .catch(error => console.error("❌ خطأ في تحميل التقييمات:", error));
+        });
     }
 
     loadReviews();
@@ -140,7 +149,6 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("✅ تسجيل الدخول ناجح!");
             localStorage.setItem("isAdmin", "true");
             checkAdminLogin();
-            loadReviews();
         } else {
             alert("❌ كلمة المرور غير صحيحة.");
         }
@@ -152,15 +160,28 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("🚪 تم تسجيل الخروج بنجاح.");
     });
 
-    // ✅ حذف جميع التقييمات
-    clearReviewsButton.addEventListener("click", function () {
-        fetch(JSONBIN_API, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_SECRET },
-            body: JSON.stringify({ reviews: [] })
-        }).then(() => {
-            alert("🗑️ تم حذف جميع التقييمات!");
-            loadReviews();
-        }).catch(error => console.error("❌ خطأ في حذف التقييمات:", error));
+    // ✅ حذف تعليق معين
+    reviewsList.addEventListener("click", function (event) {
+        if (event.target.classList.contains("delete-review")) {
+            let index = event.target.getAttribute("data-index");
+            fetch(`${JSONBIN_API}/latest`, {
+                method: "GET",
+                headers: { "X-Master-Key": JSONBIN_SECRET }
+            })
+            .then(response => response.json())
+            .then(data => {
+                let reviews = data.record.reviews || [];
+                reviews.splice(index, 1);
+                return fetch(JSONBIN_API, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_SECRET },
+                    body: JSON.stringify({ reviews })
+                });
+            })
+            .then(() => {
+                alert("🗑️ تم حذف التقييم!");
+                loadReviews();
+            });
+        }
     });
 });
