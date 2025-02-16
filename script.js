@@ -6,24 +6,25 @@ document.addEventListener("DOMContentLoaded", function () {
     let priceDisplay = document.getElementById("priceDisplay");
     let reviewForm = document.getElementById("reviewForm");
     let reviewsList = document.getElementById("reviewsList");
-    let adminLoginButton = document.getElementById("adminLoginFooter");
-    let clearReviewsButton = document.getElementById("clearReviews");
+    let adminLoginButton = document.getElementById("adminLoginFooter"); // زر تسجيل الدخول
+    let clearReviewsButton = document.getElementById("clearReviews"); // زر حذف التقييمات
+    let logoutButton = document.getElementById("logoutAdmin"); // زر تسجيل الخروج (يجب إضافته في `index.html`)
 
-    const ADMIN_PASSWORD = "123456"; // ✅ كلمة مرور المالك
+    const ADMIN_PASSWORD = "123456"; // ✅ **كلمة مرور المالك**
 
-    // ✅ أسعار المنتج لكل دولة (بالعملة المحلية)
+    // ✅ **أسعار المنتج لكل دولة (بالعملة المحلية)**
     const prices = {
         "sa": 37, "qa": 35, "ae": 36, "kw": 3, "om": 3.7, "bh": 3.8,
         "eg": 300, "jo": 7, "iq": 14500, "lb": 900000
     };
 
-    // ✅ رموز العملات لكل دولة
+    // ✅ **رموز العملات لكل دولة**
     const currencies = {
         "sa": "ريال", "qa": "ريال", "ae": "درهم", "kw": "دينار", "om": "ريال",
         "bh": "دينار", "eg": "جنيه", "jo": "دينار", "iq": "دينار", "lb": "ليرة"
     };
 
-    // ✅ تحديث مفتاح الدولة عند تغيير الدولة
+    // ✅ **تحديث مفتاح الدولة عند تغيير الدولة**
     countrySelect.addEventListener("change", function () {
         let selectedOption = countrySelect.options[countrySelect.selectedIndex];
         let countryCode = selectedOption.getAttribute("data-code");
@@ -31,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updatePrice();
     });
 
-    // ✅ تحديث السعر عند تغيير الدولة أو الكمية
+    // ✅ **تحديث السعر عند تغيير الدولة أو الكمية**
     function updatePrice() {
         let country = countrySelect.value;
         let quantity = parseInt(quantitySelect.value) || 1;
@@ -43,9 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     quantitySelect.addEventListener("change", updatePrice);
-    updatePrice(); // ✅ تحديث السعر عند تحميل الصفحة
+    updatePrice(); // ✅ **تحديث السعر عند تحميل الصفحة**
 
-    // ✅ إرسال الطلب عند النقر على زر الدفع
+    // ✅ **إرسال الطلب عند النقر على زر الدفع**
     document.getElementById("orderForm").addEventListener("submit", function (event) {
         event.preventDefault();
 
@@ -64,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // ✅ إرسال الطلب إلى تيليجرام
+        // ✅ **إرسال الطلب إلى تيليجرام**
         let message = `📢 *طلب جديد!* 🚀\n\n` +
                       `🔢 *رقم الطلب:* ${orderNumber}\n` +
                       `👤 *الاسم:* ${name}\n` +
@@ -93,8 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             if (data.ok) {
-                alert("✅ تم إرسال الطلب بنجاح!");
-                document.getElementById("orderForm").reset();
+                showSuccessMessage(orderNumber);
             } else {
                 alert("⚠️ حدث خطأ أثناء إرسال الطلب.");
             }
@@ -105,10 +105,29 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ✅ تحميل التقييمات عند فتح الصفحة
+    // ✅ **إظهار رسالة نجاح الطلب**
+    function showSuccessMessage(orderNumber) {
+        let button = document.querySelector(".btn-glow");
+        button.innerHTML = "✅ تم إرسال الطلب بنجاح";
+        button.style.background = "linear-gradient(to right, #16a085, #27ae60)";
+
+        document.getElementById("orderForm").classList.add("hidden");
+        document.getElementById("orderNumber").textContent = orderNumber;
+        document.getElementById("orderNumberContainer").classList.remove("hidden");
+
+        setTimeout(() => {
+            button.innerHTML = "🚀 اطلب الآن والدفع عند الاستلام";
+            button.style.background = "linear-gradient(to right, #f7971e, #ff4500)";
+            document.getElementById("orderForm").reset();
+            document.getElementById("orderForm").classList.remove("hidden");
+            document.getElementById("orderNumberContainer").classList.add("hidden");
+            updatePrice();
+        }, 100000);
+    }
+
+    // ✅ **تحميل التقييمات عند فتح الصفحة**
     function loadReviews() {
         let storedReviews = localStorage.getItem("reviews");
-        reviewsList.innerHTML = "";
         if (storedReviews && storedReviews.trim() !== "") {
             reviewsList.innerHTML = storedReviews;
         } else {
@@ -118,7 +137,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadReviews();
 
-    // ✅ إرسال تقييم جديد
     reviewForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
@@ -131,27 +149,26 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        let newReview = `<div class="bg-white p-2 rounded shadow my-2"><strong>${rating} ${name}:</strong> ${comment}</div>`;
+        let newReview = `<div><strong>${rating} ${name}:</strong> ${comment}</div>`;
         reviewsList.innerHTML += newReview;
         localStorage.setItem("reviews", reviewsList.innerHTML);
         reviewForm.reset();
     });
 
-    // ✅ تسجيل الدخول للمالك
+    // ✅ **تسجيل الدخول للمالك**
     adminLoginButton.addEventListener("click", function () {
         let password = prompt("🔑 أدخل كلمة المرور:");
         if (password === ADMIN_PASSWORD) {
             alert("✅ تسجيل الدخول ناجح!");
-            clearReviewsButton.classList.remove("hidden");
+            localStorage.setItem("isAdmin", "true");
+            clearReviewsButton.style.display = "block";
         } else {
             alert("❌ كلمة المرور غير صحيحة.");
         }
     });
 
-    // ✅ حذف جميع التقييمات
-    clearReviewsButton.addEventListener("click", function () {
-        localStorage.removeItem("reviews");
-        reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد. كن أول من يشارك برأيه!</p>`;
-        alert("🗑️ تم حذف جميع التقييمات!");
-    });
+    // ✅ **إظهار زر الحذف عند تسجيل الدخول**
+    if (localStorage.getItem("isAdmin") === "true") {
+        clearReviewsButton.style.display = "block";
+    }
 });
