@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let reviewForm = document.getElementById("reviewForm");
     let reviewsList = document.getElementById("reviewsList");
     let adminLoginButton = document.getElementById("adminLoginFooter"); // زر تسجيل الدخول من الفوتر
-    let clearReviewsButton = document.getElementById("clearReviews");
+    let clearReviewsButton = document.getElementById("clearReviews"); // زر حذف التقييمات
 
     const ADMIN_PASSWORD = "123456"; // ✅ **كلمة مرور المالك**
 
@@ -104,26 +104,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ✅ **إظهار رسالة نجاح الطلب**
-    function showSuccessMessage(orderNumber) {
-        let button = document.querySelector(".btn-glow");
-        button.innerHTML = "✅ تم إرسال الطلب بنجاح";
-        button.style.background = "linear-gradient(to right, #16a085, #27ae60)";
-
-        document.getElementById("orderForm").classList.add("hidden");
-        document.getElementById("orderNumber").textContent = orderNumber;
-        document.getElementById("orderNumberContainer").classList.remove("hidden");
-
-        setTimeout(() => {
-            button.innerHTML = "🚀 اطلب الآن والدفع عند الاستلام";
-            button.style.background = "linear-gradient(to right, #f7971e, #ff4500)";
-            document.getElementById("orderForm").reset();
-            document.getElementById("orderForm").classList.remove("hidden");
-            document.getElementById("orderNumberContainer").classList.add("hidden");
-            updatePrice();
-        }, 100000);
-    }
-
     // ✅ **تحميل التقييمات عند فتح الصفحة**
     function loadReviews() {
         let storedReviews = localStorage.getItem("reviews");
@@ -149,22 +129,24 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        let newReview = `<div><strong>${rating} ${name}:</strong> ${comment}</div>`;
+        let newReview = `<div class="bg-white p-3 rounded-lg shadow-md mb-2"><strong>${rating} ${name}:</strong> ${comment}</div>`;
         reviewsList.innerHTML += newReview;
         localStorage.setItem("reviews", reviewsList.innerHTML);
         reviewForm.reset();
     });
 
+    // ✅ **تسجيل الدخول كمالك**
     adminLoginButton.addEventListener("click", function () {
         let password = prompt("🔑 أدخل كلمة المرور:");
         if (password === ADMIN_PASSWORD) {
             alert("✅ تسجيل الدخول ناجح!");
-            clearReviewsButton.style.display = "block";
+            clearReviewsButton.classList.remove("hidden"); // إظهار زر الحذف
         } else {
             alert("❌ كلمة المرور غير صحيحة.");
         }
     });
 
+    // ✅ **حذف جميع التقييمات**
     clearReviewsButton.addEventListener("click", function () {
         localStorage.removeItem("reviews");
         reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد. كن أول من يشارك برأيه!</p>`;
