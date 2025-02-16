@@ -29,27 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     checkAdminLogin();
 
-    // ✅ أسعار المنتج لكل دولة
-    const prices = {
-        "sa": 37, "qa": 35, "ae": 36, "kw": 3, "om": 3.7, "bh": 3.8,
-        "eg": 300, "jo": 7, "iq": 14500, "lb": 900000
-    };
-
-    const currencies = {
-        "sa": "ريال", "qa": "ريال", "ae": "درهم", "kw": "دينار", "om": "ريال",
-        "bh": "دينار", "eg": "جنيه", "jo": "دينار", "iq": "دينار", "lb": "ليرة"
-    };
-
-    // ✅ تحديث السعر عند تغيير الدولة أو الكمية
-    function updatePrice() {
-        let country = countrySelect.value;
-        let quantity = parseInt(quantitySelect.value) || 1;
-        let pricePerPiece = prices[country] || 0;
-        let currency = currencies[country] || "";
-        let totalPrice = pricePerPiece * quantity;
-        priceDisplay.textContent = `💰 السعر: ${totalPrice.toLocaleString()} ${currency}`;
-    }
-
     // ✅ تحديث مفتاح الدولة عند تغيير الدولة
     countrySelect.addEventListener("change", function () {
         let selectedOption = countrySelect.options[countrySelect.selectedIndex];
@@ -57,9 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
         phoneCode.textContent = countryCode;
         updatePrice();
     });
-
-    quantitySelect.addEventListener("change", updatePrice);
-    updatePrice();
 
     // ✅ إرسال الطلب
     orderForm.addEventListener("submit", function (event) {
@@ -80,7 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // ✅ عرض رقم الطلب وإخفاء النموذج لمدة 100 ثانية
         orderForm.classList.add("hidden");
         orderNumberElement.textContent = `رقم الطلب: ${orderNumber}`;
         orderNumberContainer.classList.remove("hidden");
@@ -158,6 +133,41 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem("isAdmin");
         checkAdminLogin();
         alert("🚪 تم تسجيل الخروج بنجاح.");
+    });
+
+    // ✅ إضافة التقييم إلى JSONBin
+    reviewForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        let name = document.getElementById("reviewerName").value.trim();
+        let rating = document.getElementById("reviewRating").value;
+        let comment = document.getElementById("reviewText").value.trim();
+
+        if (!name || !comment) {
+            alert("❌ يرجى إدخال الاسم والتعليق.");
+            return;
+        }
+
+        fetch(`${JSONBIN_API}/latest`, {
+            method: "GET",
+            headers: { "X-Master-Key": JSONBIN_SECRET }
+        })
+        .then(response => response.json())
+        .then(data => {
+            let reviews = data.record.reviews || [];
+            reviews.push({ name, rating, comment });
+
+            return fetch(JSONBIN_API, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_SECRET },
+                body: JSON.stringify({ reviews })
+            });
+        })
+        .then(() => {
+            alert("✅ تم حفظ التقييم بنجاح!");
+            loadReviews();
+            reviewForm.reset();
+        });
     });
 
     // ✅ حذف تعليق معين
