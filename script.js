@@ -95,6 +95,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 text: message,
                 parse_mode: "Markdown"
             })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                console.log("✅ تم إرسال الطلب إلى تيليجرام بنجاح!");
+            } else {
+                console.error("❌ فشل إرسال الطلب إلى تيليجرام:", data);
+                alert("⚠️ حدث خطأ أثناء إرسال الطلب إلى تيليجرام.");
+            }
+        })
+        .catch(error => {
+            console.error("❌ خطأ في الاتصال بتيليجرام:", error);
+            alert("⚠️ حدث خطأ في الاتصال بتيليجرام. تحقق من اتصالك بالإنترنت.");
         });
     });
 });
