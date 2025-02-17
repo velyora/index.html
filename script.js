@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ✅ تحميل التقييمات
+    // ✅ تحميل التقييمات مباشرة بعد الإضافة بدون تحديث الصفحة
     function loadReviews() {
         fetch(`${JSONBIN_API}/latest`, {
             method: "GET",
@@ -120,51 +120,62 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             let reviews = data.record.reviews || [];
             reviewsList.innerHTML = "";
-            if (reviews.length === 0) {
-                reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد.</p>`;
-            } else {
-                reviews.forEach((review, index) => {
-                    let reviewElement = document.createElement("div");
-                    reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md mt-2 flex justify-between items-center relative";
-                    reviewElement.innerHTML = `
-                        <div class="flex items-center">
-                            <img src="https://www.w3schools.com/howto/img_avatar.png" class="w-10 h-10 rounded-full mr-2" alt="User">
-                            <span class="text-gray-800"><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
-                        </div>
-                    `;
-                    if (localStorage.getItem("isAdmin") === "true") {
-                        let deleteButton = document.createElement("button");
-                        deleteButton.textContent = "🗑️";
-                        deleteButton.classList = "delete-review text-red-500 absolute bottom-1 left-1 p-1 rounded";
-                        deleteButton.setAttribute("data-index", index);
-                        deleteButton.addEventListener("click", function () {
-                            deleteReview(index);
-                        });
-                        reviewElement.appendChild(deleteButton);
-                    }
-                    reviewsList.appendChild(reviewElement);
-                });
-            }
+            reviews.forEach((review, index) => {
+                let reviewElement = document.createElement("div");
+                reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md mt-2 flex justify-between items-center relative";
+                reviewElement.innerHTML = `
+                    <div class="flex items-center">
+                        <img src="https://www.w3schools.com/howto/img_avatar.png" class="w-10 h-10 rounded-full mr-2" alt="User">
+                        <span class="text-gray-800"><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
+                    </div>
+                `;
+                if (localStorage.getItem("isAdmin") === "true") {
+                    let deleteButton = document.createElement("button");
+                    deleteButton.textContent = "🗑️";
+                    deleteButton.classList = "delete-review text-red-500 absolute bottom-1 left-1 p-1 rounded";
+                    deleteButton.addEventListener("click", function () {
+                        deleteReview(index);
+                    });
+                    reviewElement.appendChild(deleteButton);
+                }
+                reviewsList.appendChild(reviewElement);
+            });
         });
     }
 
     loadReviews();
 
-    // ✅ تسجيل الدخول والخروج
-    adminLoginButton.addEventListener("click", function () {
-        let password = prompt("🔑 أدخل كلمة المرور:");
-        if (password === ADMIN_PASSWORD) {
-            alert("✅ تسجيل الدخول ناجح!");
-            localStorage.setItem("isAdmin", "true");
-            checkAdminLogin();
-        } else {
-            alert("❌ كلمة المرور غير صحيحة.");
+    // ✅ إضافة التقييم بدون الحاجة لتحديث الصفحة
+    reviewForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        let name = document.getElementById("reviewerName").value.trim();
+        let rating = document.getElementById("reviewRating").value;
+        let comment = document.getElementById("reviewText").value.trim();
+
+        if (!name || !comment) {
+            alert("❌ يرجى إدخال الاسم والتعليق.");
+            return;
         }
+
+        fetch(JSONBIN_API, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_SECRET },
+            body: JSON.stringify({ reviews: [{ name, rating, comment }] })
+        }).then(() => {
+            loadReviews();
+            reviewForm.reset();
+        });
+    });
+
+    // ✅ تسجيل الدخول والخروج بدون تحديث الصفحة
+    adminLoginButton.addEventListener("click", function () {
+        localStorage.setItem("isAdmin", "true");
+        checkAdminLogin();
     });
 
     logoutButton.addEventListener("click", function () {
         localStorage.removeItem("isAdmin");
         checkAdminLogin();
-        alert("🚪 تم تسجيل الخروج بنجاح.");
     });
 });
