@@ -1,6 +1,8 @@
-/* ✅ إعدادات عامة */
+/* ✅ الخطوط */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Tajawal', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f9f9f9;
@@ -39,54 +41,31 @@ body {
 /* ✅ إدخال البيانات */
 input, select {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin: 10px 0;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 16px;
+    text-align: right;
 }
 
-.select-container {
-    position: relative;
-}
-
-.phone-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-#country-code {
-    background: #ddd;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-/* ✅ زر الطلب */
-.submit-button {
-    background: linear-gradient(to right, #ff7e5f, #feb47b);
-    border: none;
+/* ✅ زر الدفع عند الاستلام */
+.btn-glow {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(90deg, #ff7e5f, #ffbb00);
     color: white;
     font-size: 18px;
-    padding: 12px;
-    cursor: pointer;
-    width: 100%;
-    border-radius: 5px;
-}
-
-.submit-button:hover {
-    background: linear-gradient(to right, #ff6f5e, #ff9b72);
-}
-
-/* ✅ رسالة نجاح الطلب */
-.hidden {
-    display: none;
-}
-
-.success-message {
-    color: green;
-    font-size: 20px;
     font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
+    transition: 0.3s;
+}
+
+.btn-glow:hover {
+    background: linear-gradient(90deg, #ffbb00, #ff7e5f);
+    box-shadow: 0 4px 20px rgba(255, 126, 95, 0.6);
 }
 
 /* ✅ زر واتساب */
@@ -119,4 +98,11 @@ footer {
 
 .footer-links a:hover {
     text-decoration: underline;
+}
+
+/* ✅ إزالة أي تأثيرات قديمة */
+.slider-container,
+.swiper-button-next,
+.swiper-button-prev {
+    display: none !important;
 }
