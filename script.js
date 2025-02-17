@@ -5,6 +5,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const TELEGRAM_BOT_TOKEN = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A";
     const TELEGRAM_CHAT_ID = "-1002290156309";
 
+    // ✅ تعريف أسعار المنتج لكل دولة
+    const prices = {
+        "sa": 37, "qa": 35, "ae": 36, "kw": 3, "om": 3.7, "bh": 3.8,
+        "eg": 300, "jo": 7, "iq": 14500, "lb": 900000
+    };
+
+    const currencies = {
+        "sa": "ريال", "qa": "ريال", "ae": "درهم", "kw": "دينار", "om": "ريال",
+        "bh": "دينار", "eg": "جنيه", "jo": "دينار", "iq": "دينار", "lb": "ليرة"
+    };
+
     // ✅ جلب عناصر الصفحة
     let countrySelect = document.getElementById("country");
     let phoneCode = document.getElementById("country-code");
@@ -19,17 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let orderNumberElement = document.getElementById("orderNumber");
 
     const ADMIN_PASSWORD = "123456"; // كلمة مرور المالك
-
-    // ✅ أسعار المنتج لكل دولة
-    const prices = {
-        "sa": 37, "qa": 35, "ae": 36, "kw": 3, "om": 3.7, "bh": 3.8,
-        "eg": 300, "jo": 7, "iq": 14500, "lb": 900000
-    };
-
-    const currencies = {
-        "sa": "ريال", "qa": "ريال", "ae": "درهم", "kw": "دينار", "om": "ريال",
-        "bh": "دينار", "eg": "جنيه", "jo": "دينار", "iq": "دينار", "lb": "ليرة"
-    };
 
     // ✅ التحقق من حالة تسجيل الدخول عند تحميل الصفحة
     function checkAdminLogin() {
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ✅ تحميل التقييمات
+    // ✅ تحميل التقييمات وإضافة زر حذف لكل تعليق
     function loadReviews() {
         fetch(`${JSONBIN_API}/latest`, {
             method: "GET",
@@ -135,7 +135,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     let deleteButton = document.createElement("button");
                     deleteButton.textContent = "🗑️";
                     deleteButton.classList = "delete-review text-red-500 absolute bottom-1 left-1 p-1 rounded";
-                    deleteButton.setAttribute("data-index", index);
                     deleteButton.addEventListener("click", function () {
                         deleteReview(index);
                     });
@@ -147,6 +146,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     loadReviews();
+
+    // ✅ تسجيل الدخول والخروج
+    adminLoginButton.addEventListener("click", function () {
+        let password = prompt("🔑 أدخل كلمة المرور:");
+        if (password === ADMIN_PASSWORD) {
+            alert("✅ تسجيل الدخول ناجح!");
+            localStorage.setItem("isAdmin", "true");
+            checkAdminLogin();
+        } else {
+            alert("❌ كلمة المرور غير صحيحة.");
+        }
+    });
+
+    logoutButton.addEventListener("click", function () {
+        localStorage.removeItem("isAdmin");
+        checkAdminLogin();
+        alert("🚪 تم تسجيل الخروج بنجاح.");
+    });
 
     // ✅ حذف تعليق معين
     function deleteReview(index) {
