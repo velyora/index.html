@@ -107,23 +107,20 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            var swiper = new Swiper('.swiper-container', {
-                loop: true,
-                autoplay: {
-                    delay: 2500,
-                    disableOnInteraction: false
-                },
+            var swiper = new Swiper(".swiper-container", {
                 slidesPerView: 1,
                 spaceBetween: 10,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                pagination: {
-                    el: '.swiper-pagination',
+                centeredSlides: true,
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+              },
+              pagination: {
+                    el: ".swiper-pagination",
                     clickable: true,
-                }
-            });
+              },
+          });  
         });
     </script>
 
