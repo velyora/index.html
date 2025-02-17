@@ -20,17 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const ADMIN_PASSWORD = "123456"; // كلمة مرور المالك
 
-    // ✅ التحقق من حالة تسجيل الدخول عند تحميل الصفحة
-    function checkAdminLogin() {
-        let isAdmin = localStorage.getItem("isAdmin") === "true";
-        logoutButton.classList.toggle("hidden", !isAdmin);
-        adminLoginButton.classList.toggle("hidden", isAdmin);
-        loadReviews();
-    }
-
-    checkAdminLogin();
-
-    // ✅ تعريف قائمة العملات والأسعار
+    // ✅ أسعار المنتج لكل دولة
     const prices = {
         "sa": 37, "qa": 35, "ae": 36, "kw": 3, "om": 3.7, "bh": 3.8,
         "eg": 300, "jo": 7, "iq": 14500, "lb": 900000
@@ -41,6 +31,24 @@ document.addEventListener("DOMContentLoaded", function () {
         "bh": "دينار", "eg": "جنيه", "jo": "دينار", "iq": "دينار", "lb": "ليرة"
     };
 
+    // ✅ التحقق من حالة تسجيل الدخول عند تحميل الصفحة
+    function checkAdminLogin() {
+        let isAdmin = localStorage.getItem("isAdmin") === "true";
+        logoutButton.classList.toggle("hidden", !isAdmin);
+        adminLoginButton.classList.toggle("hidden", isAdmin);
+        loadReviews();
+    }
+
+    checkAdminLogin();
+
+    // ✅ تحديث مفتاح الدولة عند تغيير الدولة
+    countrySelect.addEventListener("change", function () {
+        let selectedOption = countrySelect.options[countrySelect.selectedIndex];
+        let countryCode = selectedOption.getAttribute("data-code");
+        phoneCode.textContent = countryCode;
+        updatePrice();
+    });
+
     // ✅ تحديث السعر عند تغيير الدولة أو الكمية
     function updatePrice() {
         let country = countrySelect.value;
@@ -50,13 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
         let totalPrice = pricePerPiece * quantity;
         priceDisplay.textContent = `💰 السعر: ${totalPrice.toLocaleString()} ${currency}`;
     }
-
-    countrySelect.addEventListener("change", function () {
-        let selectedOption = countrySelect.options[countrySelect.selectedIndex];
-        let countryCode = selectedOption.getAttribute("data-code");
-        phoneCode.textContent = countryCode;
-        updatePrice();
-    });
 
     quantitySelect.addEventListener("change", updatePrice);
     updatePrice();
@@ -90,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 100000);
 
         let message = `📢 *طلب جديد!* 🚀\n\n` +
+                      `🔢 *رقم الطلب:* ${orderNumber}\n` + 
                       `👤 *الاسم:* ${name}\n` +
                       `🌍 *الدولة:* ${countryName}\n` +
                       `🏙️ *المدينة:* ${city}\n` +
@@ -110,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ✅ تحميل التقييمات مباشرة بعد الإضافة بدون تحديث الصفحة
+    // ✅ تحميل التقييمات فورًا بعد إضافتها
     function loadReviews() {
         fetch(`${JSONBIN_API}/latest`, {
             method: "GET",
@@ -121,24 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let reviews = data.record.reviews || [];
             reviewsList.innerHTML = "";
             reviews.forEach((review, index) => {
-                let reviewElement = document.createElement("div");
-                reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md mt-2 flex justify-between items-center relative";
-                reviewElement.innerHTML = `
-                    <div class="flex items-center">
-                        <img src="https://www.w3schools.com/howto/img_avatar.png" class="w-10 h-10 rounded-full mr-2" alt="User">
-                        <span class="text-gray-800"><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
-                    </div>
-                `;
-                if (localStorage.getItem("isAdmin") === "true") {
-                    let deleteButton = document.createElement("button");
-                    deleteButton.textContent = "🗑️";
-                    deleteButton.classList = "delete-review text-red-500 absolute bottom-1 left-1 p-1 rounded";
-                    deleteButton.addEventListener("click", function () {
-                        deleteReview(index);
-                    });
-                    reviewElement.appendChild(deleteButton);
-                }
-                reviewsList.appendChild(reviewElement);
+                addReviewToPage(review, index);
             });
         });
     }
@@ -158,24 +143,39 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        let newReview = { name, rating, comment };
+
         fetch(JSONBIN_API, {
             method: "PUT",
             headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_SECRET },
-            body: JSON.stringify({ reviews: [{ name, rating, comment }] })
-        }).then(() => {
-            loadReviews();
+            body: JSON.stringify({ reviews: [...document.reviews, newReview] })
+        })
+        .then(() => {
+            addReviewToPage(newReview, reviewsList.children.length);
             reviewForm.reset();
         });
     });
 
-    // ✅ تسجيل الدخول والخروج بدون تحديث الصفحة
-    adminLoginButton.addEventListener("click", function () {
-        localStorage.setItem("isAdmin", "true");
-        checkAdminLogin();
-    });
+    // ✅ إضافة التقييم مباشرة إلى الصفحة
+    function addReviewToPage(review, index) {
+        let reviewElement = document.createElement("div");
+        reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md mt-2 flex justify-between items-center relative";
+        reviewElement.innerHTML = `
+            <div class="flex items-center">
+                <img src="https://www.w3schools.com/howto/img_avatar.png" class="w-10 h-10 rounded-full mr-2" alt="User">
+                <span class="text-gray-800"><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
+            </div>
+        `;
 
-    logoutButton.addEventListener("click", function () {
-        localStorage.removeItem("isAdmin");
-        checkAdminLogin();
-    });
+        if (localStorage.getItem("isAdmin") === "true") {
+            let deleteButton = document.createElement("button");
+            deleteButton.textContent = "🗑️";
+            deleteButton.classList = "delete-review text-red-500 absolute bottom-1 left-1 p-1 rounded";
+            deleteButton.addEventListener("click", function () {
+                deleteReview(index);
+            });
+            reviewElement.appendChild(deleteButton);
+        }
+        reviewsList.appendChild(reviewElement);
+    }
 });
