@@ -3,85 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>طلب المنتج</title>
-    <link rel="stylesheet" href="style.css">
+    <title>احصل على منتجك الآن!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
 </head>
-<body>
+<body class="bg-white text-gray-900">
 
-    <!-- ✅ الهيدر -->
-    <header class="header-container">
-        <img src="header-image.jpg" alt="منتج مميز" class="header-image">
-    </header>
-
-    <!-- ✅ معلومات التوصيل -->
-    <section class="info-section">
-        <p>🚚 <b>توصيل سريع</b>: 2-5 أيام للمنتجات الملموسة</p>
-        <p>⚡ <b>تسليم فوري</b>: للمنتجات الرقمية</p>
-    </section>
-
-    <!-- ✅ نموذج الطلب -->
-    <section class="order-section">
-        <h2>📋 قم بملء النموذج لطلب المنتج</h2>
-
-        <!-- ✅ رسالة نجاح الطلب -->
-        <div id="orderNumberContainer" class="hidden">
-            <h2 class="success-message">✅ تم تقديم طلبك بنجاح!</h2>
-            <p>رقم طلبك: <span id="orderNumber"></span></p>
+    <!-- 🔹 سلايدر الهيدر المتحرك -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="img1.jpg" alt="منتج 1" class="w-full h-auto"></div>
+            <div class="swiper-slide"><img src="img2.jpg" alt="منتج 2" class="w-full h-auto"></div>
+            <div class="swiper-slide"><img src="img3.jpg" alt="منتج 3" class="w-full h-auto"></div>
+            <div class="swiper-slide"><img src="img4.jpg" alt="منتج 4" class="w-full h-auto"></div>
+            <div class="swiper-slide"><img src="img5.jpg" alt="منتج 5" class="w-full h-auto"></div>
+            <div class="swiper-slide"><img src="img6.jpg" alt="منتج 6" class="w-full h-auto"></div>
+            <div class="swiper-slide"><img src="img7.jpg" alt="منتج 7" class="w-full h-auto"></div>
+            <div class="swiper-slide"><img src="img8.jpg" alt="منتج 8" class="w-full h-auto"></div>
         </div>
+        <!-- أزرار التحكم -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
 
-        <form id="orderForm">
-            <input type="text" id="name" placeholder="الاسم الكامل" required>
-            
-            <div class="select-container">
-                <select id="country" required>
-                    <option value="sa" data-code="+966">🇸🇦 السعودية</option>
-                    <option value="qa" data-code="+974">🇶🇦 قطر</option>
-                    <option value="ae" data-code="+971">🇦🇪 الإمارات</option>
-                    <option value="kw" data-code="+965">🇰🇼 الكويت</option>
-                    <option value="om" data-code="+968">🇴🇲 عمان</option>
-                    <option value="bh" data-code="+973">🇧🇭 البحرين</option>
-                    <option value="eg" data-code="+20">🇪🇬 مصر</option>
-                    <option value="jo" data-code="+962">🇯🇴 الأردن</option>
-                    <option value="iq" data-code="+964">🇮🇶 العراق</option>
-                    <option value="lb" data-code="+961">🇱🇧 لبنان</option>
-                </select>
+    <!-- 🔹 معلومات التوصيل -->
+    <div class="text-center mt-2 text-sm font-medium text-gray-600 flex flex-col items-center justify-center">
+        <p>🚚 للمنتجات الملموسة: توصيل سريع خلال <span class="font-bold">2-5 أيام عمل</span></p>
+        <p>⚡ للمنتجات الرقمية: <span class="font-bold">التسليم فوري</span></p>
+    </div>
+
+    <!-- 🔹 قسم الطلب -->
+    <section class="py-6">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">📋 قم بملء النموذج لطلب المنتج</h2>
+
+            <!-- ✅ عنصر عرض رقم الطلب (مخفي افتراضيًا) -->
+            <div id="orderNumberContainer" class="hidden text-center mt-4">
+                <h2 class="text-2xl font-bold text-green-600">🎉 تم تقديم طلبك بنجاح!</h2>
+                <p class="text-lg text-gray-700 mt-2">✅ رقم طلبك: <span id="orderNumber" class="font-semibold"></span></p>
+                <p class="text-sm text-gray-600 mt-1">يرجى الاحتفاظ بهذا الرقم لمتابعة طلبك.</p>
             </div>
 
-            <input type="text" id="city" placeholder="المدينة" required>
-            <input type="text" id="address" placeholder="العنوان" required>
-            <input type="text" id="postalCode" placeholder="الرمز البريدي" required>
+            <!-- 🔹 نموذج الطلب -->
+            <form id="orderForm" class="mt-4 bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
+                <input type="text" id="name" placeholder="الاسم الكامل" required class="input-field">
+                
+                <div class="relative">
+                    <select id="country" required class="input-field pr-12">
+                        <option value="sa" data-code="+966">🇸🇦 السعودية</option>
+                        <option value="qa" data-code="+974">🇶🇦 قطر</option>
+                        <option value="ae" data-code="+971">🇦🇪 الإمارات</option>
+                        <option value="kw" data-code="+965">🇰🇼 الكويت</option>
+                        <option value="om" data-code="+968">🇴🇲 عمان</option>
+                        <option value="bh" data-code="+973">🇧🇭 البحرين</option>
+                        <option value="eg" data-code="+20">🇪🇬 مصر</option>
+                        <option value="jo" data-code="+962">🇯🇴 الأردن</option>
+                        <option value="iq" data-code="+964">🇮🇶 العراق</option>
+                        <option value="lb" data-code="+961">🇱🇧 لبنان</option>
+                    </select>
+                </div>
 
-            <div class="phone-container">
-                <span id="country-code">+966</span>
-                <input type="tel" id="phone" placeholder="رقم الجوال" required>
-            </div>
+                <input type="text" id="city" placeholder="المدينة" required class="input-field">
+                <input type="text" id="address" placeholder="العنوان" required class="input-field">
+                <input type="text" id="postalCode" placeholder="الرمز البريدي" required class="input-field">
 
-            <select id="quantity" required>
-                <option value="1">1 قطعة</option>
-                <option value="2">2 قطع (خصم!)</option>
-                <option value="3">3 قطع (خصم أكبر!)</option>
-            </select>
+                <div class="flex items-center">
+                    <input type="tel" id="phone" placeholder="رقم الجوال" required class="input-field flex-1">
+                    <span id="country-code" class="bg-gray-300 p-2 rounded-lg ml-2">+966</span>
+                </div>
 
-            <p id="priceDisplay"></p>
+                <p id="priceDisplay" class="text-lg font-semibold text-gray-700 mt-2"></p>
 
-            <button type="submit" class="btn-glow">🚀 الدفع عند الاستلام</button>
-        </form>
+                <button type="submit" class="btn-glow mt-4">🚀 اطلب الآن والدفع عند الاستلام</button>
+            </form>
+        </div>
     </section>
 
-    <!-- ✅ زر واتساب -->
-    <a href="https://wa.me/966541827904?text=مرحبًا، أريد المساعدة في طلبي" id="whatsapp-button">
-        <img src="whatsapp.png" alt="واتساب">
+    <!-- 🔹 زر واتساب العائم -->
+    <a href="https://wa.me/966541827904?text=مرحبًا، أريد المساعدة في طلبي" 
+       id="whatsapp-button" 
+       target="_blank"
+       class="fixed bottom-4 right-4 bg-green-500 text-white p-3 rounded-full shadow-lg">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" 
+             alt="واتساب" 
+             class="w-10 h-10">
     </a>
 
-    <!-- ✅ الفوتر -->
-    <footer>
-        <div class="footer-links">
-            <a href="policies.html#privacy-policy">سياسة الخصوصية</a>
-            <a href="policies.html#return-policy">سياسة الاسترجاع</a>
-            <a href="policies.html#about-us">من نحن</a>
+    <!-- 🔹 الفوتر -->
+    <footer class="bg-gray-100 text-center text-sm text-gray-600 py-4 mt-6">
+        <div class="container mx-auto">
+            <div class="flex justify-center space-x-6 space-x-reverse">
+                <a href="policies.html#privacy-policy-content" class="hover:text-gray-900 font-medium px-3">سياسة الخصوصية</a>
+                <a href="policies.html#return-policy-content" class="hover:text-gray-900 font-medium px-3">سياسة الاسترجاع</a>
+                <a href="policies.html#about-us-content" class="hover:text-gray-900 font-medium px-3">من نحن</a>
+            </div>
+            <p class="mt-2">جميع الحقوق محفوظة 2025</p>
         </div>
-        <p>جميع الحقوق محفوظة 2025</p>
     </footer>
+
+    <!-- ✅ سكربت Swiper.js -->
+
 
     <script src="script.js"></script>
 </body>
