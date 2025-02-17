@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
     // ✅ تعريف متغيرات API
-    const JSONBIN_API = "https://api.jsonbin.io/v3/b/67b25350acd3cb34a8e4bf28";
-    const JSONBIN_SECRET = "$2a$10$cR8U3fnhRtMfoC722GP31eOWZghfYOja3xo8ZR0OxFM/MbMyG2viq";
     const TELEGRAM_BOT_TOKEN = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A";
     const TELEGRAM_CHAT_ID = "-1002290156309";
 
@@ -24,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let orderForm = document.getElementById("orderForm");
     let orderNumberContainer = document.getElementById("orderNumberContainer");
     let orderNumberElement = document.getElementById("orderNumber");
-    let successMessage = document.getElementById("successMessage");
 
     // ✅ تحديث مفتاح الدولة عند تغيير الدولة
     countrySelect.addEventListener("change", function () {
@@ -48,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
     quantitySelect.addEventListener("change", updatePrice);
     updatePrice();
 
-    // ✅ إرسال الطلب
+    // ✅ إرسال الطلب عند الضغط على زر "الدفع عند الاستلام"
     orderForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
@@ -67,20 +64,18 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // ✅ إخفاء النموذج وإظهار رسالة النجاح
+        // ✅ إخفاء النموذج وإظهار رسالة النجاح مع رقم الطلب
         orderForm.classList.add("hidden");
-        successMessage.classList.remove("hidden");
         orderNumberElement.textContent = `✅ رقم طلبك: ${orderNumber}`;
         orderNumberContainer.classList.remove("hidden");
 
         // ✅ إخفاء الرسالة بعد 100 ثانية وإعادة إظهار النموذج
         setTimeout(() => {
             orderNumberContainer.classList.add("hidden");
-            successMessage.classList.add("hidden");
             orderForm.classList.remove("hidden");
         }, 100000);
 
-        // ✅ إرسال الطلب إلى تيليجرام
+        // ✅ إرسال الطلب إلى تيليجرام مع رقم الطلب
         let message = `📢 *طلب جديد!* 🚀\n\n` +
                       `🔢 *رقم الطلب:* ${orderNumber}\n` +
                       `👤 *الاسم:* ${name}\n` +
