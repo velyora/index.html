@@ -17,7 +17,7 @@ body {
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .container {
@@ -109,6 +109,20 @@ body {
     right: -10px;
 }
 
+/* ✅ قسم الصور */
+.image-slider {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.image-slider img {
+    width: 30%;
+    border-radius: 8px;
+}
+
 /* ✅ تحسين المدخلات */
 .input-field {
     width: 100%;
@@ -150,42 +164,42 @@ body {
     box-shadow: 0 4px 20px rgba(255, 126, 95, 0.6);
 }
 
-/* ✅ تحسين التباعد بين العناصر */
-.container {
-    max-width: 600px;
+/* ✅ تحسين تنسيق نموذج الطلب */
+.order-section {
+    background: white;
+    padding: 40px 0;
+    text-align: center;
+    margin-top: 20px;
 }
 
-/* ✅ تحسين النص بين الهيدر والنموذج */
-.text-lg {
-    font-weight: bold;
+.order-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: auto;
+}
+
+.order-form input, 
+.order-form select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
 }
 
 /* ✅ زر واتساب */
 .whatsapp-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #25D366;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 30px;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background 0.3s ease-in-out;
-    margin-top: 10px;
-    width: fit-content;
-    margin: auto;
-}
-
-.whatsapp-button:hover {
-    background-color: #1EBE5D;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
 }
 
 .whatsapp-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
+    width: 40px;
+    height: 40px;
 }
 
 /* ✅ تحسين مظهر الفوتر */
@@ -225,5 +239,15 @@ body {
 
 .footer .language-currency span {
     cursor: pointer;
+    font-weight: bold;
+}
+
+/* ✅ تحسين التباعد بين العناصر */
+.container {
+    max-width: 1200px;
+}
+
+/* ✅ تحسين النص بين الهيدر والنموذج */
+.text-lg {
     font-weight: bold;
 }
