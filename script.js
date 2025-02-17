@@ -20,17 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const ADMIN_PASSWORD = "123456"; // كلمة مرور المالك
 
-    // ✅ أسعار المنتج لكل دولة
-    const prices = {
-        "sa": 37, "qa": 35, "ae": 36, "kw": 3, "om": 3.7, "bh": 3.8,
-        "eg": 300, "jo": 7, "iq": 14500, "lb": 900000
-    };
-
-    const currencies = {
-        "sa": "ريال", "qa": "ريال", "ae": "درهم", "kw": "دينار", "om": "ريال",
-        "bh": "دينار", "eg": "جنيه", "jo": "دينار", "iq": "دينار", "lb": "ليرة"
-    };
-
     // ✅ التحقق من حالة تسجيل الدخول عند تحميل الصفحة
     function checkAdminLogin() {
         let isAdmin = localStorage.getItem("isAdmin") === "true";
@@ -41,13 +30,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     checkAdminLogin();
 
-    // ✅ تحديث مفتاح الدولة عند تغيير الدولة
-    countrySelect.addEventListener("change", function () {
-        let selectedOption = countrySelect.options[countrySelect.selectedIndex];
-        let countryCode = selectedOption.getAttribute("data-code");
-        phoneCode.textContent = countryCode;
-        updatePrice();
-    });
+    // ✅ تعريف قائمة العملات والأسعار
+    const prices = {
+        "sa": 37, "qa": 35, "ae": 36, "kw": 3, "om": 3.7, "bh": 3.8,
+        "eg": 300, "jo": 7, "iq": 14500, "lb": 900000
+    };
+
+    const currencies = {
+        "sa": "ريال", "qa": "ريال", "ae": "درهم", "kw": "دينار", "om": "ريال",
+        "bh": "دينار", "eg": "جنيه", "jo": "دينار", "iq": "دينار", "lb": "ليرة"
+    };
 
     // ✅ تحديث السعر عند تغيير الدولة أو الكمية
     function updatePrice() {
@@ -58,6 +50,13 @@ document.addEventListener("DOMContentLoaded", function () {
         let totalPrice = pricePerPiece * quantity;
         priceDisplay.textContent = `💰 السعر: ${totalPrice.toLocaleString()} ${currency}`;
     }
+
+    countrySelect.addEventListener("change", function () {
+        let selectedOption = countrySelect.options[countrySelect.selectedIndex];
+        let countryCode = selectedOption.getAttribute("data-code");
+        phoneCode.textContent = countryCode;
+        updatePrice();
+    });
 
     quantitySelect.addEventListener("change", updatePrice);
     updatePrice();
@@ -91,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 100000);
 
         let message = `📢 *طلب جديد!* 🚀\n\n` +
-                      `🔢 *رقم الطلب:* ${orderNumber}\n` + 
                       `👤 *الاسم:* ${name}\n` +
                       `🌍 *الدولة:* ${countryName}\n` +
                       `🏙️ *المدينة:* ${city}\n` +
@@ -112,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ✅ تحميل التقييمات فورًا بعد إضافتها
+    // ✅ تحميل التقييمات
     function loadReviews() {
         fetch(`${JSONBIN_API}/latest`, {
             method: "GET",
@@ -122,60 +120,51 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             let reviews = data.record.reviews || [];
             reviewsList.innerHTML = "";
-            reviews.forEach((review, index) => {
-                addReviewToPage(review, index);
-            });
+            if (reviews.length === 0) {
+                reviewsList.innerHTML = `<p class="text-gray-700">لا توجد تقييمات بعد.</p>`;
+            } else {
+                reviews.forEach((review, index) => {
+                    let reviewElement = document.createElement("div");
+                    reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md mt-2 flex justify-between items-center relative";
+                    reviewElement.innerHTML = `
+                        <div class="flex items-center">
+                            <img src="https://www.w3schools.com/howto/img_avatar.png" class="w-10 h-10 rounded-full mr-2" alt="User">
+                            <span class="text-gray-800"><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
+                        </div>
+                    `;
+                    if (localStorage.getItem("isAdmin") === "true") {
+                        let deleteButton = document.createElement("button");
+                        deleteButton.textContent = "🗑️";
+                        deleteButton.classList = "delete-review text-red-500 absolute bottom-1 left-1 p-1 rounded";
+                        deleteButton.setAttribute("data-index", index);
+                        deleteButton.addEventListener("click", function () {
+                            deleteReview(index);
+                        });
+                        reviewElement.appendChild(deleteButton);
+                    }
+                    reviewsList.appendChild(reviewElement);
+                });
+            }
         });
     }
 
     loadReviews();
 
-    // ✅ إضافة التقييم بدون الحاجة لتحديث الصفحة
-    reviewForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        let name = document.getElementById("reviewerName").value.trim();
-        let rating = document.getElementById("reviewRating").value;
-        let comment = document.getElementById("reviewText").value.trim();
-
-        if (!name || !comment) {
-            alert("❌ يرجى إدخال الاسم والتعليق.");
-            return;
+    // ✅ تسجيل الدخول والخروج
+    adminLoginButton.addEventListener("click", function () {
+        let password = prompt("🔑 أدخل كلمة المرور:");
+        if (password === ADMIN_PASSWORD) {
+            alert("✅ تسجيل الدخول ناجح!");
+            localStorage.setItem("isAdmin", "true");
+            checkAdminLogin();
+        } else {
+            alert("❌ كلمة المرور غير صحيحة.");
         }
-
-        let newReview = { name, rating, comment };
-
-        fetch(JSONBIN_API, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_SECRET },
-            body: JSON.stringify({ reviews: [...document.reviews, newReview] })
-        })
-        .then(() => {
-            addReviewToPage(newReview, reviewsList.children.length);
-            reviewForm.reset();
-        });
     });
 
-    // ✅ إضافة التقييم مباشرة إلى الصفحة
-    function addReviewToPage(review, index) {
-        let reviewElement = document.createElement("div");
-        reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md mt-2 flex justify-between items-center relative";
-        reviewElement.innerHTML = `
-            <div class="flex items-center">
-                <img src="https://www.w3schools.com/howto/img_avatar.png" class="w-10 h-10 rounded-full mr-2" alt="User">
-                <span class="text-gray-800"><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
-            </div>
-        `;
-
-        if (localStorage.getItem("isAdmin") === "true") {
-            let deleteButton = document.createElement("button");
-            deleteButton.textContent = "🗑️";
-            deleteButton.classList = "delete-review text-red-500 absolute bottom-1 left-1 p-1 rounded";
-            deleteButton.addEventListener("click", function () {
-                deleteReview(index);
-            });
-            reviewElement.appendChild(deleteButton);
-        }
-        reviewsList.appendChild(reviewElement);
-    }
+    logoutButton.addEventListener("click", function () {
+        localStorage.removeItem("isAdmin");
+        checkAdminLogin();
+        alert("🚪 تم تسجيل الخروج بنجاح.");
+    });
 });
