@@ -112,3 +112,8 @@ body {
     height: 100%;
     object-fit: cover; /* يضمن تغطية الصورة للسلايدر بدون تمدد زائد */
 }
+
+.swiper-button-next,
+.swiper-button-prev {
+    display: none !important;
+}
