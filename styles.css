@@ -1,55 +1,29 @@
-/* ✅ الخطوط */
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-
 body {
     font-family: 'Tajawal', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
+    background-color: #f8f8f8;
     text-align: center;
 }
 
-/* ✅ الهيدر */
-.header-container {
-    width: 100%;
-    overflow: hidden;
-}
-
-.header-image {
-    width: 100%;
-    height: auto;
-}
-
-/* ✅ معلومات التوصيل */
-.info-section {
-    background-color: #fff;
-    padding: 10px;
-    font-size: 16px;
-    color: #333;
-}
-
-/* ✅ قسم الطلب */
-.order-section {
-    background: #fff;
-    padding: 20px;
-    margin: 20px auto;
+.container {
     max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* ✅ إدخال البيانات */
-input, select {
+.input-field {
     width: 100%;
     padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
+    margin-top: 8px;
+    border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 16px;
     text-align: right;
+    background-color: #fff;
 }
 
-/* ✅ زر الدفع عند الاستلام */
 .btn-glow {
     width: 100%;
     padding: 14px;
@@ -66,43 +40,4 @@ input, select {
 .btn-glow:hover {
     background: linear-gradient(90deg, #ffbb00, #ff7e5f);
     box-shadow: 0 4px 20px rgba(255, 126, 95, 0.6);
-}
-
-/* ✅ زر واتساب */
-#whatsapp-button {
-    position: fixed;
-    bottom: 15px;
-    right: 15px;
-    background: green;
-    padding: 10px;
-    border-radius: 50%;
-}
-
-#whatsapp-button img {
-    width: 50px;
-    height: 50px;
-}
-
-/* ✅ الفوتر */
-footer {
-    background: #f1f1f1;
-    padding: 10px;
-    margin-top: 20px;
-}
-
-.footer-links a {
-    margin: 0 10px;
-    color: #333;
-    text-decoration: none;
-}
-
-.footer-links a:hover {
-    text-decoration: underline;
-}
-
-/* ✅ إزالة أي تأثيرات قديمة */
-.slider-container,
-.swiper-button-next,
-.swiper-button-prev {
-    display: none !important;
 }
