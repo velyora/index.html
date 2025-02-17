@@ -6,22 +6,26 @@
     <title>احصل على منتجك الآن!</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
 </head>
 <body class="bg-white text-gray-900">
 
-
+    <!-- 🔹 صورة الهيدر -->
+    <div class="header-container">
+        <img src="IMG_3185.jpeg" alt="الهيدر" class="header-image">
+    </div>
 
     <!-- 🔹 معلومات التوصيل -->
     <div class="text-center mt-2 text-sm font-medium text-gray-600 flex flex-col items-center justify-center">
         <p>🚚 للمنتجات الملموسة: توصيل سريع خلال <span class="font-bold">2-5 أيام عمل</span></p>
         <p>⚡ للمنتجات الرقمية: <span class="font-bold">التسليم فوري</span></p>
-    </div>
+    </div> 
 
     <!-- 🔹 قسم الطلب -->
     <section class="py-6">
         <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">📋 قم بملء النموذج لطلب المنتج</h2>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center">
+                📋 قم بملء النموذج لطلب المنتج
+            </h2>
 
             <!-- ✅ عنصر عرض رقم الطلب (مخفي افتراضيًا) -->
             <div id="orderNumberContainer" class="hidden text-center mt-4">
@@ -58,12 +62,21 @@
                     <span id="country-code" class="bg-gray-300 p-2 rounded-lg ml-2">+966</span>
                 </div>
 
+                <select id="quantity" required class="input-field">
+                    <option value="1">1 قطعة</option>
+                    <option value="2">2 قطع (خصم!)</option>
+                    <option value="3">3 قطع (خصم أكبر!)</option>
+                </select>
+
                 <p id="priceDisplay" class="text-lg font-semibold text-gray-700 mt-2"></p>
 
                 <button type="submit" class="btn-glow mt-4">🚀 اطلب الآن والدفع عند الاستلام</button>
             </form>
         </div>
     </section>
+
+    <!-- 🔹 وصف المنتج -->
+
 
     <!-- 🔹 زر واتساب العائم -->
     <a href="https://wa.me/966541827904?text=مرحبًا، أريد المساعدة في طلبي" 
@@ -75,7 +88,7 @@
              class="w-10 h-10">
     </a>
 
-    <!-- 🔹 الفوتر -->
+    <!-- 🔹 الفوتر (أسفل الصفحة) -->
     <footer class="bg-gray-100 text-center text-sm text-gray-600 py-4 mt-6">
         <div class="container mx-auto">
             <div class="flex justify-center space-x-6 space-x-reverse">
@@ -86,10 +99,7 @@
             <p class="mt-2">جميع الحقوق محفوظة 2025</p>
         </div>
     </footer>
-
-    <!-- ✅ سكربت Swiper.js -->
-
-
+    
     <script src="script.js"></script>
 </body>
 </html>
