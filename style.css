@@ -14,3 +14,9 @@ button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
+
+
+.swiper-button-next,
+.swiper-button-prev {
+    display: none;
+}
