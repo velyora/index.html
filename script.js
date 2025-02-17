@@ -24,12 +24,14 @@ document.addEventListener("DOMContentLoaded", function () {
     let orderNumberElement = document.getElementById("orderNumber");
 
     // ✅ تحديث مفتاح الدولة عند تغيير الدولة
-    countrySelect.addEventListener("change", function () {
+    function updateCountryCode() {
         let selectedOption = countrySelect.options[countrySelect.selectedIndex];
         let countryCode = selectedOption.getAttribute("data-code");
         phoneCode.textContent = countryCode;
         updatePrice();
-    });
+    }
+
+    countrySelect.addEventListener("change", updateCountryCode);
 
     // ✅ تحديث السعر عند تغيير الدولة أو الكمية
     function updatePrice() {
@@ -43,6 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     quantitySelect.addEventListener("change", updatePrice);
+
+    // ✅ تحديث السعر والمفتاح تلقائيًا عند تحميل الصفحة
+    updateCountryCode();
     updatePrice();
 
     // ✅ إرسال الطلب عند الضغط على زر "الدفع عند الاستلام"
@@ -95,6 +100,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 text: message,
                 parse_mode: "Markdown"
             })
-        });
+        }).then(response => {
+            if (response.ok) {
+                console.log("✅ تم إرسال الطلب إلى تيليجرام بنجاح.");
+            } else {
+                console.error("❌ فشل إرسال الطلب إلى تيليجرام.");
+            }
+        }).catch(error => console.error("❌ خطأ في إرسال الطلب:", error));
     });
 });
