@@ -27,6 +27,11 @@
                 📋 قم بملء النموذج لطلب المنتج
             </h2>
 
+            <!-- ✅ رسالة نجاح الطلب -->
+            <div id="successMessage" class="hidden text-center text-green-600 text-2xl font-bold mt-6">
+                ✅ تم إرسال طلبك بنجاح!
+            </div>
+
             <!-- ✅ عنصر عرض رقم الطلب (مخفي افتراضيًا) -->
             <div id="orderNumberContainer" class="hidden text-center mt-4">
                 <h2 class="text-2xl font-bold text-green-600">🎉 تم تقديم طلبك بنجاح!</h2>
@@ -75,65 +80,24 @@
         </div>
     </section>
 
-    <!-- 🔹 نموذج التقييم -->
-    <section class="py-6 text-center">
-        <h3 class="text-xl font-bold text-gray-900">📝 شاركنا رأيك في المنتج</h3>
-        <form id="reviewForm" class="mt-4 bg-white p-4 rounded-lg shadow-lg max-w-lg mx-auto">
-            <input type="text" id="reviewerName" placeholder="اسمك" required class="input-field">
-            <select id="reviewRating" required class="input-field">
-                <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐ (5/5)</option>
-                <option value="⭐⭐⭐⭐">⭐⭐⭐⭐ (4/5)</option>
-                <option value="⭐⭐⭐">⭐⭐⭐ (3/5)</option>
-                <option value="⭐⭐">⭐⭐ (2/5)</option>
-                <option value="⭐">⭐ (1/5)</option>
-            </select>
-            <textarea id="reviewText" placeholder="اكتب تعليقك..." required class="input-field"></textarea>
-            <button type="submit" class="btn-glow mt-4">📢 إرسال التقييم</button>
-        </form>
-    </section>
-
-    <!-- 🔹 عرض التقييمات -->
-    <section id="reviewsContainer" class="py-6 text-center">
-        <h3 class="text-xl font-bold text-gray-900">💬 آراء العملاء</h3>
-        <div id="reviewsList" class="mt-4 bg-gray-100 p-4 rounded-lg shadow-lg max-w-lg mx-auto">
-            <p class="text-gray-700">لا توجد تقييمات بعد. كن أول من يشارك برأيه!</p>
-            <!-- 🔹 زر حذف التقييمات (يظهر فقط بعد تسجيل الدخول كمالك) -->
-        <button id="clearReviews" class="btn-glow mt-4 bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded hidden">
-    🗑️ حذف جميع التقييمات
-        </button>
-        <button id="logoutAdmin" class="btn-glow mt-4 bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded hidden">
-    🚪 تسجيل الخروج
-        </button>
+    <!-- ✅ وصف المنتج -->
+    <section class="py-8 bg-gray-100 text-center">
+        <div class="container mx-auto max-w-3xl">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">💎 منتج استثنائي لتجربة فريدة!</h2>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                🌟 اكتشف الجيل الجديد من **[اسم المنتج]** المصمم بأحدث التقنيات ليمنحك تجربة **لا مثيل لها**!
+                مصنوع من أجود المواد، يتميز بتصميم أنيق وعصري، ويقدم **أداءً استثنائيًا** لكل مستخدم.
+            </p>
+            <ul class="mt-4 text-lg text-gray-800 text-left mx-auto max-w-lg">
+                <li>✅ **جودة عالية**: مواد متينة تضمن استخدامًا طويل الأمد.</li>
+                <li>⚡ **أداء مذهل**: يوفر أفضل تجربة ممكنة بأقصى كفاءة.</li>
+                <li>🎨 **تصميم أنيق**: يجمع بين الفخامة والراحة في الاستخدام.</li>
+                <li>🚀 **سهل الاستخدام**: بدون تعقيدات، مناسب للجميع.</li>
+                <li>💰 **أفضل سعر**: قيمة لا تُقارن مقابل الجودة العالية.</li>
+            </ul>
         </div>
     </section>
 
-    <!-- 🔹 زر واتساب العائم -->
-    <a href="https://wa.me/966541827904?text=مرحبًا، أريد المساعدة في طلبي" 
-       id="whatsapp-button" 
-       target="_blank"
-       class="fixed bottom-4 right-4 bg-green-500 text-white p-3 rounded-full shadow-lg">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" 
-             alt="واتساب" 
-             class="w-10 h-10">
-    </a>
-
-    <!-- 🔹 الفوتر (أسفل الصفحة) -->
-    <footer class="bg-gray-100 text-center text-sm text-gray-600 py-4 mt-6">
-        <div class="container mx-auto">
-            <div class="flex justify-center space-x-6 space-x-reverse">
-                <a href="policies.html#privacy-policy-content" class="hover:text-gray-900 font-medium px-3">سياسة الخصوصية</a>
-                <a href="policies.html#return-policy-content" class="hover:text-gray-900 font-medium px-3">سياسة الاسترجاع</a>
-                <a href="policies.html#about-us-content" class="hover:text-gray-900 font-medium px-3">من نحن</a>
-            </div>
-            <p class="mt-2">جميع الحقوق محفوظة 2025</p>
-
-            <!-- 🔹 زر M الخاص بالإدارة -->
-            <button id="adminLoginFooter" class="btn-glow mt-4 bg-orange-500 hover:bg-orange-700 text-white py-2 px-4 rounded">
-                M
-            </button>
-        </div>
-    </footer>
-    
     <script src="script.js"></script>
 </body>
 </html>
