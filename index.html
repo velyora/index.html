@@ -6,23 +6,21 @@
     <title>احصل على منتجك الآن!</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
-
-    <!-- 🔹 استدعاء Swiper.js لإنشاء السلايدر -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
 </head>
 <body class="bg-white text-gray-900">
 
-    <!-- 🔹 سلايدر الهيدر المتحرك -->
+    <!-- 🔹 سلايدر الهيدر -->
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="IMG_1.jpeg" alt="صورة 1" class="header-image"></div>
-            <div class="swiper-slide"><img src="IMG_2.jpeg" alt="صورة 2" class="header-image"></div>
-            <div class="swiper-slide"><img src="IMG_3.jpeg" alt="صورة 3" class="header-image"></div>
-            <div class="swiper-slide"><img src="IMG_4.jpeg" alt="صورة 4" class="header-image"></div>
-            <div class="swiper-slide"><img src="IMG_5.jpeg" alt="صورة 5" class="header-image"></div>
-            <div class="swiper-slide"><img src="IMG_6.jpeg" alt="صورة 6" class="header-image"></div>
-            <div class="swiper-slide"><img src="IMG_7.jpeg" alt="صورة 7" class="header-image"></div>
-            <div class="swiper-slide"><img src="IMG_8.jpeg" alt="صورة 8" class="header-image"></div>
+            <div class="swiper-slide"><img src="img1.jpg" alt="منتج 1"></div>
+            <div class="swiper-slide"><img src="img2.jpg" alt="منتج 2"></div>
+            <div class="swiper-slide"><img src="img3.jpg" alt="منتج 3"></div>
+            <div class="swiper-slide"><img src="img4.jpg" alt="منتج 4"></div>
+            <div class="swiper-slide"><img src="img5.jpg" alt="منتج 5"></div>
+            <div class="swiper-slide"><img src="img6.jpg" alt="منتج 6"></div>
+            <div class="swiper-slide"><img src="img7.jpg" alt="منتج 7"></div>
+            <div class="swiper-slide"><img src="img8.jpg" alt="منتج 8"></div>
         </div>
     </div>
 
@@ -30,14 +28,12 @@
     <div class="text-center mt-2 text-sm font-medium text-gray-600 flex flex-col items-center justify-center">
         <p>🚚 للمنتجات الملموسة: توصيل سريع خلال <span class="font-bold">2-5 أيام عمل</span></p>
         <p>⚡ للمنتجات الرقمية: <span class="font-bold">التسليم فوري</span></p>
-    </div> 
+    </div>
 
     <!-- 🔹 قسم الطلب -->
     <section class="py-6">
         <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center">
-                📋 قم بملء النموذج لطلب المنتج
-            </h2>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">📋 قم بملء النموذج لطلب المنتج</h2>
 
             <!-- ✅ عنصر عرض رقم الطلب (مخفي افتراضيًا) -->
             <div id="orderNumberContainer" class="hidden text-center mt-4">
@@ -74,12 +70,6 @@
                     <span id="country-code" class="bg-gray-300 p-2 rounded-lg ml-2">+966</span>
                 </div>
 
-                <select id="quantity" required class="input-field">
-                    <option value="1">1 قطعة</option>
-                    <option value="2">2 قطع (خصم!)</option>
-                    <option value="3">3 قطع (خصم أكبر!)</option>
-                </select>
-
                 <p id="priceDisplay" class="text-lg font-semibold text-gray-700 mt-2"></p>
 
                 <button type="submit" class="btn-glow mt-4">🚀 اطلب الآن والدفع عند الاستلام</button>
@@ -100,21 +90,32 @@
     <!-- 🔹 الفوتر -->
     <footer class="bg-gray-100 text-center text-sm text-gray-600 py-4 mt-6">
         <div class="container mx-auto">
+            <div class="flex justify-center space-x-6 space-x-reverse">
+                <a href="policies.html#privacy-policy-content" class="hover:text-gray-900 font-medium px-3">سياسة الخصوصية</a>
+                <a href="policies.html#return-policy-content" class="hover:text-gray-900 font-medium px-3">سياسة الاسترجاع</a>
+                <a href="policies.html#about-us-content" class="hover:text-gray-900 font-medium px-3">من نحن</a>
+            </div>
             <p class="mt-2">جميع الحقوق محفوظة 2025</p>
         </div>
     </footer>
 
-    <!-- 🔹 استدعاء Swiper.js -->
+    <!-- ✅ سكربت Swiper.js -->
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script>
-        var swiper = new Swiper('.swiper-container', {
-            loop: true,
-            autoplay: { delay: 2500, disableOnInteraction: false },
-            slidesPerView: 1,
-            spaceBetween: 10,
+        document.addEventListener("DOMContentLoaded", function () {
+            var swiper = new Swiper('.swiper-container', {
+                loop: true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false
+                },
+                slidesPerView: 1,
+                spaceBetween: 10,
+                effect: 'fade'
+            });
         });
     </script>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
