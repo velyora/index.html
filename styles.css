@@ -1,119 +1,122 @@
+/* ✅ إعدادات عامة */
 body {
-    font-family: 'Tajawal', sans-serif;
-}
-
-/* 🔹 تحسين المدخلات */
-.input-field {
-    width: 100%;
-    padding: 12px;
-    margin-top: 8px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    text-align: right;
-}
-/* 🔹 ضبط مكان مفتاح الدولة */
-    #country-code {
-    order: 2; /* يجعل مفتاح الدولة يظهر بعد حقل الرقم */
-    margin-left: 8px; /* يضيف مسافة يسار بين المفتاح وحقل الرقم */
-    margin-right: 0; /* يزيل أي مسافة يمين */
-    background: #f3f3f3; /* لون خلفية خفيف لمفتاح الدولة */
-    padding: 8px 12px; /* تحسين المسافات الداخلية */
-    border-radius: 8px; /* جعل الحواف ناعمة */
-    font-size: 16px; /* حجم الخط متناسق */
-}
-
-/* 🔹 زر الدفع عند الاستلام */
-.btn-glow {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(90deg, #ff7e5f, #ffbb00);
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 30px;
-    box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
-    transition: 0.3s;
-}
-
-.btn-glow:hover {
-    background: linear-gradient(90deg, #ffbb00, #ff7e5f);
-    box-shadow: 0 4px 20px rgba(255, 126, 95, 0.6);
-}
-
-/* 🔹 تحسين التباعد بين العناصر */
-.container {
-    max-width: 600px;
-}
-
-/* 🔹 تحسين النص بين الهيدر والنموذج */
-.text-lg {
-    font-weight: bold;
-}
-.btn-glow {
-    background: linear-gradient(to right, #f7971e, #ff4500);
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 50px;
-    padding: 12px 24px;
-    display: block;
-    width: 100%;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
     text-align: center;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* ✅ الهيدر */
+.header-container {
+    width: 100%;
+    overflow: hidden;
+}
 
-.whatsapp-button {
+.header-image {
+    width: 100%;
+    height: auto;
+}
+
+/* ✅ معلومات التوصيل */
+.info-section {
+    background-color: #fff;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* ✅ قسم الطلب */
+.order-section {
+    background: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ إدخال البيانات */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.select-container {
+    position: relative;
+}
+
+.phone-container {
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: #25D366;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 30px;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background 0.3s ease-in-out;
-    margin-top: 10px;
-    width: fit-content;
-    margin: auto;
+    justify-content: space-between;
 }
 
-.whatsapp-button:hover {
-    background-color: #1EBE5D;
-}
-
-.whatsapp-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
-}
-
-.review-item {
-    background-color: white; /* يجعل الخلفية بيضاء */
+#country-code {
+    background: #ddd;
     padding: 10px;
-    border-radius: 8px; /* زوايا مستديرة */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* ظل خفيف */
-    margin-bottom: 8px;
+    border-radius: 5px;
 }
 
-.slider-container {
+/* ✅ زر الطلب */
+.submit-button {
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    border: none;
+    color: white;
+    font-size: 18px;
+    padding: 12px;
+    cursor: pointer;
     width: 100%;
-    max-height: 200px; /* اجعل الارتفاع لا يتجاوز 200 بيكسل */
-    overflow: hidden; /* لمنع أي توسع غير مرغوب فيه */
+    border-radius: 5px;
 }
 
-.slider-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* يضمن تغطية الصورة للسلايدر بدون تمدد زائد */
+.submit-button:hover {
+    background: linear-gradient(to right, #ff6f5e, #ff9b72);
 }
 
-.swiper-button-next,
-.swiper-button-prev {
-    display: none !important;
+/* ✅ رسالة نجاح الطلب */
+.hidden {
+    display: none;
+}
+
+.success-message {
+    color: green;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* ✅ زر واتساب */
+#whatsapp-button {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    background: green;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+#whatsapp-button img {
+    width: 50px;
+    height: 50px;
+}
+
+/* ✅ الفوتر */
+footer {
+    background: #f1f1f1;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.footer-links a {
+    margin: 0 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
 }
