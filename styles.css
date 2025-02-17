@@ -1,18 +1,8 @@
 body {
     font-family: 'Tajawal', sans-serif;
-    background-color: #f8f8f8;
-    text-align: center;
 }
 
-.container {
-    max-width: 500px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
+/* 🔹 تحسين المدخلات */
 .input-field {
     width: 100%;
     padding: 12px;
@@ -21,9 +11,19 @@ body {
     border-radius: 8px;
     font-size: 16px;
     text-align: right;
-    background-color: #fff;
+}
+/* 🔹 ضبط مكان مفتاح الدولة */
+    #country-code {
+    order: 2; /* يجعل مفتاح الدولة يظهر بعد حقل الرقم */
+    margin-left: 8px; /* يضيف مسافة يسار بين المفتاح وحقل الرقم */
+    margin-right: 0; /* يزيل أي مسافة يمين */
+    background: #f3f3f3; /* لون خلفية خفيف لمفتاح الدولة */
+    padding: 8px 12px; /* تحسين المسافات الداخلية */
+    border-radius: 8px; /* جعل الحواف ناعمة */
+    font-size: 16px; /* حجم الخط متناسق */
 }
 
+/* 🔹 زر الدفع عند الاستلام */
 .btn-glow {
     width: 100%;
     padding: 14px;
@@ -40,4 +40,63 @@ body {
 .btn-glow:hover {
     background: linear-gradient(90deg, #ffbb00, #ff7e5f);
     box-shadow: 0 4px 20px rgba(255, 126, 95, 0.6);
+}
+
+/* 🔹 تحسين التباعد بين العناصر */
+.container {
+    max-width: 600px;
+}
+
+/* 🔹 تحسين النص بين الهيدر والنموذج */
+.text-lg {
+    font-weight: bold;
+}
+.btn-glow {
+    background: linear-gradient(to right, #f7971e, #ff4500);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50px;
+    padding: 12px 24px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.whatsapp-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #25D366;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s ease-in-out;
+    margin-top: 10px;
+    width: fit-content;
+    margin: auto;
+}
+
+.whatsapp-button:hover {
+    background-color: #1EBE5D;
+}
+
+.whatsapp-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+.review-item {
+    background-color: white; /* يجعل الخلفية بيضاء */
+    padding: 10px;
+    border-radius: 8px; /* زوايا مستديرة */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+    margin-bottom: 8px;
 }
