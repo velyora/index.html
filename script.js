@@ -21,25 +21,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let phoneCode = document.getElementById("country-code");
     let quantitySelect = document.getElementById("quantity");
     let priceDisplay = document.getElementById("priceDisplay");
-    let reviewForm = document.getElementById("reviewForm");
-    let reviewsList = document.getElementById("reviewsList");
     let orderForm = document.getElementById("orderForm");
-    let adminLoginButton = document.getElementById("adminLoginFooter");
-    let logoutButton = document.getElementById("logoutAdmin");
     let orderNumberContainer = document.getElementById("orderNumberContainer");
     let orderNumberElement = document.getElementById("orderNumber");
-
-    const ADMIN_PASSWORD = "123456"; // كلمة مرور المالك
-
-    // ✅ التحقق من حالة تسجيل الدخول عند تحميل الصفحة
-    function checkAdminLogin() {
-        let isAdmin = localStorage.getItem("isAdmin") === "true";
-        logoutButton.classList.toggle("hidden", !isAdmin);
-        adminLoginButton.classList.toggle("hidden", isAdmin);
-        loadReviews();
-    }
-
-    checkAdminLogin();
+    let successMessage = document.getElementById("successMessage");
 
     // ✅ تحديث مفتاح الدولة عند تغيير الدولة
     countrySelect.addEventListener("change", function () {
@@ -56,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let pricePerPiece = prices[country] || 0;
         let currency = currencies[country] || "";
         let totalPrice = pricePerPiece * quantity;
+
         priceDisplay.textContent = `💰 السعر: ${totalPrice.toLocaleString()} ${currency}`;
     }
 
@@ -81,15 +67,20 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // ✅ إخفاء النموذج وإظهار رسالة النجاح
         orderForm.classList.add("hidden");
-        orderNumberElement.textContent = `✅ رقم الطلب: ${orderNumber}`;
+        successMessage.classList.remove("hidden");
+        orderNumberElement.textContent = `✅ رقم طلبك: ${orderNumber}`;
         orderNumberContainer.classList.remove("hidden");
 
+        // ✅ إخفاء الرسالة بعد 100 ثانية وإعادة إظهار النموذج
         setTimeout(() => {
             orderNumberContainer.classList.add("hidden");
+            successMessage.classList.add("hidden");
             orderForm.classList.remove("hidden");
         }, 100000);
 
+        // ✅ إرسال الطلب إلى تيليجرام
         let message = `📢 *طلب جديد!* 🚀\n\n` +
                       `🔢 *رقم الطلب:* ${orderNumber}\n` +
                       `👤 *الاسم:* ${name}\n` +
@@ -98,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
                       `📍 *العنوان:* ${address}\n` +
                       `📬 *الرمز البريدي:* ${postalCode}\n` +
                       `📞 *رقم الجوال:* ${phone}\n` +
-                      `🛒 *الكمية:* ${quantity} قطع\n` +
+                      `🛒 *الكمية المطلوبة:* ${quantity} قطع\n` +
                       `${totalPrice}`;
 
         fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
@@ -111,79 +102,4 @@ document.addEventListener("DOMContentLoaded", function () {
             })
         });
     });
-
-    // ✅ تحميل التقييمات وإضافة زر حذف لكل تعليق
-    function loadReviews() {
-        fetch(`${JSONBIN_API}/latest`, {
-            method: "GET",
-            headers: { "X-Master-Key": JSONBIN_SECRET }
-        })
-        .then(response => response.json())
-        .then(data => {
-            let reviews = data.record.reviews || [];
-            reviewsList.innerHTML = "";
-            reviews.forEach((review, index) => {
-                let reviewElement = document.createElement("div");
-                reviewElement.classList = "review bg-white p-3 rounded-lg shadow-md mt-2 flex justify-between items-center relative";
-                reviewElement.innerHTML = `
-                    <div class="flex items-center">
-                        <img src="https://www.w3schools.com/howto/img_avatar.png" class="w-10 h-10 rounded-full mr-2" alt="User">
-                        <span class="text-gray-800"><strong>${review.rating} ${review.name}:</strong> ${review.comment}</span>
-                    </div>
-                `;
-                if (localStorage.getItem("isAdmin") === "true") {
-                    let deleteButton = document.createElement("button");
-                    deleteButton.textContent = "🗑️";
-                    deleteButton.classList = "delete-review text-red-500 absolute bottom-1 left-1 p-1 rounded";
-                    deleteButton.addEventListener("click", function () {
-                        deleteReview(index);
-                    });
-                    reviewElement.appendChild(deleteButton);
-                }
-                reviewsList.appendChild(reviewElement);
-            });
-        });
-    }
-
-    loadReviews();
-
-    // ✅ تسجيل الدخول والخروج
-    adminLoginButton.addEventListener("click", function () {
-        let password = prompt("🔑 أدخل كلمة المرور:");
-        if (password === ADMIN_PASSWORD) {
-            alert("✅ تسجيل الدخول ناجح!");
-            localStorage.setItem("isAdmin", "true");
-            checkAdminLogin();
-        } else {
-            alert("❌ كلمة المرور غير صحيحة.");
-        }
-    });
-
-    logoutButton.addEventListener("click", function () {
-        localStorage.removeItem("isAdmin");
-        checkAdminLogin();
-        alert("🚪 تم تسجيل الخروج بنجاح.");
-    });
-
-    // ✅ حذف تعليق معين
-    function deleteReview(index) {
-        fetch(`${JSONBIN_API}/latest`, {
-            method: "GET",
-            headers: { "X-Master-Key": JSONBIN_SECRET }
-        })
-        .then(response => response.json())
-        .then(data => {
-            let reviews = data.record.reviews || [];
-            reviews.splice(index, 1);
-            return fetch(JSONBIN_API, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json", "X-Master-Key": JSONBIN_SECRET },
-                body: JSON.stringify({ reviews })
-            });
-        })
-        .then(() => {
-            alert("🗑️ تم حذف التقييم!");
-            loadReviews();
-        });
-    }
 });
