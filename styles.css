@@ -8,10 +8,10 @@ body {
     background: #f8f8f8;
 }
 
-/* ✅ تحسين الشريط العلوي (الهيدر) ليكون على كامل الصفحة */
+/* ✅ تحسين الشريط العلوي (الهيدر) */
 .header {
     background: white;
-    padding: 15px 0;
+    padding: 10px 0;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     position: fixed;
     width: 100%;
@@ -25,8 +25,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 100%;
-    padding: 0 20px;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 15px;
     flex-wrap: wrap;
 }
 
@@ -59,7 +60,110 @@ body {
     color: white;
 }
 
-/* ✅ تحسين عرض أيقونات التواصل الاجتماعي */
+/* ✅ تحسين البحث والسلة */
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #f1f1f1;
+    padding: 5px;
+    border-radius: 20px;
+}
+
+.search-box input {
+    border: none;
+    background: transparent;
+    padding: 5px;
+    font-size: 14px;
+    outline: none;
+    width: 120px;
+}
+
+.search-box button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* ✅ ضبط أيقونة السلة */
+.cart {
+    text-decoration: none;
+    position: relative;
+    font-size: 20px;
+    color: #444;
+    margin-left: 15px;
+}
+
+.cart-badge {
+    background: red;
+    color: white;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+}
+
+/* ✅ تصميم النموذج ليشغل الصفحة بالكامل */
+.form-container {
+    width: 90%;
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin: 120px auto 40px; /* توسيط وتعديل الهوامش */
+}
+
+/* ✅ ضبط عنوان النموذج */
+.form-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* ✅ تحسين المدخلات */
+.input-field {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    text-align: right;
+}
+
+/* ✅ ضبط مفتاح الدولة */
+#country-code {
+    background: #f3f3f3;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+/* ✅ زر الطلب */
+.btn-glow {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(90deg, #ff7e5f, #ffbb00);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+.btn-glow:hover {
+    background: linear-gradient(90deg, #ffbb00, #ff7e5f);
+    box-shadow: 0 4px 20px rgba(255, 126, 95, 0.6);
+}
+
+/* ✅ تحسين أيقونات وسائل التواصل */
 .social-icons {
     display: flex;
     justify-content: center;
@@ -69,30 +173,25 @@ body {
 
 .social-icons a {
     text-decoration: none;
-    font-size: 24px;
+    font-size: 22px;
     color: #444;
     transition: 0.3s;
-}
-
-.social-icons a img {
-    width: 30px;
-    height: auto;
 }
 
 .social-icons a:hover {
     color: #6a0dad;
 }
 
-/* ✅ تحسين عرض أيقونات الدفع */
+/* ✅ تحسين أيقونات الدفع */
 .payment-methods {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     margin-top: 10px;
 }
 
 .payment-methods img {
-    width: 50px;
+    width: 40px;
     height: auto;
     filter: grayscale(50%);
     transition: 0.3s;
@@ -102,26 +201,23 @@ body {
     filter: grayscale(0%);
 }
 
-/* ✅ تحسين أيقونة واتساب */
+/* ✅ تحسين زر واتساب */
 .whatsapp-button {
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #25D366;
     color: white;
-    padding: 12px;
-    border-radius: 50%;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold;
     text-decoration: none;
     transition: background 0.3s ease-in-out;
     position: fixed;
     bottom: 20px;
     right: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.whatsapp-button img {
-    width: 40px;
-    height: 40px;
 }
 
 .whatsapp-button:hover {
