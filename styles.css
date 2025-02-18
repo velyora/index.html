@@ -11,7 +11,7 @@ body {
 /* ✅ تصميم الهيدر */
 .header {
     background: white;
-    padding: 15px 0;
+    padding: 10px 0;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     position: fixed;
     width: 100%;
@@ -20,6 +20,7 @@ body {
     z-index: 1000;
 }
 
+/* ✅ تحسين الشريط العلوي ليكون متجاوبًا */
 .container {
     display: flex;
     justify-content: space-between;
@@ -29,11 +30,11 @@ body {
     padding: 0 20px;
 }
 
-/* ✅ قائمة الروابط */
+/* ✅ قائمة الروابط متجاوبة */
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 15px;
     padding: 0;
     margin: 0;
 }
@@ -47,8 +48,9 @@ body {
     color: #444;
     font-weight: 500;
     transition: 0.3s;
-    padding: 8px 12px;
+    padding: 8px 10px;
     border-radius: 20px;
+    font-size: 14px;
 }
 
 .nav-links a.active,
@@ -57,7 +59,7 @@ body {
     color: white;
 }
 
-/* ✅ اللوجو */
+/* ✅ تحسين اللوجو */
 .logo {
     font-size: 24px;
     font-weight: bold;
@@ -71,6 +73,7 @@ body {
     background: #f1f1f1;
     padding: 5px;
     border-radius: 20px;
+    width: 200px;
 }
 
 .search-box input {
@@ -79,7 +82,7 @@ body {
     padding: 5px;
     font-size: 14px;
     outline: none;
-    width: 150px;
+    flex-grow: 1;
 }
 
 .search-box button {
@@ -93,9 +96,9 @@ body {
 .cart {
     text-decoration: none;
     position: relative;
-    font-size: 20px;
+    font-size: 18px;
     color: #444;
-    margin-left: 15px;
+    margin-left: 10px;
 }
 
 .cart-badge {
@@ -109,39 +112,52 @@ body {
     right: -10px;
 }
 
-/* ✅ قسم الصور */
+/* ✅ تصميم قسم الصور */
 .image-slider {
-    margin-top: 80px;
+    margin-top: 90px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
     padding: 20px;
 }
 
 .image-slider img {
-    width: 30%;
+    width: 100%;
+    max-width: 450px;
     border-radius: 8px;
 }
 
-/* ✅ تحسين المدخلات */
-.input-field {
+/* ✅ تحسين نموذج الطلب ليكون بالحجم الكامل */
+.order-section {
+    background: white;
+    padding: 40px 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.order-header {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.order-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+}
+
+.order-form input,
+.order-form select {
     width: 100%;
     padding: 12px;
-    margin-top: 8px;
+    margin-top: 10px;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    text-align: right;
-}
-
-/* ✅ ضبط مكان مفتاح الدولة */
-#country-code {
-    order: 2; 
-    margin-left: 8px;
-    margin-right: 0;
-    background: #f3f3f3;
-    padding: 8px 12px;
-    border-radius: 8px;
+    border-radius: 6px;
     font-size: 16px;
 }
 
@@ -162,32 +178,6 @@ body {
 .btn-glow:hover {
     background: linear-gradient(90deg, #ffbb00, #ff7e5f);
     box-shadow: 0 4px 20px rgba(255, 126, 95, 0.6);
-}
-
-/* ✅ تحسين تنسيق نموذج الطلب */
-.order-section {
-    background: white;
-    padding: 40px 0;
-    text-align: center;
-    margin-top: 20px;
-}
-
-.order-form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin: auto;
-}
-
-.order-form input, 
-.order-form select {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
 }
 
 /* ✅ زر واتساب */
@@ -239,15 +229,5 @@ body {
 
 .footer .language-currency span {
     cursor: pointer;
-    font-weight: bold;
-}
-
-/* ✅ تحسين التباعد بين العناصر */
-.container {
-    max-width: 1200px;
-}
-
-/* ✅ تحسين النص بين الهيدر والنموذج */
-.text-lg {
     font-weight: bold;
 }
