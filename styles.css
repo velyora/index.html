@@ -1,3 +1,5 @@
+هذا السابق قم بدمج الذي ليسى موجود مع هذا والذي ليسى له فايده دعه 
+
 /* ✅ استيراد الخطوط */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Tajawal:wght@300;400;700&display=swap');
 
@@ -8,19 +10,18 @@ body {
     background: #f8f8f8;
 }
 
-/* ✅ تحسين الشريط العلوي ليكون متجاوبًا بالكامل */
+/* ✅ تصميم الهيدر */
 .header {
     background: white;
-    padding: 10px 0;
+    padding: 15px 0;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 100;
 }
 
-/* ✅ تنسيق الشريط العلوي */
 .container {
     display: flex;
     justify-content: space-between;
@@ -28,17 +29,15 @@ body {
     max-width: 1200px;
     margin: auto;
     padding: 0 20px;
-    flex-wrap: wrap; /* يضمن توافق الشريط العلوي مع الجوال */
 }
 
-/* ✅ قائمة الروابط متجاوبة */
+/* ✅ قائمة الروابط */
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 15px;
+    gap: 20px;
     padding: 0;
     margin: 0;
-    flex-wrap: wrap; /* يضمن عدم اختفاء العناصر على الشاشات الصغيرة */
 }
 
 .nav-links li {
@@ -50,9 +49,8 @@ body {
     color: #444;
     font-weight: 500;
     transition: 0.3s;
-    padding: 8px 10px;
+    padding: 8px 12px;
     border-radius: 20px;
-    font-size: 14px;
 }
 
 .nav-links a.active,
@@ -61,21 +59,20 @@ body {
     color: white;
 }
 
-/* ✅ تحسين اللوجو */
+/* ✅ اللوجو */
 .logo {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     color: #6a0dad;
 }
 
-/* ✅ تحسين عرض البحث */
+/* ✅ صندوق البحث */
 .search-box {
     display: flex;
     align-items: center;
     background: #f1f1f1;
     padding: 5px;
     border-radius: 20px;
-    width: 180px;
 }
 
 .search-box input {
@@ -84,7 +81,7 @@ body {
     padding: 5px;
     font-size: 14px;
     outline: none;
-    flex-grow: 1;
+    width: 150px;
 }
 
 .search-box button {
@@ -94,13 +91,13 @@ body {
     font-size: 16px;
 }
 
-/* ✅ تحسين أيقونة السلة */
+/* ✅ أيقونة السلة */
 .cart {
     text-decoration: none;
     position: relative;
-    font-size: 18px;
+    font-size: 20px;
     color: #444;
-    margin-left: 10px;
+    margin-left: 15px;
 }
 
 .cart-badge {
@@ -114,43 +111,25 @@ body {
     right: -10px;
 }
 
-/* ✅ إزالة الأسهم الزرقاء من السلايدر */
-.swiper-button-next,
-.swiper-button-prev {
-    display: none !important;
-}
-
-/* ✅ تحسين عرض النموذج ليكون بنفس الحجم السابق */
-.order-section {
-    background: white;
-    padding: 40px 20px;
-    text-align: center;
+/* ✅ تحسين المدخلات */
+.input-field {
     width: 100%;
-    margin-top: 150px; /* يضمن عدم التصاقه بالشريط العلوي */
-}
-
-.order-header {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.order-form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 650px; /* جعله يأخذ العرض المطلوب */
-    margin: auto;
-}
-
-.order-form input,
-.order-form select {
-    width: 100%;
-    padding: 14px;
-    margin-top: 10px;
+    padding: 12px;
+    margin-top: 8px;
     border: 1px solid #ddd;
-    border-radius: 6px;
+    border-radius: 8px;
+    font-size: 16px;
+    text-align: right;
+}
+
+/* ✅ ضبط مكان مفتاح الدولة */
+#country-code {
+    order: 2; 
+    margin-left: 8px;
+    margin-right: 0;
+    background: #f3f3f3;
+    padding: 8px 12px;
+    border-radius: 8px;
     font-size: 16px;
 }
 
@@ -173,16 +152,42 @@ body {
     box-shadow: 0 4px 20px rgba(255, 126, 95, 0.6);
 }
 
+/* ✅ تحسين التباعد بين العناصر */
+.container {
+    max-width: 600px;
+}
+
+/* ✅ تحسين النص بين الهيدر والنموذج */
+.text-lg {
+    font-weight: bold;
+}
+
 /* ✅ زر واتساب */
 .whatsapp-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #25D366;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s ease-in-out;
+    margin-top: 10px;
+    width: fit-content;
+    margin: auto;
+}
+
+.whatsapp-button:hover {
+    background-color: #1EBE5D;
 }
 
 .whatsapp-icon {
-    width: 40px;
-    height: 40px;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
 }
 
 /* ✅ تحسين مظهر الفوتر */
