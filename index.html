@@ -1,138 +1,118 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>احصل على منتجك الآن!</title>
+    <title>Get Your Product Now!</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-white text-gray-900">
 
-    <!-- 🔹 صورة الهيدر -->
-    <div class="header-container">
-        <img src="IMG_3271.jpeg" alt="الهيدر" class="header-image">
+    <!-- 🔹 Header -->
+    <header class="header-container">
+        <img src="IMG_3271.jpeg" alt="Header" class="header-image">
+    </header>
+
+    <!-- 🔹 Social Media & Payment Methods Section -->
+    <div class="social-payment-section bg-gray-200 py-3 flex justify-between items-center px-6">
+        <!-- ✅ Social Media Icons -->
+        <div class="social-icons flex gap-4">
+            <a href="https://www.tiktok.com/" target="_blank"><img src="icons/tiktok.svg" alt="TikTok" class="icon"></a>
+            <a href="https://www.facebook.com/" target="_blank"><img src="icons/facebook.svg" alt="Facebook" class="icon"></a>
+            <a href="https://www.instagram.com/" target="_blank"><img src="icons/instagram.svg" alt="Instagram" class="icon"></a>
+            <a href="https://twitter.com/" target="_blank"><img src="icons/twitter.svg" alt="Twitter" class="icon"></a>
+        </div>
+
+        <!-- ✅ Payment Methods -->
+        <div class="payment-icons flex gap-4">
+            <img src="icons/paypal.svg" alt="PayPal" class="icon">
+            <img src="icons/visa.svg" alt="Visa" class="icon">
+            <img src="icons/usdt.svg" alt="USDT" class="icon">
+            <img src="icons/redotpay.svg" alt="RedotPay" class="icon">
+            <img src="icons/kast.svg" alt="KAST" class="icon">
+        </div>
     </div>
 
-    <!-- 🔹 معلومات التوصيل -->
-    <div class="text-center mt-2 text-sm font-medium text-gray-600 flex flex-col items-center justify-center">
-        <p>🚚 للمنتجات الملموسة: توصيل سريع خلال <span class="font-bold">2-5 أيام عمل</span></p>
-        <p>⚡ للمنتجات الرقمية: <span class="font-bold">التسليم فوري</span></p>
-    </div> 
-
-    <!-- 🔹 قسم الطلب -->
+    <!-- 🔹 Order Form -->
     <section class="py-6">
         <div class="container mx-auto text-center">
             <h2 class="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center">
-                📋 قم بملء النموذج لطلب المنتج
+                📋 Fill the form to place your order
             </h2>
 
-            <!-- ✅ عنصر عرض رقم الطلب (مخفي افتراضيًا) -->
+            <!-- ✅ Order Confirmation (Hidden by Default) -->
             <div id="orderNumberContainer" class="hidden text-center mt-4">
-                <h2 class="text-2xl font-bold text-green-600">🎉 تم تقديم طلبك بنجاح!</h2>
-                <p class="text-lg text-gray-700 mt-2">✅ رقم طلبك: <span id="orderNumber" class="font-semibold"></span></p>
-                <p class="text-sm text-gray-600 mt-1">يرجى الاحتفاظ بهذا الرقم لمتابعة طلبك.</p>
+                <h2 class="text-2xl font-bold text-green-600">🎉 Your order has been successfully placed!</h2>
+                <p class="text-lg text-gray-700 mt-2">✅ Order Number: <span id="orderNumber" class="font-semibold"></span></p>
+                <p class="text-sm text-gray-600 mt-1">Please keep this number to track your order.</p>
             </div>
 
-            <!-- 🔹 نموذج الطلب -->
+            <!-- 🔹 Order Form -->
             <form id="orderForm" class="mt-4 bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
-                <input type="text" id="name" placeholder="الاسم الكامل" required class="input-field">
+                <input type="text" id="name" placeholder="Full Name" required class="input-field">
                 
                 <div class="relative">
                     <select id="country" required class="input-field pr-12">
-                        <option value="sa" data-code="+966">🇸🇦 السعودية</option>
-                        <option value="qa" data-code="+974">🇶🇦 قطر</option>
-                        <option value="ae" data-code="+971">🇦🇪 الإمارات</option>
-                        <option value="kw" data-code="+965">🇰🇼 الكويت</option>
-                        <option value="om" data-code="+968">🇴🇲 عمان</option>
-                        <option value="bh" data-code="+973">🇧🇭 البحرين</option>
-                        <option value="eg" data-code="+20">🇪🇬 مصر</option>
-                        <option value="jo" data-code="+962">🇯🇴 الأردن</option>
-                        <option value="iq" data-code="+964">🇮🇶 العراق</option>
-                        <option value="lb" data-code="+961">🇱🇧 لبنان</option>
+                        <option value="sa" data-code="+966">🇸🇦 Saudi Arabia</option>
+                        <option value="qa" data-code="+974">🇶🇦 Qatar</option>
+                        <option value="ae" data-code="+971">🇦🇪 UAE</option>
+                        <option value="kw" data-code="+965">🇰🇼 Kuwait</option>
+                        <option value="om" data-code="+968">🇴🇲 Oman</option>
+                        <option value="bh" data-code="+973">🇧🇭 Bahrain</option>
+                        <option value="eg" data-code="+20">🇪🇬 Egypt</option>
+                        <option value="jo" data-code="+962">🇯🇴 Jordan</option>
+                        <option value="iq" data-code="+964">🇮🇶 Iraq</option>
+                        <option value="lb" data-code="+961">🇱🇧 Lebanon</option>
+                        <option value="us" data-code="+1">🇺🇸 United States</option>
+                        <option value="gb" data-code="+44">🇬🇧 United Kingdom</option>
+                        <option value="de" data-code="+49">🇩🇪 Germany</option>
+                        <option value="fr" data-code="+33">🇫🇷 France</option>
+                        <option value="tr" data-code="+90">🇹🇷 Turkey</option>
                     </select>
                 </div>
 
-                <input type="text" id="city" placeholder="المدينة" required class="input-field">
-                <input type="text" id="address" placeholder="العنوان" required class="input-field">
-                <input type="text" id="postalCode" placeholder="الرمز البريدي" required class="input-field">
+                <input type="text" id="city" placeholder="City" required class="input-field">
+                <input type="text" id="address" placeholder="Address" required class="input-field">
+                <input type="text" id="postalCode" placeholder="Postal Code" required class="input-field">
 
                 <div class="flex items-center">
-                    <input type="tel" id="phone" placeholder="رقم الجوال" required class="input-field flex-1">
+                    <input type="tel" id="phone" placeholder="Phone Number" required class="input-field flex-1">
                     <span id="country-code" class="bg-gray-300 p-2 rounded-lg ml-2">+966</span>
                 </div>
 
                 <select id="quantity" required class="input-field">
-                    <option value="1">1 قطعة</option>
-                    <option value="2">2 قطع (خصم!)</option>
-                    <option value="3">3 قطع (خصم أكبر!)</option>
+                    <option value="1">1 Piece</option>
+                    <option value="2">2 Pieces (Discount!)</option>
+                    <option value="3">3 Pieces (Bigger Discount!)</option>
                 </select>
 
                 <p id="priceDisplay" class="text-lg font-semibold text-gray-700 mt-2"></p>
 
-                <button type="submit" class="btn-glow mt-4">🚀 اطلب الآن والدفع عند الاستلام</button>
+                <button type="submit" class="btn-glow mt-4">🚀 Order Now - Cash on Delivery</button>
             </form>
         </div>
     </section>
 
-    <!-- 🔹 عرض المنتجات مع الوصف -->
-    <section class="py-8 bg-gray-100 text-center">
-        <div class="container mx-auto max-w-5xl">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">💎 منتجاتنا المميزة!</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- المنتج الأول --
-                <div class="bg-white p-4 rounded-lg shadow-lg">
-                    <img src="images/product1.jpeg" alt="منتج 1" class="rounded-lg mx-auto mb-3">
-                    <h3 class="text-xl font-bold text-gray-900">✨ منتج الفخامة الأصلي</h3>
-                    <p class="text-gray-700 mt-2">مصنوع من أجود المواد لتجربة لا مثيل لها. يجمع بين الفخامة والأداء المذهل.</p>
-                </div>
-
-                <!-- المنتج الثاني -->
-                <div class="bg-white p-4 rounded-lg shadow-lg">
-                    <img src="IMG_3098.jpeg" alt="منتج 2" class="rounded-lg mx-auto mb-3">
-                    <h3 class="text-xl font-bold text-gray-900">🌿 منتج العناية بالبشرة</h3>
-                    <p class="text-gray-700 mt-2">تركيبة طبيعية تمنح بشرتك النعومة والانتعاش، مثالي لكل أنواع البشرة.</p>
-                </div>
-
-                <!-- المنتج الثالث -->
-                <div class="bg-white p-4 rounded-lg shadow-lg">
-                    <img src="IMG_3100.jpeg" alt="منتج 3" class="rounded-lg mx-auto mb-3">
-                    <h3 class="text-xl font-bold text-gray-900">☕ قهوة فاخرة محمصة</h3>
-                    <p class="text-gray-700 mt-2">استمتع بطعم القهوة الأصلية المحمصة بعناية فائقة، مثالية لمحبي القهوة الأصيلة.</p>
-                </div>
-
-                <!-- المنتج الرابع -->
-                <div class="bg-white p-4 rounded-lg shadow-lg">
-                    <img src="IMG_3101.jpeg" alt="منتج 4" class="rounded-lg mx-auto mb-3">
-                    <h3 class="text-xl font-bold text-gray-900">🕯️ شمعة عطرية طبيعية</h3>
-                    <p class="text-gray-700 mt-2">شمعة مصنوعة من شمع طبيعي 100%، تمنحك أجواءً هادئة ورائحة منعشة تدوم طويلاً.</p>
-                </div>
-
-                <!-- المنتج الخامس -->
-                <div class="bg-white p-4 rounded-lg shadow-lg">
-                    <img src="IMG_3102.jpeg" alt="منتج 5" class="rounded-lg mx-auto mb-3">
-                    <h3 class="text-xl font-bold text-gray-900">🎧 سماعات لاسلكية بجودة عالية</h3>
-                    <p class="text-gray-700 mt-2">استمتع بجودة صوت استثنائية وتجربة استماع بلا أسلاك، مصممة لأقصى راحة وأداء.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 🔹 زر واتساب العائم -->
-    <a href="https://wa.me/966541827904?text=مرحبًا، أريد المساعدة في طلبي" 
+    <!-- 🔹 WhatsApp Floating Button -->
+    <a href="https://wa.me/966541827904?text=Hello, I need assistance with my order" 
        id="whatsapp-button" 
        target="_blank"
        class="fixed bottom-4 right-4 bg-green-500 text-white p-3 rounded-full shadow-lg">
         <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" 
-             alt="واتساب" 
+             alt="WhatsApp" 
              class="w-10 h-10">
     </a>
 
-    <!-- 🔹 الفوتر -->
+    <!-- 🔹 Footer -->
     <footer class="bg-gray-100 text-center text-sm text-gray-600 py-4 mt-6">
         <div class="container mx-auto">
-            <p class="mt-2">جميع الحقوق محفوظة 2025</p>
+            <p class="mt-2">© 2025 All rights reserved</p>
+            <div class="footer-links flex justify-center gap-6 mt-2">
+                <a href="policies.html#privacy-policy-content" class="hover:text-gray-900 font-medium">Privacy Policy</a>
+                <a href="policies.html#return-policy-content" class="hover:text-gray-900 font-medium">Return Policy</a>
+                <a href="policies.html#about-us-content" class="hover:text-gray-900 font-medium">About Us</a>
+            </div>
         </div>
     </footer>
 
