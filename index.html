@@ -9,61 +9,75 @@
 </head>
 <body class="bg-white text-gray-900">
 
-    <!-- 🔹 Header -->
-    <header class="header-container">
-        <img src="IMG_3271.jpeg" alt="Header" class="header-image">
-    </header>
+    <!-- 🔹 Header Image -->
+    <div class="header-container">
+        <img src="IMG_3271.jpeg" alt="Header Image" class="header-image">
+    </div>
 
-    <!-- 🔹 Social Media & Payment Methods Section -->
-    <div class="social-payment-section bg-gray-200 py-3 flex justify-between items-center px-6">
-        <!-- ✅ Social Media Icons -->
-        <div class="social-icons flex gap-4">
-            <a href="https://www.tiktok.com/" target="_blank"><img src="icons/tiktok.svg" alt="TikTok" class="icon"></a>
-            <a href="https://www.facebook.com/" target="_blank"><img src="icons/facebook.svg" alt="Facebook" class="icon"></a>
-            <a href="https://www.instagram.com/" target="_blank"><img src="icons/instagram.svg" alt="Instagram" class="icon"></a>
-            <a href="https://twitter.com/" target="_blank"><img src="icons/twitter.svg" alt="Twitter" class="icon"></a>
+    <!-- 🔹 Social Media & Payment Icons -->
+    <div class="social-payment-container">
+        <div class="social-icons">
+            <a href="https://www.tiktok.com/" target="_blank"><img src="icons/tiktok.png" alt="TikTok"></a>
+            <a href="https://www.instagram.com/" target="_blank"><img src="icons/instagram.png" alt="Instagram"></a>
+            <a href="https://www.facebook.com/" target="_blank"><img src="icons/facebook.png" alt="Facebook"></a>
+            <a href="https://twitter.com/" target="_blank"><img src="icons/twitter.png" alt="Twitter"></a>
         </div>
-
-        <!-- ✅ Payment Methods -->
-        <div class="payment-icons flex gap-4">
-            <img src="icons/paypal.svg" alt="PayPal" class="icon">
-            <img src="icons/visa.svg" alt="Visa" class="icon">
-            <img src="icons/usdt.svg" alt="USDT" class="icon">
-            <img src="icons/redotpay.svg" alt="RedotPay" class="icon">
-            <img src="icons/kast.svg" alt="KAST" class="icon">
+        <div class="payment-icons">
+            <img src="icons/paypal.png" alt="PayPal">
+            <img src="icons/visa.png" alt="Visa">
+            <img src="icons/usdt.png" alt="USDT">
+            <img src="icons/redotpay.png" alt="RedotPay">
+            <img src="icons/kast.png" alt="KAST">
         </div>
     </div>
+
+    <!-- 🔹 Product Showcase -->
+    <section class="py-8 bg-gray-100 text-center">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">💎 Our Featured Products</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="product-card">
+                    <img src="images/product1.jpeg" alt="Product 1">
+                    <h3>✨ Premium Luxury Product</h3>
+                    <p>Made from the finest materials for an unparalleled experience.</p>
+                </div>
+                <div class="product-card">
+                    <img src="IMG_3098.jpeg" alt="Product 2">
+                    <h3>🌿 Skincare Natural Formula</h3>
+                    <p>Gives your skin a smooth and fresh feeling, suitable for all skin types.</p>
+                </div>
+                <div class="product-card">
+                    <img src="IMG_3100.jpeg" alt="Product 3">
+                    <h3>☕ Premium Roasted Coffee</h3>
+                    <p>Enjoy the original taste of carefully roasted coffee beans.</p>
+                </div>
+                <div class="product-card">
+                    <img src="IMG_3101.jpeg" alt="Product 4">
+                    <h3>🕯️ Natural Scented Candle</h3>
+                    <p>Made from 100% natural wax, providing a calming ambiance.</p>
+                </div>
+                <div class="product-card">
+                    <img src="IMG_3102.jpeg" alt="Product 5">
+                    <h3>🎧 High-Quality Wireless Earphones</h3>
+                    <p>Exceptional sound quality and wireless convenience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- 🔹 Order Form -->
     <section class="py-6">
         <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
                 📋 Fill the form to place your order
             </h2>
-
-            <!-- ✅ Order Confirmation (Hidden by Default) -->
-            <div id="orderNumberContainer" class="hidden text-center mt-4">
-                <h2 class="text-2xl font-bold text-green-600">🎉 Your order has been successfully placed!</h2>
-                <p class="text-lg text-gray-700 mt-2">✅ Order Number: <span id="orderNumber" class="font-semibold"></span></p>
-                <p class="text-sm text-gray-600 mt-1">Please keep this number to track your order.</p>
-            </div>
-
-            <!-- 🔹 Order Form -->
-            <form id="orderForm" class="mt-4 bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
+            <form id="orderForm" class="form-container">
                 <input type="text" id="name" placeholder="Full Name" required class="input-field">
                 
                 <div class="relative">
-                    <select id="country" required class="input-field pr-12">
+                    <select id="country" required class="input-field">
                         <option value="sa" data-code="+966">🇸🇦 Saudi Arabia</option>
-                        <option value="qa" data-code="+974">🇶🇦 Qatar</option>
-                        <option value="ae" data-code="+971">🇦🇪 UAE</option>
-                        <option value="kw" data-code="+965">🇰🇼 Kuwait</option>
-                        <option value="om" data-code="+968">🇴🇲 Oman</option>
-                        <option value="bh" data-code="+973">🇧🇭 Bahrain</option>
-                        <option value="eg" data-code="+20">🇪🇬 Egypt</option>
-                        <option value="jo" data-code="+962">🇯🇴 Jordan</option>
-                        <option value="iq" data-code="+964">🇮🇶 Iraq</option>
-                        <option value="lb" data-code="+961">🇱🇧 Lebanon</option>
                         <option value="us" data-code="+1">🇺🇸 United States</option>
                         <option value="gb" data-code="+44">🇬🇧 United Kingdom</option>
                         <option value="de" data-code="+49">🇩🇪 Germany</option>
@@ -84,7 +98,7 @@
                 <select id="quantity" required class="input-field">
                     <option value="1">1 Piece</option>
                     <option value="2">2 Pieces (Discount!)</option>
-                    <option value="3">3 Pieces (Bigger Discount!)</option>
+                    <option value="3">3 Pieces (More Discount!)</option>
                 </select>
 
                 <p id="priceDisplay" class="text-lg font-semibold text-gray-700 mt-2"></p>
@@ -94,26 +108,18 @@
         </div>
     </section>
 
-    <!-- 🔹 WhatsApp Floating Button -->
-    <a href="https://wa.me/966541827904?text=Hello, I need assistance with my order" 
+    <!-- 🔹 WhatsApp Button -->
+    <a href="https://wa.me/966541827904?text=Hello, I need help with my order" 
        id="whatsapp-button" 
        target="_blank"
        class="fixed bottom-4 right-4 bg-green-500 text-white p-3 rounded-full shadow-lg">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" 
-             alt="WhatsApp" 
-             class="w-10 h-10">
+        <img src="icons/whatsapp.png" alt="WhatsApp" class="w-10 h-10">
     </a>
 
     <!-- 🔹 Footer -->
-    <footer class="bg-gray-100 text-center text-sm text-gray-600 py-4 mt-6">
-        <div class="container mx-auto">
-            <p class="mt-2">© 2025 All rights reserved</p>
-            <div class="footer-links flex justify-center gap-6 mt-2">
-                <a href="policies.html#privacy-policy-content" class="hover:text-gray-900 font-medium">Privacy Policy</a>
-                <a href="policies.html#return-policy-content" class="hover:text-gray-900 font-medium">Return Policy</a>
-                <a href="policies.html#about-us-content" class="hover:text-gray-900 font-medium">About Us</a>
-            </div>
-        </div>
+    <footer class="footer">
+        <p>© 2025 All rights reserved.</p>
+        <a href="#">Privacy Policy</a> | <a href="#">Return Policy</a> | <a href="#">About Us</a>
     </footer>
 
     <script src="script.js"></script>
