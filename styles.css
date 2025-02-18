@@ -8,7 +8,7 @@ body {
     background: #f8f8f8;
 }
 
-/* ✅ تصميم الهيدر */
+/* ✅ تحسين الشريط العلوي ليكون متجاوبًا بالكامل */
 .header {
     background: white;
     padding: 10px 0;
@@ -20,7 +20,7 @@ body {
     z-index: 1000;
 }
 
-/* ✅ تحسين الشريط العلوي ليكون متجاوبًا */
+/* ✅ تنسيق الشريط العلوي */
 .container {
     display: flex;
     justify-content: space-between;
@@ -28,6 +28,7 @@ body {
     max-width: 1200px;
     margin: auto;
     padding: 0 20px;
+    flex-wrap: wrap; /* يضمن توافق الشريط العلوي مع الجوال */
 }
 
 /* ✅ قائمة الروابط متجاوبة */
@@ -37,6 +38,7 @@ body {
     gap: 15px;
     padding: 0;
     margin: 0;
+    flex-wrap: wrap; /* يضمن عدم اختفاء العناصر على الشاشات الصغيرة */
 }
 
 .nav-links li {
@@ -61,19 +63,19 @@ body {
 
 /* ✅ تحسين اللوجو */
 .logo {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     color: #6a0dad;
 }
 
-/* ✅ صندوق البحث */
+/* ✅ تحسين عرض البحث */
 .search-box {
     display: flex;
     align-items: center;
     background: #f1f1f1;
     padding: 5px;
     border-radius: 20px;
-    width: 200px;
+    width: 180px;
 }
 
 .search-box input {
@@ -92,7 +94,7 @@ body {
     font-size: 16px;
 }
 
-/* ✅ أيقونة السلة */
+/* ✅ تحسين أيقونة السلة */
 .cart {
     text-decoration: none;
     position: relative;
@@ -112,32 +114,23 @@ body {
     right: -10px;
 }
 
-/* ✅ تصميم قسم الصور */
-.image-slider {
-    margin-top: 90px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 20px;
+/* ✅ إزالة الأسهم الزرقاء من السلايدر */
+.swiper-button-next,
+.swiper-button-prev {
+    display: none !important;
 }
 
-.image-slider img {
-    width: 100%;
-    max-width: 450px;
-    border-radius: 8px;
-}
-
-/* ✅ تحسين نموذج الطلب ليكون بالحجم الكامل */
+/* ✅ تحسين عرض النموذج ليكون بنفس الحجم السابق */
 .order-section {
     background: white;
     padding: 40px 20px;
     text-align: center;
     width: 100%;
+    margin-top: 150px; /* يضمن عدم التصاقه بالشريط العلوي */
 }
 
 .order-header {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -147,14 +140,14 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    max-width: 650px; /* جعله يأخذ العرض المطلوب */
     margin: auto;
 }
 
 .order-form input,
 .order-form select {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     margin-top: 10px;
     border: 1px solid #ddd;
     border-radius: 6px;
