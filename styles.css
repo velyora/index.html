@@ -1,5 +1,3 @@
-هذا السابق قم بدمج الذي ليسى موجود مع هذا والذي ليسى له فايده دعه 
-
 /* ✅ استيراد الخطوط */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Tajawal:wght@300;400;700&display=swap');
 
@@ -10,7 +8,7 @@ body {
     background: #f8f8f8;
 }
 
-/* ✅ تصميم الهيدر */
+/* ✅ تحسين الشريط العلوي */
 .header {
     background: white;
     padding: 15px 0;
@@ -22,109 +20,50 @@ body {
     z-index: 100;
 }
 
+/* ✅ تنسيق الحاوية الأساسية */
 .container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     max-width: 1200px;
     margin: auto;
     padding: 0 20px;
 }
 
-/* ✅ قائمة الروابط */
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    padding: 0;
-    margin: 0;
+/* ✅ تصميم النموذج ليشغل الصفحة بالكامل */
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-top: 120px; /* لتجنب التداخل مع الهيدر */
 }
 
-.nav-links li {
-    display: inline;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #444;
-    font-weight: 500;
-    transition: 0.3s;
-    padding: 8px 12px;
-    border-radius: 20px;
-}
-
-.nav-links a.active,
-.nav-links a:hover {
-    background: #6a0dad;
-    color: white;
-}
-
-/* ✅ اللوجو */
-.logo {
-    font-size: 24px;
+/* ✅ ضبط عنوان النموذج */
+.form-title {
+    text-align: center;
+    font-size: 22px;
     font-weight: bold;
-    color: #6a0dad;
-}
-
-/* ✅ صندوق البحث */
-.search-box {
-    display: flex;
-    align-items: center;
-    background: #f1f1f1;
-    padding: 5px;
-    border-radius: 20px;
-}
-
-.search-box input {
-    border: none;
-    background: transparent;
-    padding: 5px;
-    font-size: 14px;
-    outline: none;
-    width: 150px;
-}
-
-.search-box button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-/* ✅ أيقونة السلة */
-.cart {
-    text-decoration: none;
-    position: relative;
-    font-size: 20px;
-    color: #444;
-    margin-left: 15px;
-}
-
-.cart-badge {
-    background: red;
-    color: white;
-    font-size: 12px;
-    padding: 3px 6px;
-    border-radius: 50%;
-    position: absolute;
-    top: -5px;
-    right: -10px;
+    margin-bottom: 10px;
 }
 
 /* ✅ تحسين المدخلات */
 .input-field {
-    width: 100%;
+    width: calc(100% - 24px); /* حتى لا تخرج القائمة */
     padding: 12px;
     margin-top: 8px;
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 16px;
     text-align: right;
+    display: block;
 }
 
 /* ✅ ضبط مكان مفتاح الدولة */
 #country-code {
-    order: 2; 
+    order: 2;
     margin-left: 8px;
     margin-right: 0;
     background: #f3f3f3;
@@ -145,21 +84,12 @@ body {
     border-radius: 30px;
     box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
     transition: 0.3s;
+    margin-top: 15px;
 }
 
 .btn-glow:hover {
     background: linear-gradient(90deg, #ffbb00, #ff7e5f);
     box-shadow: 0 4px 20px rgba(255, 126, 95, 0.6);
-}
-
-/* ✅ تحسين التباعد بين العناصر */
-.container {
-    max-width: 600px;
-}
-
-/* ✅ تحسين النص بين الهيدر والنموذج */
-.text-lg {
-    font-weight: bold;
 }
 
 /* ✅ زر واتساب */
@@ -198,34 +128,4 @@ body {
     font-size: 14px;
     color: #666;
     margin-top: 20px;
-}
-
-.footer .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 10px;
-}
-
-.footer .social-icons a {
-    font-size: 20px;
-    color: #444;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.footer .social-icons a:hover {
-    color: #6a0dad;
-}
-
-.footer .language-currency {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 10px;
-}
-
-.footer .language-currency span {
-    cursor: pointer;
-    font-weight: bold;
 }
