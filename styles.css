@@ -247,3 +247,47 @@ body {
     cursor: pointer;
     font-weight: bold;
 }
+
+/* ✅ ضبط المنتجات داخل إطار */
+.product-container {
+    width: 90%;
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin: 40px auto; /* توسيط الإطار */
+    text-align: center;
+}
+
+/* ✅ تصميم بطاقات المنتجات */
+.product-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    margin-bottom: 20px; /* تباعد بين المنتجات */
+}
+
+/* ✅ جعل الصور تتناسب مع الإطار */
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* ✅ تحسين عناوين المنتجات */
+.product-card h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}
+
+/* ✅ تحسين نصوص المنتجات */
+.product-card p {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
