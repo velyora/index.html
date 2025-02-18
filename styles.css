@@ -21,14 +21,19 @@ body {
 }
 
 /* ✅ جعل الهيدر مرنًا ليتوافق مع الجوال */
+/* ✅ ضبط الهيدر ليملأ الصفحة بالكامل */
 .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 15px;
-    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* ✅ جعل الصورة تمتد لكامل الصفحة */
+.header-container img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* ✅ تنسيق روابط القائمة */
