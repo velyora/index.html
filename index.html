@@ -3,58 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>طلب المنتج</title>
+    <title>احصل على منتجك الآن!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="bg-white text-gray-900">
 
-    <!-- 🔹 الشريط العلوي (الهيدر) -->
-    <header class="header">
-        <div class="container">
-            <!-- 🔹 القائمة -->
-            <nav class="nav">
-                <ul class="nav-links">
-                    <li><a href="#" class="active">New</a></li>
-                    <li><a href="#">Dresses</a></li>
-                    <li><a href="#">Accessories</a></li>
-                    <li><a href="#">Winter</a></li>
-                    <li><a href="#">Sale</a></li>
-                </ul>
-            </nav>
-
-            <!-- 🔹 اللوجو -->
-            <div class="logo">Ecstasy.</div>
-
-            <!-- 🔹 البحث والسلة -->
-            <div class="nav-icons">
-                <div class="search-box">
-                    <input type="text" placeholder="Search">
-                    <button>🔍</button>
-                </div>
-                <a href="#" class="cart">
-                    🛒
-                    <span class="cart-badge">1</span>
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- 🔹 قسم الصور (أسفل الهيدر وليس داخله) -->
-    <div class="image-slider">
-        <img src="image1.jpg" alt="صورة 1">
-        <img src="image2.jpg" alt="صورة 2">
-        <img src="image3.jpg" alt="صورة 3">
+    <!-- 🔹 صورة الهيدر -->
+    <div class="header-container">
+        <img src="IMG_3185.jpeg" alt="الهيدر" class="header-image">
     </div>
 
-    <!-- 🔹 نموذج الطلب (بالحجم الكامل وبالأسفل) -->
-    <section class="order-section">
-        <div class="container">
-            <h2 class="section-title">📋 قم بملء النموذج لطلب المنتج</h2>
-            <form id="orderForm" class="order-form">
-                <input type="text" id="name" placeholder="الاسم الكامل" required>
+    <!-- 🔹 معلومات التوصيل -->
+    <div class="text-center mt-2 text-sm font-medium text-gray-600 flex flex-col items-center justify-center">
+        <p>🚚 للمنتجات الملموسة: توصيل سريع خلال <span class="font-bold">2-5 أيام عمل</span></p>
+        <p>⚡ للمنتجات الرقمية: <span class="font-bold">التسليم فوري</span></p>
+    </div> 
+
+    <!-- 🔹 قسم الطلب -->
+    <section class="py-6">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center">
+                📋 قم بملء النموذج لطلب المنتج
+            </h2>
+
+            <!-- ✅ عنصر عرض رقم الطلب (مخفي افتراضيًا) -->
+            <div id="orderNumberContainer" class="hidden text-center mt-4">
+                <h2 class="text-2xl font-bold text-green-600">🎉 تم تقديم طلبك بنجاح!</h2>
+                <p class="text-lg text-gray-700 mt-2">✅ رقم طلبك: <span id="orderNumber" class="font-semibold"></span></p>
+                <p class="text-sm text-gray-600 mt-1">يرجى الاحتفاظ بهذا الرقم لمتابعة طلبك.</p>
+            </div>
+
+            <!-- 🔹 نموذج الطلب -->
+            <form id="orderForm" class="mt-4 bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
+                <input type="text" id="name" placeholder="الاسم الكامل" required class="input-field">
                 
                 <div class="relative">
-                    <select id="country" required>
+                    <select id="country" required class="input-field pr-12">
                         <option value="sa" data-code="+966">🇸🇦 السعودية</option>
                         <option value="qa" data-code="+974">🇶🇦 قطر</option>
                         <option value="ae" data-code="+971">🇦🇪 الإمارات</option>
@@ -68,36 +53,87 @@
                     </select>
                 </div>
 
-                <input type="text" id="city" placeholder="المدينة" required>
-                <input type="text" id="address" placeholder="العنوان" required>
-                <input type="text" id="postalCode" placeholder="الرمز البريدي" required>
+                <input type="text" id="city" placeholder="المدينة" required class="input-field">
+                <input type="text" id="address" placeholder="العنوان" required class="input-field">
+                <input type="text" id="postalCode" placeholder="الرمز البريدي" required class="input-field">
 
-                <div class="phone-input">
-                    <span id="country-code">+966</span>
-                    <input type="tel" id="phone" placeholder="رقم الجوال" required>
+                <div class="flex items-center">
+                    <input type="tel" id="phone" placeholder="رقم الجوال" required class="input-field flex-1">
+                    <span id="country-code" class="bg-gray-300 p-2 rounded-lg ml-2">+966</span>
                 </div>
 
-                <select id="quantity" required>
+                <select id="quantity" required class="input-field">
                     <option value="1">1 قطعة</option>
                     <option value="2">2 قطع (خصم!)</option>
                     <option value="3">3 قطع (خصم أكبر!)</option>
                 </select>
 
-                <p id="priceDisplay" class="price-display">💰 السعر: 37 ريال</p>
+                <p id="priceDisplay" class="text-lg font-semibold text-gray-700 mt-2"></p>
 
-                <button type="submit" class="btn-glow">🚀 اطلب الآن والدفع عند الاستلام</button>
+                <button type="submit" class="btn-glow mt-4">🚀 اطلب الآن والدفع عند الاستلام</button>
             </form>
         </div>
     </section>
 
+    <!-- 🔹 عرض المنتجات مع الوصف -->
+    <section class="py-8 bg-gray-100 text-center">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">💎 منتجاتنا المميزة!</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- المنتج الأول -->
+                <div class="bg-white p-4 rounded-lg shadow-lg">
+                    <img src="product1.jpeg" alt="منتج 1" class="rounded-lg mx-auto mb-3">
+                    <h3 class="text-xl font-bold text-gray-900">✨ منتج الفخامة الأصلي</h3>
+                    <p class="text-gray-700 mt-2">مصنوع من أجود المواد لتجربة لا مثيل لها. يجمع بين الفخامة والأداء المذهل.</p>
+                </div>
+
+                <!-- المنتج الثاني -->
+                <div class="bg-white p-4 rounded-lg shadow-lg">
+                    <img src="product2.jpeg" alt="منتج 2" class="rounded-lg mx-auto mb-3">
+                    <h3 class="text-xl font-bold text-gray-900">🌿 منتج العناية بالبشرة</h3>
+                    <p class="text-gray-700 mt-2">تركيبة طبيعية تمنح بشرتك النعومة والانتعاش، مثالي لكل أنواع البشرة.</p>
+                </div>
+
+                <!-- المنتج الثالث -->
+                <div class="bg-white p-4 rounded-lg shadow-lg">
+                    <img src="product3.jpeg" alt="منتج 3" class="rounded-lg mx-auto mb-3">
+                    <h3 class="text-xl font-bold text-gray-900">☕ قهوة فاخرة محمصة</h3>
+                    <p class="text-gray-700 mt-2">استمتع بطعم القهوة الأصلية المحمصة بعناية فائقة، مثالية لمحبي القهوة الأصيلة.</p>
+                </div>
+
+                <!-- المنتج الرابع -->
+                <div class="bg-white p-4 rounded-lg shadow-lg">
+                    <img src="product4.jpeg" alt="منتج 4" class="rounded-lg mx-auto mb-3">
+                    <h3 class="text-xl font-bold text-gray-900">🕯️ شمعة عطرية طبيعية</h3>
+                    <p class="text-gray-700 mt-2">شمعة مصنوعة من شمع طبيعي 100%، تمنحك أجواءً هادئة ورائحة منعشة تدوم طويلاً.</p>
+                </div>
+
+                <!-- المنتج الخامس -->
+                <div class="bg-white p-4 rounded-lg shadow-lg">
+                    <img src="product5.jpeg" alt="منتج 5" class="rounded-lg mx-auto mb-3">
+                    <h3 class="text-xl font-bold text-gray-900">🎧 سماعات لاسلكية بجودة عالية</h3>
+                    <p class="text-gray-700 mt-2">استمتع بجودة صوت استثنائية وتجربة استماع بلا أسلاك، مصممة لأقصى راحة وأداء.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- 🔹 زر واتساب العائم -->
-    <a href="https://wa.me/966541827904" class="whatsapp-button" target="_blank">
-        <img src="whatsapp-icon.png" class="whatsapp-icon" alt="واتساب">
+    <a href="https://wa.me/966541827904?text=مرحبًا، أريد المساعدة في طلبي" 
+       id="whatsapp-button" 
+       target="_blank"
+       class="fixed bottom-4 right-4 bg-green-500 text-white p-3 rounded-full shadow-lg">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" 
+             alt="واتساب" 
+             class="w-10 h-10">
     </a>
 
     <!-- 🔹 الفوتر -->
-    <footer class="footer">
-        <p>جميع الحقوق محفوظة 2025</p>
+    <footer class="bg-gray-100 text-center text-sm text-gray-600 py-4 mt-6">
+        <div class="container mx-auto">
+            <p class="mt-2">جميع الحقوق محفوظة 2025</p>
+        </div>
     </footer>
 
     <script src="script.js"></script>
