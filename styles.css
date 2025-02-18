@@ -171,15 +171,14 @@ body {
     margin-top: 15px;
 }
 
-.social-icons a {
-    text-decoration: none;
-    font-size: 22px;
-    color: #444;
-    transition: 0.3s;
+.social-icons a img {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease-in-out;
 }
 
-.social-icons a:hover {
-    color: #6a0dad;
+.social-icons a:hover img {
+    transform: scale(1.1);
 }
 
 /* ✅ تحسين أيقونات الدفع */
@@ -191,14 +190,13 @@ body {
 }
 
 .payment-methods img {
-    width: 40px;
+    width: 50px;
     height: auto;
-    filter: grayscale(50%);
-    transition: 0.3s;
+    transition: transform 0.3s ease-in-out;
 }
 
 .payment-methods img:hover {
-    filter: grayscale(0%);
+    transform: scale(1.1);
 }
 
 /* ✅ تحسين زر واتساب */
@@ -208,20 +206,24 @@ body {
     justify-content: center;
     background-color: #25D366;
     color: white;
-    padding: 12px 20px;
-    border-radius: 30px;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background 0.3s ease-in-out;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
     position: fixed;
     bottom: 20px;
     right: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease-in-out, transform 0.3s;
+}
+
+.whatsapp-button img {
+    width: 40px;
+    height: 40px;
 }
 
 .whatsapp-button:hover {
     background-color: #1EBE5D;
+    transform: scale(1.1);
 }
 
 /* ✅ تحسين الفوتر */
