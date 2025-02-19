@@ -334,3 +334,22 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.floating-shipping-button {
+    position: fixed;
+    bottom: 80px; /* ارتفاع الزر عن الحافة السفلية */
+    left: 20px; /* جعله في يسار الشاشة */
+    background-color: #007bff; /* لون الخلفية */
+    color: white;
+    padding: 12px 18px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease-in-out;
+}
+
+.floating-shipping-button:hover {
+    background-color: #0056b3;
+}
+
