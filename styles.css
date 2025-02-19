@@ -299,3 +299,30 @@ body {
     color: #666;
     margin-top: 5px;
 }
+
+
+
+/* 🔹 Bottom Navigation Bar (Under Header) */
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+
+.bottom-nav a {
+    text-decoration: none;
+    color: white;
+    padding: 8px 15px;
+    transition: 0.3s ease-in-out;
+}
+
+.bottom-nav a:hover {
+    color: #ffdd57; /* لون أصفر جذاب عند التحويل */
+    transform: scale(1.05);
+}
