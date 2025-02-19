@@ -6,7 +6,9 @@ body {
     margin: 0;
     padding: 0;
     background: white;
+    background-color: #f4f4f4; /* استبدل هذا باللون الذي تريده */
 }
+
 
 /* ✅ تحسين الشريط العلوي (الهيدر) */
 .header {
