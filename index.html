@@ -46,8 +46,17 @@
         <div class="bg-white shadow-md rounded-lg p-6 w-96">
             <h2 class="text-xl font-bold text-gray-700 text-center mb-4">Credit Card Information</h2>
 
-            <!-- 🔹 إدخال بيانات البطاقة (دائمًا مفتوح) -->
-            <div id="card-container" class="border p-4 rounded-md shadow-sm"></div>
+            <!-- 🔹 إدخال بيانات البطاقة (مفتوح دائمًا) -->
+            <div id="card-form">
+                <label for="card-number" class="block text-gray-700 text-sm font-bold mb-2">Card Number</label>
+                <div id="card-number" class="border p-3 rounded-md shadow-sm"></div>
+
+                <label for="expiration-date" class="block text-gray-700 text-sm font-bold mt-2">Expiration Date</label>
+                <div id="expiration-date" class="border p-3 rounded-md shadow-sm"></div>
+
+                <label for="cvv" class="block text-gray-700 text-sm font-bold mt-2">CVV</label>
+                <div id="cvv" class="border p-3 rounded-md shadow-sm"></div>
+            </div>
 
             <!-- 🔹 زر الدفع بالبطاقة -->
             <button id="card-button" class="w-full bg-green-500 text-white py-2 mt-4 rounded-md text-lg font-semibold hover:bg-green-600">
@@ -77,18 +86,35 @@
         </div>
     </footer>
 
-    <!-- 🔹 تحميل PayPal SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=AZsqOV7PNElXMoKK4b-Z0CVgd9ymky6qwNMynhX3a2PyJj7i97tH2g8HXlmGsuCwo3QcChAQxYrtcuds&components=buttons,funding-eligibility,card-fields&enable-funding=card"></script>
+    <!-- 🔹 تحميل PayPal SDK مع تمكين Hosted Fields -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AZsqOV7PNElXMoKK4b-Z0CVgd9ymky6qwNMynhX3a2PyJj7i97tH2g8HXlmGsuCwo3QcChAQxYrtcuds&components=buttons,hosted-fields"></script>
 
     <!-- 🔹 تحميل سكربت الدفع -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // 🔹 جعل إدخال البطاقة مفتوحًا دائمًا
-            paypal.CardFields().render("#card-container").then(function(card) {
-                document.getElementById("card-button").addEventListener("click", function() {
-                    card.submit().then(function(orderData) {
+            // 🔹 تهيئة إدخال البطاقة ليكون مفتوح دائمًا
+            paypal.HostedFields.render({
+                createOrder: function () {
+                    return fetch('/my-server/create-paypal-order', { method: 'post' })
+                        .then(response => response.json())
+                        .then(order => order.id);
+                },
+                styles: {
+                    input: {
+                        'font-size': '16px',
+                        'color': '#333'
+                    }
+                },
+                fields: {
+                    number: { selector: "#card-number", placeholder: "•••• •••• •••• ••••" },
+                    expirationDate: { selector: "#expiration-date", placeholder: "MM/YY" },
+                    cvv: { selector: "#cvv", placeholder: "123" }
+                }
+            }).then(function (hostedFields) {
+                document.getElementById("card-button").addEventListener("click", function () {
+                    hostedFields.submit().then(function () {
                         alert("✅ Payment successful!");
-                    }).catch(function(error) {
+                    }).catch(function (error) {
                         alert("❌ Payment failed!");
                         console.error(error);
                     });
@@ -97,13 +123,13 @@
 
             // 🔹 تشغيل زر PayPal عند الضغط عليه
             paypal.Buttons({
-                createOrder: function(data, actions) {
+                createOrder: function (data, actions) {
                     return actions.order.create({
                         purchase_units: [{ amount: { value: '10.00' } }]
                     });
                 },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
+                onApprove: function (data, actions) {
+                    return actions.order.capture().then(function (details) {
                         alert("✅ Payment successful via PayPal!");
                     });
                 }
