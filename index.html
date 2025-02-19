@@ -16,8 +16,7 @@
     
     <!-- 🔹 Payment Methods Image -->
     <div class="payment-bar">
-        <img src="IMG_3303.jpeg
-" alt="Payment Methods">
+        <img src="IMG_3303.jpeg" alt="Payment Methods">
     </div>
 
     <!-- 🔹 Social Media Icons Bar -->
@@ -37,8 +36,6 @@
             </a>
         </div>
     </div>
-
-    
 
     <!-- 🔹 Product Showcase -->
     <section class="py-8 bg-gray-100 text-center">
@@ -61,16 +58,6 @@
                     <h3>☕ Premium Roasted Coffee</h3>
                     <p>Enjoy the original taste of carefully roasted coffee beans.</p>
                 </div>
-                <div class="product-card">
-                    <img src="IMG_3101.jpeg" alt="Product 4">
-                    <h3>🕯️ Natural Scented Candle</h3>
-                    <p>Made from 100% natural wax, providing a calming ambiance.</p>
-                </div>
-                <div class="product-card">
-                    <img src="IMG_3102.jpeg" alt="Product 5">
-                    <h3>🎧 High-Quality Wireless Earphones</h3>
-                    <p>Exceptional sound quality and wireless convenience.</p>
-                </div>
             </div>
         </div>
     </section>
@@ -78,32 +65,15 @@
     <!-- 🔹 Order Form -->
     <section class="py-6">
         <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">
-                📋 Fill the form to place your order
-            </h2>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">📋 Fill the form to place your order</h2>
+            
             <form id="orderForm" class="form-container">
                 <input type="text" id="name" placeholder="Full Name" required class="input-field">
-                
-                <div class="relative">
-                    <select id="country" required class="input-field">
-                        <option value="sa" data-code="+966">🇸🇦 Saudi Arabia</option>
-                        <option value="us" data-code="+1">🇺🇸 United States</option>
-                        <option value="gb" data-code="+44">🇬🇧 United Kingdom</option>
-                        <option value="de" data-code="+49">🇩🇪 Germany</option>
-                        <option value="fr" data-code="+33">🇫🇷 France</option>
-                        <option value="tr" data-code="+90">🇹🇷 Turkey</option>
-                    </select>
-                </div>
-
                 <input type="text" id="city" placeholder="City" required class="input-field">
                 <input type="text" id="address" placeholder="Address" required class="input-field">
                 <input type="text" id="postalCode" placeholder="Postal Code" required class="input-field">
-
-                <div class="flex items-center">
-                    <input type="tel" id="phone" placeholder="Phone Number" required class="input-field flex-1">
-                    <span id="country-code" class="bg-gray-300 p-2 rounded-lg ml-2">+966</span>
-                </div>
-
+                <input type="tel" id="phone" placeholder="Phone Number" required class="input-field">
+                
                 <select id="quantity" required class="input-field">
                     <option value="1">1 Piece</option>
                     <option value="2">2 Pieces (Discount!)</option>
@@ -114,28 +84,61 @@
 
                 <button type="submit" class="btn-glow mt-4">🚀 Order Now - Cash on Delivery</button>
             </form>
+
+            <!-- 🔹 قسم الدفع عبر PayPal وبطاقة الائتمان -->
+            <h2 class="text-2xl font-bold text-gray-900 mt-6">أو قم بالدفع مباشرة عبر PayPal أو البطاقة</h2>
+            
+            <!-- قسم إدخال بيانات البطاقة -->
+            <div id="card-container" class="mt-4"></div>
+            <button id="card-button" disabled class="btn-glow mt-2">💳 إتمام الدفع بالبطاقة</button>
+
+            <hr class="my-4">
+
+            <!-- زر الدفع عبر PayPal -->
+            <div id="paypal-button-container"></div>
         </div>
     </section>
 
     <!-- 🔹 WhatsApp Button -->
-    <a href="https://wa.me/966541827904" 
-       id="whatsapp-button" 
-       target="_blank"
+    <a href="https://wa.me/966541827904" id="whatsapp-button" target="_blank"
        class="fixed bottom-4 right-4 bg-green-500 text-white p-3 rounded-full shadow-lg">
         <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" class="w-10 h-10">
     </a>
 
     <!-- 🔹 Footer -->
-    <!-- 🔹 Footer -->
     <footer class="bg-gray-100 text-center text-sm text-gray-600 py-4 mt-6">
         <div class="container mx-auto">
             <p class="mt-2">© 2025 All rights reserved.</p>
-            <a href="policies.html" class="text-blue-600 hover:underline">Privacy Policy</a> | 
-            <a href="policies.html#return-policy-content" class="text-blue-600 hover:underline">Return Policy</a> | 
-            <a href="policies.html#about-us-content" class="text-blue-600 hover:underline">About Us</a>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- 🔹 PayPal Integration -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AZsqOV7PNElXMoKK4b-Z0CVgd9ymky6qwNMynhX3a2PyJj7i97tH2g8HXlmGsuCwo3QcChAQxYrtcuds&components=buttons,funding-eligibility,card-fields&enable-funding=card"></script>
+    <script>
+        paypal.Buttons({
+            fundingSource: paypal.FUNDING.PAYPAL, 
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: { value: '10.00' }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('✅ تم الدفع بنجاح بواسطة PayPal: ' + details.payer.name.given_name);
+                });
+            }
+        }).render('#paypal-button-container');
+
+        paypal.CardFields().render('#card-container').then(function(card) {
+            document.getElementById("card-button").disabled = false;
+            document.getElementById("card-button").addEventListener("click", function() {
+                card.submit().then(function(orderData) {
+                    alert("✅ تم الدفع بنجاح بالبطاقة!");
+                });
+            });
+        });
+    </script>
 </body>
 </html>
