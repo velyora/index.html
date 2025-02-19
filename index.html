@@ -1,99 +1,65 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Your Product Now!</title>
+    <title>Secure Payment</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-white text-gray-900">
+<body class="bg-gray-100">
 
-    <!-- 🔹 Header Image -->
-    <div class="header-container">
-        <img src="IMG_3286.jpeg" alt="Header Image" class="header-image">
-    </div>
-    
+    <!-- 🔹 Header -->
+    <header class="bg-white shadow-md py-4">
+        <div class="container mx-auto flex justify-between items-center px-6">
+            <h1 class="text-2xl font-bold text-gray-700">Your Brand</h1>
+            <img src="logo.png" alt="Brand Logo" class="h-10">
+        </div>
+    </header>
+
     <!-- 🔹 Payment Methods Image -->
-    <div class="payment-bar">
-        <img src="IMG_3303.jpeg" alt="Payment Methods">
+    <div class="text-center my-4">
+        <img src="IMG_3303.jpeg" alt="Payment Methods" class="mx-auto w-48">
     </div>
 
-    <!-- 🔹 Social Media Icons Bar -->
-    <div class="social-bar">
-        <div class="social-icons">
+    <!-- 🔹 Social Media Icons -->
+    <div class="text-center mb-6">
+        <h2 class="text-lg font-semibold text-gray-700">Follow Us</h2>
+        <div class="flex justify-center space-x-4 mt-2">
             <a href="https://www.tiktok.com" target="_blank">
-                <img src="IMG_3298.png" alt="TikTok">
+                <img src="IMG_3298.png" alt="TikTok" class="w-8">
             </a>
             <a href="https://www.instagram.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="w-8">
             </a>
             <a href="https://www.facebook.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" class="w-8">
             </a>
             <a href="https://twitter.com" target="_blank">
-                <img src="IMG_3299.jpeg" alt="X">
+                <img src="IMG_3299.jpeg" alt="X" class="w-8">
             </a>
         </div>
     </div>
 
-    <!-- 🔹 Product Showcase -->
-    <section class="py-8 bg-gray-100 text-center">
-        <div class="container mx-auto max-w-5xl">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">💎 Our Featured Products</h2>
+    <!-- 🔹 Payment Section -->
+    <section class="flex justify-center">
+        <div class="bg-white shadow-md rounded-lg p-6 w-96">
+            <h2 class="text-xl font-bold text-gray-700 text-center mb-4">Credit Card Information</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="product-card">
-                    <img src="IMG_3105.jpeg" alt="Product 1">
-                    <h3>✨ Premium Luxury Product</h3>
-                    <p>Made from the finest materials for an unparalleled experience.</p>
-                </div>
-                <div class="product-card">
-                    <img src="IMG_3098.jpeg" alt="Product 2">
-                    <h3>🌿 Skincare Natural Formula</h3>
-                    <p>Gives your skin a smooth and fresh feeling, suitable for all skin types.</p>
-                </div>
-                <div class="product-card">
-                    <img src="IMG_3100.jpeg" alt="Product 3">
-                    <h3>☕ Premium Roasted Coffee</h3>
-                    <p>Enjoy the original taste of carefully roasted coffee beans.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            <!-- 🔹 إدخال بيانات البطاقة -->
+            <div id="card-container" class="border p-4 rounded-md shadow-sm"></div>
 
-    <!-- 🔹 Order Form -->
-    <section class="py-6">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">📋 Fill the form to place your order</h2>
-            
-            <form id="orderForm" class="form-container">
-                <input type="text" id="name" placeholder="Full Name" required class="input-field">
-                <input type="text" id="city" placeholder="City" required class="input-field">
-                <input type="text" id="address" placeholder="Address" required class="input-field">
-                <input type="text" id="postalCode" placeholder="Postal Code" required class="input-field">
-                <input type="tel" id="phone" placeholder="Phone Number" required class="input-field">
-                
-                <select id="quantity" required class="input-field">
-                    <option value="1">1 Piece</option>
-                    <option value="2">2 Pieces (Discount!)</option>
-                    <option value="3">3 Pieces (More Discount!)</option>
-                </select>
-
-                <p id="priceDisplay" class="text-lg font-semibold text-gray-700 mt-2"></p>
-
-                <button type="submit" class="btn-glow mt-4">🚀 Order Now - Cash on Delivery</button>
-            </form>
-
-            <!-- 🔹 الدفع بالبطاقة (ظاهرة تلقائيًا) -->
-            <h2 class="text-2xl font-bold text-gray-900 mt-6">💳 الدفع باستخدام البطاقة</h2>
-            <div id="card-container" class="mt-4"></div>
+            <!-- 🔹 زر الدفع بالبطاقة -->
+            <button id="card-button" class="w-full bg-green-500 text-white py-2 mt-4 rounded-md text-lg font-semibold hover:bg-green-600">
+                Submit
+            </button>
 
             <hr class="my-4">
 
-            <!-- 🔹 الدفع عبر PayPal -->
-            <h2 class="text-2xl font-bold text-gray-900 mt-6">🌍 الدفع عبر PayPal</h2>
-            <div id="paypal-button-container"></div>
+            <!-- 🔹 زر الدفع عبر PayPal -->
+            <button id="paypal-button" class="w-full bg-blue-600 text-white py-2 rounded-md text-lg font-semibold hover:bg-blue-700">
+                Pay With <span class="font-bold">PayPal</span>
+            </button>
         </div>
     </section>
 
@@ -116,8 +82,38 @@
     <!-- 🔹 تحميل PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=AZsqOV7PNElXMoKK4b-Z0CVgd9ymky6qwNMynhX3a2PyJj7i97tH2g8HXlmGsuCwo3QcChAQxYrtcuds&components=buttons,funding-eligibility,card-fields&enable-funding=card"></script>
 
-    <!-- 🔹 تحميل سكربت الموقع -->
-    <script src="script.js"></script>
+    <!-- 🔹 تحميل سكربت الدفع -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // 🔹 إعداد PayPal للدفع بالبطاقة
+            paypal.CardFields().render("#card-container").then(function(card) {
+                document.getElementById("card-button").addEventListener("click", function() {
+                    card.submit().then(function(orderData) {
+                        alert("✅ Payment successful!");
+                    }).catch(function(error) {
+                        alert("❌ Payment failed!");
+                        console.error(error);
+                    });
+                });
+            });
+
+            // 🔹 زر PayPal الذي يوجّه المستخدم مباشرة للدفع
+            document.getElementById("paypal-button").addEventListener("click", function() {
+                paypal.Buttons({
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{ amount: { value: '10.00' } }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                            alert("✅ Payment successful via PayPal!");
+                        });
+                    }
+                }).render("#paypal-button");
+            });
+        });
+    </script>
 
 </body>
 </html>
