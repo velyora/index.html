@@ -73,7 +73,15 @@
             </div>
         </div>
     </section>
-
+    <section class="tracking-section text-center py-6">
+        <h2 class="text-2xl font-bold text-gray-900">📦 Track Your Order</h2>
+        <p class="text-gray-600">Enter your tracking number to check your delivery status.</p>
+        <div class="mt-4">
+            <input type="text" id="trackingNumber" class="border p-2 rounded w-60 text-center" placeholder="Enter your tracking number">
+            <button onclick="trackOrder()" class="bg-blue-500 text-white px-4 py-2 rounded ml-2">Track</button>
+        </div>
+        <p id="trackingResult" class="mt-2 text-red-500"></p>
+    </section>
     <!-- 🔹 Payment Section -->
     <section class="flex justify-center">
         <div class="bg-white shadow-md rounded-lg p-6 w-96">
@@ -174,6 +182,7 @@
             renderPayPalButton();
         });
     </script>
-
+         <!-- Link JavaScript File -->
+    <script src="script.js"></script>
 </body>
 </html>
