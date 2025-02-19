@@ -57,9 +57,7 @@
             <hr class="my-4">
 
             <!-- 🔹 زر الدفع عبر PayPal -->
-            <button id="paypal-button" class="w-full bg-blue-600 text-white py-2 rounded-md text-lg font-semibold hover:bg-blue-700">
-                Pay With <span class="font-bold">PayPal</span>
-            </button>
+            <div id="paypal-button-container"></div>
         </div>
     </section>
 
@@ -97,21 +95,19 @@
                 });
             });
 
-            // 🔹 زر PayPal الذي يوجّه المستخدم مباشرة للدفع
-            document.getElementById("paypal-button").addEventListener("click", function() {
-                paypal.Buttons({
-                    createOrder: function(data, actions) {
-                        return actions.order.create({
-                            purchase_units: [{ amount: { value: '10.00' } }]
-                        });
-                    },
-                    onApprove: function(data, actions) {
-                        return actions.order.capture().then(function(details) {
-                            alert("✅ Payment successful via PayPal!");
-                        });
-                    }
-                }).render("#paypal-button");
-            });
+            // 🔹 تشغيل زر PayPal تلقائيًا عند الضغط عليه
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{ amount: { value: '10.00' } }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert("✅ Payment successful via PayPal!");
+                    });
+                }
+            }).render("#paypal-button-container");
         });
     </script>
 
