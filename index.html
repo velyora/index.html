@@ -46,12 +46,12 @@
         <div class="bg-white shadow-md rounded-lg p-6 w-96">
             <h2 class="text-xl font-bold text-gray-700 text-center mb-4">Credit Card Information</h2>
 
-            <!-- 🔹 إدخال بيانات البطاقة -->
+            <!-- 🔹 إدخال بيانات البطاقة (دائمًا مفتوح) -->
             <div id="card-container" class="border p-4 rounded-md shadow-sm"></div>
 
             <!-- 🔹 زر الدفع بالبطاقة -->
             <button id="card-button" class="w-full bg-green-500 text-white py-2 mt-4 rounded-md text-lg font-semibold hover:bg-green-600">
-                Submit
+                Pay Now
             </button>
 
             <hr class="my-4">
@@ -83,7 +83,7 @@
     <!-- 🔹 تحميل سكربت الدفع -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // 🔹 إعداد PayPal للدفع بالبطاقة
+            // 🔹 جعل إدخال البطاقة مفتوحًا دائمًا
             paypal.CardFields().render("#card-container").then(function(card) {
                 document.getElementById("card-button").addEventListener("click", function() {
                     card.submit().then(function(orderData) {
@@ -95,7 +95,7 @@
                 });
             });
 
-            // 🔹 تشغيل زر PayPal تلقائيًا عند الضغط عليه
+            // 🔹 تشغيل زر PayPal عند الضغط عليه
             paypal.Buttons({
                 createOrder: function(data, actions) {
                     return actions.order.create({
