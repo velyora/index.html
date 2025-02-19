@@ -109,36 +109,17 @@
     <footer class="bg-gray-100 text-center text-sm text-gray-600 py-4 mt-6">
         <div class="container mx-auto">
             <p class="mt-2">© 2025 All rights reserved.</p>
+            <a href="privacy-policy.html" class="text-blue-600 hover:underline">Privacy Policy</a> | 
+            <a href="return-policy.html" class="text-blue-600 hover:underline">Return Policy</a> | 
+            <a href="about-us.html" class="text-blue-600 hover:underline">About Us</a>
         </div>
     </footer>
 
-    <!-- 🔹 PayPal Integration -->
+    <!-- 🔹 تحميل PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=AZsqOV7PNElXMoKK4b-Z0CVgd9ymky6qwNMynhX3a2PyJj7i97tH2g8HXlmGsuCwo3QcChAQxYrtcuds&components=buttons,funding-eligibility,card-fields&enable-funding=card"></script>
-    <script>
-        paypal.Buttons({
-            fundingSource: paypal.FUNDING.PAYPAL, 
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: { value: '10.00' }
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    alert('✅ تم الدفع بنجاح بواسطة PayPal: ' + details.payer.name.given_name);
-                });
-            }
-        }).render('#paypal-button-container');
 
-        paypal.CardFields().render('#card-container').then(function(card) {
-            document.getElementById("card-button").disabled = false;
-            document.getElementById("card-button").addEventListener("click", function() {
-                card.submit().then(function(orderData) {
-                    alert("✅ تم الدفع بنجاح بالبطاقة!");
-                });
-            });
-        });
-    </script>
+    <!-- 🔹 تحميل سكربت الموقع -->
+    <script src="script.js"></script>
+
 </body>
 </html>
