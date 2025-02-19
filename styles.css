@@ -174,6 +174,9 @@ body {
     justify-content: center;
     gap: 15px;
     margin-top: 15px;
+    background-color: #ffffff; /* لون رمادي فاتح */
+    padding: 20px 0; /* إضافة مسافة داخلية */
+    border-radius: 10px; /* لجعل الزوايا مستديرة */
 }
 
 .social-icons a img {
