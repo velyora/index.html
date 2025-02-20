@@ -62,8 +62,8 @@ body {
 }
 
 .social-icons a img {
-    width: 30px;
-    height: 30px;
+    width: 10px;
+    height: 10px;
     transition: transform 0.3s ease-in-out;
 }
 
