@@ -8,6 +8,51 @@ body {
     background-color: #ffffff !important; /* يمكن تغيير اللون حسب رغبتك */
 }
 
+/* ✅ تحسين تصميم الشريط العلوي */
+.nav-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, #4CAF50, #2E8B57); /* لون جذاب */
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+    position: relative;
+    z-index: 10;
+    border-radius: 5px;
+    margin: 10px auto; /* جعله يأخذ مساحة متناسقة */
+    max-width: 100%;
+    text-align: center;
+}
+
+.nav-bar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-bar li {
+    display: inline;
+}
+
+.nav-bar a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    transition: 0.3s ease-in-out;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.nav-bar a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* تأثير جميل عند التحويل */
+    transform: scale(1.05);
+}
 /* ✅ تحسين الشريط العلوي (الهيدر) */
 .header-container {
     width: 100%;
