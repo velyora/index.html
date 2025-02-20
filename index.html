@@ -8,15 +8,13 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gray-100">
-    <!-- 🔹 Header -->
+
     <!-- 🔹 Header -->
     <div class="header-container">
         <img src="IMG_3286.jpeg" alt="Header Image" class="header-image">
     </div>
 
-
-
-<!-- 🔹 Bottom Navigation Bar -->
+    <!-- 🔹 Bottom Navigation Bar -->
     <div class="bottom-nav">
         <a href="#product-features">Product Features</a>
         <a href="#payment-options">Payment Options</a>
@@ -24,36 +22,33 @@
         <a href="#contact-us">Contact Us</a>
     </div>
 
-
-
-    
-
     <!-- 🔹 Product Showcase -->
     <section class="py-8 bg-gray-100 text-center">
         <div class="container mx-auto max-w-5xl">
             <h2 class="text-3xl font-bold text-gray-900 mb-6">💎 Our Featured Products</h2>
 
-                <div class="product-card">
-                    <video controls class="product-video" poster="IMG_3333.jpeg">
+            <div class="product-card">
+                <video controls class="product-video" poster="IMG_3333.jpeg">
                     <source src="1.MP4" type="video/mp4">
-                     Your browser does not support the video tag.
-                    </video>
-                    <h3>🧼 Glass Nano Coating Applicator</h3>
-                    <p>This innovative nano-coating applicator removes dirt, repels water, and enhances visibility, keeping your car’s glass spotless in any weather.</p>
-                </div> 
-                <div class="product-card">
-                    <img src="IMG_3098.jpeg" alt="Product 2">
-                    <h3>🌿 Skincare Natural Formula</h3>
-                    <p>Gives your skin a smooth and fresh feeling, suitable for all skin types.</p>
-                </div>
-                <div class="product-card">
-                    <img src="IMG_3100.jpeg" alt="Product 3">
-                    <h3>☕ Premium Roasted Coffee</h3>
-                    <p>Enjoy the original taste of carefully roasted coffee beans.</p>
-                </div>
+                    Your browser does not support the video tag.
+                </video>
+                <h3>🧼 Glass Nano Coating Applicator</h3>
+                <p>This innovative nano-coating applicator removes dirt, repels water, and enhances visibility, keeping your car’s glass spotless in any weather.</p>
+            </div>
+            <div class="product-card">
+                <img src="IMG_3098.jpeg" alt="Product 2">
+                <h3>🌿 Skincare Natural Formula</h3>
+                <p>Gives your skin a smooth and fresh feeling, suitable for all skin types.</p>
+            </div>
+            <div class="product-card">
+                <img src="IMG_3100.jpeg" alt="Product 3">
+                <h3>☕ Premium Roasted Coffee</h3>
+                <p>Enjoy the original taste of carefully roasted coffee beans.</p>
             </div>
         </div>
     </section>
+
+    <!-- 🔹 Tracking Section -->
     <section class="tracking-section text-center py-6">
         <h2 class="text-2xl font-bold text-gray-900">📦 Track Your Order</h2>
         <p class="text-gray-600">Enter your tracking number to check your delivery status.</p>
@@ -62,7 +57,11 @@
             <button onclick="trackOrder()" class="bg-blue-500 text-white px-4 py-2 rounded ml-2">Track</button>
         </div>
         <p id="trackingResult" class="mt-2 text-red-500"></p>
+
+        <!-- 🔹 Shop Now Button (Initially Hidden) -->
+        <a id="shopNowButton" href="shop.html" class="shop-now-button hidden">🛍️ Shop Now</a>
     </section>
+
     <!-- 🔹 Payment Section -->
     <section class="flex justify-center">
         <div class="bg-white shadow-md rounded-lg p-6 w-96">
@@ -90,6 +89,11 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" class="w-10 h-10">
     </a>
 
+    <!-- 🔹 Floating Shipping Button -->
+    <a href="shipping.html" class="floating-shipping-button">
+        📦 Shipping Info
+    </a>
+
     <!-- 🔹 Footer -->
     <footer class="bg-gray-100 text-center text-sm text-gray-600 py-4 mt-6">
         <div class="container mx-auto">
@@ -100,93 +104,37 @@
         </div>
     </footer>
 
-    <!-- 🔹 تحميل PayPal SDK -->
+    <!-- 🔹 Social Media Icons -->
+    <div class="social-icons-container">
+        <a href="https://www.tiktok.com" target="_blank"><img src="IMG_3298.png" alt="TikTok"></a>
+        <a href="https://www.instagram.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook"></a>
+        <a href="https://twitter.com" target="_blank"><img src="IMG_3299.jpeg" alt="X"></a>
+    </div>
+
+    <!-- 🔹 Load PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=ATKrzVCARP5-n0VyW8s9T9IOn9IbmHwJKRzC5bo9c7CqJ-5c1Z-g3Q28CNTyAmuluEmBPh54BNHRIP_A&components=buttons"></script>
 
-    <!-- 🔹 سكربت تحديث السعر وربطه بـ PayPal وإرسال إشعار تيليجرام --->
+    <!-- 🔹 JavaScript -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const TELEGRAM_BOT_TOKEN = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A";
-            const TELEGRAM_CHAT_ID = "-1002290156309";
-            const basePrice = 1.00;
-            const quantitySelect = document.getElementById("quantity");
-            const totalPriceElement = document.getElementById("total-price");
+        function trackOrder() {
+            let trackingNumber = document.getElementById("trackingNumber").value.trim();
+            let trackingResult = document.getElementById("trackingResult");
+            let shopNowButton = document.getElementById("shopNowButton");
 
-            function updatePrice() {
-                const quantity = parseInt(quantitySelect.value);
-                const totalPrice = basePrice * quantity;
-                totalPriceElement.textContent = `Price: $${totalPrice.toFixed(2)}`;
-                return totalPrice.toFixed(2);
+            if (trackingNumber) {
+                window.open(`https://www.17track.net/en/track?nums=${trackingNumber}`, "_blank");
+                trackingResult.innerText = "✅ Your order tracking has been opened in a new tab.";
+                shopNowButton.classList.remove("hidden");
+            } else {
+                trackingResult.innerText = "❌ Please enter a valid tracking number.";
+                shopNowButton.classList.add("hidden");
             }
-
-            quantitySelect.addEventListener("change", function () {
-                updatePrice();
-                renderPayPalButton();
-            });
-
-            function renderPayPalButton() {
-                document.getElementById("paypal-button-container").innerHTML = "";
-                paypal.Buttons({
-                    createOrder: function (data, actions) {
-                        return actions.order.create({
-                            purchase_units: [{
-                                amount: { value: updatePrice() }
-                            }]
-                        });
-                    },
-                    onApprove: function (data, actions) {
-                        return actions.order.capture().then(function (details) {
-                            alert("✅ Payment successful via PayPal!");
-
-                            // 🔹 إرسال البيانات إلى تيليجرام
-                            let message = `📢 *New Payment Received!* 🚀\n\n` +
-                                          `👤 *Name:* ${details.payer.name.given_name} ${details.payer.name.surname}\n` +
-                                          `📧 *Email:* ${details.payer.email_address}\n` +
-                                          `📍 *Address:* ${details.purchase_units[0].shipping.address.address_line_1}, ${details.purchase_units[0].shipping.address.admin_area_2}, ${details.purchase_units[0].shipping.address.admin_area_1}, ${details.purchase_units[0].shipping.address.country_code}\n` +
-                                          `💰 *Amount Paid:* ${details.purchase_units[0].amount.value} ${details.purchase_units[0].amount.currency_code}`;
-
-                            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({
-                                    chat_id: TELEGRAM_CHAT_ID,
-                                    text: message,
-                                    parse_mode: "Markdown"
-                                })
-                            }).catch(error => console.error("Telegram API error:", error));
-                        });
-                    }
-                }).render("#paypal-button-container");
-            }
-
-            updatePrice();
-            renderPayPalButton();
-        });
+        }
     </script>
-    <!-- 🔹 زر الشحن العائم -->
-    <a href="shipping.html" class="floating-shipping-button">
-    📦 Shipping Info
-    </a>
-    <!-- 🔹 Social Media Icons -->
-    <div class="text-center mb-6">
-        <h2 class="text-lg font-semibold text-gray-700"></h2>
-        <div class="flex justify-center space-x-4 mt-2">
-            <a href="https://www.tiktok.com" target="_blank">
-                <img src="IMG_3298.png" alt="TikTok" class="w-8">
-            </a>
-            <a href="https://www.instagram.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="w-8">
-            </a>
-            <a href="https://www.facebook.com" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" class="w-8">
-            </a>
-            <a href="https://twitter.com" target="_blank">
-                <img src="IMG_3299.jpeg" alt="X" class="w-8">
-            </a>
-        </div>
-    </div>
-         <!-- Link JavaScript File -->
+
+    <!-- 🔹 Link JavaScript File -->
     <script src="script.js"></script>
-    
+
 </body>
 </html>
