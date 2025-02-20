@@ -53,22 +53,23 @@ body {
 }
 
 /* ✅ تحسين أيقونات وسائل التواصل */
-.social-icons {
+/* ✅ تحسين أيقونات وسائل التواصل الاجتماعي */
+.social-icons-container {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    padding: 15px;
-    margin-top: 15px;
+    gap: 10px; /* تقليل المسافة بين الأيقونات */
+    padding: 10px;
+    margin-top: 10px;
 }
 
-.social-icons a img {
-    width: 10px;
-    height: 10px;
+.social-icons-container a img {
+    width: 30px; /* تصغير حجم الأيقونة */
+    height: 30px;
     transition: transform 0.3s ease-in-out;
 }
 
-.social-icons a:hover img {
-    transform: scale(1.1);
+.social-icons-container a:hover img {
+    transform: scale(1.1);ale(1.1);
 }
 
 /* ✅ تحسين بطاقة المنتجات */
