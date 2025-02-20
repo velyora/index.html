@@ -171,24 +171,27 @@ body {
 }
 
 /* ✅ تحسين أيقونات وسائل التواصل */
-.social-icons {
+.social-icons-container {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: 15px;
-    background-color: #ffffff; /* لون رمادي فاتح */
-    padding: 20px 0; /* إضافة مسافة داخلية */
-    border-radius: 10px; /* لجعل الزوايا مستديرة */
+    padding: 15px;
+    background: white; /* لون الخلفية داخل الإطار */
+    border: 2px solid #ddd; /* لون الإطار */
+    border-radius: 10px; /* زوايا دائرية */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+    max-width: 300px; /* عرض مناسب */
+    margin: auto; /* توسيط العنصر */
 }
 
-.social-icons a img {
-    width: 40px;
+.social-icons-container a img {
+    width: 40px; /* حجم الأيقونات */
     height: 40px;
     transition: transform 0.3s ease-in-out;
 }
 
-.social-icons a:hover img {
-    transform: scale(1.1);
+.social-icons-container a:hover img {
+    transform: scale(1.1); /* تكبير بسيط عند التمرير */
 }
 
 /* ✅ تحسين أيقونات الدفع */
