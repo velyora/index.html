@@ -5,10 +5,9 @@ body {
     font-family: 'Tajawal', sans-serif;
     margin: 0;
     padding: 0;
-    background: white;
-    background-color: #ffffff; /* استبدل هذا باللون الذي تريده */
+    background-color: #f4f4f4 !important; /* استبدل اللون حسب رغبتك */
+    background-image: none !important;
 }
-
 
 /* ✅ تحسين الشريط العلوي (الهيدر) */
 .header {
