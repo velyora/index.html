@@ -5,151 +5,89 @@ body {
     font-family: 'Tajawal', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #ffffff !important; /* استبدل اللون حسب رغبتك */
-    background-image: none !important;
+    background-color: #ffffff !important; /* يمكن تغيير اللون حسب رغبتك */
 }
 
 /* ✅ تحسين الشريط العلوي (الهيدر) */
-.header {
-    background: white;
-    padding: 10px 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 100;
-}
-
-/* ✅ جعل الهيدر مرنًا ليتوافق مع الجوال */
-/* ✅ ضبط الهيدر ليملأ الصفحة بالكامل */
 .header-container {
     width: 100%;
-    max-width: 100%;
     margin: 0;
     padding: 0;
 }
 
-/* ✅ جعل الصورة تمتد لكامل الصفحة */
 .header-container img {
     width: 100%;
     height: auto;
     display: block;
 }
 
-/* ✅ تنسيق روابط القائمة */
-.nav-links {
-    list-style: none;
+/* ✅ تحسين تصميم الشريط العلوي أسفل الهيدر */
+.bottom-nav {
     display: flex;
-    gap: 15px;
-    padding: 0;
-    margin: 0;
-}
-
-.nav-links li {
-    display: inline;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #444;
-    font-weight: 500;
-    transition: 0.3s;
-    padding: 6px 10px;
-    border-radius: 20px;
-    font-size: 14px;
-}
-
-.nav-links a.active,
-.nav-links a:hover {
-    background: #6a0dad;
-    color: white;
-}
-
-/* ✅ تحسين البحث والسلة */
-.search-box {
-    display: flex;
+    justify-content: space-around;
     align-items: center;
-    background: #f1f1f1;
-    padding: 5px;
-    border-radius: 20px;
-}
-
-.search-box input {
-    border: none;
-    background: transparent;
-    padding: 5px;
+    background: linear-gradient(90deg, #4CAF50, #2E8B57);
+    padding: 12px 0;
     font-size: 14px;
-    outline: none;
-    width: 120px;
-}
-
-.search-box button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-/* ✅ ضبط أيقونة السلة */
-.cart {
-    text-decoration: none;
-    position: relative;
-    font-size: 20px;
-    color: #444;
-    margin-left: 15px;
-}
-
-.cart-badge {
-    background: red;
-    color: white;
-    font-size: 12px;
-    padding: 3px 6px;
-    border-radius: 50%;
-    position: absolute;
-    top: -5px;
-    right: -10px;
-}
-
-/* ✅ تصميم النموذج ليشغل الصفحة بالكامل */
-.form-container {
-    width: 90%;
-    max-width: 600px;
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    margin: 120px auto 40px; /* توسيط وتعديل الهوامش */
-}
-
-/* ✅ ضبط عنوان النموذج */
-.form-title {
-    text-align: center;
-    font-size: 22px;
     font-weight: bold;
-    margin-bottom: 15px;
+    color: white;
+    text-transform: uppercase;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin: 10px auto;
+    max-width: 100%;
+    text-align: center;
 }
 
-/* ✅ تحسين المدخلات */
-.input-field {
+.bottom-nav a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    transition: 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+.bottom-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+/* ✅ تحسين أيقونات وسائل التواصل */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.social-icons a img {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.social-icons a:hover img {
+    transform: scale(1.1);
+}
+
+/* ✅ تحسين بطاقة المنتجات */
+.product-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.product-card img {
     width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border: 1px solid #ddd;
+    height: auto;
     border-radius: 8px;
-    font-size: 16px;
-    text-align: right;
 }
 
-/* ✅ ضبط مفتاح الدولة */
-#country-code {
-    background: #f3f3f3;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-/* ✅ زر الطلب */
+/* ✅ تحسين أزرار الطلب */
 .btn-glow {
     width: 100%;
     padding: 14px;
@@ -169,49 +107,7 @@ body {
     box-shadow: 0 4px 20px rgba(255, 126, 95, 0.6);
 }
 
-/* ✅ تحسين أيقونات وسائل التواصل */
-.social-icons-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    padding: 15px;
-    background: white; /* لون الخلفية داخل الإطار */
-    border: 2px solid #ddd; /* لون الإطار */
-    border-radius: 10px; /* زوايا دائرية */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ظل خفيف */
-    max-width: 300px; /* عرض مناسب */
-    margin: auto; /* توسيط العنصر */
-}
-
-.social-icons-container a img {
-    width: 40px; /* حجم الأيقونات */
-    height: 40px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.social-icons-container a:hover img {
-    transform: scale(1.1); /* تكبير بسيط عند التمرير */
-}
-
-/* ✅ تحسين أيقونات الدفع */
-.payment-methods {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 10px;
-}
-
-.payment-methods img {
-    width: 50px;
-    height: auto;
-    transition: transform 0.3s ease-in-out;
-}
-
-.payment-methods img:hover {
-    transform: scale(1.1);
-}
-
-/* ✅ تحسين زر واتساب */
+/* ✅ تحسين زر الواتساب */
 .whatsapp-button {
     display: flex;
     align-items: center;
@@ -238,6 +134,52 @@ body {
     transform: scale(1.1);
 }
 
+/* ✅ تحسين زر تتبع الطلب مع زر الشحن */
+.tracking-section {
+    text-align: center;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.tracking-section input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.tracking-section button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.tracking-section button:hover {
+    background-color: #0056b3;
+}
+
+/* ✅ زر الشحن أسفل تتبع الطلب */
+.shipping-button {
+    display: block;
+    background-color: #2E8B57;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.shipping-button:hover {
+    background-color: #1C6E43;
+}
+
 /* ✅ تحسين الفوتر */
 .footer {
     background: #f1f1f1;
@@ -247,124 +189,3 @@ body {
     color: #666;
     margin-top: 30px;
 }
-
-.footer .language-currency {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 10px;
-}
-
-.footer .language-currency span {
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* ✅ ضبط المنتجات داخل إطار */
-.product-container {
-    width: 90%;
-    max-width: 600px;
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    margin: 40px auto; /* توسيط الإطار */
-    text-align: center;
-}
-
-/* ✅ تصميم بطاقات المنتجات */
-.product-card {
-    background: white;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    text-align: center;
-    margin-bottom: 20px; /* تباعد بين المنتجات */
-}
-
-/* ✅ جعل الصور تتناسب مع الإطار */
-.product-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-/* ✅ تحسين عناوين المنتجات */
-.product-card h3 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 10px;
-    color: #333;
-}
-
-/* ✅ تحسين نصوص المنتجات */
-.product-card p {
-    font-size: 14px;
-    color: #666;
-    margin-top: 5px;
-}
-
-
-
-/* 🔹 Bottom Navigation Bar (Under Header) */
-/* ✅ تحسين تصميم الشريط العلوي أسفل الهيدر */
-.bottom-nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background: linear-gradient(90deg, #4CAF50, #2E8B57); /* تدرج لوني جذاب */
-    padding: 12px 0;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    text-transform: uppercase;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* ظل خفيف */
-    position: relative;
-    z-index: 10;
-    border-radius: 5px;
-    margin: 10px auto; /* جعله يأخذ مساحة متناسقة */
-    max-width: 100%;
-    text-align: center;
-}
-
-/* ✅ تحسين أزرار التنقل */
-.bottom-nav a {
-    text-decoration: none;
-    color: white;
-    padding: 10px 15px;
-    transition: 0.3s ease-in-out;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.bottom-nav a:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* تأثير جميل عند التحويل */
-    transform: scale(1.05);
-}
-
-.product-video {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.floating-shipping-button {
-    position: fixed;
-    bottom: 80px; /* ارتفاع الزر عن الحافة السفلية */
-    left: 20px; /* جعله في يسار الشاشة */
-    background-color: #007bff; /* لون الخلفية */
-    color: white;
-    padding: 12px 18px;
-    border-radius: 30px;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: background 0.3s ease-in-out;
-}
-
-.floating-shipping-button:hover {
-    background-color: #0056b3;
-}
-
