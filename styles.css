@@ -307,36 +307,38 @@ body {
 
 
 /* 🔹 Bottom Navigation Bar (Under Header) */
+/* ✅ تحسين تصميم الشريط العلوي أسفل الهيدر */
 .bottom-nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    background: linear-gradient(90deg, #4CAF50, #2E8B57); /* تدرج لوني جذاب */
     padding: 12px 0;
     font-size: 16px;
     font-weight: bold;
     color: white;
     text-transform: uppercase;
-}
-
-.bottom-nav {
-    background: #222; /* لون ثابت بدون تدرج */
-    padding: 10px 0;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+    position: relative;
+    z-index: 10;
+    border-radius: 5px;
+    margin: 10px auto; /* جعله يأخذ مساحة متناسقة */
+    max-width: 100%;
     text-align: center;
 }
 
+/* ✅ تحسين أزرار التنقل */
 .bottom-nav a {
-    color: white;
     text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 10px 20px;
-    display: inline-block;
-    transition: 0.3s;
+    color: white;
+    padding: 10px 15px;
+    transition: 0.3s ease-in-out;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 .bottom-nav a:hover {
-    color: #ffcc00;
+    background-color: rgba(255, 255, 255, 0.2); /* تأثير جميل عند التحويل */
     transform: scale(1.05);
 }
 
