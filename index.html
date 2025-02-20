@@ -14,13 +14,15 @@
         <img src="IMG_3286.jpeg" alt="Header Image" class="header-image">
     </div>
 
-    <!-- 🔹 Bottom Navigation Bar -->
-    <div class="bottom-nav">
-        <a href="#product-features">Product Features</a>
-        <a href="#payment-options">Payment Options</a>
-        <a href="#product-reviews">Product Reviews</a>
-        <a href="#contact-us">Contact Us</a>
-    </div>
+    <!-- 🔹 Improved Navigation Bar -->
+    <nav class="nav-bar">
+        <ul>
+            <li><a href="#product-features">Product Features</a></li>
+            <li><a href="#payment-options">Payment Options</a></li>
+            <li><a href="#product-reviews">Product Reviews</a></li>
+            <li><a href="#contact-us">Contact Us</a></li>
+        </ul>
+    </nav>
 
     <!-- 🔹 Product Showcase -->
     <section class="py-8 bg-gray-100 text-center">
@@ -34,7 +36,7 @@
                 </video>
                 <h3>🧼 Glass Nano Coating Applicator</h3>
                 <p>This innovative nano-coating applicator removes dirt, repels water, and enhances visibility, keeping your car’s glass spotless in any weather.</p>
-            </div>
+            </div> 
             <div class="product-card">
                 <img src="IMG_3098.jpeg" alt="Product 2">
                 <h3>🌿 Skincare Natural Formula</h3>
@@ -48,7 +50,7 @@
         </div>
     </section>
 
-    <!-- 🔹 Tracking Section -->
+    <!-- 🔹 Order Tracking & Shipping Info -->
     <section class="tracking-section text-center py-6">
         <h2 class="text-2xl font-bold text-gray-900">📦 Track Your Order</h2>
         <p class="text-gray-600">Enter your tracking number to check your delivery status.</p>
@@ -58,8 +60,8 @@
         </div>
         <p id="trackingResult" class="mt-2 text-red-500"></p>
 
-        <!-- 🔹 Shop Now Button (Initially Hidden) -->
-        <a id="shopNowButton" href="shop.html" class="shop-now-button hidden">🛍️ Shop Now</a>
+        <!-- 🔹 Moved "Shipping Info" Button Here -->
+        <a href="shipping.html" class="bg-gray-700 text-white px-4 py-2 rounded mt-4 inline-block">📦 Shipping Info</a>
     </section>
 
     <!-- 🔹 Payment Section -->
@@ -78,21 +80,10 @@
             <!-- 🔹 عرض السعر -->
             <p id="total-price" class="text-lg font-semibold text-gray-700 mt-2">Price: $1.00</p>
 
-            <!-- 🔹 زر الدفع عبر PayPal -->
+            <!-- 🔹 PayPal Payment Button -->
             <div id="paypal-button-container" class="mt-4"></div>
         </div>
     </section>
-
-    <!-- 🔹 Telegram Button -->
-    <a href="https://t.me/YOUR_TELEGRAM_USERNAME" id="telegram-button" target="_blank"
-       class="fixed bottom-4 right-4 bg-blue-500 text-white p-3 rounded-full shadow-lg">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" class="w-10 h-10">
-    </a>
-
-    <!-- 🔹 Floating Shipping Button -->
-    <a href="shipping.html" class="floating-shipping-button">
-        📦 Shipping Info
-    </a>
 
     <!-- 🔹 Footer -->
     <footer class="bg-gray-100 text-center text-sm text-gray-600 py-4 mt-6">
@@ -104,36 +95,10 @@
         </div>
     </footer>
 
-    <!-- 🔹 Social Media Icons -->
-    <div class="social-icons-container">
-        <a href="https://www.tiktok.com" target="_blank"><img src="IMG_3298.png" alt="TikTok"></a>
-        <a href="https://www.instagram.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
-        <a href="https://www.facebook.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook"></a>
-        <a href="https://twitter.com" target="_blank"><img src="IMG_3299.jpeg" alt="X"></a>
-    </div>
-
-    <!-- 🔹 Load PayPal SDK -->
+    <!-- 🔹 PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=ATKrzVCARP5-n0VyW8s9T9IOn9IbmHwJKRzC5bo9c7CqJ-5c1Z-g3Q28CNTyAmuluEmBPh54BNHRIP_A&components=buttons"></script>
 
     <!-- 🔹 JavaScript -->
-    <script>
-        function trackOrder() {
-            let trackingNumber = document.getElementById("trackingNumber").value.trim();
-            let trackingResult = document.getElementById("trackingResult");
-            let shopNowButton = document.getElementById("shopNowButton");
-
-            if (trackingNumber) {
-                window.open(`https://www.17track.net/en/track?nums=${trackingNumber}`, "_blank");
-                trackingResult.innerText = "✅ Your order tracking has been opened in a new tab.";
-                shopNowButton.classList.remove("hidden");
-            } else {
-                trackingResult.innerText = "❌ Please enter a valid tracking number.";
-                shopNowButton.classList.add("hidden");
-            }
-        }
-    </script>
-
-    <!-- 🔹 Link JavaScript File -->
     <script src="script.js"></script>
 
 </body>
