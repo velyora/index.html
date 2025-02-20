@@ -319,15 +319,24 @@ body {
     text-transform: uppercase;
 }
 
+.bottom-nav {
+    background: #222; /* لون ثابت بدون تدرج */
+    padding: 10px 0;
+    text-align: center;
+}
+
 .bottom-nav a {
-    text-decoration: none;
     color: white;
-    padding: 8px 15px;
-    transition: 0.3s ease-in-out;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    display: inline-block;
+    transition: 0.3s;
 }
 
 .bottom-nav a:hover {
-    color: #ffdd57; /* لون أصفر جذاب عند التحويل */
+    color: #ffcc00;
     transform: scale(1.05);
 }
 
