@@ -134,8 +134,10 @@
                 },
                 onApprove: function (data, actions) {
                     return actions.order.capture().then(function (details) {
-                        alert("✅ Payment successful via PayPal!");
-
+                        let orderID = details.id; // رقم الطلب من PayPal
+                        alert(`✅ Payment successful via PayPal!\n🆔 Order ID: ${orderID}`);
+                    });
+                 }
                         // 🔹 إرسال البيانات إلى تيليجرام
                         let message = `📢 *New Payment Received!* 🚀\n\n` +
                                       `👤 *Name:* ${details.payer.name.given_name} ${details.payer.name.surname}\n` +
