@@ -67,35 +67,6 @@ body {
 }
 
 /* ✅ تحسين تصميم الشريط العلوي أسفل الهيدر */
-.bottom-nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background: linear-gradient(90deg, #4CAF50, #2E8B57);
-    padding: 12px 0;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    text-transform: uppercase;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    margin: 10px auto;
-    max-width: 100%;
-    text-align: center;
-}
-
-.bottom-nav a {
-    text-decoration: none;
-    color: white;
-    padding: 10px 15px;
-    transition: 0.3s ease-in-out;
-    border-radius: 5px;
-}
-
-.bottom-nav a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: scale(1.05);
-}
 
 /* ✅ تحسين أيقونات وسائل التواصل */
 /* ✅ تحسين أيقونات وسائل التواصل الاجتماعي */
@@ -279,4 +250,52 @@ body {
     font-size: 12px;
     font-weight: bold;
     color: #333;
+}
+
+/* 🔹 Modern Navigation Bar */
+.top-nav {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* 🔹 Logo Styling */
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+/* 🔹 Navigation Links */
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
+    padding-bottom: 4px;
+}
+
+.nav-link:hover {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
 }
