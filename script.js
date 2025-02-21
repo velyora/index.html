@@ -71,3 +71,13 @@ document.addEventListener("DOMContentLoaded", function () {
         index = (index + 1) % notifications.length;
     }, 4000); // تغيير الإشعار كل 4 ثواني
 });
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".track-link").addEventListener("click", function (e) {
+        e.preventDefault();
+        document.querySelector("#tracking-section").scrollIntoView({ behavior: "smooth" });
+    });
+
+    document.querySelector(".menu-toggle").addEventListener("click", function () {
+        document.querySelector(".mobile-nav").classList.toggle("active");
+    });
+});
