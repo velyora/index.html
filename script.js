@@ -72,12 +72,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 4000); // تغيير الإشعار كل 4 ثواني
 });
 document.addEventListener("DOMContentLoaded", function () {
-    document.querySelector(".track-link").addEventListener("click", function (e) {
-        e.preventDefault();
-        document.querySelector("#tracking-section").scrollIntoView({ behavior: "smooth" });
-    });
+    // 🔹 تفعيل زر تتبع الطلب
+    const trackLink = document.querySelector(".track-link");
+    if (trackLink) {
+        trackLink.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector("#tracking-section").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+    }
 
-    document.querySelector(".menu-toggle").addEventListener("click", function () {
-        document.querySelector(".mobile-nav").classList.toggle("active");
-    });
+    // 🔹 تفعيل زر القائمة في الجوال
+    const menuToggle = document.querySelector(".menu-toggle");
+    const mobileNav = document.querySelector(".mobile-nav");
+
+    if (menuToggle && mobileNav) {
+        menuToggle.addEventListener("click", function () {
+            mobileNav.classList.toggle("active");
+            document.body.classList.toggle("no-scroll"); // منع تمرير الصفحة عند فتح القائمة
+        });
+    }
 });
