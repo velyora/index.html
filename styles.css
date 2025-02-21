@@ -352,3 +352,59 @@ body {
         display: block;
     }
 }
+
+
+
+
+.ticker-bar {
+    background: linear-gradient(90deg, #ffbb00, #ff7e5f);
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-weight: bold;
+    font-size: 16px;
+    animation: tickerAnimation 10s linear infinite;
+}
+@keyframes tickerAnimation {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.quick-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background: #f9f9f9;
+    padding: 10px 0;
+}
+.badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.badge img {
+    width: 24px;
+    height: 24px;
+}
+
+.quick-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px 0;
+}
+.action-btn {
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+}
+.action-btn:hover {
+    background: #0056b3;
+}
+
