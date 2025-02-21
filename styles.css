@@ -6,6 +6,9 @@ body {
     margin: 0;
     padding: 0;
     background-color: #ffffff !important; /* يمكن تغيير اللون حسب رغبتك */
+    padding-top: 70px; /* هذا يمنع المحتوى من الاختفاء خلف الشريط */
+
+
 }
 
 /* ✅ تحسين تصميم الشريط العلوي */
@@ -255,15 +258,15 @@ body {
 /* 🔹 Modern Navigation Bar */
 /* 🔹 تحسين تصميم الشريط العلوي */
 .top-nav {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
     background: white;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 15px 0;
     z-index: 1000;
+    padding: 10px 0;
 }
-
 /* 🔹 ضبط الحاوية الداخلية للشريط */
 .nav-container {
     max-width: 1200px;
