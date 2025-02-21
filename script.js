@@ -54,3 +54,20 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("✅ Your order has been placed successfully!");
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const notifications = [
+        "🚀 New Orders Are Being Placed Right Now!",
+        "🔥 Limited Stock Available – Order Now!",
+        "💰 Huge Discounts On Selected Items!",
+        "📦 Fast Shipping Available Worldwide!",
+        "⭐ Customer Rated 4.9/5 – Shop with Confidence!"
+    ];
+
+    let index = 0;
+    setInterval(() => {
+        document.getElementById("notification-text").textContent = notifications[index];
+        index = (index + 1) % notifications.length;
+    }, 4000); // تغيير الإشعار كل 4 ثواني
+});
