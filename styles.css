@@ -318,7 +318,7 @@ html, body {
 }
 
 .custom-shipping-button img {
-    width: 100px; /* تعديل حجم الزر حسب الحاجة */
+    width: 130px; /* تعديل حجم الزر حسب الحاجة */
     height: auto;
     transition: transform 0.3s ease-in-out;
 }
