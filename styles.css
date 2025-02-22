@@ -342,3 +342,8 @@ html, body {
     filter: brightness(0) invert(1);
 }
 
+.navbar-brand {
+    font-size: 24px; /* زيادة حجم الخط */
+    font-weight: bold; /* جعله أكثر وضوحًا */
+    color: white !important; /* التأكد من أن اللون أبيض */
+}
