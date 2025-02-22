@@ -310,3 +310,8 @@ html, body {
 .custom-payment-item img:hover {
     transform: scale(1.1); /* تأثير تكبير عند التمرير */
 }
+
+
+.navbar {
+    background-color: #301c41;
+}
