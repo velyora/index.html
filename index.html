@@ -6,7 +6,6 @@
     <title>Secure Payment</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
-    <script src="index.js" defer></script>
 </head>
 <body class="bg-gray-100">
 
@@ -15,7 +14,7 @@
         <img src="IMG_3404.jpeg" alt="Header Image" class="header-image">
     </div>
 
-    <!-- 🔹 Navigation Bar -->
+    <!-- 🔹 Modern Navigation Bar -->
     <nav class="top-nav">
         <div class="nav-container">
         <!-- 🔹 Logo -->
@@ -24,6 +23,7 @@
             </a>
             <a href="index.html" class="logo">Velyora</a>
         
+
         <!-- 🔹 Navigation Links -->
         <div class="nav-links">
             <a href="index.html" class="nav-link">Home</a>
@@ -35,27 +35,120 @@
         <!-- 🔹 Mobile Menu Toggle -->
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
         </div>
+
+    <!-- 🔹 Mobile Navigation Menu -->
+        <div class="mobile-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="shopping.html" class="nav-link">Shop</a>
+            <a href="#tracking-section" class="nav-link track-link">Track Order</a>
+            <a href="after-purchase.html" class="nav-link">After Purchase</a>
+        </div>
     </nav>
+      
+      
+      
+      <div class="button-container">
+    <!-- زر Shop Now -->
+          <a href="shopping.html" class="icon-button">
+                <img src="IMG_3399.jpeg" alt="Shop Now">
+          </a>
+
+    <!-- زر Track Order -->
+          <a href="#tracking-section" class="icon-button">
+              <img src="IMG_3372.png" alt="Track Order">
+          </a>
+
+          <a href="#tracking-section" class="icon-button">
+              <img src="IMG_3378.png" alt="Track Order">
+          </a>
+          
+       </div>
+
     
-    <!-- 🔹 PayPal SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=ATKrzVCARP5-n0VyW8s9T9IOn9IbmHwJKRzC5bo9c7CqJ-5c1Z-g3Q28CNTyAmuluEmBPh54BNHRIP_A&components=buttons"></script>
-    
-    <!-- Full Payment Section -->
+        
+    <!-- 🔹 Live Notification Bar -->
+     <div class="notification-bar">
+         <p id="notification-text">🚀 New Orders Are Being Placed Right Now!</p>
+     </div>
+
+    <!-- 🔹 Product Showcase -->
+    <section class="py-8 bg-gray-100 text-center">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">💎 Our Featured Products</h2>
+
+            <div class="product-card">
+                <video controls class="product-video" poster="IMG_3333.jpeg">
+                    <source src="1.MP4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <h3>🧼 Glass Nano Coating Applicator</h3>
+                <p>This innovative nano-coating applicator removes dirt, repels water, and enhances visibility, keeping your car’s glass spotless in any weather.</p>
+            </div> 
+            <div class="product-card">
+                <img src="IMG_3098.jpeg" alt="Product 2">
+                <h3>🌿 Skincare Natural Formula</h3>
+                <p>Gives your skin a smooth and fresh feeling, suitable for all skin types.</p>
+            </div>
+            <div class="product-card">
+                <img src="IMG_3100.jpeg" alt="Product 3">
+                <h3>☕ Premium Roasted Coffee</h3>
+                <p>Enjoy the original taste of carefully roasted coffee beans.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🔹 Order Tracking & Shipping Info -->
+    <section class="tracking-section text-center py-6">
+        <h2 class="text-2xl font-bold text-gray-900">📦 Track Your Order</h2>
+        <p class="text-gray-600">Enter your tracking number to check your delivery status.</p>
+        <div class="mt-4">
+            <input type="text" id="trackingNumber" class="border p-2 rounded w-60 text-center" placeholder="Enter your tracking number">
+            <button onclick="trackOrder()" class="bg-blue-500 text-white px-4 py-2 rounded ml-2">Track</button>
+        </div>
+        <p id="trackingResult" class="mt-2 text-red-500"></p>
+
+        <!-- 🔹 Moved "Shipping Info" Button Here -->
+        <a href="shipping.html" class="custom-shipping-button">
+            <img src="IMG_3413.jpeg" alt="Shipping Info">
+        </a>
+    </section>
+         <div class="custom-payment-methods">
+           <div class="custom-payment-item">
+               <img src="images/IMG_3393.png" alt="PayPal">
+              
+           </div>
+           <div class="custom-payment-item">
+               <img src="images/IMG_3409.png" alt="USDT (Tether)">
+               
+           </div>
+       </div>
+
+    <!-- 🔹 Payment Section -->
     <section class="flex justify-center">
         <div class="bg-white shadow-md rounded-lg p-6 w-96">
             <h2 class="text-xl font-bold text-gray-700 text-center mb-4">Secure Payment</h2>
+
+            <!-- 🔹 اختيار الكمية -->
             <label for="quantity" class="block text-gray-700 font-semibold mb-2">Choose Quantity:</label>
             <select id="quantity" class="border p-2 rounded w-full">
                 <option value="1" selected>1 Piece</option>
                 <option value="2">2 Pieces (Discount!)</option>
                 <option value="3">3 Pieces (More Discount!)</option>
             </select>
+
+            <!-- 🔹 عرض السعر -->
             <p id="total-price" class="text-lg font-semibold text-gray-700 mt-2">Price: $1.00</p>
+
+            <!-- 🔹 PayPal Payment Button -->
             <div id="paypal-button-container" class="mt-4"></div>
         </div>
     </section>
-
+    <!-- 🔹 Trust Bar -->
+    <div class="trust-badges mt-4 flex justify-center">
+        <img src="IMG_3355.jpeg" alt="Trust Badges" class="w-64">
+    </div>
     <!-- 🔹 Footer -->
+    
     <footer class="bg-gray-100 text-center text-sm text-gray-600 py-4 mt-6">
         <div class="container mx-auto">
             <p class="mt-2">© 2025 All rights reserved.</p>
@@ -65,7 +158,35 @@
         </div>
     </footer>
 
-    <script>
+    <!-- 🔹 PayPal SDK -->
+    <!-- 🔹 PayPal SDK -->
+  <!-- 🔹 تحميل PayPal SDK -->
+ <!-- 🔹 PayPal Payment Section -->
+<section class="flex justify-center">
+    <div class="bg-white shadow-md rounded-lg p-6 w-96">
+        <h2 class="text-xl font-bold text-gray-700 text-center mb-4">Secure Payment</h2>
+
+        <!-- 🔹 اختيار الكمية -->
+        <label for="quantity" class="block text-gray-700 font-semibold mb-2">Choose Quantity:</label>
+        <select id="quantity" class="border p-2 rounded w-full">
+            <option value="1" selected>1 Piece</option>
+            <option value="2">2 Pieces (Discount!)</option>
+            <option value="3">3 Pieces (More Discount!)</option>
+        </select>
+
+        <!-- 🔹 عرض السعر -->
+        <p id="total-price" class="text-lg font-semibold text-gray-700 mt-2">Price: $1.00</p>
+
+        <!-- 🔹 زر PayPal الأسود -->
+        <div id="paypal-button-black" class="mt-4"></div>
+
+        <!-- 🔹 زر PayPal الأصفر -->
+        <div id="paypal-button-yellow" class="mt-4"></div>
+    </div>
+</section>
+
+<!-- 🔹 تحميل PayPal SDK -->
+<script>
         document.addEventListener("DOMContentLoaded", function () {
             const TELEGRAM_BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"; // ✅ استبدل بتوكن البوت الحقيقي
             const TELEGRAM_CHAT_ID = "YOUR_TELEGRAM_CHAT_ID"; // ✅ استبدل بمعرف الشات الخاص بك
@@ -110,7 +231,12 @@
             updatePrice();
             renderPayPalButtons();
         });
-    </script>
+    </script><!-- 🔹 Social Media Icons -->
+      <div class="social-icons-container">
+          <a href="https://www.tiktok.com" target="_blank"><img src="IMG_3298.png" alt="TikTok"></a>
+          <a href="https://www.instagram.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
+          <a href="https://www.facebook.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook"></a>
+          <a href="https://twitter.com" target="_blank"><img src="IMG_3299.jpeg" alt="X"></a>
+      </div>
 </body>
 </html>
-
