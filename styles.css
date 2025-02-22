@@ -258,3 +258,23 @@ html, body {
 .social-icons-container a:hover img {
     transform: scale(1.1);
 }
+
+
+
+.product-card {
+    background: white;
+    border-radius: 10px; /* زوايا دائرية */
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* إعادة الظل */
+    text-align: center;
+    margin-bottom: 20px;
+    border: 2px solid #ddd; /* إعادة الإطار */
+}
+
+.product-card img,
+.product-card video {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #ccc; /* إعادة الإطار حول الصورة والفيديو */
+}
