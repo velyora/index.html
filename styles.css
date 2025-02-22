@@ -278,3 +278,35 @@ html, body {
     border-radius: 8px;
     border: 1px solid #ccc; /* إعادة الإطار حول الصورة والفيديو */
 }
+
+
+.custom-payment-methods {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* المسافة بين وسائل الدفع */
+    margin: 20px 0; /* المسافة عن العناصر الأخرى */
+}
+
+.custom-payment-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.custom-payment-item img {
+    width: 60px; /* حجم الأيقونات */
+    height: auto;
+    margin-bottom: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.custom-payment-item span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.custom-payment-item img:hover {
+    transform: scale(1.1); /* تأثير تكبير عند التمرير */
+}
