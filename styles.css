@@ -327,3 +327,16 @@ html, body {
     transform: scale(1.1); /* تكبير عند التمرير */
 }
 
+.navbar-brand,
+.navbar-toggler-icon {
+    color: white !important;
+}
+
+.navbar-toggler {
+    border-color: white !important;
+}
+
+.navbar-toggler-icon {
+    filter: brightness(0) invert(1);
+}
+
