@@ -1,13 +1,15 @@
 /* ✅ استيراد الخطوط */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Tajawal:wght@300;400;700&display=swap');
 
-body {
+html, body {
     font-family: 'Tajawal', sans-serif;
+    width: 100%;
     margin: 0;
     padding: 0;
     background-color: #ffffff !important; /* يمكن تغيير اللون حسب رغبتك */
     padding-top: 70px; /* هذا يمنع المحتوى من الاختفاء خلف الشريط */
-
+    overflow-x: hidden; /* يمنع التحرك الجانبي */
+    position: relative;
 
 }
 
@@ -411,3 +413,30 @@ body {
     background: #0056b3;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* مسافة مناسبة بين الأزرار */
+    padding: 10px 20px; /* مسافة من الجوانب */
+}
+
+.button {
+    flex: 1; /* يجعل الأزرار متساوية في الحجم */
+    max-width: 180px; /* عرض أقصى للأزرار */
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.shop-button {
+    background: #007bff;
+}
+
+.after-button {
+    background: #28a745;
+}
