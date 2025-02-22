@@ -330,6 +330,8 @@ html, body {
 .navbar-brand,
 .navbar-toggler-icon {
     color: white !important;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .navbar-toggler {
