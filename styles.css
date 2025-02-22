@@ -8,6 +8,7 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: #ffffff !important; /* يمكن تغيير اللون حسب رغبتك */
+    padding-top: 100px; /* يمنع المحتوى من الاختفاء خلف الشريط */
     overflow-x: hidden; /* يمنع التحرك الجانبي */
     position: relative;
 }
