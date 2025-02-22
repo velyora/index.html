@@ -176,7 +176,7 @@ html, body {
     background-color: #0056b3;
 }
 
-/* ✅ تحسين أزرار الطلب */
+/* ✅ تحسين أزرار الطلب باستخدام الصور */
 .button-container {
     display: flex;
     justify-content: center;
@@ -184,25 +184,23 @@ html, body {
     padding: 10px 20px;
 }
 
-.button {
-    flex: 1;
-    max-width: 180px;
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
+/* ✅ إزالة الخلفية الزرقاء واستبدالها بالصور */
+.icon-button {
+    display: inline-block;
+    max-width: 180px; /* نفس حجم الأزرار السابقة */
     text-decoration: none;
 }
 
-.shop-button {
-    background: #007bff;
+/* ✅ تحسين مظهر الصور */
+.icon-button img {
+    width: 100%; /* يجعل الصورة تمتد داخل العنصر */
+    height: auto;
+    transition: transform 0.3s ease-in-out;
 }
 
-.after-button {
-    background: #28a745;
+/* ✅ تأثير التحويم */
+.icon-button:hover img {
+    transform: scale(1.1);
 }
 
 /* ✅ تحسين الفوتر */
