@@ -347,3 +347,15 @@ html, body {
     font-weight: bold; /* جعله أكثر وضوحًا */
     color: white !important; /* التأكد من أن اللون أبيض */
 }
+
+
+.shipping-info-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* يمكن تعديل المسافة حسب الحاجة */
+}
+
+.shipping-info-container img {
+    width: auto; /* اجعل الحجم تلقائيًا أو حدده حسب رغبتك */
+    max-width: 180px; /* التحكم في حجم الصورة */
+}
