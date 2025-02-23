@@ -382,61 +382,35 @@ html, body {
     right: -250px; /* مخفية افتراضيًا */
     width: 250px;
     height: 100%;
-    background: #1a1a1a; /* لون داكن احترافي */
+    background: white; /* تغيير اللون من الأسود إلى الأبيض */
     box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
     transition: right 0.3s ease-in-out;
     z-index: 1400;
     padding-top: 60px;
 }
 
-/* 🔹 عند فتح القائمة */
-.sidebar.active {
-    right: 0;
-}
-
-/* 🔹 عناصر القائمة */
-.menu-items, .menu-extra {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.menu-items li, .menu-extra li {
-    padding: 12px 20px;
-}
-
-.menu-items li a, .menu-extra li a {
+/* ✅ تحسين عناصر القائمة الجانبية */
+.menu-items li a {
     text-decoration: none;
-    color: white;
     font-size: 16px;
+    font-weight: bold;
+    color: #333; /* جعل اللون غامق قليلاً ليكون مرئياً */
     display: block;
-    transition: color 0.3s;
+    padding: 12px 20px;
+    transition: color 0.3s, background 0.3s;
 }
 
-.menu-items li a:hover, .menu-extra li a:hover {
-    color: #f39c12; /* لون التأثير عند التمرير */
+.menu-items li a:hover {
+    color: #f39c12; /* تغيير اللون عند التحويم */
 }
 
-/* 🔹 فاصل بين الأقسام */
-.menu-divider {
-    border: none;
-    border-top: 1px solid #444;
-    margin: 10px 0;
-}
-
-/* 🔹 تحسين عناصر الروابط الإضافية */
-.menu-extra li a {
-    font-size: 14px;
-    color: #ccc;
-}
-
-/* 🔹 زر الإغلاق داخل القائمة */
+/* ✅ زر الإغلاق داخل القائمة */
 .close-menu {
     position: absolute;
     top: 15px;
     right: 15px;
     font-size: 24px;
-    color: white;
+    color: #333; /* تغيير اللون للأبيض */
     background: none;
     border: none;
     cursor: pointer;
