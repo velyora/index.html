@@ -3,59 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shipping & Delivery Information</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Shipping Information - Velyora</title>
+
+    <!-- ✅ استيراد الخطوط -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ✅ ضبط الصفحة */
+        html, body {
+            font-family: 'Tajawal', sans-serif;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ✅ تحسين الهيدر */
+        .header-container {
+            background: #301c41;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* ✅ تحسين قسم الشحن */
+        .shipping-info {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .shipping-info h2 {
+            color: #301c41;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .shipping-info h3 {
+            color: #444;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .shipping-info p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .shipping-info ul {
+            padding-left: 20px;
+        }
+
+        .shipping-info ul li {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        /* ✅ تحسين الفوتر */
+        .footer {
+            background: #301c41;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            color: #f39c12;
+        }
+    </style>
 </head>
 <body>
+
     <!-- ✅ الهيدر -->
-    <header class="top-nav">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <img src="IMG_3412.png" alt="Velyora Logo" style="height: 40px;">
-            </a>
-            <a class="navbar-brand text-white" href="#">VELYORA</a>
-            <button class="menu-toggle">☰</button>
-        </div>
-    </header>
-    
-    <!-- ✅ محتوى الصفحة -->
-    <main class="content-container">
-        <section class="shipping-info">
-            <h1>🚚 Shipping & Delivery Information</h1>
-            <h2>📦 Order Processing</h2>
-            <p>Orders are processed within 24 hours. You will receive a tracking number as soon as your order is shipped.</p>
-            
-            <h2>⏳ Estimated Delivery Time</h2>
-            <ul>
-                <li><strong>Saudi Arabia:</strong> 5-7 business days</li>
-                <li><strong>UAE:</strong> 7-10 business days</li>
-                <li><strong>USA & Europe:</strong> 10-15 business days</li>
-                <li><strong>Rest of the World:</strong> 15-20 business days</li>
-            </ul>
-            
-            <h2>📍 Shipping Providers</h2>
-            <p>We use trusted carriers like DHL, FedEx, and Aramex to ensure fast and reliable delivery.</p>
-            
-            <h2>📌 Order Tracking</h2>
-            <p>Once your order is shipped, you will receive a tracking link via email.</p>
-        </section>
-    </main>
-    
+    <div class="header-container">
+        VELYORA
+    </div>
+
+    <!-- ✅ قسم معلومات الشحن -->
+    <section class="shipping-info">
+        <h2>🚚 Shipping & Delivery Information</h2>
+        <h3>📦 Order Processing</h3>
+        <p>Orders are processed within 24 hours. You will receive a tracking number as soon as your order is shipped.</p>
+        
+        <h3>⏳ Estimated Delivery Time</h3>
+        <ul>
+            <li><strong>Saudi Arabia:</strong> 5-7 business days</li>
+            <li><strong>UAE:</strong> 7-10 business days</li>
+            <li><strong>USA & Europe:</strong> 10-15 business days</li>
+            <li><strong>Rest of the World:</strong> 15-20 business days</li>
+        </ul>
+
+        <h3>📌 Shipping Providers</h3>
+        <p>We use trusted carriers like DHL, FedEx, and Aramex to ensure fast and reliable delivery.</p>
+
+        <h3>📍 Order Tracking</h3>
+        <p>Once your order is shipped, you will receive a tracking link via email.</p>
+    </section>
+
     <!-- ✅ الفوتر -->
     <footer class="footer">
-        <div class="social-icons-container">
-            <a href="https://www.tiktok.com" target="_blank"><img src="IMG_3298.png" alt="TikTok"></a>
-            <a href="https://www.instagram.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
-            <a href="https://www.facebook.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook"></a>
-            <a href="https://twitter.com" target="_blank"><img src="IMG_3299.jpeg" alt="X"></a>
-        </div>
-        <p>&copy; 2025 Velyora. All rights reserved.</p>
-        <a href="policies.html">Privacy Policy</a> | 
-        <a href="return-policy.html">Return Policy</a> | 
-        <a href="about.html">About Us</a>
+        © 2025 Velyora. All rights reserved. 
+        <br>
+        <a href="#">Privacy Policy</a> | <a href="#">Return Policy</a>
     </footer>
-    
-    <!-- ✅ تحميل السكربت -->
-    <script src="script.js"></script>
+
 </body>
 </html>
