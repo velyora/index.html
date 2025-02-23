@@ -107,3 +107,26 @@ document.addEventListener("DOMContentLoaded", function () {
         trackButton.addEventListener("click", trackOrder);
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const sidebar = document.querySelector(".sidebar");
+    const closeMenu = document.querySelector(".close-menu");
+
+    // ✅ عند الضغط على زر القائمة، يتم فتحها
+    menuToggle.addEventListener("click", function () {
+        sidebar.classList.add("active");
+    });
+
+    // ✅ عند الضغط على زر الإغلاق داخل القائمة
+    closeMenu.addEventListener("click", function () {
+        sidebar.classList.remove("active");
+    });
+
+    // ✅ عند النقر خارج القائمة يتم إغلاقها
+    document.addEventListener("click", function (event) {
+        if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+            sidebar.classList.remove("active");
+        }
+    });
+});
