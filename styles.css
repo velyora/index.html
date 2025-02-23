@@ -48,7 +48,6 @@ html, body {
     padding: 0 20px;
 }
 
-/* ✅ تنسيق اللوجو */
 /* ✅ تحسين اسم الموقع */
 .navbar-brand {
     font-size: 22px; /* مطابق للصورة التي أرسلتها */
@@ -56,6 +55,7 @@ html, body {
     color: white !important;
     text-transform: uppercase;
 }
+
 /* ✅ تنسيق الروابط */
 .nav-links {
     display: flex;
@@ -197,26 +197,6 @@ html, body {
     margin: 20px auto;
 }
 
-.tracking-section input {
-    width: 70%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.tracking-section button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-.tracking-section button:hover {
-    background-color: #0056b3;
-}
-
 /* ✅ تحسين وسائل التواصل */
 .social-icons-container {
     display: flex;
@@ -262,31 +242,7 @@ html, body {
     margin: 20px 0;
 }
 
-.custom-payment-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.custom-payment-item img {
-    width: 60px;
-    height: auto;
-    margin-bottom: 8px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.custom-payment-item span {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-}
-
-.custom-payment-item img:hover {
-    transform: scale(1.1);
-}
-
-* ✅ تصغير الصور الثلاث أسفل الهيدر */
+/* ✅ تصغير الصور الثلاث أسفل الهيدر */
 .button-container {
     display: flex;
     justify-content: center;
@@ -304,10 +260,36 @@ html, body {
     transform: scale(1.1);
 }
 
-/* ✅ توحيد مقاسات الصور الثلاث */
-.tracking-section img {
-    width: 120px; /* مطابق للصورة التي أرسلتها */
+/* ✅ ترتيب الصور الثلاثة بجانب بعضها */
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 20px 0;
+}
+
+.image-container img {
+    width: 30%;
+    max-width: 200px;
     height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-container img:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .image-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .image-container img {
+        width: 80%;
+    }
 }
 
 /* ✅ تحسين الفوتر */
