@@ -312,3 +312,102 @@ html, body {
 .footer a:hover {
     color: #f39c12;
 }
+
+
+/* ✅ تحسين الحاوية الرئيسية */
+.reviews-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* ✅ عنوان القسم */
+.reviews-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* ✅ تنسيق نموذج إدخال التقييم */
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* ✅ تنسيق زر الإرسال */
+.review-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    font-size: 16px;
+}
+
+.review-form button:hover {
+    background-color: #0056b3;
+}
+
+/* ✅ تحسين مظهر التقييمات */
+#reviewsList {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.review {
+    background: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.review strong {
+    font-size: 18px;
+    color: #333;
+}
+
+.review span {
+    color: #f39c12;
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+.review p {
+    font-size: 14px;
+    color: #555;
+    margin: 10px 0;
+}
+
+/* ✅ زر حذف التقييم */
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
