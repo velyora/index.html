@@ -1,3 +1,4 @@
+
 /* ✅ استيراد الخطوط */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Tajawal:wght@300;400;700&display=swap');
 
@@ -7,9 +8,9 @@ html, body {
     width: 100%;
     margin: 0;
     padding: 0;
-    background-color: #ffffff !important;
-    padding-top: 30px;
-    overflow-x: hidden;
+    background-color: #ffffff !important; /* يمكن تغيير اللون حسب رغبتك */
+    padding-top: 30px; /* يمنع المحتوى من الاختفاء خلف الشريط */
+    overflow-x: hidden; /* يمنع التحرك الجانبي */
     position: relative;
 }
 
@@ -32,12 +33,14 @@ html, body {
     top: 0;
     left: 0;
     width: 100%;
-    background: #301c41;
+    background: white;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     padding: 15px 0;
     z-index: 1000;
+    background-color: #301c41;
 }
 
+/* ✅ ضبط الحاوية الداخلية للشريط */
 .nav-container {
     max-width: 1200px;
     margin: auto;
@@ -47,14 +50,319 @@ html, body {
     padding: 0 20px;
 }
 
+/* ✅ تنسيق اللوجو */
 .logo {
     font-size: 22px;
     font-weight: bold;
-    color: white;
+    color: #333;
     text-decoration: none;
 }
 
+/* ✅ تنسيق الروابط */
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
+    padding-bottom: 4px;
+}
+
+.nav-link:hover {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+
 /* ✅ تحسين زر القائمة في الجوال */
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+}
+
+/* ✅ إخفاء القائمة الجانبية للجوال */
+.mobile-nav {
+    display: none;
+    flex-direction: column;
+    background: white;
+    position: absolute;
+    width: 100%;
+    top: 60px;
+    left: 0;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: max-height 0.3s ease-in-out;
+}
+
+/* ✅ إصلاح مشكلة Safari بحيث يتم تفعيل القائمة عند النقر */
+.mobile-nav.active {
+    display: flex;
+}
+
+/* ✅ تحسين أزرار القائمة في الجوال */
+.mobile-nav a {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    transition: background 0.3s ease-in-out;
+}
+
+.mobile-nav a:hover {
+    background: #f3f3f3;
+}
+
+/* ✅ إصلاح عرض القائمة على الأجهزة الصغيرة */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* ✅ تحسين شريط الإشعارات */
+.notification-bar {
+    background: #2E1A47;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* ✅ تحسين التأثير */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ✅ تحسين قسم تتبع الطلب */
+.tracking-section {
+    text-align: center;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.tracking-section input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.tracking-section button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.tracking-section button:hover {
+    background-color: #0056b3;
+}
+
+/* ✅ تحسين أزرار الطلب باستخدام الصور */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px 20px;
+}
+
+/* ✅ إزالة الخلفية الزرقاء واستبدالها بالصور */
+.icon-button {
+    display: inline-block;
+    max-width: 180px; /* نفس حجم الأزرار السابقة */
+    text-decoration: none;
+}
+
+/* ✅ تحسين مظهر الصور */
+.icon-button img {
+    width: 100%; /* يجعل الصورة تمتد داخل العنصر */
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* ✅ تأثير التحويم */
+.icon-button:hover img {
+    transform: scale(1.1);
+}
+
+/* ✅ تحسين الفوتر */
+.footer {
+    background: #f1f1f1;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    color: #666;
+    margin-top: 30px;
+}
+
+/* ✅ تحسين شريط الثقة */
+.trust-bar {
+    display: flex;
+    justify-content: space-around;
+    background: #f4f4f4;
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.trust-item {
+    text-align: center;
+    max-width: 120px;
+}
+
+.trust-item img {
+    width: 50px;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.trust-item p {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* ✅ تحسين وسائل التواصل */
+.social-icons-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.social-icons-container a img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.social-icons-container a:hover img {
+    transform: scale(1.1);
+}
+
+
+
+.product-card {
+    background: white;
+    border-radius: 10px; /* زوايا دائرية */
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* إعادة الظل */
+    text-align: center;
+    margin-bottom: 20px;
+    border: 2px solid #ddd; /* إعادة الإطار */
+}
+
+.product-card img,
+.product-card video {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #ccc; /* إعادة الإطار حول الصورة والفيديو */
+}
+
+
+.custom-payment-methods {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* المسافة بين وسائل الدفع */
+    margin: 20px 0; /* المسافة عن العناصر الأخرى */
+}
+
+.custom-payment-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.custom-payment-item img {
+    width: 60px; /* حجم الأيقونات */
+    height: auto;
+    margin-bottom: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.custom-payment-item span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.custom-payment-item img:hover {
+    transform: scale(1.1); /* تأثير تكبير عند التمرير */
+}
+
+
+.navbar {
+    background-color: #301c41;
+}
+
+.custom-shipping-button img {
+    width: 150px; /* تعديل حجم الزر حسب الحاجة */
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.custom-shipping-button img:hover {
+    transform: scale(1.1); /* تكبير عند التمرير */
+}
+
+.navbar-brand,
+.navbar-toggler-icon {
+    color: white !important;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-toggler {
+    border-color: white !important;
+}
+
+.navbar-toggler-icon {
+    filter: brightness(0) invert(1);
+}
+
+.navbar-brand {
+    font-size: 24px; /* زيادة حجم الخط */
+    font-weight: bold; /* جعله أكثر وضوحًا */
+    color: white !important; /* التأكد من أن اللون أبيض */
+}
+
+
+.shipping-info-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* يمكن تعديل المسافة حسب الحاجة */
+}
+
+.shipping-info-container img {
+    width: auto; /* اجعل الحجم تلقائيًا أو حدده حسب رغبتك */
+    max-width: 180px; /* التحكم في حجم الصورة */
+}
+
+
+/* 🔹 أيقونة زر القائمة الجانبية */
 .menu-toggle {
     position: absolute;
     top: 15px;
@@ -63,39 +371,30 @@ html, body {
     border: none;
     cursor: pointer;
     font-size: 24px;
-    color: white;
+    color: white; /* لون الأيقونة */
     z-index: 1500;
 }
 
-/* ✅ القائمة الجانبية */
+/* 🔹 القائمة الجانبية */
 .sidebar {
     position: fixed;
     top: 0;
-    right: -250px;
+    right: -250px; /* مخفية افتراضيًا */
     width: 250px;
     height: 100%;
-    background: #1a1a1a;
+    background: #1a1a1a; /* لون داكن احترافي */
     box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
     transition: right 0.3s ease-in-out;
     z-index: 1400;
     padding-top: 60px;
 }
 
+/* 🔹 عند فتح القائمة */
 .sidebar.active {
     right: 0;
 }
 
-.sidebar .close-menu {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 24px;
-    color: white;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
+/* 🔹 عناصر القائمة */
 .menu-items, .menu-extra {
     list-style: none;
     padding: 0;
@@ -115,75 +414,30 @@ html, body {
 }
 
 .menu-items li a:hover, .menu-extra li a:hover {
-    color: #f39c12;
+    color: #f39c12; /* لون التأثير عند التمرير */
 }
 
+/* 🔹 فاصل بين الأقسام */
 .menu-divider {
     border: none;
     border-top: 1px solid #444;
     margin: 10px 0;
 }
 
+/* 🔹 تحسين عناصر الروابط الإضافية */
 .menu-extra li a {
     font-size: 14px;
     color: #ccc;
 }
 
-/* ✅ تحسين شريط الإشعارات */
-.notification-bar {
-    background: #2E1A47;
+/* 🔹 زر الإغلاق داخل القائمة */
+.close-menu {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
     color: white;
-    text-align: center;
-    padding: 10px 0;
-    font-size: 14px;
-    font-weight: bold;
-    text-transform: uppercase;
-    animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* ✅ تحسين وسائل الدفع */
-.custom-payment-methods {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 20px 0;
-}
-
-.custom-payment-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.custom-payment-item img {
-    width: 60px;
-    height: auto;
-    margin-bottom: 8px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.custom-payment-item span {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-}
-
-.custom-payment-item img:hover {
-    transform: scale(1.1);
-}
-
-/* ✅ تحسين الفوتر */
-.footer {
-    background: #f1f1f1;
-    text-align: center;
-    padding: 20px;
-    font-size: 14px;
-    color: #666;
-    margin-top: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
