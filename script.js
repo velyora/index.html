@@ -1,31 +1,25 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // ✅ 1️⃣ زر تتبع الطلب - عند الضغط عليه يتم التمرير إلى القسم المناسب
-    const trackLink = document.querySelector(".track-link");
-    if (trackLink) {
-        trackLink.addEventListener("click", function (e) {
-            e.preventDefault();
-            document.querySelector("#tracking-section").scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-    }
-
-    // ✅ 2️⃣ القائمة الجانبية (Sidebar)
     const menuToggle = document.querySelector(".menu-toggle");
     const sidebar = document.querySelector(".sidebar");
+    const closeMenu = document.querySelector(".close-menu");
 
-    if (menuToggle && sidebar) {
-        menuToggle.addEventListener("click", function () {
-            sidebar.classList.toggle("active");
-            document.body.classList.toggle("no-scroll"); // منع تمرير الصفحة عند فتح القائمة
-        });
+    // ✅ عند الضغط على زر القائمة، يتم فتحها
+    menuToggle.addEventListener("click", function () {
+        sidebar.classList.add("active");
+    });
 
-        // إغلاق القائمة عند النقر خارجها
-        document.addEventListener("click", function (event) {
-            if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
-                sidebar.classList.remove("active");
-                document.body.classList.remove("no-scroll");
-            }
-        });
-    }
+    // ✅ عند الضغط على زر الإغلاق داخل القائمة
+    closeMenu.addEventListener("click", function () {
+        sidebar.classList.remove("active");
+    });
+
+    // ✅ عند النقر خارج القائمة يتم إغلاقها
+    document.addEventListener("click", function (event) {
+        if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+            sidebar.classList.remove("active");
+        }
+    });
+});
 
     // ✅ 3️⃣ إشعارات ديناميكية في شريط التنبيه العلوي
     const notifications = [
@@ -106,27 +100,4 @@ document.addEventListener("DOMContentLoaded", function () {
     if (trackButton) {
         trackButton.addEventListener("click", trackOrder);
     }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    const menuToggle = document.querySelector(".menu-toggle");
-    const sidebar = document.querySelector(".sidebar");
-    const closeMenu = document.querySelector(".close-menu");
-
-    // ✅ عند الضغط على زر القائمة، يتم فتحها
-    menuToggle.addEventListener("click", function () {
-        sidebar.classList.add("active");
-    });
-
-    // ✅ عند الضغط على زر الإغلاق داخل القائمة
-    closeMenu.addEventListener("click", function () {
-        sidebar.classList.remove("active");
-    });
-
-    // ✅ عند النقر خارج القائمة يتم إغلاقها
-    document.addEventListener("click", function (event) {
-        if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
-            sidebar.classList.remove("active");
-        }
-    });
 });
