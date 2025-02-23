@@ -415,3 +415,29 @@ html, body {
     border: none;
     cursor: pointer;
 }
+.menu-extra {
+    background: #301c41; /* استخدام لون الشريط العلوي */
+    padding: 15px 0;
+    text-align: center;
+}
+
+.menu-extra li a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: white; /* لون النص الأبيض ليتناسب مع الخلفية */
+    display: block;
+    padding: 10px 0;
+    transition: color 0.3s ease-in-out;
+}
+
+.menu-extra li a:hover {
+    color: #f39c12; /* تأثير عند التحويم */
+}
+
+/* ✅ فاصل بين الأقسام */
+.menu-divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.3); /* لون الفاصل أفتح */
+    margin: 10px 0;
+}
