@@ -1,41 +1,48 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // ✅ تفعيل القائمة الجانبية
     const menuToggle = document.querySelector(".menu-toggle");
     const sidebar = document.querySelector(".sidebar");
     const closeMenu = document.querySelector(".close-menu");
 
-    // ✅ عند الضغط على زر القائمة، يتم فتحها
-    menuToggle.addEventListener("click", function () {
-        sidebar.classList.add("active");
-    });
+    if (menuToggle && sidebar) {
+        // عند الضغط على زر القائمة، يتم فتحها
+        menuToggle.addEventListener("click", function () {
+            sidebar.classList.add("active");
+        });
 
-    // ✅ عند الضغط على زر الإغلاق داخل القائمة
-    closeMenu.addEventListener("click", function () {
-        sidebar.classList.remove("active");
-    });
-
-    // ✅ عند النقر خارج القائمة يتم إغلاقها
-    document.addEventListener("click", function (event) {
-        if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
-            sidebar.classList.remove("active");
+        // عند الضغط على زر الإغلاق داخل القائمة
+        if (closeMenu) {
+            closeMenu.addEventListener("click", function () {
+                sidebar.classList.remove("active");
+            });
         }
-    });
-});
 
-    // ✅ 3️⃣ إشعارات ديناميكية في شريط التنبيه العلوي
-    const notifications = [
-        "🚀 New Orders Are Being Placed Right Now!",
-        "🔥 Limited Stock Available – Order Now!",
-        "💰 Huge Discounts On Selected Items!",
-        "📦 Fast Shipping Available Worldwide!",
-        "⭐ Customer Rated 4.9/5 – Shop with Confidence!"
-    ];
-    let index = 0;
-    setInterval(() => {
-        document.getElementById("notification-text").textContent = notifications[index];
-        index = (index + 1) % notifications.length;
-    }, 4000); // تغيير الإشعار كل 4 ثوانٍ
+        // عند النقر خارج القائمة يتم إغلاقها
+        document.addEventListener("click", function (event) {
+            if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+                sidebar.classList.remove("active");
+            }
+        });
+    }
 
-    // ✅ 4️⃣ إرسال الطلب إلى تيليجرام عند تقديم الطلب
+    // ✅ إشعارات ديناميكية في شريط التنبيه العلوي
+    const notificationText = document.getElementById("notification-text");
+    if (notificationText) {
+        const notifications = [
+            "🚀 New Orders Are Being Placed Right Now!",
+            "🔥 Limited Stock Available – Order Now!",
+            "💰 Huge Discounts On Selected Items!",
+            "📦 Fast Shipping Available Worldwide!",
+            "⭐ Customer Rated 4.9/5 – Shop with Confidence!"
+        ];
+        let index = 0;
+        setInterval(() => {
+            notificationText.textContent = notifications[index];
+            index = (index + 1) % notifications.length;
+        }, 4000); // تغيير الإشعار كل 4 ثوانٍ
+    }
+
+    // ✅ إرسال الطلب إلى تيليجرام عند تقديم الطلب
     const TELEGRAM_BOT_TOKEN = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A";
     const TELEGRAM_CHAT_ID = "-1002290156309";
 
@@ -56,14 +63,14 @@ document.addEventListener("DOMContentLoaded", function () {
         orderForm.addEventListener("submit", function (event) {
             event.preventDefault();
 
-            let name = document.getElementById("name").value.trim();
-            let phone = document.getElementById("phone").value.trim();
-            let country = document.getElementById("country").value.trim();
-            let city = document.getElementById("city").value.trim();
-            let address = document.getElementById("address").value.trim();
-            let postalCode = document.getElementById("postalCode").value.trim();
-            let quantity = document.getElementById("quantity").value;
-            let totalPrice = document.getElementById("total-price").textContent;
+            let name = document.getElementById("name")?.value.trim();
+            let phone = document.getElementById("phone")?.value.trim();
+            let country = document.getElementById("country")?.value.trim();
+            let city = document.getElementById("city")?.value.trim();
+            let address = document.getElementById("address")?.value.trim();
+            let postalCode = document.getElementById("postalCode")?.value.trim();
+            let quantity = document.getElementById("quantity")?.value;
+            let totalPrice = document.getElementById("total-price")?.textContent;
 
             if (!name || !phone || !city || !address || !postalCode) {
                 alert("❌ Please fill in all required fields.");
@@ -85,17 +92,20 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ✅ 5️⃣ تتبع الطلب باستخدام 17Track
+    // ✅ تتبع الطلب باستخدام 17Track
     function trackOrder() {
-        let trackingNumber = document.getElementById("trackingNumber").value.trim();
+        let trackingNumber = document.getElementById("trackingNumber")?.value.trim();
         if (trackingNumber) {
             window.open(`https://www.17track.net/en/track?nums=${trackingNumber}`, "_blank");
         } else {
-            document.getElementById("trackingResult").innerText = "❌ Please enter a valid tracking number.";
+            const trackingResult = document.getElementById("trackingResult");
+            if (trackingResult) {
+                trackingResult.innerText = "❌ Please enter a valid tracking number.";
+            }
         }
     }
 
-    // إضافة زر تتبع الطلب إلى الحدث
+    // ✅ إضافة زر تتبع الطلب إلى الحدث
     const trackButton = document.getElementById("trackButton");
     if (trackButton) {
         trackButton.addEventListener("click", trackOrder);
