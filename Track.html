@@ -4,46 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Track Your Order - Velyora</title>
-    <link rel="stylesheet" href="styles.css"> <!-- ربط ملف التنسيق -->
-    <script defer src="script.js"></script> <!-- ربط ملف السكربت -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+        }
+        .header {
+            background: #301c41;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .tracking-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .tracking-container h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .tracking-container p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .tracking-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .track-button {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .track-button:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            background: #301c41;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
-    <!-- ✅ هيدر احترافي -->
-    <header class="top-nav">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <img src="IMG_3412.png" alt="Velyora Logo" style="height: 40px;">
-            </a>
-            <a class="navbar-brand text-white" href="index.html">VELYORA</a>
-            <button class="menu-toggle">☰</button>
-        </div>
-    </header>
-    
-    <!-- ✅ قسم تتبع الطلبات -->
-    <section class="tracking-page text-center py-10">
-        <div class="container mx-auto max-w-lg bg-white p-6 shadow-md rounded-lg">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">📦 Track Your Order</h2>
-            <p class="text-gray-600 mb-6">Enter your tracking number to check your delivery status.</p>
-            
-            <div class="flex items-center justify-center gap-4">
-                <input type="text" id="trackingNumber" class="border p-3 rounded w-60 text-center focus:ring-2 focus:ring-blue-500" placeholder="Enter your tracking number">
-                <button onclick="trackOrder()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg transition">Track</button>
-            </div>
-            
-            <p id="trackingResult" class="mt-4 text-red-500 font-semibold"></p>
-        </div>
-    </section>
-    
-    <!-- ✅ فوتر احترافي -->
-    <footer class="footer">
-        <div class="container mx-auto text-center py-4">
-            <p class="text-sm">© 2025 Velyora. All rights reserved.</p>
-            <a href="privacy-policy.html" class="text-white hover:underline">Privacy Policy</a> | 
-            <a href="return-policy.html" class="text-white hover:underline">Return Policy</a>
-        </div>
-    </footer>
-    
-    <!-- ✅ سكربت تتبع الطلبات -->
+    <div class="header">VELYORA</div>
+    <div class="tracking-container">
+        <h2>📦 Track Your Order</h2>
+        <p>Enter your tracking number to check your delivery status.</p>
+        <input type="text" id="trackingNumber" class="tracking-input" placeholder="Enter your tracking number">
+        <button onclick="trackOrder()" class="track-button">Track</button>
+        <p id="trackingResult" class="mt-4 text-red-500"></p>
+    </div>
+    <div class="footer">
+        &copy; 2025 Velyora. All rights reserved. | <a href="#" class="text-gray-300 hover:text-gray-400">Privacy Policy</a> | <a href="#" class="text-gray-300 hover:text-gray-400">Return Policy</a>
+    </div>
     <script>
         function trackOrder() {
             let trackingNumber = document.getElementById("trackingNumber").value.trim();
