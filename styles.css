@@ -359,3 +359,84 @@ html, body {
     width: auto; /* اجعل الحجم تلقائيًا أو حدده حسب رغبتك */
     max-width: 180px; /* التحكم في حجم الصورة */
 }
+
+
+/* 🔹 أيقونة زر القائمة الجانبية */
+.menu-toggle {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: white; /* لون الأيقونة */
+    z-index: 1500;
+}
+
+/* 🔹 القائمة الجانبية */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px; /* مخفية افتراضيًا */
+    width: 250px;
+    height: 100%;
+    background: #1a1a1a; /* لون داكن احترافي */
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+    z-index: 1400;
+    padding-top: 60px;
+}
+
+/* 🔹 عند فتح القائمة */
+.sidebar.active {
+    right: 0;
+}
+
+/* 🔹 عناصر القائمة */
+.menu-items, .menu-extra {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-items li, .menu-extra li {
+    padding: 12px 20px;
+}
+
+.menu-items li a, .menu-extra li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    display: block;
+    transition: color 0.3s;
+}
+
+.menu-items li a:hover, .menu-extra li a:hover {
+    color: #f39c12; /* لون التأثير عند التمرير */
+}
+
+/* 🔹 فاصل بين الأقسام */
+.menu-divider {
+    border: none;
+    border-top: 1px solid #444;
+    margin: 10px 0;
+}
+
+/* 🔹 تحسين عناصر الروابط الإضافية */
+.menu-extra li a {
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* 🔹 زر الإغلاق داخل القائمة */
+.close-menu {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
