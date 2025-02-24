@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Payment</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=ATKrzVCARP5-n0VyW8s9T9IOn9IbmHwJKRzC5bo9c7CqJ-5c1Z-g3Q28CNTyAmuluEmBPh54BNHRIP_A&components=buttons"></script>
 </head>
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
 
@@ -49,44 +49,49 @@
         document.getElementById("total").textContent = getQueryParam("total");
 
         // 🔹 إعداد زر الدفع عبر PayPal
-        paypal.Buttons({
-            createOrder: function (data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: getQueryParam("total")
-                        }
-                    }]
-                });
-            },
-            onApprove: function (data, actions) {
-                return actions.order.capture().then(function (details) {
-                    alert(`✅ Payment successful!\nOrder ID: ${details.id}`);
+        function renderPayPalButton() {
+            document.getElementById("paypal-button-container").innerHTML = "";
+            paypal.Buttons({
+                createOrder: function (data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: { value: getQueryParam("total") }
+                        }]
+                    });
+                },
+                onApprove: function (data, actions) {
+                    return actions.order.capture().then(function (details) {
+                        alert(`✅ Payment successful via PayPal!\n🆔 Order ID: ${details.id}`);
 
-                    // 🔹 إرسال تفاصيل الطلب إلى تيليجرام
-                    let message = `📢 *New Payment Received!* 🚀\n\n` +
-                                  `👤 *Name:* ${getQueryParam("name")}\n` +
-                                  `📍 *Country:* ${getQueryParam("country")}\n` +
-                                  `🏙️ *City:* ${getQueryParam("city")}\n` +
-                                  `📌 *Address:* ${getQueryParam("address")}, ${getQueryParam("address2")}\n` +
-                                  `📞 *Phone:* ${getQueryParam("phone")}\n` +
-                                  `💰 *Amount Paid:* $${getQueryParam("total")}`;
+                        // 🔹 إرسال البيانات إلى تيليجرام
+                        let message = `📢 *New Payment Received!* 🚀\n\n` +
+                                      `🆔 *Order ID:* ${details.id}\n` +
+                                      `👤 *Name:* ${getQueryParam("name")}\n` +
+                                      `📧 *Email:* ${details.payer.email_address}\n` +
+                                      `📍 *Country:* ${getQueryParam("country")}\n` +
+                                      `🏙️ *City:* ${getQueryParam("city")}\n` +
+                                      `📌 *Address:* ${getQueryParam("address")}, ${getQueryParam("address2")}\n` +
+                                      `📞 *Phone:* ${getQueryParam("phone")}\n` +
+                                      `💰 *Amount Paid:* ${details.purchase_units[0].amount.value} ${details.purchase_units[0].amount.currency_code}`;
 
-                    fetch(`https://api.telegram.org/botYOUR_TELEGRAM_BOT_TOKEN/sendMessage`, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            chat_id: "YOUR_TELEGRAM_CHAT_ID",
-                            text: message,
-                            parse_mode: "Markdown"
-                        })
-                    }).catch(error => console.error("Telegram API error:", error));
+                        fetch(`https://api.telegram.org/botYOUR_TELEGRAM_BOT_TOKEN/sendMessage`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                chat_id: "YOUR_TELEGRAM_CHAT_ID",
+                                text: message,
+                                parse_mode: "Markdown"
+                            })
+                        }).catch(error => console.error("Telegram API error:", error));
 
-                    // 🔹 توجيه المستخدم إلى صفحة النجاح بعد الدفع
-                    window.location.href = "success.html";
-                });
-            }
-        }).render("#paypal-button-container");
+                        // 🔹 توجيه المستخدم إلى صفحة النجاح بعد الدفع
+                        window.location.href = "success.html";
+                    });
+                }
+            }).render("#paypal-button-container");
+        }
+
+        renderPayPalButton();
 
         // 🔹 زر العودة للتعديل
         function goBack() {
