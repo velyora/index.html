@@ -34,9 +34,7 @@
     </div>
 
     <script>
-        const TELEGRAM_BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN";
-        const TELEGRAM_CHAT_ID = "YOUR_TELEGRAM_CHAT_ID";
-
+        // 🔹 جلب بيانات الطلب من الـ URL وعرضها
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param) || "Not provided";
@@ -50,24 +48,7 @@
         document.getElementById("phone").textContent = getQueryParam("phone");
         document.getElementById("total").textContent = getQueryParam("total");
 
-        function generateOrderID() {
-            return 'ORD' + Math.floor(100000 + Math.random() * 900000);
-        }
-
-        let orderID = generateOrderID();
-
-        function sendToTelegram(message) {
-            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text: message,
-                    parse_mode: "Markdown"
-                })
-            }).catch(error => console.error("Telegram API error:", error));
-        }
-
+        // 🔹 إعداد زر الدفع عبر PayPal
         function renderPayPalButton() {
             document.getElementById("paypal-button-container").innerHTML = "";
             paypal.Buttons({
@@ -80,25 +61,33 @@
                 },
                 onApprove: function (data, actions) {
                     return actions.order.capture().then(function (details) {
-                        let customerPhone = getQueryParam("phone");
-                        let totalAmount = getQueryParam("total");
+                        alert(`✅ Payment successful via PayPal!\n🆔 Order ID: ${details.id}`);
 
+                        // 🔹 إرسال البيانات إلى تيليجرام
                         let message = `📢 *New Payment Received!* 🚀\n\n` +
-                                      `🆔 *Order ID:* ${orderID}\n` +
+                                      `🆔 *Order ID:* ${details.id}\n` +
                                       `👤 *Name:* ${getQueryParam("name")}\n` +
+                                      `📧 *Email:* ${details.payer.email_address}\n` +
                                       `📍 *Country:* ${getQueryParam("country")}\n` +
                                       `🏙️ *City:* ${getQueryParam("city")}\n` +
                                       `📌 *Address:* ${getQueryParam("address")}\n` +
                                       `📬 *Postal Code:* ${getQueryParam("postalCode")}\n` +
-                                      `📞 *Phone:* ${customerPhone}\n` +
-                                      `💰 *Amount Paid:* $${totalAmount}\n\n` +
-                                      `✅ Payment Successful via *PayPal*! 🎉`;
+                                      `📞 *Phone:* ${getQueryParam("phone")}\n` +
+                                      `💰 *Amount Paid:* ${details.purchase_units[0].amount.value} ${details.purchase_units[0].amount.currency_code}`;
 
-                        sendToTelegram(message);
+                        fetch(`https://api.telegram.org/botYOUR_TELEGRAM_BOT_TOKEN/sendMessage`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                chat_id: "YOUR_TELEGRAM_CHAT_ID",
+                                text: message,
+                                parse_mode: "Markdown"
+                            })
+                        }).catch(error => console.error("Telegram API error:", error));
 
-                        alert(`✅ Payment successful via PayPal!\n🆔 Order ID: ${orderID}`);
-
-                        window.location.href = `success.html?orderID=${orderID}&name=${encodeURIComponent(getQueryParam("name"))}&phone=${encodeURIComponent(customerPhone)}`;
+                        // 🔹 توجيه المستخدم إلى صفحة النجاح بعد الدفع مع تمرير البيانات
+                        const orderID = details.id;
+                        window.location.href = `success.html?orderID=${orderID}&name=${encodeURIComponent(getQueryParam("name"))}&phone=${encodeURIComponent(getQueryParam("phone"))}`;
                     });
                 }
             }).render("#paypal-button-container");
@@ -106,6 +95,7 @@
 
         renderPayPalButton();
 
+        // 🔹 زر العودة للتعديل
         function goBack() {
             window.history.back();
         }
