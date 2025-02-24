@@ -111,3 +111,33 @@ document.addEventListener("DOMContentLoaded", function () {
         trackButton.addEventListener("click", trackOrder);
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    // 🔹 أكواد الخصم المتاحة
+    const discountCodes = ["SAVE10", "FLASH20", "DEAL30", "OFFER15"];
+    const randomCode = discountCodes[Math.floor(Math.random() * discountCodes.length)];
+    document.getElementById("discount-code").textContent = randomCode;
+
+    // 🔹 تحديد وقت انتهاء العرض (مثلاً بعد 24 ساعة من الآن)
+    const countdownTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const timeLeft = countdownTime - now;
+
+        if (timeLeft <= 0) {
+            document.getElementById("countdown-timer").textContent = "EXPIRED!";
+        } else {
+            const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+            const seconds = Math.floor((timeLeft / 1000) % 60);
+
+            document.getElementById("countdown-timer").textContent =
+                `${hours}h ${minutes}m ${seconds}s`;
+        }
+    }
+
+    // 🔹 تحديث العداد كل ثانية
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+});
