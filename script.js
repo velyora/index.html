@@ -5,19 +5,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const closeMenu = document.querySelector(".close-menu");
 
     if (menuToggle && sidebar) {
-        // عند الضغط على زر القائمة، يتم فتحها
         menuToggle.addEventListener("click", function () {
             sidebar.classList.add("active");
         });
 
-        // عند الضغط على زر الإغلاق داخل القائمة
         if (closeMenu) {
             closeMenu.addEventListener("click", function () {
                 sidebar.classList.remove("active");
             });
         }
 
-        // عند النقر خارج القائمة يتم إغلاقها
         document.addEventListener("click", function (event) {
             if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
                 sidebar.classList.remove("active");
@@ -39,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setInterval(() => {
             notificationText.textContent = notifications[index];
             index = (index + 1) % notifications.length;
-        }, 4000); // تغيير الإشعار كل 4 ثوانٍ
+        }, 4000);
     }
 
     // ✅ إرسال الطلب إلى تيليجرام عند تقديم الطلب
@@ -105,39 +102,40 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // ✅ إضافة زر تتبع الطلب إلى الحدث
     const trackButton = document.getElementById("trackButton");
     if (trackButton) {
         trackButton.addEventListener("click", trackOrder);
     }
-});
 
-document.addEventListener("DOMContentLoaded", function () {
-    // 🔹 أكواد الخصم المتاحة
+    // ✅ تفعيل العداد التنازلي وأكواد الخصم
     const discountCodes = ["SAVE10", "FLASH20", "DEAL30", "OFFER15"];
     const randomCode = discountCodes[Math.floor(Math.random() * discountCodes.length)];
-    document.getElementById("discount-code").textContent = randomCode;
+    const discountCodeElement = document.getElementById("discount-code");
+    if (discountCodeElement) {
+        discountCodeElement.textContent = randomCode;
+    }
 
-    // 🔹 تحديد وقت انتهاء العرض (مثلاً بعد 24 ساعة من الآن)
+    // ✅ تحديد وقت انتهاء العرض
     const countdownTime = new Date().getTime() + (24 * 60 * 60 * 1000);
 
     function updateCountdown() {
         const now = new Date().getTime();
         const timeLeft = countdownTime - now;
+        const countdownElement = document.getElementById("countdown-timer");
 
-        if (timeLeft <= 0) {
-            document.getElementById("countdown-timer").textContent = "EXPIRED!";
-        } else {
-            const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
-            const seconds = Math.floor((timeLeft / 1000) % 60);
+        if (countdownElement) {
+            if (timeLeft <= 0) {
+                countdownElement.textContent = "EXPIRED!";
+            } else {
+                const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+                const seconds = Math.floor((timeLeft / 1000) % 60);
 
-            document.getElementById("countdown-timer").textContent =
-                `${hours}h ${minutes}m ${seconds}s`;
+                countdownElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
+            }
         }
     }
 
-    // 🔹 تحديث العداد كل ثانية
     setInterval(updateCountdown, 1000);
     updateCountdown();
 });
