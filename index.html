@@ -127,6 +127,134 @@
                 <option value="2">2 Pieces (Discount!)</option>
                 <option value="3">3 Pieces (More Discount!)</option>
             </select>
+             إليك الكود المطلوب بدون الـ head و body حتى تتمكن من وضعه في صفحة index.html الخاصة بك في المكان المخصص له:
+
+<!-- ✅ صورة المنتج -->
+<div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md mx-auto">
+    <h2 class="text-2xl font-bold text-gray-900 text-center mb-4">🛒 Checkout</h2>
+
+    <div class="flex justify-center mb-4">
+        <img src="product-image.jpg" alt="Product" class="w-48 h-auto rounded-lg border">
+    </div>
+
+    <!-- ✅ اختيار الكمية وكود الخصم -->
+    <div class="mb-4">
+        <label class="block font-semibold text-gray-700">Quantity:</label>
+        <div class="flex items-center border border-gray-300 rounded p-2">
+            <button id="decrease" class="px-3 text-lg font-bold">-</button>
+            <input type="number" id="quantity" value="1" min="1" class="w-16 text-center border-none outline-none">
+            <button id="increase" class="px-3 text-lg font-bold">+</button>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <label class="block font-semibold text-gray-700">Discount Code:</label>
+        <div class="flex">
+            <input type="text" id="discountCode" class="border border-gray-300 p-2 w-full rounded-l">
+            <button onclick="applyDiscount()" class="bg-blue-500 text-white px-4 rounded-r">Apply</button>
+        </div>
+        <p id="discountMessage" class="text-green-600 text-sm mt-1 hidden">Discount Applied!</p>
+    </div>
+
+    <!-- ✅ إجمالي السعر -->
+    <p class="text-lg font-semibold text-gray-900">Total: $<span id="total-price">50.00</span></p>
+
+    <!-- ✅ نموذج البيانات -->
+    <div class="mt-4">
+        <label class="block font-semibold text-gray-700">Full Name:</label>
+        <input type="text" id="fullName" class="border border-gray-300 p-2 w-full rounded mb-2">
+
+        <label class="block font-semibold text-gray-700">Country:</label>
+        <select id="country" class="border border-gray-300 p-2 w-full rounded mb-2">
+            <option value="US">🇺🇸 United States</option>
+            <option value="UK">🇬🇧 United Kingdom</option>
+            <option value="DE">🇩🇪 Germany</option>
+            <option value="FR">🇫🇷 France</option>
+        </select>
+
+        <label class="block font-semibold text-gray-700">City:</label>
+        <input type="text" id="city" class="border border-gray-300 p-2 w-full rounded mb-2">
+
+        <label class="block font-semibold text-gray-700">Address:</label>
+        <input type="text" id="address" class="border border-gray-300 p-2 w-full rounded mb-2">
+
+        <label class="block font-semibold text-gray-700">Address 2 (Optional):</label>
+        <input type="text" id="address2" class="border border-gray-300 p-2 w-full rounded mb-2">
+
+        <label class="block font-semibold text-gray-700">Phone Number:</label>
+        <input type="tel" id="phone" class="border border-gray-300 p-2 w-full rounded mb-4">
+    </div>
+
+    <!-- ✅ زر الشراء -->
+    <button onclick="redirectToPayment()" class="bg-purple-700 text-white py-2 px-4 w-full rounded text-lg font-semibold">
+        Purchase
+    </button>
+
+    <!-- ✅ ملاحظة الدفع عبر PayPal -->
+    <p class="text-sm text-gray-600 text-center mt-2">
+        You can also fill in your details in the PayPal payment method using the black button.
+    </p>
+</div>
+
+<!-- ✅ سكربت التحكم -->
+<script>
+    let totalPrice = 50.00; // السعر الأساسي
+
+    document.getElementById("increase").addEventListener("click", function () {
+        let quantity = document.getElementById("quantity");
+        quantity.value = parseInt(quantity.value) + 1;
+        updatePrice();
+    });
+
+    document.getElementById("decrease").addEventListener("click", function () {
+        let quantity = document.getElementById("quantity");
+        if (parseInt(quantity.value) > 1) {
+            quantity.value = parseInt(quantity.value) - 1;
+            updatePrice();
+        }
+    });
+
+    function applyDiscount() {
+        let discountCode = document.getElementById("discountCode").value;
+        let discountMessage = document.getElementById("discountMessage");
+
+        if (discountCode === "SAVE10") {
+            totalPrice *= 0.9; // تخفيض 10%
+            discountMessage.classList.remove("hidden");
+        }
+        updatePrice();
+    }
+
+    function updatePrice() {
+        let quantity = parseInt(document.getElementById("quantity").value);
+        document.getElementById("total-price").textContent = (totalPrice * quantity).toFixed(2);
+    }
+
+    function redirectToPayment() {
+        let fullName = document.getElementById("fullName").value;
+        let country = document.getElementById("country").value;
+        let city = document.getElementById("city").value;
+        let address = document.getElementById("address").value;
+        let address2 = document.getElementById("address2").value;
+        let phone = document.getElementById("phone").value;
+        let total = document.getElementById("total-price").textContent;
+
+        let paymentPageURL = `payment.html?name=${encodeURIComponent(fullName)}
+                            &country=${encodeURIComponent(country)}
+                            &city=${encodeURIComponent(city)}
+                            &address=${encodeURIComponent(address)}
+                            &address2=${encodeURIComponent(address2)}
+                            &phone=${encodeURIComponent(phone)}
+                            &total=${encodeURIComponent(total)}`;
+
+        window.location.href = paymentPageURL;
+    }
+</script>
+
+🔹 طريقة الاستخدام:
+ضع هذا الكود داخل index.html في القسم الذي تريده، مثل قسم الشراء أو checkout.
+
+💡 عند إدخال بيانات العميل والضغط على “Purchase”، سيتم التوجيه إلى صفحة الدفع (payment.html) مع جميع بيانات العميل.
 
             <!-- 🔹 عرض السعر -->
               <p id="total-price" class="text-lg font-semibold text-gray-700 mt-2">Price: $1.00</p>
