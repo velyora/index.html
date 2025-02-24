@@ -136,77 +136,6 @@
         <img src="IMG_3355.jpeg" alt="Trust Badges" class="w-64">
     </div>
     
-    <div class="reviews-container">
-    <h2>💬 Customer Reviews</h2>
-
-    <!-- ✅ نموذج إضافة التقييم -->
-    <form id="reviewForm" class="review-form">
-        <input type="text" id="name" placeholder="Your Name" required>
-        <select id="rating">
-            <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
-            <option value="4">⭐⭐⭐⭐ - Very Good</option>
-            <option value="3">⭐⭐⭐ - Good</option>
-            <option value="2">⭐⭐ - Fair</option>
-            <option value="1">⭐ - Poor</option>
-        </select>
-        <textarea id="comment" placeholder="Write your review..." required></textarea>
-        <button type="submit">Submit Review</button>
-    </form>
-
-    <!-- ✅ منطقة عرض التقييمات -->
-    <div id="reviewsList"></div>
-</div>
-
-<script>
-// ✅ تحميل التقييمات من LocalStorage
-document.addEventListener("DOMContentLoaded", function () {
-    loadReviews();
-});
-
-// ✅ إضافة التقييم الجديد
-document.getElementById("reviewForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    let name = document.getElementById("name").value;
-    let rating = document.getElementById("rating").value;
-    let comment = document.getElementById("comment").value;
-
-    let review = { name, rating, comment };
-    let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
-
-    reviews.push(review);
-    localStorage.setItem("reviews", JSON.stringify(reviews));
-
-    document.getElementById("reviewForm").reset();
-    loadReviews();
-});
-
-// ✅ تحميل التقييمات وعرضها
-function loadReviews() {
-    let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
-    let reviewsList = document.getElementById("reviewsList");
-    reviewsList.innerHTML = "";
-
-    reviews.forEach((review, index) => {
-        let reviewElement = document.createElement("div");
-        reviewElement.classList.add("review");
-        reviewElement.innerHTML = `
-            <strong>${review.name}</strong> - <span>${"⭐".repeat(review.rating)}</span>
-            <p>${review.comment}</p>
-            <button class="delete-btn" onclick="deleteReview(${index})">🗑️ Delete</button>
-        `;
-        reviewsList.appendChild(reviewElement);
-    });
-}
-
-// ✅ حذف التقييم
-function deleteReview(index) {
-    let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
-    reviews.splice(index, 1);
-    localStorage.setItem("reviews", JSON.stringify(reviews));
-    loadReviews();
-}
-</script>
     
     <!-- 🔹 Footer -->
     
@@ -226,7 +155,7 @@ function deleteReview(index) {
     </footer>
 
 
-<!-- 🔹 تحميل PayPal SDK -->
+
 <!-- 🔹 PayPal SDK -->
 <script src="https://www.paypal.com/sdk/js?client-id=ATKrzVCARP5-n0VyW8s9T9IOn9IbmHwJKRzC5bo9c7CqJ-5c1Z-g3Q28CNTyAmuluEmBPh54BNHRIP_A&components=buttons"></script>
 
