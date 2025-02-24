@@ -7,31 +7,45 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=ATKrzVCARP5-n0VyW8s9T9IOn9IbmHwJKRzC5bo9c7CqJ-5c1Z-g3Q28CNTyAmuluEmBPh54BNHRIP_A"></script>
 </head>
-<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<body class="bg-gray-100 min-h-screen flex flex-col">
 
-    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
-        <h2 class="text-3xl font-bold text-gray-900 text-center mb-6">💳 Secure Payment</h2>
+    <!-- ✅ الهيدر -->
+    <header class="bg-purple-800 text-white text-center py-4 shadow-lg">
+        <h1 class="text-2xl font-bold">💳 Secure Payment</h1>
+    </header>
 
-        <!-- ✅ تفاصيل الطلب -->
-        <div class="mb-6">
-            <h3 class="text-lg font-semibold text-gray-700 border-b pb-2">Customer Details</h3>
-            <p><strong>Name:</strong> <span id="name" class="text-gray-800"></span></p>
-            <p><strong>Country:</strong> <span id="country" class="text-gray-800"></span></p>
-            <p><strong>City:</strong> <span id="city" class="text-gray-800"></span></p>
-            <p><strong>Address:</strong> <span id="address" class="text-gray-800"></span></p>
-            <p><strong>Postal Code:</strong> <span id="postalCode" class="text-gray-800"></span></p>
-            <p><strong>Phone:</strong> <span id="phone" class="text-gray-800"></span></p>
-            <p class="text-xl font-bold mt-4 text-gray-900">Total: $<span id="total"></span></p>
+    <!-- ✅ المحتوى الرئيسي -->
+    <main class="flex-grow flex justify-center items-center">
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
+            <h2 class="text-2xl font-bold text-gray-900 text-center mb-6">🛒 Order Summary</h2>
+
+            <!-- ✅ تفاصيل الطلب -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-700 border-b pb-2">Customer Details</h3>
+                <p><strong>Name:</strong> <span id="name" class="text-gray-800"></span></p>
+                <p><strong>Country:</strong> <span id="country" class="text-gray-800"></span></p>
+                <p><strong>City:</strong> <span id="city" class="text-gray-800"></span></p>
+                <p><strong>Address:</strong> <span id="address" class="text-gray-800"></span></p>
+                <p><strong>Postal Code:</strong> <span id="postalCode" class="text-gray-800"></span></p>
+                <p><strong>Phone:</strong> <span id="phone" class="text-gray-800"></span></p>
+                <p class="text-xl font-bold mt-4 text-gray-900">Total: $<span id="total"></span></p>
+            </div>
+
+            <!-- ✅ زر الدفع عبر PayPal -->
+            <div id="paypal-button-container" class="mb-4"></div>
+
+            <!-- ✅ زر الرجوع لتعديل الطلب -->
+            <button onclick="goBack()" class="w-full bg-gray-700 text-white py-2 px-4 rounded text-lg font-semibold hover:bg-gray-800">
+                ⬅️ Modify Order
+            </button>
         </div>
+    </main>
 
-        <!-- ✅ زر الدفع عبر PayPal -->
-        <div id="paypal-button-container" class="mb-4"></div>
-
-        <!-- ✅ زر الرجوع لتعديل الطلب -->
-        <button onclick="goBack()" class="w-full bg-gray-700 text-white py-2 px-4 rounded text-lg font-semibold hover:bg-gray-800">
-            ⬅️ Modify Order
-        </button>
-    </div>
+    <!-- ✅ الفوتر -->
+    <footer class="bg-purple-800 text-white text-center py-4 mt-6 shadow-lg">
+        <p class="text-sm">© 2025 Velyora. All rights reserved.</p>
+        <p class="text-xs">For support, contact us at <a href="mailto:support@velyora.com" class="underline">support@velyora.com</a></p>
+    </footer>
 
     <script>
         // 🔹 جلب بيانات الطلب من الـ URL وعرضها
