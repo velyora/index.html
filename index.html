@@ -117,47 +117,24 @@
 
     <!-- 🔹 Payment Section -->
     <section class="flex justify-center">
-        <div class="bg-white shadow-md rounded-lg p-6 w-96">
-            <h2 class="text-xl font-bold text-gray-700 text-center mb-4">Secure Payment</h2>
-
-            <!-- 🔹 اختيار الكمية -->
-            <label for="quantity" class="block text-gray-700 font-semibold mb-2">Choose Quantity:</label>
-            <select id="quantity" class="border p-2 rounded w-full">
-                <option value="1" selected>1 Piece</option>
-                <option value="2">2 Pieces (Discount!)</option>
-                <option value="3">3 Pieces (More Discount!)</option>
-            </select>
-
-
-<!-- ✅ صورة المنتج -->
+        <!-- ✅ صندوق الشراء -->
 <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md mx-auto">
     <h2 class="text-2xl font-bold text-gray-900 text-center mb-4">🛒 Checkout</h2>
 
+    <!-- ✅ صورة المنتج -->
     <div class="flex justify-center mb-4">
         <img src="product-image.jpg" alt="Product" class="w-48 h-auto rounded-lg border">
     </div>
 
-    <!-- ✅ اختيار الكمية وكود الخصم -->
-    <div class="mb-4">
-        <label class="block font-semibold text-gray-700">Quantity:</label>
-        <div class="flex items-center border border-gray-300 rounded p-2">
-            <button id="decrease" class="px-3 text-lg font-bold">-</button>
-            <input type="number" id="quantity" value="1" min="1" class="w-16 text-center border-none outline-none">
-            <button id="increase" class="px-3 text-lg font-bold">+</button>
-        </div>
-    </div>
-
-    <div class="mb-4">
-        <label class="block font-semibold text-gray-700">Discount Code:</label>
-        <div class="flex">
-            <input type="text" id="discountCode" class="border border-gray-300 p-2 w-full rounded-l">
-            <button onclick="applyDiscount()" class="bg-blue-500 text-white px-4 rounded-r">Apply</button>
-        </div>
-        <p id="discountMessage" class="text-green-600 text-sm mt-1 hidden">Discount Applied!</p>
+    <!-- ✅ زر التحكم في الكمية -->
+    <div class="mb-4 text-center">
+        <button id="decrease" class="bg-gray-300 text-gray-700 px-3 py-1 rounded-l">-</button>
+        <span id="quantity" class="px-4 text-lg font-bold">1</span>
+        <button id="increase" class="bg-gray-300 text-gray-700 px-3 py-1 rounded-r">+</button>
     </div>
 
     <!-- ✅ إجمالي السعر -->
-    <p class="text-lg font-semibold text-gray-900">Total: $<span id="total-price">50.00</span></p>
+    <p class="text-lg font-semibold text-gray-900 text-center">Total: $<span id="total-price">50.00</span></p>
 
     <!-- ✅ نموذج البيانات -->
     <div class="mt-4">
@@ -165,11 +142,11 @@
         <input type="text" id="fullName" class="border border-gray-300 p-2 w-full rounded mb-2">
 
         <label class="block font-semibold text-gray-700">Country:</label>
-        <select id="country" class="border border-gray-300 p-2 w-full rounded mb-2">
-            <option value="US">🇺🇸 United States</option>
-            <option value="UK">🇬🇧 United Kingdom</option>
-            <option value="DE">🇩🇪 Germany</option>
-            <option value="FR">🇫🇷 France</option>
+        <select id="country" class="border border-gray-300 p-2 w-full rounded mb-2" onchange="updatePhoneCode()">
+            <option value="US" data-code="+1">🇺🇸 United States</option>
+            <option value="UK" data-code="+44">🇬🇧 United Kingdom</option>
+            <option value="DE" data-code="+49">🇩🇪 Germany</option>
+            <option value="FR" data-code="+33">🇫🇷 France</option>
         </select>
 
         <label class="block font-semibold text-gray-700">City:</label>
@@ -182,11 +159,14 @@
         <input type="text" id="address2" class="border border-gray-300 p-2 w-full rounded mb-2">
 
         <label class="block font-semibold text-gray-700">Phone Number:</label>
-        <input type="tel" id="phone" class="border border-gray-300 p-2 w-full rounded mb-4">
+        <div class="flex">
+            <span id="phone-code" class="bg-gray-300 px-3 py-2 rounded-l">+1</span>
+            <input type="tel" id="phone" class="border border-gray-300 p-2 w-full rounded-r">
+        </div>
     </div>
 
     <!-- ✅ زر الشراء -->
-    <button onclick="redirectToPayment()" class="bg-purple-700 text-white py-2 px-4 w-full rounded text-lg font-semibold">
+    <button onclick="redirectToPayment()" class="bg-purple-700 text-white py-2 px-4 w-full rounded text-lg font-semibold mt-4">
         Purchase
     </button>
 
@@ -198,36 +178,33 @@
 
 <!-- ✅ سكربت التحكم -->
 <script>
-    let totalPrice = 50.00; // السعر الأساسي
+    let pricePerItem = 50.00;
+    let totalPrice = pricePerItem;
 
     document.getElementById("increase").addEventListener("click", function () {
         let quantity = document.getElementById("quantity");
-        quantity.value = parseInt(quantity.value) + 1;
+        quantity.textContent = parseInt(quantity.textContent) + 1;
         updatePrice();
     });
 
     document.getElementById("decrease").addEventListener("click", function () {
         let quantity = document.getElementById("quantity");
-        if (parseInt(quantity.value) > 1) {
-            quantity.value = parseInt(quantity.value) - 1;
+        if (parseInt(quantity.textContent) > 1) {
+            quantity.textContent = parseInt(quantity.textContent) - 1;
             updatePrice();
         }
     });
 
-    function applyDiscount() {
-        let discountCode = document.getElementById("discountCode").value;
-        let discountMessage = document.getElementById("discountMessage");
-
-        if (discountCode === "SAVE10") {
-            totalPrice *= 0.9; // تخفيض 10%
-            discountMessage.classList.remove("hidden");
-        }
-        updatePrice();
+    function updatePrice() {
+        let quantity = parseInt(document.getElementById("quantity").textContent);
+        document.getElementById("total-price").textContent = (pricePerItem * quantity).toFixed(2);
     }
 
-    function updatePrice() {
-        let quantity = parseInt(document.getElementById("quantity").value);
-        document.getElementById("total-price").textContent = (totalPrice * quantity).toFixed(2);
+    function updatePhoneCode() {
+        let countrySelect = document.getElementById("country");
+        let selectedOption = countrySelect.options[countrySelect.selectedIndex];
+        let phoneCode = selectedOption.getAttribute("data-code");
+        document.getElementById("phone-code").textContent = phoneCode;
     }
 
     function redirectToPayment() {
@@ -238,6 +215,11 @@
         let address2 = document.getElementById("address2").value;
         let phone = document.getElementById("phone").value;
         let total = document.getElementById("total-price").textContent;
+
+        if (!fullName || !city || !address || !phone) {
+            alert("Please fill in all required fields.");
+            return;
+        }
 
         let paymentPageURL = `payment.html?name=${encodeURIComponent(fullName)}
                             &country=${encodeURIComponent(country)}
