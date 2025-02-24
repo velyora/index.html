@@ -212,28 +212,31 @@
     }
 
     function redirectToPayment() {
-        let fullName = document.getElementById("fullName").value;
-        let country = document.getElementById("country").value;
-        let city = document.getElementById("city").value;
-        let address = document.getElementById("address").value;
-        let address2 = document.getElementById("address2").value;
-        let phone = document.getElementById("phone").value;
-        let total = document.getElementById("total-price").textContent;
+    let fullName = document.getElementById("fullName").value;
+    let country = document.getElementById("country").value;
+    let city = document.getElementById("city").value;
+    let address = document.getElementById("address").value;
+    let address2 = document.getElementById("address2").value;
+    let phone = document.getElementById("phone").value;
+    let postalCode = document.getElementById("postalCode").value; // ✅ أضف الرمز البريدي
+    let total = document.getElementById("total-price").textContent;
 
-        if (!fullName || !city || !address || !phone) {
-            alert("Please fill in all required fields.");
-            return;
-        }
+    if (!fullName || !city || !address || !phone || !postalCode) {
+        alert("Please fill in all required fields.");
+        return;
+    }
 
-        let paymentPageURL = `payment.html?name=${encodeURIComponent(fullName)}
+    let paymentPageURL = `payment.html?name=${encodeURIComponent(fullName)}
                             &country=${encodeURIComponent(country)}
                             &city=${encodeURIComponent(city)}
                             &address=${encodeURIComponent(address)}
                             &address2=${encodeURIComponent(address2)}
                             &phone=${encodeURIComponent(phone)}
+                            &postalCode=${encodeURIComponent(postalCode)}
                             &total=${encodeURIComponent(total)}`;
 
-        window.location.href = paymentPageURL;
+    window.location.href = paymentPageURL;
+}
     }
 </script>
  
