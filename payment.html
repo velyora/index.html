@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+
+    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
+        <h2 class="text-2xl font-bold text-gray-900 text-center mb-4">💳 Payment Details</h2>
+
+        <!-- ✅ تفاصيل الطلب -->
+        <div class="mb-4">
+            <p class="text-lg font-semibold text-gray-700">Customer Details:</p>
+            <p><strong>Name:</strong> <span id="name"></span></p>
+            <p><strong>Country:</strong> <span id="country"></span></p>
+            <p><strong>City:</strong> <span id="city"></span></p>
+            <p><strong>Address:</strong> <span id="address"></span></p>
+            <p><strong>Address 2:</strong> <span id="address2"></span></p>
+            <p><strong>Phone:</strong> <span id="phone"></span></p>
+            <p class="text-xl font-bold mt-2">Total: $<span id="total"></span></p>
+        </div>
+
+        <!-- ✅ زر الدفع عبر PayPal -->
+        <div id="paypal-button-container"></div>
+    </div>
+
+    <script>
+        // 🔹 جلب بيانات الطلب من الـ URL وعرضها
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param) || "Not provided";
+        }
+
+        document.getElementById("name").textContent = getQueryParam("name");
+        document.getElementById("country").textContent = getQueryParam("country");
+        document.getElementById("city").textContent = getQueryParam("city");
+        document.getElementById("address").textContent = getQueryParam("address");
+        document.getElementById("address2").textContent = getQueryParam("address2");
+        document.getElementById("phone").textContent = getQueryParam("phone");
+        document.getElementById("total").textContent = getQueryParam("total");
+
+        // 🔹 إعداد زر الدفع عبر PayPal
+        paypal.Buttons({
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: getQueryParam("total")
+                        }
+                    }]
+                });
+            },
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (details) {
+                    alert(`✅ Payment successful!\nOrder ID: ${details.id}`);
+
+                    // 🔹 إرسال تفاصيل الطلب إلى تيليجرام
+                    let message = `📢 *New Payment Received!* 🚀\n\n` +
+                                  `👤 *Name:* ${getQueryParam("name")}\n` +
+                                  `📍 *Country:* ${getQueryParam("country")}\n` +
+                                  `🏙️ *City:* ${getQueryParam("city")}\n` +
+                                  `📌 *Address:* ${getQueryParam("address")}, ${getQueryParam("address2")}\n` +
+                                  `📞 *Phone:* ${getQueryParam("phone")}\n` +
+                                  `💰 *Amount Paid:* $${getQueryParam("total")}`;
+
+                    fetch(`https://api.telegram.org/botYOUR_TELEGRAM_BOT_TOKEN/sendMessage`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            chat_id: "YOUR_TELEGRAM_CHAT_ID",
+                            text: message,
+                            parse_mode: "Markdown"
+                        })
+                    }).catch(error => console.error("Telegram API error:", error));
+
+                    // 🔹 توجيه المستخدم إلى صفحة النجاح بعد الدفع
+                    window.location.href = "success.html";
+                });
+            }
+        }).render("#paypal-button-container");
+    </script>
+
+</body>
+</html>
