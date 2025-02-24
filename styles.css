@@ -410,4 +410,31 @@ html, body {
 
 .delete-btn:hover {
     background-color: #c82333;
+
+
+    
+}
+
+/* 🔹 تصميم صندوق العداد */
+.discount-timer {
+    background: linear-gradient(90deg, #ff5722, #ff9800);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* 🔹 تخصيص النص */
+.discount-text {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+/* 🔹 تخصيص العداد */
+.countdown {
+    font-size: 18px;
+    font-weight: bold;
 }
