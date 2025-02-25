@@ -3,39 +3,43 @@ const ctx = canvas.getContext("2d");
 const ffmpeg = FFmpeg.createFFmpeg({ log: true });
 const pexelsVideo = document.getElementById("pexelsVideo");
 
-// ✅ مفتاح API الخاص بك من Pexels (تأكد من أنه صحيح)
+// ✅ مفتاح API من Pexels (تأكد من أنه مفعل وصحيح)
 const PEXELS_API_KEY = "tgNsoLFJcxLOaI6li871yIXckVae2iBVn9eZEVE5nA3t6KXuNUjrb8s8";
 
-// 🖼️ جلب فيديو من Pexels
+// 🖼️ جلب فيديو من Pexels وتحسين عرض الأخطاء
 async function fetchPexelsVideo() {
-    const query = "nature"; // يمكنك تغييرها إلى "mosque" أو أي كلمة أخرى
+    const query = "nature"; // يمكنك تغييره إلى "mosque" أو أي كلمة أخرى
 
     try {
+        console.log("⏳ جاري تحميل الفيديو من Pexels API...");
+        document.getElementById("errorMsg").style.display = "none";
+
         const response = await fetch(`https://api.pexels.com/videos/search?query=${query}&per_page=1`, {
             headers: { Authorization: PEXELS_API_KEY }
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            throw new Error(`❌ خطأ في API: ${response.status} - ${response.statusText}`);
         }
 
         const data = await response.json();
-        
+
         if (data.videos.length > 0) {
             const videoUrl = data.videos[0].video_files[0].link;
-            console.log("✅ رابط الفيديو:", videoUrl);
+            console.log("✅ تم العثور على فيديو:", videoUrl);
 
-            // تحديث عنصر الفيديو في الصفحة
-            pexelsVideo.src = videoUrl;
-            pexelsVideo.load(); // إعادة تحميل الفيديو
-            pexelsVideo.style.display = "block"; // التأكد من ظهوره
+            const videoElement = document.getElementById("pexelsVideo");
+            videoElement.src = videoUrl;
+            videoElement.load();
+            videoElement.style.display = "block";
 
         } else {
-            alert("⚠️ لم يتم العثور على فيديو مناسب، حاول بكلمة أخرى.");
+            throw new Error("⚠️ لم يتم العثور على فيديو، جرب كلمة مفتاحية أخرى.");
         }
     } catch (error) {
         console.error("❌ خطأ أثناء جلب الفيديو:", error);
-        alert("❌ حدث خطأ أثناء تحميل الفيديو، تحقق من API أو الاتصال بالإنترنت.");
+        document.getElementById("errorMsg").innerText = error.message;
+        document.getElementById("errorMsg").style.display = "block";
     }
 }
 
