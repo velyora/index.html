@@ -7,16 +7,17 @@
     <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.9.7"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; padding: 20px; }
-        video { width: 80%; border: 2px solid black; margin-top: 10px; }
+        video { width: 80%; border: 2px solid black; margin-top: 10px; display: none; }
         canvas { display: none; }
         button { padding: 10px 15px; margin: 10px; background-color: #007bff; color: white; border: none; cursor: pointer; }
         button:hover { background-color: #0056b3; }
         input { padding: 8px; margin: 5px; width: 300px; }
+        #errorMsg { color: red; font-weight: bold; display: none; }
     </style>
 </head>
 <body>
 
-    <h2>مولد فيديو قرآني</h2>
+    <h2>📹 مولد فيديو قرآني</h2>
 
     <label for="audioFile">🔉 اختر ملف التلاوة:</label>
     <input type="file" id="audioFile" accept="audio/*"><br><br>
@@ -24,7 +25,8 @@
     <label for="verseText">📖 أدخل الآية:</label>
     <input type="text" id="verseText" placeholder="اكتب الآية هنا"><br><br>
 
-    <button onclick="fetchPexelsVideo()">🎥 جلب فيديو خلفية</button><br><br>
+    <button onclick="fetchPexelsVideo()">🎥 جلب فيديو خلفية</button>
+    <p id="errorMsg">⚠️ لم يتم العثور على فيديو، حاول مرة أخرى!</p>
 
     <video id="pexelsVideo" controls></video><br>
 
