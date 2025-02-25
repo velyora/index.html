@@ -181,52 +181,69 @@
 </div>
 
 <!-- ✅ سكربت التحكم -->
+<!-- ✅ سكربت التحكم -->
 <script>
-    let pricePerItem = 50.00;
-    let totalPrice = pricePerItem;
+    document.addEventListener("DOMContentLoaded", function () {
+        let pricePerItem = 50.00;
+        let totalPrice = pricePerItem;
 
-    document.getElementById("increase").addEventListener("click", function () {
-        let quantity = document.getElementById("quantity");
-        quantity.textContent = parseInt(quantity.textContent) + 1;
-        updatePrice();
-    });
+        const quantityElement = document.getElementById("quantity");
+        const totalPriceElement = document.getElementById("total-price");
+        const increaseButton = document.getElementById("increase");
+        const decreaseButton = document.getElementById("decrease");
+        const countrySelect = document.getElementById("country");
+        const phoneCodeElement = document.getElementById("phone-code");
 
-    document.getElementById("decrease").addEventListener("click", function () {
-        let quantity = document.getElementById("quantity");
-        if (parseInt(quantity.textContent) > 1) {
-            quantity.textContent = parseInt(quantity.textContent) - 1;
-            updatePrice();
-        }
-    });
-
-    function updatePrice() {
-        let quantity = parseInt(document.getElementById("quantity").textContent);
-        document.getElementById("total-price").textContent = (pricePerItem * quantity).toFixed(2);
-    }
-
-    function updatePhoneCode() {
-        let countrySelect = document.getElementById("country");
-        let selectedOption = countrySelect.options[countrySelect.selectedIndex];
-        let phoneCode = selectedOption.getAttribute("data-code");
-        document.getElementById("phone-code").textContent = phoneCode;
-    }
-
-    function redirectToPayment() {
-        let fullName = document.getElementById("fullName").value;
-        let country = document.getElementById("country").value;
-        let city = document.getElementById("city").value;
-        let address = document.getElementById("address").value;
-        let address2 = document.getElementById("address2").value;
-        let phone = document.getElementById("phone").value;
-        let postalCode = document.getElementById("postalCode").value; // ✅ أضف الرمز البريدي
-        let total = document.getElementById("total-price").textContent;
-
-        if (!fullName || !city || !address || !phone || !postalCode) {
-            alert("Please fill in all required fields.");
-            return;
+        function updatePrice() {
+            let quantity = parseInt(quantityElement.textContent);
+            totalPrice = pricePerItem * quantity;
+            totalPriceElement.textContent = totalPrice.toFixed(2);
         }
 
-        let paymentPageURL = `payment.html?name=${encodeURIComponent(fullName)}
+        if (increaseButton && decreaseButton) {
+            increaseButton.addEventListener("click", function () {
+                let quantity = parseInt(quantityElement.textContent);
+                quantityElement.textContent = quantity + 1;
+                updatePrice();
+            });
+
+            decreaseButton.addEventListener("click", function () {
+                let quantity = parseInt(quantityElement.textContent);
+                if (quantity > 1) {
+                    quantityElement.textContent = quantity - 1;
+                    updatePrice();
+                }
+            });
+        }
+
+        function updatePhoneCode() {
+            if (countrySelect && phoneCodeElement) {
+                let selectedOption = countrySelect.options[countrySelect.selectedIndex];
+                let phoneCode = selectedOption.getAttribute("data-code");
+                phoneCodeElement.textContent = phoneCode;
+            }
+        }
+
+        if (countrySelect) {
+            countrySelect.addEventListener("change", updatePhoneCode);
+        }
+
+        function redirectToPayment() {
+            let fullName = document.getElementById("fullName")?.value.trim();
+            let country = document.getElementById("country")?.value.trim();
+            let city = document.getElementById("city")?.value.trim();
+            let address = document.getElementById("address")?.value.trim();
+            let address2 = document.getElementById("address2")?.value.trim();
+            let phone = document.getElementById("phone")?.value.trim();
+            let postalCode = document.getElementById("postalCode")?.value.trim();
+            let total = document.getElementById("total-price")?.textContent.trim();
+
+            if (!fullName || !country || !city || !address || !phone || !postalCode) {
+                alert("❌ Please fill in all required fields.");
+                return;
+            }
+
+            let paymentPageURL = `payment.html?name=${encodeURIComponent(fullName)}
                                 &country=${encodeURIComponent(country)}
                                 &city=${encodeURIComponent(city)}
                                 &address=${encodeURIComponent(address)}
@@ -235,8 +252,17 @@
                                 &postalCode=${encodeURIComponent(postalCode)}
                                 &total=${encodeURIComponent(total)}`;
 
-       window.location.href = paymentPageURL;
-   }
+            window.location.href = paymentPageURL;
+        }
+
+        // ربط زر الشراء بالدالة
+        const purchaseButton = document.querySelector("button[onclick='redirectToPayment()']");
+        if (purchaseButton) {
+            purchaseButton.addEventListener("click", redirectToPayment);
+        }
+
+        updatePrice();
+    });
 </script>
  
             <!-- 🔹 PayPal Payment Button -->
