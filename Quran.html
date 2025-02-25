@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مولد فيديو قرآني</title>
+    <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.9.7"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; padding: 20px; }
+        video { width: 80%; border: 2px solid black; margin-top: 10px; }
+        canvas { display: none; }
+        button { padding: 10px 15px; margin: 10px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        input { padding: 8px; margin: 5px; width: 300px; }
+    </style>
+</head>
+<body>
+
+    <h2>مولد فيديو قرآني</h2>
+
+    <label for="audioFile">🔉 اختر ملف التلاوة:</label>
+    <input type="file" id="audioFile" accept="audio/*"><br><br>
+
+    <label for="verseText">📖 أدخل الآية:</label>
+    <input type="text" id="verseText" placeholder="اكتب الآية هنا"><br><br>
+
+    <button onclick="fetchPexelsVideo()">🎥 جلب فيديو خلفية</button><br><br>
+
+    <video id="pexelsVideo" controls></video><br>
+
+    <button onclick="generateVideo()">📹 إنشاء الفيديو</button>
+
+    <canvas id="canvas" width="1280" height="720"></canvas>
+    <br>
+    <a id="downloadLink" style="display:none;">⬇️ تحميل الفيديو</a>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
