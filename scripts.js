@@ -3,34 +3,49 @@ const ctx = canvas.getContext("2d");
 const ffmpeg = FFmpeg.createFFmpeg({ log: true });
 const pexelsVideo = document.getElementById("pexelsVideo");
 
-// 🔹 مفتاح API الخاص بك من Pexels
+// ✅ مفتاح API الخاص بك من Pexels (تأكد من أنه صحيح)
 const PEXELS_API_KEY = "tgNsoLFJcxLOaI6li871yIXckVae2iBVn9eZEVE5nA3t6KXuNUjrb8s8";
 
 // 🖼️ جلب فيديو من Pexels
 async function fetchPexelsVideo() {
+    const query = "nature"; // يمكنك تغييرها إلى "mosque" أو أي كلمة أخرى
+
     try {
-        const response = await fetch("https://api.pexels.com/videos/search?query=nature&per_page=1", {
+        const response = await fetch(`https://api.pexels.com/videos/search?query=${query}&per_page=1`, {
             headers: { Authorization: PEXELS_API_KEY }
         });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const data = await response.json();
+        
         if (data.videos.length > 0) {
             const videoUrl = data.videos[0].video_files[0].link;
+            console.log("✅ رابط الفيديو:", videoUrl);
+
+            // تحديث عنصر الفيديو في الصفحة
             pexelsVideo.src = videoUrl;
+            pexelsVideo.load(); // إعادة تحميل الفيديو
+            pexelsVideo.style.display = "block"; // التأكد من ظهوره
+
         } else {
-            alert("لم يتم العثور على فيديو مناسب.");
+            alert("⚠️ لم يتم العثور على فيديو مناسب، حاول بكلمة أخرى.");
         }
     } catch (error) {
-        console.error("خطأ أثناء جلب الفيديو:", error);
+        console.error("❌ خطأ أثناء جلب الفيديو:", error);
+        alert("❌ حدث خطأ أثناء تحميل الفيديو، تحقق من API أو الاتصال بالإنترنت.");
     }
 }
 
-// 📌 إنشاء فيديو نهائي
+// 🎬 إنشاء فيديو نهائي
 async function generateVideo() {
     const verseText = document.getElementById("verseText").value;
     const audioFile = document.getElementById("audioFile").files[0];
 
     if (!verseText || !audioFile || !pexelsVideo.src) {
-        alert("يرجى إدخال الآية، اختيار ملف الصوت، وجلب فيديو خلفية!");
+        alert("⚠️ يرجى إدخال الآية، اختيار ملف الصوت، وجلب فيديو خلفية!");
         return;
     }
 
