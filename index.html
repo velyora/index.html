@@ -9,12 +9,8 @@
 </head>
 <body class="bg-gray-100">
     <!-- Navigation Bar -->
-    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
-        <h1 class="text-xl font-bold">🛍 Online Store</h1>
-        <div class="relative">
-            <button id="cart-icon" class="relative text-2xl">🛒</button>
-            <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full hidden">0</span>
-        </div>
+    <nav class="bg-purple-700 text-white p-4 flex justify-between items-center shadow-md">
+        <h1 class="text-xl font-bold flex items-center">🛍 Online Store</h1>
     </nav>
 
     <!-- Product Grid -->
@@ -26,18 +22,27 @@
 
     <!-- Product Modal -->
     <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
             <h2 id="modal-title" class="text-xl font-bold mb-4"></h2>
             <img id="modal-image" src="" alt="" class="w-full h-48 object-cover rounded">
             <p id="modal-description" class="text-gray-700 my-4"></p>
-            <p id="modal-price" class="text-xl font-bold text-green-500"></p>
-            <button id="buy-now" class="bg-blue-500 text-white px-4 py-2 rounded w-full">Buy Now</button>
-            <button id="close-modal" class="bg-red-500 text-white px-4 py-2 rounded mt-2 w-full">Close</button>
+            <div class="flex justify-between items-center mt-4">
+                <p id="modal-price" class="text-xl font-bold text-green-500"></p>
+                <p id="modal-rating" class="text-yellow-500 text-sm"></p>
+            </div>
+            <div class="flex justify-end mt-4">
+                <button id="buy-now" class="bg-blue-500 text-white px-4 py-2 rounded">Buy Now</button>
+            </div>
+            <button id="close-modal" class="absolute top-2 right-2 text-gray-600 text-lg">&times;</button>
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="bg-purple-700 text-white text-center py-4 mt-6">
+        <p class="text-sm">© 2025 My Website. All rights reserved.</p>
+    </footer>
+
     <script>
-        let cart = [];
         const products = [
             { id: 1, name: "iPhone 16 Pro", price: 849, image: "iphone.jpg", category: "electronics", description: "The latest iPhone with powerful features.", rating: "⭐⭐⭐⭐⭐ (4.8)" },
             { id: 2, name: "Galaxy S24 Ultra", price: 799, image: "galaxy.jpg", category: "electronics", description: "Samsung's flagship phone with top specs.", rating: "⭐⭐⭐⭐ (4.6)" },
@@ -62,12 +67,6 @@
             });
         }
 
-        function updateCart() {
-            const cartIcon = document.getElementById("cart-count");
-            cartIcon.textContent = cart.length;
-            cartIcon.classList.toggle("hidden", cart.length === 0);
-        }
-
         document.addEventListener("click", function (event) {
             if (event.target.classList.contains("view-product")) {
                 const productId = event.target.dataset.id;
@@ -76,6 +75,7 @@
                 document.getElementById("modal-image").src = product.image;
                 document.getElementById("modal-description").textContent = product.description;
                 document.getElementById("modal-price").textContent = `$${product.price}`;
+                document.getElementById("modal-rating").textContent = product.rating;
                 document.getElementById("product-modal").classList.remove("hidden");
             }
         });
