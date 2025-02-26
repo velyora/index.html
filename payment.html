@@ -28,19 +28,18 @@
                 <p><strong>Address:</strong> <span id="address" class="text-gray-800"></span></p>
                 <p><strong>Postal Code:</strong> <span id="postalCode" class="text-gray-800"></span></p>
                 <p><strong>Phone:</strong> <span id="phone" class="text-gray-800"></span></p>
+                <p><strong>Product ID:</strong> <span id="productID" class="text-gray-800"></span></p>
+                <p><strong>Quantity:</strong> <span id="quantity" class="text-gray-800"></span></p>
                 <p class="text-xl font-bold mt-4 text-gray-900">Total: $<span id="total"></span></p>
             </div>
 
             <!-- ✅ زر الدفع عبر PayPal -->
             <div id="paypal-button-container" class="mb-4"></div>
 
-            <!-- ✅ زر الرجوع لتعديل الطلب -->
-            <!-- 🔹 Trust Bar -->
-           <div class="trust-badges mt-4 flex justify-center">
-               <img src="IMG_3355.jpeg" alt="Trust Badges" class="w-64">
-           </div>
-
-            
+            <!-- ✅ Trust Badges -->
+            <div class="trust-badges mt-4 flex justify-center">
+                <img src="IMG_3355.jpeg" alt="Trust Badges" class="w-64">
+            </div>
         </div>
     </main>
 
@@ -51,19 +50,24 @@
     </footer>
 
     <script>
-        // 🔹 جلب بيانات الطلب من الـ URL وعرضها
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param) || "Not provided";
+        // 🔹 جلب بيانات الطلب من `sessionStorage`
+        let orderData = JSON.parse(sessionStorage.getItem("orderData"));
+
+        if (!orderData) {
+            alert("❌ Order data not found. Redirecting to home page.");
+            window.location.href = "index.html";
         }
 
-        document.getElementById("name").textContent = getQueryParam("name");
-        document.getElementById("country").textContent = getQueryParam("country");
-        document.getElementById("city").textContent = getQueryParam("city");
-        document.getElementById("address").textContent = getQueryParam("address");
-        document.getElementById("postalCode").textContent = getQueryParam("postalCode");
-        document.getElementById("phone").textContent = getQueryParam("phone");
-        document.getElementById("total").textContent = getQueryParam("total");
+        // 🔹 عرض بيانات العميل في الصفحة
+        document.getElementById("name").textContent = orderData.fullName;
+        document.getElementById("country").textContent = orderData.country;
+        document.getElementById("city").textContent = orderData.city;
+        document.getElementById("address").textContent = orderData.address;
+        document.getElementById("postalCode").textContent = orderData.postalCode;
+        document.getElementById("phone").textContent = orderData.phone;
+        document.getElementById("total").textContent = orderData.totalPrice;
+        document.getElementById("productID").textContent = orderData.productID;
+        document.getElementById("quantity").textContent = orderData.quantity;
 
         // 🔹 إعداد زر الدفع عبر PayPal
         function renderPayPalButton() {
@@ -72,7 +76,7 @@
                 createOrder: function (data, actions) {
                     return actions.order.create({
                         purchase_units: [{
-                            amount: { value: getQueryParam("total") }
+                            amount: { value: orderData.totalPrice }
                         }]
                     });
                 },
@@ -83,13 +87,12 @@
                         // 🔹 إرسال البيانات إلى تيليجرام
                         let message = `📢 *New Payment Received!* 🚀\n\n` +
                                       `🆔 *Order ID:* ${details.id}\n` +
-                                      `👤 *Name:* ${getQueryParam("name")}\n` +
-                                      `📧 *Email:* ${details.payer.email_address}\n` +
-                                      `📍 *Country:* ${getQueryParam("country")}\n` +
-                                      `🏙️ *City:* ${getQueryParam("city")}\n` +
-                                      `📌 *Address:* ${getQueryParam("address")}\n` +
-                                      `📬 *Postal Code:* ${getQueryParam("postalCode")}\n` +
-                                      `📞 *Phone:* ${getQueryParam("phone")}\n` +
+                                      `👤 *Name:* ${orderData.fullName}\n` +
+                                      `📍 *Country:* ${orderData.country}\n` +
+                                      `🏙️ *City:* ${orderData.city}\n` +
+                                      `📌 *Address:* ${orderData.address}\n` +
+                                      `📬 *Postal Code:* ${orderData.postalCode}\n` +
+                                      `📞 *Phone:* ${orderData.phone}\n` +
                                       `💰 *Amount Paid:* ${details.purchase_units[0].amount.value} ${details.purchase_units[0].amount.currency_code}`;
 
                         fetch(`https://api.telegram.org/bot6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A/sendMessage`, {
@@ -102,20 +105,34 @@
                             })
                         }).catch(error => console.error("Telegram API error:", error));
 
-                        // 🔹 توجيه المستخدم إلى صفحة النجاح بعد الدفع مع تمرير البيانات
-                        const orderID = details.id;
-                        window.location.href = `success.html?orderID=${orderID}&name=${encodeURIComponent(getQueryParam("name"))}&phone=${encodeURIComponent(getQueryParam("phone"))}`;
+                        // 🔹 إرسال الطلب تلقائيًا إلى DSers
+                        fetch("process-order.php", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                orderID: details.id,
+                                fullName: orderData.fullName,
+                                country: orderData.country,
+                                city: orderData.city,
+                                address: orderData.address,
+                                postalCode: orderData.postalCode,
+                                phone: orderData.phone,
+                                totalPrice: orderData.totalPrice,
+                                productID: orderData.productID,
+                                quantity: orderData.quantity
+                            })
+                        }).then(response => response.json())
+                          .then(data => console.log("DSers Response:", data))
+                          .catch(error => console.error("DSers API Error:", error));
+
+                        // 🔹 توجيه المستخدم إلى صفحة النجاح
+                        window.location.href = `success.html?orderID=${details.id}&name=${encodeURIComponent(orderData.fullName)}&phone=${encodeURIComponent(orderData.phone)}`;
                     });
                 }
             }).render("#paypal-button-container");
         }
 
         renderPayPalButton();
-
-        // 🔹 زر العودة للتعديل
-        function goBack() {
-            window.history.back();
-        }
     </script>
 </body>
 </html>
