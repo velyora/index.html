@@ -3,160 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Payment</title>
+    <title>Online Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gray-100">
-
-    <!-- 🔹 Header -->
-    <div class="header-container">
-        <img src="IMG_3404.jpeg" alt="Header Image" class="header-image">
-    </div>
-
-    <!-- 🔹 Modern Navigation Bar -->
-    <nav class="top-nav">
-        <div class="nav-container">
-        <!-- 🔹 Logo -->
-            <a href="index.html" class="logo">
-                <img src="IMG_3412.png" alt="Velyora Logo" style="height: 40px;">
-            </a>
-            <a class="navbar-brand text-white" href="#">VELYORA</a>
-            <button class="navbar-toggler border-white" type="button">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-        
-
-        <!-- 🔹 Navigation Links -->
-        
-
-        <!-- 🔹 Mobile Menu Toggle -->
-            <!-- ✅ زر القائمة الجانبية -->
-        <button class="menu-toggle">☰</button>
-
-<!-- ✅ القائمة الجانبية -->
-        <div class="sidebar">
-            <button class="close-menu">✖</button>
-            <ul class="menu-items">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shipping.html">Shop</a></li>
-                <li><a href="Track.html">Track Order</a></li>
-                <li><a href="after-purchase.html">After Purchase</a></li>
-            </ul>
-
-        <!-- ✅ فاصل بين الأقسام -->
-            <hr class="menu-divider">
-
-            <ul class="menu-extra">
-                <li><a href="policies.html">Return Policy</a></li>
-                <li><a href="policies.html#return-policy-content">Privacy Policy</a></li>
-                <li><a href="policies.html#about-us-content">Contact Us</a></li>
-            </ul>
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold">🛍 Online Store</h1>
+        <div class="relative">
+            <button id="cart-icon" class="relative text-2xl">🛒</button>
+            <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full hidden">0</span>
         </div>
     </nav>
-      
-      
-      
-      <div class="button-container">
-    <!-- زر Shop Now -->
-          <a href="shopping" class="icon-button">
-                <img src="IMG_3399.jpeg" alt="Shop Now">
-          </a>
-        
 
-    <!-- زر Track Order -->
-          <button onclick="goToQuranPage()">📖 انتقل إلى صفحة القرآن</button>
-
-          <script>
-              function goToQuranPage() {
-                  window.location.href = "Quran.html";
-             }
-         </script>
-              <!-- زر Track Order -->
-          <a href="#tracking-section" class="icon-button">
-              <img src="IMG_3372.png" alt="Track Order">
-          </a>
-
-          <a href="#tracking-section" class="icon-button">
-              <img src="IMG_3378.png" alt="Track Order">
-          </a>
-          
-       </div>
-
-    
-        
-    <!-- 🔹 Live Notification Bar -->
-     <div class="notification-bar">
-         <p id="notification-text">🚀 New Orders Are Being Placed Right Now!</p>
-     </div>
-      <!-- 🔹 قسم العداد وأكواد الخصم -->
-     <div class="discount-timer">
-         <p class="discount-text">🔥 Limited Time Offer! Use Code: <span id="discount-code"></span></p>
-         <p class="countdown">Offer expires in: <span id="countdown-timer"></span></p>
-     </div>
-
-    <!-- 🔹 Product Showcase -->
-    <section class="py-8 bg-gray-100 text-center">
-        <div class="container mx-auto max-w-5xl">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6">💎 Our Featured Products</h2>
-
-            <div class="product-card">
-                <video controls class="product-video" poster="IMG_3333.jpeg">
-                    <source src="1.MP4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <h3>🧼 Glass Nano Coating Applicator</h3>
-                <p>This innovative nano-coating applicator removes dirt, repels water, and enhances visibility, keeping your car’s glass spotless in any weather.</p>
-            </div> 
-            <div class="product-card">
-                <img src="IMG_3098.jpeg" alt="Product 2">
-                <h3>🌿 Skincare Natural Formula</h3>
-                <p>Gives your skin a smooth and fresh feeling, suitable for all skin types.</p>
-            </div>
-            <div class="product-card">
-                <img src="IMG_3100.jpeg" alt="Product 3">
-                <h3>☕ Premium Roasted Coffee</h3>
-                <p>Enjoy the original taste of carefully roasted coffee beans.</p>
-            </div>
+    <!-- Product Grid -->
+    <section class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="product-grid">
+            <!-- Products will be added dynamically -->
         </div>
     </section>
 
-    <!-- 🔹 Order Tracking & Shipping Info -->
-         
-
- 
-            <!-- 🔹 PayPal Payment Button -->
-        <!-- ✅ زر الذهاب إلى صفحة ملء البيانات -->
-       <a href="checkout.html" class="bg-purple-700 text-white py-2 px-4 w-full rounded text-lg font-semibold mt-4 text-center block">
-           Proceed to Checkout
-       </a>
-            <div id="paypal-button-container" class="mt-4"></div>
+    <!-- Product Modal -->
+    <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 id="modal-title" class="text-xl font-bold mb-4"></h2>
+            <img id="modal-image" src="" alt="" class="w-full h-48 object-cover rounded">
+            <p id="modal-description" class="text-gray-700 my-4"></p>
+            <p id="modal-price" class="text-xl font-bold text-green-500"></p>
+            <button id="buy-now" class="bg-blue-500 text-white px-4 py-2 rounded w-full">Buy Now</button>
+            <button id="close-modal" class="bg-red-500 text-white px-4 py-2 rounded mt-2 w-full">Close</button>
         </div>
-    </section>
-    <!-- 🔹 Trust Bar -->
-    <div class="trust-badges mt-4 flex justify-center">
-        <img src="IMG_3355.jpeg" alt="Trust Badges" class="w-64">
     </div>
-    
-    
-    <!-- 🔹 Footer -->
-    
-    <footer class="bg-gray-100 text-center text-sm text-gray-600 py-4 mt-6">
-        <div class="social-icons-container">
-          <a href="https://www.tiktok.com" target="_blank"><img src="IMG_3298.png" alt="TikTok"></a>
-          <a href="https://www.instagram.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
-          <a href="https://www.facebook.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook"></a>
-          <a href="https://twitter.com" target="_blank"><img src="IMG_3299.jpeg" alt="X"></a>
-        </div>
-        <div class="container mx-auto">
-            <p class="mt-2">© 2025 All rights reserved.</p>
-            <a href="policies.html" class="text-blue-600 hover:underline">Privacy Policy</a> | 
-            <a href="policies.html#return-policy-content" class="text-blue-600 hover:underline">Return Policy</a> | 
-            <a href="policies.html#about-us-content" class="text-blue-600 hover:underline">About Us</a>
-        </div>
-    </footer>
 
-         <!-- 🔹 Social Media Icons -->
-  <script src="script.js"></script>
+    <script>
+        let cart = [];
+        const products = [
+            { id: 1, name: "iPhone 16 Pro", price: 849, image: "iphone.jpg", category: "electronics", description: "The latest iPhone with powerful features.", rating: "⭐⭐⭐⭐⭐ (4.8)" },
+            { id: 2, name: "Galaxy S24 Ultra", price: 799, image: "galaxy.jpg", category: "electronics", description: "Samsung's flagship phone with top specs.", rating: "⭐⭐⭐⭐ (4.6)" },
+            { id: 3, name: "Smart Watch", price: 199, image: "watch.jpg", category: "electronics", description: "A stylish smartwatch with fitness tracking.", rating: "⭐⭐⭐⭐ (4.5)" },
+            { id: 4, name: "Leather Jacket", price: 120, image: "jacket.jpg", category: "fashion", description: "A trendy leather jacket for all seasons.", rating: "⭐⭐⭐⭐ (4.4)" }
+        ];
+
+        function renderProducts() {
+            const grid = document.getElementById("product-grid");
+            grid.innerHTML = "";
+            products.forEach(product => {
+                const productCard = document.createElement("div");
+                productCard.classList.add("bg-white", "p-4", "shadow-md", "rounded-lg", "text-center");
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded cursor-pointer" data-id="${product.id}">
+                    <h3 class="font-bold mt-2">${product.name}</h3>
+                    <p class="text-gray-700">$${product.price}</p>
+                    <p class="text-yellow-500">${product.rating}</p>
+                    <button class="bg-blue-500 text-white px-4 py-2 mt-2 rounded view-product" data-id="${product.id}">View Details</button>
+                `;
+                grid.appendChild(productCard);
+            });
+        }
+
+        function updateCart() {
+            const cartIcon = document.getElementById("cart-count");
+            cartIcon.textContent = cart.length;
+            cartIcon.classList.toggle("hidden", cart.length === 0);
+        }
+
+        document.addEventListener("click", function (event) {
+            if (event.target.classList.contains("view-product")) {
+                const productId = event.target.dataset.id;
+                const product = products.find(p => p.id == productId);
+                document.getElementById("modal-title").textContent = product.name;
+                document.getElementById("modal-image").src = product.image;
+                document.getElementById("modal-description").textContent = product.description;
+                document.getElementById("modal-price").textContent = `$${product.price}`;
+                document.getElementById("product-modal").classList.remove("hidden");
+            }
+        });
+
+        document.getElementById("buy-now").addEventListener("click", function () {
+            alert("Redirecting to checkout page...");
+            document.getElementById("product-modal").classList.add("hidden");
+        });
+
+        document.getElementById("close-modal").addEventListener("click", function () {
+            document.getElementById("product-modal").classList.add("hidden");
+        });
+
+        renderProducts();
+    </script>
 </body>
 </html>
