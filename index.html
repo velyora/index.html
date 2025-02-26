@@ -124,72 +124,70 @@
     <!-- 🔹 Order Tracking & Shipping Info -->
          
 
-    <!-- 🔹 Payment Section -->
-    <section class="flex justify-center">
-        <!-- ✅ صندوق الشراء -->
-<div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md mx-auto">
-    <h2 class="text-2xl font-bold text-gray-900 text-center mb-4">🛒 Checkout</h2>
+ <!-- 🔹 Payment Section -->
+<section class="flex justify-center">
+    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md mx-auto">
+        <h2 class="text-2xl font-bold text-gray-900 text-center mb-4">🛒 Checkout</h2>
 
-    <!-- ✅ صورة المنتج -->
-    <div class="flex justify-center mb-4">
-        <img src="IMG_3378.png" alt="Product" class="w-48 h-auto rounded-lg border">
-    </div>
-
-    <!-- ✅ زر التحكم في الكمية -->
-    <div class="mb-4 text-center">
-        <button id="decrease" class="bg-gray-300 text-gray-700 px-3 py-1 rounded-l">-</button>
-        <span id="quantity" class="px-4 text-lg font-bold">1</span>
-        <button id="increase" class="bg-gray-300 text-gray-700 px-3 py-1 rounded-r">+</button>
-    </div>
-
-    <!-- ✅ إجمالي السعر -->
-    <p class="text-lg font-semibold text-gray-900 text-center">Total: $<span id="total-price">50.00</span></p>
-
-    <!-- ✅ نموذج البيانات -->
-    <div class="mt-4">
-        <label class="block font-semibold text-gray-700">Full Name:</label>
-        <input type="text" id="fullName" class="border border-gray-300 p-2 w-full rounded mb-2">
-
-        <label class="block font-semibold text-gray-700">Country:</label>
-        <select id="country" class="border border-gray-300 p-2 w-full rounded mb-2" onchange="updatePhoneCode()">
-            <option value="US" data-code="+1">🇺🇸 United States</option>
-            <option value="UK" data-code="+44">🇬🇧 United Kingdom</option>
-            <option value="DE" data-code="+49">🇩🇪 Germany</option>
-            <option value="FR" data-code="+33">🇫🇷 France</option>
-        </select>
-
-        <label class="block font-semibold text-gray-700">City:</label>
-        <input type="text" id="city" class="border border-gray-300 p-2 w-full rounded mb-2">
-
-        <label class="block font-semibold text-gray-700">Address:</label>
-        <input type="text" id="address" class="border border-gray-300 p-2 w-full rounded mb-2">
-
-        <label class="block font-semibold text-gray-700">Address 2 (Optional):</label>
-        <input type="text" id="address2" class="border border-gray-300 p-2 w-full rounded mb-2">
-
-        <!-- ✅ إدخال الرمز البريدي -->
-        <label class="block font-semibold text-gray-700">Postal Code:</label>
-        <input type="text" id="postalCode" class="border border-gray-300 p-2 w-full rounded mb-2" required>
-
-        <label class="block font-semibold text-gray-700">Phone Number:</label>
-        <div class="flex">
-            <span id="phone-code" class="bg-gray-300 px-3 py-2 rounded-l">+1</span>
-            <input type="tel" id="phone" class="border border-gray-300 p-2 w-full rounded-r">
+        <!-- ✅ صورة المنتج -->
+        <div class="flex justify-center mb-4">
+            <img src="IMG_3378.png" alt="Product" class="w-48 h-auto rounded-lg border">
         </div>
+
+        <!-- ✅ زر التحكم في الكمية -->
+        <div class="mb-4 text-center">
+            <button id="decrease" class="bg-gray-300 text-gray-700 px-3 py-1 rounded-l">-</button>
+            <span id="quantity" class="px-4 text-lg font-bold">1</span>
+            <button id="increase" class="bg-gray-300 text-gray-700 px-3 py-1 rounded-r">+</button>
+        </div>
+
+        <!-- ✅ إجمالي السعر -->
+        <p class="text-lg font-semibold text-gray-900 text-center">Total: $<span id="total-price">50.00</span></p>
+
+        <!-- ✅ نموذج البيانات -->
+        <div class="mt-4">
+            <label class="block font-semibold text-gray-700">Full Name:</label>
+            <input type="text" id="fullName" class="border border-gray-300 p-2 w-full rounded mb-2">
+
+            <label class="block font-semibold text-gray-700">Country:</label>
+            <select id="country" class="border border-gray-300 p-2 w-full rounded mb-2" onchange="updatePhoneCode()">
+                <option value="US" data-code="+1">🇺🇸 United States</option>
+                <option value="UK" data-code="+44">🇬🇧 United Kingdom</option>
+                <option value="DE" data-code="+49">🇩🇪 Germany</option>
+                <option value="FR" data-code="+33">🇫🇷 France</option>
+            </select>
+
+            <label class="block font-semibold text-gray-700">City:</label>
+            <input type="text" id="city" class="border border-gray-300 p-2 w-full rounded mb-2">
+
+            <label class="block font-semibold text-gray-700">Address:</label>
+            <input type="text" id="address" class="border border-gray-300 p-2 w-full rounded mb-2">
+
+            <label class="block font-semibold text-gray-700">Postal Code:</label>
+            <input type="text" id="postalCode" class="border border-gray-300 p-2 w-full rounded mb-2" required>
+
+            <label class="block font-semibold text-gray-700">Phone Number:</label>
+            <div class="flex">
+                <span id="phone-code" class="bg-gray-300 px-3 py-2 rounded-l">+1</span>
+                <input type="tel" id="phone" class="border border-gray-300 p-2 w-full rounded-r">
+            </div>
+
+            <!-- ✅ إدخال product ID الخاص بعلي إكسبرس (DSers) -->
+            <input type="hidden" id="productID" value="ALIEXPRESS_PRODUCT_ID">
+        </div>
+
+        <!-- ✅ زر الشراء -->
+        <button onclick="redirectToPayment()" class="bg-purple-700 text-white py-2 px-4 w-full rounded text-lg font-semibold mt-4">
+            Purchase
+        </button>
+
+        <!-- ✅ ملاحظة الدفع عبر PayPal -->
+        <p class="text-sm text-gray-600 text-center mt-2">
+            You can also fill in your details in the PayPal payment method using the black button.
+        </p>
     </div>
+</section>
 
-    <!-- ✅ زر الشراء -->
-    <button onclick="redirectToPayment()" class="bg-purple-700 text-white py-2 px-4 w-full rounded text-lg font-semibold mt-4">
-        Purchase
-    </button>
-
-    <!-- ✅ ملاحظة الدفع عبر PayPal -->
-    <p class="text-sm text-gray-600 text-center mt-2">
-        You can also fill in your details in the PayPal payment method using the black button.
-    </p>
-</div>
-
-<!-- ✅ سكربت التحكم -->
 <!-- ✅ سكربت التحكم -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -209,67 +207,57 @@
             totalPriceElement.textContent = totalPrice.toFixed(2);
         }
 
-        if (increaseButton && decreaseButton) {
-            increaseButton.addEventListener("click", function () {
-                let quantity = parseInt(quantityElement.textContent);
-                quantityElement.textContent = quantity + 1;
-                updatePrice();
-            });
+        increaseButton.addEventListener("click", function () {
+            let quantity = parseInt(quantityElement.textContent);
+            quantityElement.textContent = quantity + 1;
+            updatePrice();
+        });
 
-            decreaseButton.addEventListener("click", function () {
-                let quantity = parseInt(quantityElement.textContent);
-                if (quantity > 1) {
-                    quantityElement.textContent = quantity - 1;
-                    updatePrice();
-                }
-            });
-        }
+        decreaseButton.addEventListener("click", function () {
+            let quantity = parseInt(quantityElement.textContent);
+            if (quantity > 1) {
+                quantityElement.textContent = quantity - 1;
+                updatePrice();
+            }
+        });
 
         function updatePhoneCode() {
-            if (countrySelect && phoneCodeElement) {
-                let selectedOption = countrySelect.options[countrySelect.selectedIndex];
-                let phoneCode = selectedOption.getAttribute("data-code");
-                phoneCodeElement.textContent = phoneCode;
-            }
+            let selectedOption = countrySelect.options[countrySelect.selectedIndex];
+            let phoneCode = selectedOption.getAttribute("data-code");
+            phoneCodeElement.textContent = phoneCode;
         }
 
-        if (countrySelect) {
-            countrySelect.addEventListener("change", updatePhoneCode);
-        }
+        countrySelect.addEventListener("change", updatePhoneCode);
 
         function redirectToPayment() {
-            let fullName = document.getElementById("fullName")?.value.trim();
-            let country = document.getElementById("country")?.value.trim();
-            let city = document.getElementById("city")?.value.trim();
-            let address = document.getElementById("address")?.value.trim();
-            let address2 = document.getElementById("address2")?.value.trim();
-            let phone = document.getElementById("phone")?.value.trim();
-            let postalCode = document.getElementById("postalCode")?.value.trim();
-            let total = document.getElementById("total-price")?.textContent.trim();
+            let formData = {
+                fullName: document.getElementById("fullName").value.trim(),
+                country: document.getElementById("country").value.trim(),
+                city: document.getElementById("city").value.trim(),
+                address: document.getElementById("address").value.trim(),
+                postalCode: document.getElementById("postalCode").value.trim(),
+                phone: document.getElementById("phone").value.trim(),
+                totalPrice: document.getElementById("total-price").textContent.trim(),
+                quantity: document.getElementById("quantity").textContent.trim(),
+                productID: document.getElementById("productID").value
+            };
 
-            if (!fullName || !country || !city || !address || !phone || !postalCode) {
-                alert("❌ Please fill in all required fields.");
-                return;
+            // ✅ التحقق من أن جميع الحقول ممتلئة
+            for (let key in formData) {
+                if (!formData[key]) {
+                    alert("❌ Please fill in all required fields.");
+                    return;
+                }
             }
 
-            let paymentPageURL = `payment.html?name=${encodeURIComponent(fullName)}
-                                &country=${encodeURIComponent(country)}
-                                &city=${encodeURIComponent(city)}
-                                &address=${encodeURIComponent(address)}
-                                &address2=${encodeURIComponent(address2)}
-                                &phone=${encodeURIComponent(phone)}
-                                &postalCode=${encodeURIComponent(postalCode)}
-                                &total=${encodeURIComponent(total)}`;
+            // ✅ حفظ البيانات في sessionStorage
+            sessionStorage.setItem("orderData", JSON.stringify(formData));
 
-            window.location.href = paymentPageURL;
+            // ✅ الانتقال إلى صفحة الدفع
+            window.location.href = "payment.html";
         }
 
-        // ربط زر الشراء بالدالة
-        const purchaseButton = document.querySelector("button[onclick='redirectToPayment()']");
-        if (purchaseButton) {
-            purchaseButton.addEventListener("click", redirectToPayment);
-        }
-
+        // تحديث السعر الأولي
         updatePrice();
     });
 </script>
