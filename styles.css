@@ -438,3 +438,20 @@ html, body {
     font-size: 18px;
     font-weight: bold;
 }
+
+
+/* إزالة المسافة بين الهيدر وإطار المعلومات في صفحة الدفع */
+.payment-page .header-container {
+    margin-bottom: 0 !important;
+}
+
+/* إزالة المسافة بين إطار الدفع والفوتر */
+.payment-page .payment-container {
+    margin: 0 !important;
+    padding: 0;
+}
+
+/* إزالة المسافة بين الفوتر وإطار المعلومات */
+.payment-page .footer-container {
+    margin-top: 0 !important;
+}
