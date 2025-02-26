@@ -1,43 +1,81 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مولد فيديو قرآني</title>
-    <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.9.7"></script>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; padding: 20px; }
-        video { width: 80%; border: 2px solid black; margin-top: 10px; display: none; }
-        canvas { display: none; }
-        button { padding: 10px 15px; margin: 10px; background-color: #007bff; color: white; border: none; cursor: pointer; }
-        button:hover { background-color: #0056b3; }
-        input { padding: 8px; margin: 5px; width: 300px; }
-        #errorMsg { color: red; font-weight: bold; display: none; }
-    </style>
+    <title>Admin Panel - Customize Landing Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-<body>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-gray-900 text-center mb-6">🔧 Admin Panel - Customize Page</h2>
+        
+        <!-- Header Customization -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 border-b pb-2">Header Settings</h3>
+            <label class="block mt-2">Upload Header Image:</label>
+            <input type="file" id="headerImage" class="border p-2 w-full rounded">
+            
+            <label class="block mt-2">Change Header Background Color:</label>
+            <input type="color" id="headerColor" class="w-full">
+        </div>
 
-    <h2>📹 مولد فيديو قرآني</h2>
+        <!-- Footer Customization -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 border-b pb-2">Footer Settings</h3>
+            <label class="block mt-2">Change Footer Background Color:</label>
+            <input type="color" id="footerColor" class="w-full">
+        </div>
 
-    <label for="audioFile">🔉 اختر ملف التلاوة:</label>
-    <input type="file" id="audioFile" accept="audio/*"><br><br>
+        <!-- Product Image Customization -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 border-b pb-2">Product Images</h3>
+            <label class="block mt-2">Upload Product Images:</label>
+            <input type="file" id="productImages" multiple class="border p-2 w-full rounded">
+        </div>
 
-    <label for="verseText">📖 أدخل الآية:</label>
-    <input type="text" id="verseText" placeholder="اكتب الآية هنا"><br><br>
+        <!-- Sidebar Customization -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 border-b pb-2">Sidebar Settings</h3>
+            <label class="block mt-2">Change Sidebar Footer Color:</label>
+            <input type="color" id="sidebarFooterColor" class="w-full">
+            
+            <label class="block mt-2">Enable Separators Between Menu Items:</label>
+            <input type="checkbox" id="enableSeparators" class="ml-2">
+        </div>
 
-    <button onclick="fetchPexelsVideo()">🎥 جلب فيديو خلفية</button>
-    <p id="errorMsg">⚠️ لم يتم العثور على فيديو، حاول مرة أخرى!</p>
+        <!-- Promo Bar Customization -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 border-b pb-2">Promo Bar Settings</h3>
+            <label class="block mt-2">Change Promo Bar Background Color:</label>
+            <input type="color" id="promoBarColor" class="w-full">
+        </div>
 
-    <video id="pexelsVideo" controls></video><br>
+        <!-- Apply Changes Button -->
+        <button id="applyChanges" class="w-full bg-purple-700 text-white py-2 px-4 rounded text-lg font-semibold hover:bg-purple-800">
+            Apply Changes
+        </button>
+    </div>
+    
+    <script>
+        $(document).ready(function () {
+            $('#applyChanges').click(function () {
+                let settings = {
+                    headerImage: $('#headerImage').val(),
+                    headerColor: $('#headerColor').val(),
+                    footerColor: $('#footerColor').val(),
+                    productImages: $('#productImages').val(),
+                    sidebarFooterColor: $('#sidebarFooterColor').val(),
+                    enableSeparators: $('#enableSeparators').is(':checked'),
+                    promoBarColor: $('#promoBarColor').val()
+                };
 
-    <button onclick="generateVideo()">📹 إنشاء الفيديو</button>
-
-    <canvas id="canvas" width="1280" height="720"></canvas>
-    <br>
-    <a id="downloadLink" style="display:none;">⬇️ تحميل الفيديو</a>
-
-    <script src="scripts.js"></script>
-    <p id="errorMsg" style="color: red; font-weight: bold; display: none;"></p>
-
+                localStorage.setItem('siteSettings', JSON.stringify(settings));
+                alert("✅ Changes Applied Successfully!");
+                location.reload();
+            });
+        });
+    </script>
 </body>
 </html>
