@@ -125,6 +125,7 @@
          
 
  <!-- 🔹 Payment Section -->
+<!-- 🔹 Payment Section -->
 <section class="flex justify-center">
     <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md mx-auto">
         <h2 class="text-2xl font-bold text-gray-900 text-center mb-4">🛒 Checkout</h2>
@@ -147,10 +148,10 @@
         <!-- ✅ نموذج البيانات -->
         <div class="mt-4">
             <label class="block font-semibold text-gray-700">Full Name:</label>
-            <input type="text" id="fullName" class="border border-gray-300 p-2 w-full rounded mb-2">
+            <input type="text" id="fullName" class="border border-gray-300 p-2 w-full rounded mb-2" required>
 
             <label class="block font-semibold text-gray-700">Country:</label>
-            <select id="country" class="border border-gray-300 p-2 w-full rounded mb-2" onchange="updatePhoneCode()">
+            <select id="country" class="border border-gray-300 p-2 w-full rounded mb-2" onchange="updatePhoneCode()" required>
                 <option value="US" data-code="+1">🇺🇸 United States</option>
                 <option value="UK" data-code="+44">🇬🇧 United Kingdom</option>
                 <option value="DE" data-code="+49">🇩🇪 Germany</option>
@@ -158,10 +159,10 @@
             </select>
 
             <label class="block font-semibold text-gray-700">City:</label>
-            <input type="text" id="city" class="border border-gray-300 p-2 w-full rounded mb-2">
+            <input type="text" id="city" class="border border-gray-300 p-2 w-full rounded mb-2" required>
 
             <label class="block font-semibold text-gray-700">Address:</label>
-            <input type="text" id="address" class="border border-gray-300 p-2 w-full rounded mb-2">
+            <input type="text" id="address" class="border border-gray-300 p-2 w-full rounded mb-2" required>
 
             <label class="block font-semibold text-gray-700">Postal Code:</label>
             <input type="text" id="postalCode" class="border border-gray-300 p-2 w-full rounded mb-2" required>
@@ -169,7 +170,7 @@
             <label class="block font-semibold text-gray-700">Phone Number:</label>
             <div class="flex">
                 <span id="phone-code" class="bg-gray-300 px-3 py-2 rounded-l">+1</span>
-                <input type="tel" id="phone" class="border border-gray-300 p-2 w-full rounded-r">
+                <input type="tel" id="phone" class="border border-gray-300 p-2 w-full rounded-r" required>
             </div>
 
             <!-- ✅ إدخال product ID الخاص بعلي إكسبرس (DSers) -->
@@ -177,7 +178,7 @@
         </div>
 
         <!-- ✅ زر الشراء -->
-        <button onclick="redirectToPayment()" class="bg-purple-700 text-white py-2 px-4 w-full rounded text-lg font-semibold mt-4">
+        <button id="purchaseButton" class="bg-purple-700 text-white py-2 px-4 w-full rounded text-lg font-semibold mt-4">
             Purchase
         </button>
 
@@ -257,7 +258,10 @@
             window.location.href = "payment.html";
         }
 
-        // تحديث السعر الأولي
+        // ✅ ربط الزر بالدالة الصحيحة
+        document.getElementById("purchaseButton").addEventListener("click", redirectToPayment);
+
+        // ✅ تحديث السعر الأولي
         updatePrice();
     });
 </script>
