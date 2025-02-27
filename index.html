@@ -3,93 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Store</title>
+    <title>Premium Smart Gadget</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gray-100">
-    <!-- Navigation Bar -->
-    <nav class="bg-purple-700 text-white p-4 flex justify-between items-center shadow-md">
-        <h1 class="text-xl font-bold flex items-center">🛍 Online Store</h1>
-    </nav>
+<body class="bg-gray-100 text-gray-900">
+    <!-- Header -->
+    <header class="bg-purple-800 text-white p-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold">SmartGadget</h1>
+        <nav>
+            <ul class="flex space-x-6">
+                <li><a href="#features" class="hover:underline">Features</a></li>
+                <li><a href="#reviews" class="hover:underline">Reviews</a></li>
+                <li><a href="#contact" class="hover:underline">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- Product Grid -->
-    <section class="container mx-auto px-4 py-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="product-grid">
-            <!-- Products will be added dynamically -->
+    <!-- Hero Section -->
+    <section class="text-center py-16 bg-gradient-to-r from-purple-500 to-purple-800 text-white">
+        <h2 class="text-4xl font-bold">Experience the Future with SmartGadget</h2>
+        <p class="text-lg mt-4">The most advanced gadget designed to simplify your life.</p>
+        <img src="product-image.jpg" alt="Smart Gadget" class="mx-auto mt-6 w-64 h-auto">
+        <a href="#buy" class="mt-6 bg-yellow-500 text-black px-6 py-3 rounded text-lg font-bold">Buy Now</a>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 container mx-auto text-center">
+        <h3 class="text-3xl font-bold">Why Choose SmartGadget?</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            <div class="p-4 shadow-lg bg-white rounded-lg">
+                <h4 class="text-xl font-bold">🔋 Long Battery Life</h4>
+                <p>Stay connected all day with an extended battery life.</p>
+            </div>
+            <div class="p-4 shadow-lg bg-white rounded-lg">
+                <h4 class="text-xl font-bold">📶 Advanced Connectivity</h4>
+                <p>Seamlessly connect with any device in real-time.</p>
+            </div>
+            <div class="p-4 shadow-lg bg-white rounded-lg">
+                <h4 class="text-xl font-bold">🌟 Elegant Design</h4>
+                <p>Sleek, lightweight, and stylish for every occasion.</p>
+            </div>
         </div>
     </section>
 
-    <!-- Product Modal -->
-    <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
-            <h2 id="modal-title" class="text-xl font-bold mb-4"></h2>
-            <img id="modal-image" src="" alt="" class="w-full h-48 object-cover rounded">
-            <p id="modal-description" class="text-gray-700 my-4"></p>
-            <div class="flex justify-between items-center mt-4">
-                <p id="modal-price" class="text-xl font-bold text-green-500"></p>
-                <p id="modal-rating" class="text-yellow-500 text-sm"></p>
+    <!-- Reviews Section -->
+    <section id="reviews" class="bg-gray-200 py-16 text-center">
+        <h3 class="text-3xl font-bold">What Our Customers Say</h3>
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="p-4 bg-white shadow-md rounded-lg">
+                <p>"An absolute game-changer! Highly recommended!"</p>
+                <span class="font-bold">- Sarah W.</span>
             </div>
-            <div class="flex justify-end mt-4">
-                <button id="buy-now" class="bg-blue-500 text-white px-4 py-2 rounded">Buy Now</button>
+            <div class="p-4 bg-white shadow-md rounded-lg">
+                <p>"The best gadget I’ve ever owned. Worth every penny."</p>
+                <span class="font-bold">- John D.</span>
             </div>
-            <button id="close-modal" class="absolute top-2 right-2 text-gray-600 text-lg">&times;</button>
+            <div class="p-4 bg-white shadow-md rounded-lg">
+                <p>"Amazing quality and battery life. I love it!"</p>
+                <span class="font-bold">- Lisa M.</span>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 text-center">
+        <h3 class="text-3xl font-bold">Frequently Asked Questions</h3>
+        <div class="mt-8 text-left max-w-2xl mx-auto">
+            <details class="mb-4">
+                <summary class="font-bold cursor-pointer">How long does the battery last?</summary>
+                <p class="mt-2">Up to 48 hours with normal usage.</p>
+            </details>
+            <details class="mb-4">
+                <summary class="font-bold cursor-pointer">Is there a warranty?</summary>
+                <p class="mt-2">Yes, we offer a 1-year warranty on all our products.</p>
+            </details>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="buy" class="text-center py-16 bg-purple-800 text-white">
+        <h3 class="text-3xl font-bold">Order Your SmartGadget Today!</h3>
+        <p class="mt-4">Limited stock available. Get yours now!</p>
+        <a href="#checkout" class="mt-6 bg-yellow-500 text-black px-6 py-3 rounded text-lg font-bold">Buy Now</a>
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-purple-700 text-white text-center py-4 mt-6">
-        <p class="text-sm">© 2025 My Website. All rights reserved.</p>
+    <footer id="contact" class="bg-gray-900 text-white text-center p-6">
+        <p>&copy; 2025 SmartGadget. All Rights Reserved.</p>
+        <p>Need help? Contact us at <a href="mailto:support@smartgadget.com" class="underline">support@smartgadget.com</a></p>
     </footer>
-
-    <script>
-        const products = [
-            { id: 1, name: "iPhone 16 Pro", price: 849, image: "iphone.jpg", category: "electronics", description: "The latest iPhone with powerful features.", rating: "⭐⭐⭐⭐⭐ (4.8)" },
-            { id: 2, name: "Galaxy S24 Ultra", price: 799, image: "galaxy.jpg", category: "electronics", description: "Samsung's flagship phone with top specs.", rating: "⭐⭐⭐⭐ (4.6)" },
-            { id: 3, name: "Smart Watch", price: 199, image: "watch.jpg", category: "electronics", description: "A stylish smartwatch with fitness tracking.", rating: "⭐⭐⭐⭐ (4.5)" },
-            { id: 4, name: "Leather Jacket", price: 120, image: "jacket.jpg", category: "fashion", description: "A trendy leather jacket for all seasons.", rating: "⭐⭐⭐⭐ (4.4)" }
-        ];
-
-        function renderProducts() {
-            const grid = document.getElementById("product-grid");
-            grid.innerHTML = "";
-            products.forEach(product => {
-                const productCard = document.createElement("div");
-                productCard.classList.add("bg-white", "p-4", "shadow-md", "rounded-lg", "text-center");
-                productCard.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded cursor-pointer" data-id="${product.id}">
-                    <h3 class="font-bold mt-2">${product.name}</h3>
-                    <p class="text-gray-700">$${product.price}</p>
-                    <p class="text-yellow-500">${product.rating}</p>
-                    <button class="bg-blue-500 text-white px-4 py-2 mt-2 rounded view-product" data-id="${product.id}">View Details</button>
-                `;
-                grid.appendChild(productCard);
-            });
-        }
-
-        document.addEventListener("click", function (event) {
-            if (event.target.classList.contains("view-product")) {
-                const productId = event.target.dataset.id;
-                const product = products.find(p => p.id == productId);
-                document.getElementById("modal-title").textContent = product.name;
-                document.getElementById("modal-image").src = product.image;
-                document.getElementById("modal-description").textContent = product.description;
-                document.getElementById("modal-price").textContent = `$${product.price}`;
-                document.getElementById("modal-rating").textContent = product.rating;
-                document.getElementById("product-modal").classList.remove("hidden");
-            }
-        });
-
-        document.getElementById("buy-now").addEventListener("click", function () {
-            alert("Redirecting to checkout page...");
-            document.getElementById("product-modal").classList.add("hidden");
-        });
-
-        document.getElementById("close-modal").addEventListener("click", function () {
-            document.getElementById("product-modal").classList.add("hidden");
-        });
-
-        renderProducts();
-    </script>
 </body>
 </html>
