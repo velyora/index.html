@@ -94,6 +94,7 @@
                                       `📞 *Phone:* ${orderData.phone}\n` +
                                       `💰 *Amount Paid:* ${details.purchase_units[0].amount.value} ${details.purchase_units[0].amount.currency_code}`;
 
+                        console.log("Sending Telegram Message:", message);
                         fetch(`https://api.telegram.org/bot6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A/sendMessage`, {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -102,7 +103,10 @@
                                 text: message,
                                 parse_mode: "Markdown"
                             })
-                        }).catch(error => console.error("Telegram API error:", error));
+                        })
+                        .then(response => response.json())
+                        .then(data => console.log("Telegram Response:", data))
+                        .catch(error => console.error("Telegram API error:", error));
 
                         // 🔹 إرسال الطلب تلقائيًا إلى DSers
                         fetch("process-order.php", {
