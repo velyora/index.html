@@ -63,45 +63,43 @@ try {
         "Content-Type: application/json",
         "Authorization: Bearer $dsersApiKey"
     ]);
+
     // ✅ تحويل البيانات إلى JSON والتأكد من نجاح العملية
-$jsonData = json_encode($dsersOrderData);
-if ($jsonData === false) {
-    echo json_encode(["success" => false, "message" => "❌ JSON encoding failed"]);
-    exit;
-}
+    $jsonData = json_encode($dsersOrderData);
+    if ($jsonData === false) {
+        echo json_encode(["success" => false, "message" => "❌ JSON encoding failed"]);
+        exit;
+    }
 
-// ✅ إرسال الطلب إلى DSers API
-curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-$response = curl_exec($ch);
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-$curlError = curl_error($ch); // 🔹 التقاط أي خطأ في cURL
-curl_close($ch);
+    // ✅ إرسال الطلب إلى DSers API
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($ch); // 🔹 التقاط أي خطأ في cURL
+    curl_close($ch);
 
-// ✅ تسجيل الأخطاء في السجل
-error_log("DSers API HTTP Code: " . $httpCode);
-error_log("DSers API Response: " . json_encode($response));
-if ($curlError) {
-    error_log("cURL Error: " . $curlError);
-}
+    // ✅ تسجيل الأخطاء في السجل
+    error_log("DSers API HTTP Code: " . $httpCode);
+    error_log("DSers API Response: " . json_encode($response));
+    if ($curlError) {
+        error_log("cURL Error: " . $curlError);
+    }
 
-// ✅ تحليل استجابة DSers
-$dsersResponse = json_decode($response, true);
-error_log("DSers Parsed Response: " . json_encode($dsersResponse)); // ✅ تسجيل استجابة DSers بعد فك التشفير
+    // ✅ تحليل استجابة DSers
+    $dsersResponse = json_decode($response, true);
+    error_log("DSers Parsed Response: " . json_encode($dsersResponse)); // ✅ تسجيل استجابة DSers بعد فك التشفير
 
-// ✅ التحقق من نجاح العملية
-if (!$dsersResponse || $httpCode !== 200 || !isset($dsersResponse["success"]) || !$dsersResponse["success"]) {
-    echo json_encode([
-        "success" => false,
-        "message" => "❌ DSers API request failed",
-        "http_code" => $httpCode,
-        "curl_error" => $curlError,
-        "response" => $response
-    ]);
-    exit;
-}
-
-// ✅ إرجاع نجاح الطلب
-echo json_encode(["success" => true, "message" => "✅ Order successfully processed in DSers"]);
+    // ✅ التحقق من نجاح العملية
+    if (!$dsersResponse || $httpCode !== 200 || !isset($dsersResponse["success"]) || !$dsersResponse["success"]) {
+        echo json_encode([
+            "success" => false,
+            "message" => "❌ DSers API request failed",
+            "http_code" => $httpCode,
+            "curl_error" => $curlError,
+            "response" => $response
+        ]);
+        exit;
+    }
 
     // ✅ إرسال إشعار إلى Telegram عند نجاح الطلب
     $telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A"; // 🔹 استبدل بتوكن تيليجرام الحقيقي
@@ -120,22 +118,21 @@ echo json_encode(["success" => true, "message" => "✅ Order successfully proces
 
     file_get_contents("https://api.telegram.org/bot$telegramBotToken/sendMessage?chat_id=$telegramChatID&text=" . urlencode($message) . "&parse_mode=Markdown");
 
-    // ✅ تسجيل الطلب في قاعدة البيانات (اختياري)
-    $dbHost = "localhost";
-    $dbUser = "root";
-    $dbPass = "password";
-    $dbName = "orders_db";
+    // ✅ إنشاء ملف CSV يومي لتخزين الطلبات الجديدة فقط
+    $date = date("Y-m-d"); // ✅ تاريخ اليوم
+    $fileName = "orders-$date.csv"; // ✅ مثال: orders-2024-03-08.csv
 
-    $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
-    if ($conn->connect_error) {
-        throw new Exception("⚠️ Database connection failed");
+    // ✅ فتح الملف وإضافة الطلب الجديد
+    $file = fopen($fileName, "a");
+
+    // ✅ إذا كان الملف جديدًا، أضف العناوين
+    if (filesize($fileName) == 0) {
+        fputcsv($file, ["Order ID", "Full Name", "Country", "City", "Address", "Postal Code", "Phone", "Total Price", "Product ID", "Quantity"]);
     }
 
-    $stmt = $conn->prepare("INSERT INTO orders (order_id, full_name, country, city, address, postal_code, phone, total_price, product_id, quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssssss", $orderID, $fullName, $country, $city, $address, $postalCode, $phone, $totalPrice, $productID, $quantity);
-    $stmt->execute();
-    $stmt->close();
-    $conn->close();
+    // ✅ إضافة الطلب الجديد
+    fputcsv($file, [$orderID, $fullName, $country, $city, $address, $postalCode, $phone, $totalPrice, $productID, $quantity]);
+    fclose($file);
 
     // ✅ إرسال رد JSON عند نجاح العملية
     echo json_encode(["success" => true, "message" => "✅ Order successfully processed in DSers"]);
