@@ -63,16 +63,45 @@ try {
         "Content-Type: application/json",
         "Authorization: Bearer $dsersApiKey"
     ]);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($dsersOrderData));
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
+    // ✅ تحويل البيانات إلى JSON والتأكد من نجاح العملية
+$jsonData = json_encode($dsersOrderData);
+if ($jsonData === false) {
+    echo json_encode(["success" => false, "message" => "❌ JSON encoding failed"]);
+    exit;
+}
 
-    // ✅ التحقق من نجاح العملية
-    $dsersResponse = json_decode($response, true);
-    if (!$dsersResponse || $httpCode !== 200 || !isset($dsersResponse["success"]) || !$dsersResponse["success"]) {
-        throw new Exception("❌ DSers API request failed. Response: " . json_encode($dsersResponse));
-    }
+// ✅ إرسال الطلب إلى DSers API
+curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$curlError = curl_error($ch); // 🔹 التقاط أي خطأ في cURL
+curl_close($ch);
+
+// ✅ تسجيل الأخطاء في السجل
+error_log("DSers API HTTP Code: " . $httpCode);
+error_log("DSers API Response: " . json_encode($response));
+if ($curlError) {
+    error_log("cURL Error: " . $curlError);
+}
+
+// ✅ تحليل استجابة DSers
+$dsersResponse = json_decode($response, true);
+error_log("DSers Parsed Response: " . json_encode($dsersResponse)); // ✅ تسجيل استجابة DSers بعد فك التشفير
+
+// ✅ التحقق من نجاح العملية
+if (!$dsersResponse || $httpCode !== 200 || !isset($dsersResponse["success"]) || !$dsersResponse["success"]) {
+    echo json_encode([
+        "success" => false,
+        "message" => "❌ DSers API request failed",
+        "http_code" => $httpCode,
+        "curl_error" => $curlError,
+        "response" => $response
+    ]);
+    exit;
+}
+
+// ✅ إرجاع نجاح الطلب
+echo json_encode(["success" => true, "message" => "✅ Order successfully processed in DSers"]);
 
     // ✅ إرسال إشعار إلى Telegram عند نجاح الطلب
     $telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A"; // 🔹 استبدل بتوكن تيليجرام الحقيقي
