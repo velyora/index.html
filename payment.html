@@ -32,13 +32,11 @@
                 <p><strong>Quantity:</strong> <span id="quantity" class="text-gray-800"></span></p>
                 <p class="text-xl font-bold mt-4 text-gray-900">Total: $<span id="total"></span></p>
             </div>
-             <p>Your tracking number and purchase invoice will be sent to your mobile number. Please make sure the information you entered is correct.</p><br></br>
+            <p>Your tracking number and purchase invoice will be sent to your mobile number. Please make sure the information you entered is correct.</p><br>
 
             <!-- ✅ زر الدفع عبر PayPal -->
             <div id="paypal-button-container" class="mb-4"></div>
 
-            <!-- ✅ Trust Badges -->
-            
         </div>
     </main>
 
@@ -83,7 +81,7 @@
                     return actions.order.capture().then(function (details) {
                         alert(`✅ Payment successful via PayPal!\n🆔 Order ID: ${details.id}`);
 
-                        // 🔹 إرسال البيانات إلى تيليجرام
+                        // ✅ إرسال البيانات إلى تيليجرام
                         let message = `📢 *New Payment Received!* 🚀\n\n` +
                                       `🆔 *Order ID:* ${details.id}\n` +
                                       `👤 *Name:* ${orderData.fullName}\n` +
@@ -94,7 +92,8 @@
                                       `📞 *Phone:* ${orderData.phone}\n` +
                                       `💰 *Amount Paid:* ${details.purchase_units[0].amount.value} ${details.purchase_units[0].amount.currency_code}`;
 
-                        console.log("Sending Telegram Message:", message);
+                        console.log("📤 Sending Telegram Message:", message);
+
                         fetch(`https://api.telegram.org/bot6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A/sendMessage`, {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -105,10 +104,12 @@
                             })
                         })
                         .then(response => response.json())
-                        .then(data => console.log("Telegram Response:", data))
-                        .catch(error => console.error("Telegram API error:", error));
+                        .then(data => console.log("📥 Telegram Response:", data))
+                        .catch(error => console.error("❌ Telegram API error:", error));
 
-                        // 🔹 إرسال الطلب تلقائيًا إلى DSers
+                        // ✅ إرسال الطلب إلى `process-order.php`
+                        console.log("📤 Sending order data to process-order.php:", orderData);
+
                         fetch("process-order.php", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -124,11 +125,12 @@
                                 productID: orderData.productID,
                                 quantity: orderData.quantity
                             })
-                        }).then(response => response.json())
-                          .then(data => console.log("DSers Response:", data))
-                          .catch(error => console.error("DSers API Error:", error));
+                        })
+                        .then(response => response.json())
+                        .then(data => console.log("📥 DSers Response:", data))
+                        .catch(error => console.error("❌ DSers API Error:", error));
 
-                        // 🔹 توجيه المستخدم إلى صفحة النجاح
+                        // ✅ توجيه المستخدم إلى صفحة النجاح
                         window.location.href = `success.html?orderID=${details.id}&name=${encodeURIComponent(orderData.fullName)}&phone=${encodeURIComponent(orderData.phone)}`;
                     });
                 }
