@@ -9,40 +9,40 @@
 <body class="bg-gray-100 p-6">
     <h1 class="text-2xl font-bold mb-4">🔧 لوحة التحكم</h1>
 
-    <form id="settingsForm" enctype="multipart/form-data">
+    <form id="settingsForm" action="save-settings.php" method="POST" enctype="multipart/form-data">
         <!-- تحميل الفيديو -->
         <label class="block font-semibold">🎥 تحميل الفيديو:</label>
-        <input type="file" id="videoFile" name="videoFile" class="border p-2 w-full mb-3">
+        <input type="file" name="videoFile" class="border p-2 w-full mb-3">
 
         <label class="block font-semibold">📌 عنوان الفيديو:</label>
-        <input type="text" id="videoTitle" name="videoTitle" class="border p-2 w-full mb-3">
+        <input type="text" name="videoTitle" class="border p-2 w-full mb-3">
 
         <label class="block font-semibold">📝 وصف الفيديو:</label>
-        <textarea id="videoDescription" name="videoDescription" class="border p-2 w-full mb-3"></textarea>
+        <textarea name="videoDescription" class="border p-2 w-full mb-3"></textarea>
 
         <!-- تحميل الصورة الأولى -->
         <label class="block font-semibold">🖼️ تحميل الصورة الأولى:</label>
-        <input type="file" id="image1File" name="image1File" class="border p-2 w-full mb-3">
+        <input type="file" name="image1File" class="border p-2 w-full mb-3">
 
         <label class="block font-semibold">📌 عنوان الصورة الأولى:</label>
-        <input type="text" id="image1Title" name="image1Title" class="border p-2 w-full mb-3">
+        <input type="text" name="image1Title" class="border p-2 w-full mb-3">
 
         <label class="block font-semibold">📝 وصف الصورة الأولى:</label>
-        <textarea id="image1Description" name="image1Description" class="border p-2 w-full mb-3"></textarea>
+        <textarea name="image1Description" class="border p-2 w-full mb-3"></textarea>
 
         <!-- تحميل الصورة الثانية -->
         <label class="block font-semibold">🖼️ تحميل الصورة الثانية:</label>
-        <input type="file" id="image2File" name="image2File" class="border p-2 w-full mb-3">
+        <input type="file" name="image2File" class="border p-2 w-full mb-3">
 
         <label class="block font-semibold">📌 عنوان الصورة الثانية:</label>
-        <input type="text" id="image2Title" name="image2Title" class="border p-2 w-full mb-3">
+        <input type="text" name="image2Title" class="border p-2 w-full mb-3">
 
         <label class="block font-semibold">📝 وصف الصورة الثانية:</label>
-        <textarea id="image2Description" name="image2Description" class="border p-2 w-full mb-3"></textarea>
+        <textarea name="image2Description" class="border p-2 w-full mb-3"></textarea>
 
         <!-- إدخال معرف المنتج -->
         <label class="block font-semibold">🛍️ معرف المنتج:</label>
-        <input type="text" id="productID" name="productID" class="border p-2 w-full mb-3">
+        <input type="text" name="productID" class="border p-2 w-full mb-3">
 
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">💾 حفظ الإعدادات</button>
     </form>
@@ -53,8 +53,8 @@
             
             let formData = new FormData(this);
 
-            fetch("save_settings.php", {
-                method: "POST",
+            fetch(this.action, {
+                method: this.method,
                 body: formData
             })
             .then(response => response.json())
