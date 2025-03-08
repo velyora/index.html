@@ -1,0 +1,16 @@
+CREATE TABLE settings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    video_url VARCHAR(255) NOT NULL,
+    video_title VARCHAR(255) NOT NULL,
+    video_description TEXT NOT NULL,
+    image1_url VARCHAR(255) NOT NULL,
+    image1_title VARCHAR(255) NOT NULL,
+    image1_description TEXT NOT NULL,
+    image2_url VARCHAR(255) NOT NULL,
+    image2_title VARCHAR(255) NOT NULL,
+    image2_description TEXT NOT NULL,
+    product_id VARCHAR(50) NOT NULL
+);
+
+INSERT INTO settings (video_url, video_title, video_description, image1_url, image1_title, image1_description, image2_url, image2_title, image2_description, product_id)
+VALUES ('video.mp4', 'عنوان الفيديو', 'وصف الفيديو', 'image1.jpg', 'عنوان الصورة 1', 'وصف الصورة 1', 'image2.jpg', 'عنوان الصورة 2', 'وصف الصورة 2', 'ALIEXPRESS_PRODUCT_ID');
