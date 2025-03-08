@@ -1,21 +1,53 @@
-/* General Styles */
+/* ✅ 1. الأنماط العامة */
 body {
     font-family: Arial, sans-serif;
-    background: #f9f9f9; /* Light gray background */
+    background: #f9f9f9; /* خلفية فاتحة */
     color: black;
     margin: 0;
     padding: 0;
 }
 
-/* Centering container */
+/* ✅ 2. الحاوية العامة */
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* Product grid layout */
+/* ✅ 3. تحسين الهيدر */
+header {
+    background: #6b46c1;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+nav ul {
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li {
+    list-style: none;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* ✅ 4. صفحة المنتج (Product Page) */
 .product-grid {
     max-width: 900px;
     background: white;
@@ -24,20 +56,18 @@ body {
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Product image */
 .product-image img {
     width: 100%;
     border-radius: 10px;
 }
 
-/* Product details */
 .product-details {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-/* Price section */
+/* ✅ 5. تنسيق السعر */
 .price {
     font-size: 22px;
     font-weight: bold;
@@ -55,14 +85,14 @@ body {
     margin-left: 10px;
 }
 
-/* Description */
+/* ✅ 6. وصف المنتج */
 .description {
     font-size: 16px;
     color: black;
     margin: 10px 0;
 }
 
-/* Buy button */
+/* ✅ 7. زر الشراء */
 .buy-btn {
     background: black;
     color: white;
@@ -73,33 +103,35 @@ body {
     cursor: pointer;
     transition: 0.3s;
 }
+
 .buy-btn:hover {
     background: #333;
 }
 
-/* Features list */
+/* ✅ 8. قائمة الميزات */
 .features {
     list-style: none;
     padding: 0;
 }
+
 .features li {
     font-size: 16px;
     margin: 5px 0;
 }
 
-/* Responsive Design */
+/* ✅ 9. تصميم متجاوب للمنتجات */
 @media (max-width: 768px) {
     .product-grid {
         grid-template-columns: 1fr;
         text-align: center;
     }
+
     .buy-btn {
         width: 100%;
     }
 }
 
-
-/* ✅ تحسين قسم معلومات الشحن */
+/* ✅ 10. تحسين قسم معلومات الشحن (Shipping Page) */
 .shipping-info {
     max-width: 900px;
     margin: 40px auto;
@@ -139,7 +171,36 @@ body {
     margin-bottom: 5px;
 }
 
-/* ✅ تحسين أيقونة التليجرام */
+/* ✅ 11. تحسين قسم تتبع الطلبات (Track Order Page) */
+input#trackingNumber {
+    font-size: 18px;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+button {
+    font-size: 18px;
+    font-weight: bold;
+    width: 100%;
+    padding: 10px;
+    background: #6b46c1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #5a3a92;
+}
+
+/* ✅ 12. تحسين أيقونة التليجرام */
 .telegram-icon {
     position: fixed;
     bottom: 20px;
@@ -148,15 +209,17 @@ body {
     height: 50px;
     transition: 0.3s;
 }
+
 .telegram-icon img {
     width: 100%;
     height: 100%;
 }
+
 .telegram-icon:hover {
     opacity: 0.8;
 }
 
-/* ✅ تحسين الفوتر */
+/* ✅ 13. تحسين الفوتر */
 footer {
     background: #2d3748;
     color: white;
@@ -173,24 +236,4 @@ footer a {
 
 footer a:hover {
     color: #f39c12;
-}
-
-/* ✅ تحسين قسم التتبع */
-input#trackingNumber {
-    font-size: 18px;
-    text-align: center;
-}
-
-button {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* ✅ تحسين الفوتر */
-footer {
-    background: #2d3748;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    margin-top: 50px;
 }
