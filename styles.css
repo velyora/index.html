@@ -1,13 +1,13 @@
-/* إعدادات الخطوط والألوان */
+/* General styles */
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    color: white;
+    background: #ffffff; /* White background */
+    color: black;
     margin: 0;
     padding: 0;
 }
 
-/* تنسيق الحاوية */
+/* Centering the container */
 .container {
     display: flex;
     justify-content: center;
@@ -15,66 +15,72 @@ body {
     height: 100vh;
 }
 
-/* تصميم الشبكة للمنتج */
+/* Grid layout for the product */
 .product-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.05);
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
     max-width: 900px;
 }
 
-/* صورة المنتج */
+/* Product image */
 .product-image img {
     width: 100%;
     border-radius: 10px;
 }
 
-/* تفاصيل المنتج */
+/* Product details */
 .product-details {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-/* تنسيق العنوان */
+/* Title */
 h1 {
     font-size: 24px;
     margin-bottom: 10px;
 }
 
-/* السعر والتخفيض */
+/* Price styling */
 .price {
     font-size: 22px;
     font-weight: bold;
-    color: #ffea00;
+    margin: 10px 0;
 }
-.price .discount {
+
+.current-price {
+    color: green; /* Green for current price */
+}
+
+.discount {
     text-decoration: line-through;
-    color: #ff5e57;
+    color: red; /* Red for the discount */
     font-size: 18px;
     margin-left: 10px;
 }
 
-/* الوصف */
+/* Description */
 .description {
     font-size: 16px;
+    color: black; /* Black text for the description */
     margin: 10px 0;
 }
 
-/* التقييم */
+/* Rating section */
 .rating {
     font-size: 18px;
     margin-bottom: 15px;
 }
 
-/* زر الشراء */
+/* Buy button */
 .buy-btn {
-    background: #ffea00;
-    color: #000;
+    background: black; /* Black button */
+    color: white; /* White text */
     border: none;
     padding: 12px;
     font-size: 18px;
@@ -83,10 +89,10 @@ h1 {
     transition: 0.3s;
 }
 .buy-btn:hover {
-    background: #ffd700;
+    background: #333;
 }
 
-/* قائمة المميزات */
+/* Features list */
 .features {
     list-style: none;
     padding: 0;
@@ -96,7 +102,7 @@ h1 {
     margin: 5px 0;
 }
 
-/* جعل التصميم متجاوبًا */
+/* Responsive design */
 @media (max-width: 768px) {
     .product-grid {
         grid-template-columns: 1fr;
