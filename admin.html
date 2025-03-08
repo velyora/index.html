@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg">
+        <h2 class="text-2xl font-bold text-gray-900 text-center mb-4">🔧 لوحة التحكم</h2>
+
+        <form id="adminForm">
+            <!-- ✅ تحديث الفيديو -->
+            <label class="block font-semibold text-gray-700">📹 رابط الفيديو:</label>
+            <input type="text" id="video_url" class="border border-gray-300 p-2 w-full rounded mb-2" required>
+
+            <label class="block font-semibold text-gray-700">📌 عنوان الفيديو:</label>
+            <input type="text" id="video_title" class="border border-gray-300 p-2 w-full rounded mb-2" required>
+
+            <label class="block font-semibold text-gray-700">📝 وصف الفيديو:</label>
+            <textarea id="video_description" class="border border-gray-300 p-2 w-full rounded mb-2" required></textarea>
+
+            <!-- ✅ تحديث الصورة الأولى -->
+            <label class="block font-semibold text-gray-700">🖼️ رابط الصورة الأولى:</label>
+            <input type="text" id="image1_url" class="border border-gray-300 p-2 w-full rounded mb-2" required>
+
+            <label class="block font-semibold text-gray-700">📌 عنوان الصورة الأولى:</label>
+            <input type="text" id="image1_title" class="border border-gray-300 p-2 w-full rounded mb-2" required>
+
+            <label class="block font-semibold text-gray-700">📝 وصف الصورة الأولى:</label>
+            <textarea id="image1_description" class="border border-gray-300 p-2 w-full rounded mb-2" required></textarea>
+
+            <!-- ✅ تحديث الصورة الثانية -->
+            <label class="block font-semibold text-gray-700">🖼️ رابط الصورة الثانية:</label>
+            <input type="text" id="image2_url" class="border border-gray-300 p-2 w-full rounded mb-2" required>
+
+            <label class="block font-semibold text-gray-700">📌 عنوان الصورة الثانية:</label>
+            <input type="text" id="image2_title" class="border border-gray-300 p-2 w-full rounded mb-2" required>
+
+            <label class="block font-semibold text-gray-700">📝 وصف الصورة الثانية:</label>
+            <textarea id="image2_description" class="border border-gray-300 p-2 w-full rounded mb-2" required></textarea>
+
+            <!-- ✅ تحديث ID المنتج -->
+            <label class="block font-semibold text-gray-700">🆔 ID المنتج:</label>
+            <input type="text" id="product_id" class="border border-gray-300 p-2 w-full rounded mb-2" required>
+
+            <!-- ✅ زر الحفظ -->
+            <button type="submit" class="bg-purple-700 text-white py-2 px-4 w-full rounded text-lg font-semibold mt-4">
+                حفظ التغييرات
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("adminForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let formData = {
+                video_url: document.getElementById("video_url").value,
+                video_title: document.getElementById("video_title").value,
+                video_description: document.getElementById("video_description").value,
+                image1_url: document.getElementById("image1_url").value,
+                image1_title: document.getElementById("image1_title").value,
+                image1_description: document.getElementById("image1_description").value,
+                image2_url: document.getElementById("image2_url").value,
+                image2_title: document.getElementById("image2_title").value,
+                image2_description: document.getElementById("image2_description").value,
+                product_id: document.getElementById("product_id").value
+            };
+
+            fetch("update-settings.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            }).then(response => response.json())
+              .then(data => alert(data.message))
+              .catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>
