@@ -1,0 +1,108 @@
+/* إعدادات الخطوط والألوان */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* تنسيق الحاوية */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* تصميم الشبكة للمنتج */
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 900px;
+}
+
+/* صورة المنتج */
+.product-image img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* تفاصيل المنتج */
+.product-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* تنسيق العنوان */
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* السعر والتخفيض */
+.price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffea00;
+}
+.price .discount {
+    text-decoration: line-through;
+    color: #ff5e57;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+/* الوصف */
+.description {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+/* التقييم */
+.rating {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+/* زر الشراء */
+.buy-btn {
+    background: #ffea00;
+    color: #000;
+    border: none;
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.buy-btn:hover {
+    background: #ffd700;
+}
+
+/* قائمة المميزات */
+.features {
+    list-style: none;
+    padding: 0;
+}
+.features li {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+/* جعل التصميم متجاوبًا */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .buy-btn {
+        width: 100%;
+    }
+}
