@@ -1,81 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Customize Landing Page</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>صفحة المنتج</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gray-100 p-6">
-    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-gray-900 text-center mb-6">🔧 Admin Panel - Customize Page</h2>
-        
-        <!-- Header Customization -->
-        <div class="mb-6">
-            <h3 class="text-lg font-semibold text-gray-700 border-b pb-2">Header Settings</h3>
-            <label class="block mt-2">Upload Header Image:</label>
-            <input type="file" id="headerImage" class="border p-2 w-full rounded">
-            
-            <label class="block mt-2">Change Header Background Color:</label>
-            <input type="color" id="headerColor" class="w-full">
+<body>
+    <div class="container">
+        <div class="product-grid">
+            <div class="product-image">
+                <img src="product-image.jpg" alt="منتج تقني حديث">
+            </div>
+            <div class="product-details">
+                <h1>اسم المنتج التقني الحديث</h1>
+                <p class="price">299.99$ <span class="discount">399.99$</span></p>
+                <p class="description">وصف مختصر عن المنتج ومميزاته الفريدة بتقنية حديثة وجودة عالية.</p>
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐ <span>(4.8/5 من 320 تقييم)</span>
+                </div>
+                <button class="buy-btn">اشتري الآن</button>
+                <ul class="features">
+                    <li>✔️ تقنية متطورة</li>
+                    <li>✔️ أداء سريع وعالي الجودة</li>
+                    <li>✔️ بطارية تدوم طويلاً</li>
+                    <li>✔️ ضمان سنة كاملة</li>
+                </ul>
+            </div>
         </div>
-
-        <!-- Footer Customization -->
-        <div class="mb-6">
-            <h3 class="text-lg font-semibold text-gray-700 border-b pb-2">Footer Settings</h3>
-            <label class="block mt-2">Change Footer Background Color:</label>
-            <input type="color" id="footerColor" class="w-full">
-        </div>
-
-        <!-- Product Image Customization -->
-        <div class="mb-6">
-            <h3 class="text-lg font-semibold text-gray-700 border-b pb-2">Product Images</h3>
-            <label class="block mt-2">Upload Product Images:</label>
-            <input type="file" id="productImages" multiple class="border p-2 w-full rounded">
-        </div>
-
-        <!-- Sidebar Customization -->
-        <div class="mb-6">
-            <h3 class="text-lg font-semibold text-gray-700 border-b pb-2">Sidebar Settings</h3>
-            <label class="block mt-2">Change Sidebar Footer Color:</label>
-            <input type="color" id="sidebarFooterColor" class="w-full">
-            
-            <label class="block mt-2">Enable Separators Between Menu Items:</label>
-            <input type="checkbox" id="enableSeparators" class="ml-2">
-        </div>
-
-        <!-- Promo Bar Customization -->
-        <div class="mb-6">
-            <h3 class="text-lg font-semibold text-gray-700 border-b pb-2">Promo Bar Settings</h3>
-            <label class="block mt-2">Change Promo Bar Background Color:</label>
-            <input type="color" id="promoBarColor" class="w-full">
-        </div>
-
-        <!-- Apply Changes Button -->
-        <button id="applyChanges" class="w-full bg-purple-700 text-white py-2 px-4 rounded text-lg font-semibold hover:bg-purple-800">
-            Apply Changes
-        </button>
     </div>
-    
-    <script>
-        $(document).ready(function () {
-            $('#applyChanges').click(function () {
-                let settings = {
-                    headerImage: $('#headerImage').val(),
-                    headerColor: $('#headerColor').val(),
-                    footerColor: $('#footerColor').val(),
-                    productImages: $('#productImages').val(),
-                    sidebarFooterColor: $('#sidebarFooterColor').val(),
-                    enableSeparators: $('#enableSeparators').is(':checked'),
-                    promoBarColor: $('#promoBarColor').val()
-                };
-
-                localStorage.setItem('siteSettings', JSON.stringify(settings));
-                alert("✅ Changes Applied Successfully!");
-                location.reload();
-            });
-        });
-    </script>
 </body>
 </html>
