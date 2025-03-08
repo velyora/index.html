@@ -1,30 +1,27 @@
-/* General styles */
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background: #ffffff; /* White background */
+    background: #f9f9f9; /* Light gray background */
     color: black;
     margin: 0;
     padding: 0;
 }
 
-/* Centering the container */
+/* Centering container */
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
-/* Grid layout for the product */
+/* Product grid layout */
 .product-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    background: rgba(0, 0, 0, 0.05);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
     max-width: 900px;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Product image */
@@ -40,13 +37,7 @@ body {
     justify-content: center;
 }
 
-/* Title */
-h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-/* Price styling */
+/* Price section */
 .price {
     font-size: 22px;
     font-weight: bold;
@@ -54,12 +45,12 @@ h1 {
 }
 
 .current-price {
-    color: green; /* Green for current price */
+    color: green;
 }
 
 .discount {
     text-decoration: line-through;
-    color: red; /* Red for the discount */
+    color: red;
     font-size: 18px;
     margin-left: 10px;
 }
@@ -67,20 +58,14 @@ h1 {
 /* Description */
 .description {
     font-size: 16px;
-    color: black; /* Black text for the description */
+    color: black;
     margin: 10px 0;
-}
-
-/* Rating section */
-.rating {
-    font-size: 18px;
-    margin-bottom: 15px;
 }
 
 /* Buy button */
 .buy-btn {
-    background: black; /* Black button */
-    color: white; /* White text */
+    background: black;
+    color: white;
     border: none;
     padding: 12px;
     font-size: 18px;
@@ -102,7 +87,7 @@ h1 {
     margin: 5px 0;
 }
 
-/* Responsive design */
+/* Responsive Design */
 @media (max-width: 768px) {
     .product-grid {
         grid-template-columns: 1fr;
