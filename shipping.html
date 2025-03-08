@@ -3,125 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shipping Information - Velyora</title>
+    <title>Shipping - VELYORA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 text-gray-900">
 
-    <!-- ✅ استيراد الخطوط -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Telegram Floating Icon -->
+    <a href="https://t.me/@tt90010" class="telegram-icon" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+    </a>
 
     <style>
-        /* ✅ ضبط الصفحة */
-        html, body {
-            font-family: 'Tajawal', sans-serif;
+        .telegram-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            transition: 0.3s;
+        }
+        .telegram-icon img {
             width: 100%;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-            overflow-x: hidden;
-            position: relative;
+            height: 100%;
         }
-
-        /* ✅ تحسين الهيدر */
-        .header-container {
-            background: #301c41;
-            color: white;
-            text-align: center;
-            padding: 15px 0;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        /* ✅ تحسين قسم الشحن */
-        .shipping-info {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 30px;
-            background: white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            text-align: left;
-        }
-
-        .shipping-info h2 {
-            color: #301c41;
-            margin-bottom: 15px;
-            font-size: 24px;
-        }
-
-        .shipping-info h3 {
-            color: #444;
-            margin-top: 20px;
-            font-size: 18px;
-        }
-
-        .shipping-info p {
-            font-size: 16px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .shipping-info ul {
-            padding-left: 20px;
-        }
-
-        .shipping-info ul li {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        /* ✅ تحسين الفوتر */
-        .footer {
-            background: #301c41;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 14px;
-            margin-top: 30px;
-        }
-
-        .footer a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .footer a:hover {
-            color: #f39c12;
+        .telegram-icon:hover {
+            opacity: 0.8;
         }
     </style>
-</head>
-<body>
 
-    <!-- ✅ الهيدر -->
-    <div class="header-container">
-        VELYORA
-    </div>
+    <!-- Header -->
+    <header class="bg-purple-800 text-white p-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold">VELYORA</h1>
+        <nav>
+            <ul class="flex space-x-6">
+                <li><a href="shipping.html" class="hover:underline">Shipping</a></li>
+                <li><a href="Track.html" class="hover:underline">Track</a></li>
+                <li><a href="Quran.html" class="hover:underline">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- ✅ قسم معلومات الشحن -->
-    <section class="shipping-info">
-        <h2>🚚 Shipping & Delivery Information</h2>
-        <h3>📦 Order Processing</h3>
-        <p>Orders are processed within 24 hours. You will receive a tracking number as soon as your order is shipped.</p>
+    <!-- Shipping Information Section -->
+    <section class="container mx-auto p-8">
+        <h2 class="text-3xl font-bold text-center text-purple-800 mb-6">Shipping Information</h2>
         
-        <h3>⏳ Estimated Delivery Time</h3>
-        <ul>
-            <li><strong>Saudi Arabia:</strong> 5-7 business days</li>
-            <li><strong>UAE:</strong> 7-10 business days</li>
-            <li><strong>USA & Europe:</strong> 10-15 business days</li>
-            <li><strong>Rest of the World:</strong> 15-20 business days</li>
-        </ul>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <p class="text-lg text-gray-700 mb-4">At **VELYORA**, we ensure fast and reliable shipping to our customers. Below are the estimated shipping times based on your location.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-4 border rounded-lg shadow-md text-center">
+                    <h3 class="text-xl font-bold text-gray-800">United States</h3>
+                    <p class="text-gray-600 mt-2">3 - 5 Business Days</p>
+                </div>
+                <div class="p-4 border rounded-lg shadow-md text-center">
+                    <h3 class="text-xl font-bold text-gray-800">Europe</h3>
+                    <p class="text-gray-600 mt-2">5 - 7 Business Days</p>
+                </div>
+                <div class="p-4 border rounded-lg shadow-md text-center">
+                    <h3 class="text-xl font-bold text-gray-800">Other Countries</h3>
+                    <p class="text-gray-600 mt-2">7 - 14 Business Days</p>
+                </div>
+            </div>
 
-        <h3>📌 Shipping Providers</h3>
-        <p>We use trusted carriers like DHL, FedEx, and Aramex to ensure fast and reliable delivery.</p>
-
-        <h3>📍 Order Tracking</h3>
-        <p>Once your order is shipped, you will receive a tracking link via email.</p>
+            <h3 class="text-2xl font-bold text-gray-800 mt-6">Shipping Costs</h3>
+            <p class="text-gray-700 mt-2">Shipping costs may vary depending on the destination. We offer **free shipping** for orders above **$100**.</p>
+        </div>
     </section>
 
-    <!-- ✅ الفوتر -->
-    <footer class="footer">
-        © 2025 Velyora. All rights reserved. 
-        <br>
-        <a href="#">Privacy Policy</a> | <a href="#">Return Policy</a>
+    <!-- FAQ Section -->
+    <section class="container mx-auto p-8">
+        <h2 class="text-3xl font-bold text-center text-purple-800 mb-6">Frequently Asked Questions</h2>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-gray-800">How can I track my order?</h3>
+                <p class="text-gray-600">Once your order is shipped, we will send you a tracking number via email.</p>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-gray-800">Do you ship internationally?</h3>
+                <p class="text-gray-600">Yes, we ship to most countries worldwide.</p>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800">What happens if my package is lost?</h3>
+                <p class="text-gray-600">If your package is lost, please contact our support team to assist you.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center p-6 mt-10">
+        <p>&copy; 2025 VELYORA. All rights reserved.</p>
     </footer>
 
 </body>
