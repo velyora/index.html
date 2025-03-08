@@ -174,3 +174,23 @@ footer a {
 footer a:hover {
     color: #f39c12;
 }
+
+/* ✅ تحسين قسم التتبع */
+input#trackingNumber {
+    font-size: 18px;
+    text-align: center;
+}
+
+button {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* ✅ تحسين الفوتر */
+footer {
+    background: #2d3748;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin-top: 50px;
+}
