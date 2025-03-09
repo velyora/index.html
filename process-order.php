@@ -53,8 +53,8 @@ try {
     error_log("✅ Order saved in CSV: " . json_encode($data));
 
     // ✅ إرسال إشعار إلى Telegram عند نجاح الطلب
-    $telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A"; // 🔹 استبدل بتوكن تيليجرام الحقيقي
-    $telegramChatID = "-1002290156309"; // 🔹 استبدل بمعرف الشات
+    $telegramBotToken = "7569416193:AAF8Nr7RWGGuhjhUkWrR-oFlDWaiYEVQBmM"; // 🔹 استبدل بتوكن تيليجرام الحقيقي
+    $telegramChatID = "-1001664466794"; // 🔹 استبدل بمعرف الشات
     $message = "📦 *New Order Received!* 🚀\n\n" .
                "🆔 *Order ID:* $orderID\n" .
                "👤 *Name:* $fullName\n" .
