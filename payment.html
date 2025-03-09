@@ -92,7 +92,7 @@
                                       `📞 *Phone:* ${orderData.phone}\n` +
                                       `💰 *Amount Paid:* ${details.purchase_units[0].amount.value} ${details.purchase_units[0].amount.currency_code}`;
 
-                        console.log("📤 Sending Telegram Message:", message);
+                        alert("📤 Sending Telegram Message:\n" + message);
 
                         fetch(`https://api.telegram.org/bot6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A/sendMessage`, {
                             method: "POST",
@@ -102,10 +102,16 @@
                                 text: message,
                                 parse_mode: "Markdown"
                             })
-                        })
-                        .then(response => response.json())
-                        .then(data => console.log("📥 Telegram Response:", data))
-                        .catch(error => console.error("❌ Telegram API error:", error));
+                       })
+                       .then(response => response.json())
+                       .then(data => {
+                           if (data.ok) {
+                               alert("📥 Telegram Response: تم الإرسال بنجاح ✅");
+                           } else {
+                               alert("❌ خطأ في إرسال البيانات إلى تيليجرام:\n" + JSON.stringify(data));
+                           }
+                       })
+                       .catch(error => alert("❌ Telegram API error:\n" + error));
 
                         // ✅ إرسال الطلب إلى `process-order.php`
                         console.log("📤 Sending order data to process-order.php:", orderData);
