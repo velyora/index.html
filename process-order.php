@@ -54,7 +54,7 @@ try {
 
     // ✅ إرسال إشعار إلى Telegram عند نجاح الطلب
     $telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A"; // 🔹 استبدل بتوكن تيليجرام الحقيقي
-    $telegramChatID = "-2290156309"; // 🔹 استبدل بمعرف الشات
+    $telegramChatID = "-1002290156309"; // 🔹 استبدل بمعرف الشات
     $message = "📦 *New Order Received!* 🚀\n\n" .
                "🆔 *Order ID:* $orderID\n" .
                "👤 *Name:* $fullName\n" .
