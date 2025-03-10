@@ -36,7 +36,6 @@
 
             <!-- ✅ زر الدفع عبر PayPal -->
             <div id="paypal-button-container" class="mb-4"></div>
-
         </div>
     </main>
 
@@ -92,25 +91,17 @@
                                       `📞 *Phone:* ${orderData.phone}\n` +
                                       `💰 *Amount Paid:* ${details.purchase_units[0].amount.value} ${details.purchase_units[0].amount.currency_code}`;
 
-                        alert("📤 Sending Telegram Message:\n" + message);
-
-                        fetch("send-telegram.php", {
+                        fetch(`https://api.telegram.org/botYOUR_TELEGRAM_BOT_TOKEN/sendMessage`, {
                             method: "POST",
-                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                            body: new URLSearchParams({ message: message })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.ok) {
-                                alert("📥 Telegram Response: تم الإرسال بنجاح ✅");
-                            } else {
-                                alert("❌ خطأ في إرسال البيانات إلى تيليجرام:\n" + JSON.stringify(data));
-                            }
-                        })
-                        .catch(error => alert("❌ Telegram API error:\n" + error));
-                        // ✅ إرسال الطلب إلى `process-order.php`
-                        console.log("📤 Sending order data to process-order.php:", orderData);
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                chat_id: "YOUR_CHAT_ID",
+                                text: message,
+                                parse_mode: "Markdown"
+                            })
+                        });
 
+                        // ✅ إرسال الطلب إلى `process-order.php`
                         fetch("process-order.php", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -126,10 +117,7 @@
                                 productID: orderData.productID,
                                 quantity: orderData.quantity
                             })
-                        })
-                        .then(response => response.json())
-                        .then(data => console.log("📥 DSers Response:", data))
-                        .catch(error => console.error("❌ DSers API Error:", error));
+                        });
 
                         // ✅ توجيه المستخدم إلى صفحة النجاح
                         window.location.href = `success.html?orderID=${details.id}&name=${encodeURIComponent(orderData.fullName)}&phone=${encodeURIComponent(orderData.phone)}`;
