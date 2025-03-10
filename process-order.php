@@ -9,6 +9,7 @@ try {
     // ✅ استقبال بيانات الطلب من `payment.html`
     $data = json_decode(file_get_contents("php://input"), true);
 
+    // ✅ التحقق من أن البيانات وصلت
     if (!$data) {
         throw new Exception("❌ No data received");
     }
@@ -40,6 +41,10 @@ try {
     // ✅ فتح الملف وإضافة الطلب الجديد
     $file = fopen($fileName, "a");
 
+    if (!$file) {
+        throw new Exception("❌ Failed to open CSV file for writing.");
+    }
+
     // ✅ إذا كان الملف جديدًا، أضف العناوين
     if (filesize($fileName) == 0) {
         fputcsv($file, ["Order ID", "Full Name", "Country", "City", "Address", "Postal Code", "Phone", "Total Price", "Product ID", "Quantity"]);
@@ -67,13 +72,21 @@ try {
                "🔢 *Quantity:* $quantity\n" .
                "💰 *Total Paid:* $totalPrice USD";
 
-    $telegramResponse = file_get_contents("https://api.telegram.org/bot$telegramBotToken/sendMessage?chat_id=$telegramChatID&text=" . urlencode($message) . "&parse_mode=Markdown");
+    // ✅ إرسال البيانات إلى Telegram
+    $telegramURL = "https://api.telegram.org/bot$telegramBotToken/sendMessage";
+    $telegramResponse = file_get_contents($telegramURL . "?chat_id=$telegramChatID&text=" . urlencode($message) . "&parse_mode=Markdown");
+
+    // ✅ التحقق من نجاح الطلب إلى تيليجرام
+    if ($telegramResponse === false) {
+        throw new Exception("❌ Failed to connect to Telegram API.");
+    }
 
     // ✅ تسجيل استجابة API تيليجرام
     error_log("📤 Telegram API Response: " . $telegramResponse);
 
     // ✅ إرسال رد JSON عند نجاح العملية
     echo json_encode(["success" => true, "message" => "✅ Order successfully saved in CSV and sent to Telegram"]);
+
 } catch (Exception $e) {
     error_log("❌ Error in process-order.php: " . $e->getMessage());
     echo json_encode(["success" => false, "message" => $e->getMessage()]);
