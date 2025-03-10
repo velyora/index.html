@@ -9,7 +9,6 @@ try {
     // ✅ استقبال بيانات الطلب من `payment.html`
     $data = json_decode(file_get_contents("php://input"), true);
 
-    // ✅ التحقق من أن البيانات وصلت
     if (!$data) {
         throw new Exception("❌ No data received");
     }
@@ -35,12 +34,11 @@ try {
     $quantity = htmlspecialchars(strip_tags($data["quantity"]));
 
     // ✅ إنشاء ملف CSV يومي لتخزين الطلبات الجديدة فقط
-    $date = date("Y-m-d"); // ✅ تاريخ اليوم
-    $fileName = "orders-$date.csv"; // ✅ مثال: orders-2024-03-08.csv
+    $date = date("Y-m-d");
+    $fileName = "orders-$date.csv"; // مثال: orders-2024-03-08.csv
 
     // ✅ فتح الملف وإضافة الطلب الجديد
     $file = fopen($fileName, "a");
-
     if (!$file) {
         throw new Exception("❌ Failed to open CSV file for writing.");
     }
@@ -57,9 +55,9 @@ try {
     // ✅ تسجيل الطلب في السجل لمراقبة العمليات
     error_log("✅ Order saved in CSV: " . json_encode($data));
 
-    // ✅ إرسال إشعار إلى Telegram عند نجاح الطلب
-    $telegramBotToken = "7569416193:AAF8Nr7RWGGuhjhUkWrR-oFlDWaiYEVQBmM"; // 🔹 استبدل بتوكن تيليجرام الحقيقي
-    $telegramChatID = "-1001664466794"; // 🔹 استبدل بمعرف الشات
+    // ✅ إعداد البيانات لإرسالها إلى Telegram
+    $telegramBotToken = "6961886563:AAHZwl-UaAWaGgXwzyp1vazRu1Hf37FKX2A"; // 🔹 استبدل بالتوكن الحقيقي
+    $telegramChatID = "-1002290156309"; // 🔹 استبدل بمعرف الشات
     $message = "📦 *New Order Received!* 🚀\n\n" .
                "🆔 *Order ID:* $orderID\n" .
                "👤 *Name:* $fullName\n" .
@@ -72,13 +70,27 @@ try {
                "🔢 *Quantity:* $quantity\n" .
                "💰 *Total Paid:* $totalPrice USD";
 
-    // ✅ إرسال البيانات إلى Telegram
+    // ✅ إرسال البيانات إلى Telegram باستخدام cURL لضمان نجاح الاتصال
     $telegramURL = "https://api.telegram.org/bot$telegramBotToken/sendMessage";
-    $telegramResponse = file_get_contents($telegramURL . "?chat_id=$telegramChatID&text=" . urlencode($message) . "&parse_mode=Markdown");
+    $postData = [
+        "chat_id" => $telegramChatID,
+        "text" => $message,
+        "parse_mode" => "Markdown"
+    ];
 
-    // ✅ التحقق من نجاح الطلب إلى تيليجرام
-    if ($telegramResponse === false) {
-        throw new Exception("❌ Failed to connect to Telegram API.");
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $telegramURL);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ["Content-Type: application/json"]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    
+    $telegramResponse = curl_exec($ch);
+    curl_close($ch);
+
+    // ✅ التحقق من نجاح الإرسال إلى تيليجرام
+    if (!$telegramResponse) {
+        throw new Exception("❌ Failed to send message to Telegram.");
     }
 
     // ✅ تسجيل استجابة API تيليجرام
