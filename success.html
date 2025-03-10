@@ -1,78 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Successful</title>
+    <title>✅ نجاح الطلب</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md text-center">
-        <h2 class="text-3xl font-bold text-green-600">🎉 Order Successful!</h2>
-        <p class="text-lg text-gray-700 mt-2">Thank you for your purchase!</p>
-
-        <!-- ✅ عرض رقم الطلب -->
-        <div class="mt-4 bg-gray-200 p-3 rounded text-lg font-semibold text-gray-800">
-            Order ID: <span id="orderID"></span>
+    <div class="bg-white shadow-lg rounded-lg p-8 max-w-md text-center">
+        <!-- ✅ أيقونة النجاح -->
+        <div class="text-green-500 text-6xl mb-4">
+            🎉
         </div>
 
-        <!-- ✅ عرض اسم العميل -->
-        <p class="mt-2 text-gray-700"><strong>Name:</strong> <span id="name"></span></p>
+        <!-- ✅ رسالة النجاح -->
+        <h1 class="text-2xl font-bold text-gray-900">تهانينا! ✅ تم إكمال طلبك بنجاح</h1>
+        <p class="text-gray-600 mt-2">شكرًا لك على الشراء. سيتم إرسال تفاصيل الطلب إلى بريدك الإلكتروني ورقم الهاتف.</p>
 
-        <!-- ✅ عرض رقم الجوال -->
-        <p class="text-gray-700"><strong>Phone:</strong> <span id="phone"></span></p>
+        <!-- ✅ تفاصيل الطلب -->
+        <div class="bg-gray-100 p-4 rounded-lg mt-4 text-left">
+            <p><strong>🆔 رقم الطلب:</strong> <span id="orderID" class="text-gray-800"></span></p>
+            <p><strong>👤 الاسم:</strong> <span id="customerName" class="text-gray-800"></span></p>
+            <p><strong>📦 الحالة:</strong> <span class="text-blue-600 font-semibold">جارٍ تجهيز الطلب 🚀</span></p>
+        </div>
 
-        <!-- ✅ أزرار التفاعل -->
-        <div class="mt-4 space-y-2">
-            <button onclick="copyOrderID()" class="bg-blue-500 text-white py-2 px-4 rounded w-full font-semibold">
-                📋 Copy Order ID
-            </button>
-
-            <button onclick="shareOnWhatsApp()" class="bg-green-500 text-white py-2 px-4 rounded w-full font-semibold">
-                📲 Share on WhatsApp
-            </button>
-
-            <a href="index.html" class="bg-gray-700 text-white py-2 px-4 rounded w-full font-semibold block">
-                ⬅️ Back to Home
-            </a>
+        <!-- ✅ أزرار الإجراءات -->
+        <div class="mt-6">
+            <a href="index.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-lg shadow hover:bg-blue-700">🏠 العودة إلى الصفحة الرئيسية</a>
         </div>
     </div>
 
     <script>
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param) || "Not provided";
-        }
-
-        // ✅ جلب بيانات الطلب من URL
-        document.getElementById("orderID").textContent = getQueryParam("orderID");
-        document.getElementById("name").textContent = getQueryParam("name");
-        document.getElementById("phone").textContent = getQueryParam("phone");
-
-        // ✅ نسخ رقم الطلب إلى الحافظة
-        function copyOrderID() {
-            const orderID = document.getElementById("orderID").textContent;
-            navigator.clipboard.writeText(orderID).then(() => {
-                alert("✅ Order ID copied!");
-            }).catch(err => console.error("Copy failed!", err));
-        }
-
-        // ✅ مشاركة الطلب على واتساب
-        function shareOnWhatsApp() {
-            const orderID = document.getElementById("orderID").textContent;
-            const name = document.getElementById("name").textContent;
-            const phone = document.getElementById("phone").textContent;
-
-            const message = `🛒 *Order Confirmed!* 🎉\n\n` +
-                            `📌 *Order ID:* ${orderID}\n` +
-                            `👤 *Name:* ${name}\n` +
-                            `📞 *Phone:* ${phone}\n\n` +
-                            `🔗 Track your order or contact support.`;
-
-            const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
-            window.open(whatsappURL, "_blank");
-        }
+        // 🔹 استخراج بيانات الطلب من URL
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById("orderID").textContent = urlParams.get("orderID") || "غير متوفر";
+        document.getElementById("customerName").textContent = urlParams.get("name") || "غير متوفر";
     </script>
 
 </body>
