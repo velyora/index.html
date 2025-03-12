@@ -1,19 +1,18 @@
 /* ✅ 1. الأنماط العامة */
 body {
     font-family: Arial, sans-serif;
-    background: #f9f9f9; /* خلفية فاتحة */
+    background: #f9f9f9;
     color: black;
     margin: 0;
     padding: 0;
 }
 
-/* ✅ 2. الحاوية العامة */
 .container {
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* ✅ 3. تحسين الهيدر */
+/* ✅ 2. تحسين الهيدر */
 header {
     background: #6b46c1;
     color: white;
@@ -40,6 +39,7 @@ nav ul li {
 nav ul li a {
     color: white;
     text-decoration: none;
+    font-size: 14px;
     transition: 0.3s;
 }
 
@@ -47,12 +47,14 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
-/* ✅ 4. صفحة المنتج (Product Page) */
-.product-grid {
-    max-width: 900px;
+/* ✅ 3. تصميم صفحة المنتج */
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
     background: white;
     border-radius: 10px;
-    padding: 20px;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -64,10 +66,8 @@ nav ul li a:hover {
 .product-details {
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
-/* ✅ 5. تنسيق السعر */
 .price {
     font-size: 22px;
     font-weight: bold;
@@ -85,14 +85,7 @@ nav ul li a:hover {
     margin-left: 10px;
 }
 
-/* ✅ 6. وصف المنتج */
-.description {
-    font-size: 16px;
-    color: black;
-    margin: 10px 0;
-}
-
-/* ✅ 7. زر الشراء */
+/* ✅ 4. زر الشراء */
 .buy-btn {
     background: black;
     color: white;
@@ -108,118 +101,57 @@ nav ul li a:hover {
     background: #333;
 }
 
-/* ✅ 8. قائمة الميزات */
-.features {
-    list-style: none;
-    padding: 0;
+/* ✅ 5. صفحة Checkout */
+.checkout-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px;
 }
 
-.features li {
-    font-size: 16px;
-    margin: 5px 0;
-}
-
-/* ✅ 9. تصميم متجاوب للمنتجات */
-@media (max-width: 768px) {
-    .product-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .buy-btn {
-        width: 100%;
-    }
-}
-
-/* ✅ 10. تحسين قسم معلومات الشحن (Shipping Page) */
-.shipping-info {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 30px;
+.payment-info, .order-summary {
     background: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    text-align: left;
-}
-
-.shipping-info h2 {
-    color: #6b46c1;
-    margin-bottom: 15px;
-    font-size: 26px;
-    font-weight: bold;
-}
-
-.shipping-info h3 {
-    color: #444;
-    margin-top: 20px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.shipping-info p {
-    font-size: 16px;
-    color: #666;
-    line-height: 1.6;
-}
-
-.shipping-info ul {
-    padding-left: 20px;
-}
-
-.shipping-info ul li {
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
-/* ✅ 11. تحسين قسم تتبع الطلبات (Track Order Page) */
-input#trackingNumber {
-    font-size: 18px;
-    text-align: center;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 20px;
     border-radius: 5px;
-    margin-top: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
 }
 
-button {
-    font-size: 18px;
-    font-weight: bold;
+.order-summary {
+    width: 40%;
+}
+
+.cart-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cart-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+}
+
+/* ✅ 6. زر الدفع */
+.checkout-btn {
     width: 100%;
-    padding: 10px;
-    background: #6b46c1;
+    background: #007bff;
     color: white;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: 0.3s;
     margin-top: 10px;
 }
 
-button:hover {
-    background: #5a3a92;
+.checkout-btn:hover {
+    background: #0056b3;
 }
 
-/* ✅ 12. تحسين أيقونة التليجرام */
-.telegram-icon {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    transition: 0.3s;
-}
-
-.telegram-icon img {
-    width: 100%;
-    height: 100%;
-}
-
-.telegram-icon:hover {
-    opacity: 0.8;
-}
-
-/* ✅ 13. تحسين الفوتر */
+/* ✅ 7. تحسين الفوتر */
 footer {
     background: #2d3748;
     color: white;
@@ -236,4 +168,15 @@ footer a {
 
 footer a:hover {
     color: #f39c12;
+}
+
+/* ✅ 8. تحسين استجابة التصميم */
+@media (max-width: 768px) {
+    .checkout-container {
+        flex-direction: column;
+    }
+
+    .payment-info, .order-summary {
+        width: 100%;
+    }
 }
