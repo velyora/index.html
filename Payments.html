@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
+</head>
+<body>
+
+    <div class="progress-container">
+        <div class="progress-step completed">🛒 Shopping Cart</div>
+        <div class="progress-step completed">💳 Checkout</div>
+        <div class="progress-step active">✔ Finish</div>
+    </div>
+
+    <div class="checkout-container">
+        <div class="order-summary">
+            <h2>Payment Summary</h2>
+            <p>Total Amount: <strong>$72.98</strong></p>
+            <div id="paypal-button-container"></div>
+        </div>
+    </div>
+
+    <script>
+        paypal.Buttons({
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: { value: "72.98" }
+                    }]
+                });
+            },
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (details) {
+                    alert(`Payment successful! Order ID: ${details.id}`);
+                    window.location.href = "success.html";
+                });
+            }
+        }).render("#paypal-button-container");
+    </script>
+
+</body>
+</html>
