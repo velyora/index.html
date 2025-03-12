@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - VELYORA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center py-6">
+
+    <!-- ✅ الهيدر -->
+    <header class="bg-purple-800 text-white p-4 w-full flex justify-between items-center shadow-lg">
+        <h1 class="text-xl font-bold">VELYORA</h1>
+        <nav>
+            <ul class="flex space-x-6 text-sm">
+                <li><a href="index.html" class="hover:underline">Home</a></li>
+                <li><a href="shipping.html" class="hover:underline">Shipping</a></li>
+                <li><a href="track.html" class="hover:underline">Track</a></li>
+                <li><a href="contact.html" class="hover:underline">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ✅ صندوق Checkout -->
+    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg mx-auto mt-6">
+        <h2 class="text-2xl font-bold text-gray-900 text-center mb-6">🛒 Checkout</h2>
+
+        <!-- ✅ صورة المنتج -->
+        <div class="flex justify-center mb-6">
+            <img src="IMG_3101.jpeg" alt="Product" class="w-64 h-auto rounded-lg border shadow-md">
+        </div>
+
+        <!-- ✅ التحكم في الكمية -->
+        <div class="flex items-center justify-center mb-6">
+            <button id="decrease" class="bg-gray-300 text-gray-700 px-3 py-2 rounded-l hover:bg-gray-400">-</button>
+            <span id="quantity" class="px-6 text-xl font-bold">1</span>
+            <button id="increase" class="bg-gray-300 text-gray-700 px-3 py-2 rounded-r hover:bg-gray-400">+</button>
+        </div>
+
+        <!-- ✅ إجمالي السعر -->
+        <p class="text-lg font-semibold text-center text-gray-900 mb-6">Total: $<span id="total-price">50.00</span></p>
+
+        <!-- ✅ نموذج بيانات العميل -->
+        <form class="space-y-4">
+            <div>
+                <label class="block font-semibold text-gray-700">Full Name:</label>
+                <input type="text" id="fullName" class="border border-gray-300 p-3 w-full rounded focus:ring-2 focus:ring-purple-600 outline-none" required>
+            </div>
+
+            <div>
+                <label class="block font-semibold text-gray-700">Country:</label>
+                <select id="country" class="border border-gray-300 p-3 w-full rounded focus:ring-2 focus:ring-purple-600 outline-none" onchange="updatePhoneCode()" required>
+                    <option value="US" data-code="+1">🇺🇸 United States</option>
+                    <option value="UK" data-code="+44">🇬🇧 United Kingdom</option>
+                    <option value="DE" data-code="+49">🇩🇪 Germany</option>
+                    <option value="FR" data-code="+33">🇫🇷 France</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block font-semibold text-gray-700">City:</label>
+                <input type="text" id="city" class="border border-gray-300 p-3 w-full rounded focus:ring-2 focus:ring-purple-600 outline-none" required>
+            </div>
+
+            <div>
+                <label class="block font-semibold text-gray-700">Address:</label>
+                <input type="text" id="address" class="border border-gray-300 p-3 w-full rounded focus:ring-2 focus:ring-purple-600 outline-none" required>
+            </div>
+
+            <div>
+                <label class="block font-semibold text-gray-700">Postal Code:</label>
+                <input type="text" id="postalCode" class="border border-gray-300 p-3 w-full rounded focus:ring-2 focus:ring-purple-600 outline-none" required>
+            </div>
+
+            <div>
+                <label class="block font-semibold text-gray-700">Phone Number:</label>
+                <div class="flex">
+                    <span id="phone-code" class="bg-gray-300 px-4 py-3 rounded-l text-gray-700">+1</span>
+                    <input type="tel" id="phone" class="border border-gray-300 p-3 w-full rounded-r focus:ring-2 focus:ring-purple-600 outline-none" required>
+                </div>
+            </div>
+
+            <!-- ✅ زر الشراء -->
+            <button id="proceedToPayment" class="bg-purple-700 text-white py-3 px-6 w-full rounded text-lg font-semibold hover:bg-purple-800 transition">
+                Proceed to Payment
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let pricePerItem = 10.00; // ✅ تعديل سعر الوحدة
+            let totalPrice = pricePerItem;
+
+            const quantityElement = document.getElementById("quantity");
+            const totalPriceElement = document.getElementById("total-price");
+            const increaseButton = document.getElementById("increase");
+            const decreaseButton = document.getElementById("decrease");
+            const countrySelect = document.getElementById("country");
+            const phoneCodeElement = document.getElementById("phone-code");
+
+            function updatePrice() {
+                let quantity = parseInt(quantityElement.textContent);
+                totalPrice = pricePerItem * quantity;
+                totalPriceElement.textContent = totalPrice.toFixed(2);
+            }
+
+            increaseButton.addEventListener("click", function () {
+                let quantity = parseInt(quantityElement.textContent);
+                quantityElement.textContent = quantity + 1;
+                updatePrice();
+            });
+
+            decreaseButton.addEventListener("click", function () {
+                let quantity = parseInt(quantityElement.textContent);
+                if (quantity > 1) {
+                    quantityElement.textContent = quantity - 1;
+                    updatePrice();
+                }
+            });
+
+            function updatePhoneCode() {
+                let selectedOption = countrySelect.options[countrySelect.selectedIndex];
+                let phoneCode = selectedOption.getAttribute("data-code");
+                phoneCodeElement.textContent = phoneCode;
+            }
+
+            countrySelect.addEventListener("change", updatePhoneCode);
+
+            document.getElementById("proceedToPayment").addEventListener("click", function () {
+                let formData = {
+                    fullName: document.getElementById("fullName").value.trim(),
+                    country: document.getElementById("country").value.trim(),
+                    city: document.getElementById("city").value.trim(),
+                    address: document.getElementById("address").value.trim(),
+                    postalCode: document.getElementById("postalCode").value.trim(),
+                    phone: document.getElementById("phone").value.trim(),
+                    totalPrice: document.getElementById("total-price").textContent.trim(),
+                    quantity: document.getElementById("quantity").textContent.trim(),
+                    productID: "1005008403950447"
+                };
+
+                for (let key in formData) {
+                    if (!formData[key]) {
+                        alert("❌ Please fill in all required fields.");
+                        return;
+                    }
+                }
+
+                sessionStorage.setItem("orderData", JSON.stringify(formData));
+                window.location.href = "payment.html";
+            });
+
+            updatePrice();
+        });
+    </script>
+</body>
+</html>
