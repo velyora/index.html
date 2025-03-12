@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | VELYORA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- ✅ الهيدر -->
+    <header class="bg-purple-800 text-white py-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center px-6 max-w-6xl">
+            <h1 class="text-2xl font-bold tracking-wide">VELYORA</h1>
+            <nav>
+                <ul class="flex space-x-8 text-lg font-medium">
+                    <li><a href="index.html" class="hover:underline">Home</a></li>
+                    <li><a href="shipping.html" class="hover:underline">Shipping</a></li>
+                    <li><a href="track.html" class="hover:underline">Track</a></li>
+                    <li><a href="contact.html" class="hover:underline">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ✅ قسم "اتصل بنا" -->
+    <section class="py-12">
+        <div class="container mx-auto px-6 max-w-4xl bg-white p-8 shadow-lg rounded-lg">
+            <h2 class="text-3xl font-bold text-gray-900 text-center mb-6">📞 Contact Us</h2>
+            <p class="text-gray-700 text-center mb-8">Have questions? Fill out the form below or reach us via email or phone.</p>
+
+            <!-- ✅ نموذج التواصل -->
+            <form action="send-message.php" method="POST" class="space-y-6">
+                <div>
+                    <label class="block font-semibold text-gray-700">Full Name:</label>
+                    <input type="text" name="name" class="border border-gray-300 p-3 w-full rounded" required>
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-gray-700">Email Address:</label>
+                    <input type="email" name="email" class="border border-gray-300 p-3 w-full rounded" required>
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-gray-700">Message:</label>
+                    <textarea name="message" rows="5" class="border border-gray-300 p-3 w-full rounded" required></textarea>
+                </div>
+
+                <button type="submit" class="bg-purple-700 text-white py-3 px-6 rounded text-lg font-semibold w-full">
+                    Send Message
+                </button>
+            </form>
+
+            <!-- ✅ معلومات الاتصال -->
+            <div class="mt-10 text-center">
+                <h3 class="text-xl font-bold text-gray-900">📌 Contact Information</h3>
+                <p class="text-gray-700">📍 Address: 1234 Business St, New York, USA</p>
+                <p class="text-gray-700">📧 Email: <a href="mailto:support@velyora.com" class="text-purple-600 hover:underline">support@velyora.com</a></p>
+                <p class="text-gray-700">📞 Phone: <a href="tel:+1234567890" class="text-purple-600 hover:underline">+1 234 567 890</a></p>
+            </div>
+
+            <!-- ✅ خريطة جوجل -->
+            <div class="mt-8">
+                <iframe class="w-full h-64 rounded-lg shadow-md"
+                    src="https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_MAPS_API_KEY&q=New+York,USA"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ الفوتر -->
+    <footer class="bg-purple-800 text-white text-center py-4 mt-12 shadow-md">
+        <p class="text-sm">© 2025 VELYORA. All rights reserved.</p>
+        <p class="text-xs">For support, contact us at <a href="mailto:support@velyora.com" class="underline">support@velyora.com</a></p>
+    </footer>
+
+</body>
+</html>
