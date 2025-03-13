@@ -3,184 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Payment</title>
+    <title>Checkout & Payment</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             background: #f5f5f5;
-            color: #333;
+            margin: 0;
+            padding: 0;
         }
         .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
+            max-width: 1000px;
+            margin: 50px auto;
             background: white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
             border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
         }
-        .section-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #6b46c1;
-            margin-bottom: 15px;
-        }
-        .payment-methods {
+        .steps {
             display: flex;
-            gap: 15px;
+            justify-content: space-between;
             margin-bottom: 20px;
+            padding: 10px;
+            font-size: 18px;
         }
-        .payment-methods label {
-            background: #eee;
-            padding: 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-            flex: 1;
+        .step {
+            position: relative;
             text-align: center;
-            font-weight: bold;
+            color: gray;
         }
-        .payment-methods label:hover {
-            background: #ddd;
+        .step::after {
+            content: '';
+            width: 100px;
+            height: 2px;
+            background: lightgray;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: -1;
         }
-        .payment-methods input {
+        .step:last-child::after {
             display: none;
         }
-        .payment-methods input:checked + label {
-            background: #6b46c1;
-            color: white;
-        }
-        .cart-summary {
-            background: #fafafa;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        .cart-summary img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-        .cart-details {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .checkout-btn {
-            background: #6b46c1;
-            color: white;
-            padding: 12px;
-            font-size: 18px;
+        .step.active {
+            color: green;
             font-weight: bold;
-            border: none;
+        }
+        .checkout-container {
+            display: flex;
+            gap: 20px;
+        }
+        .left-panel, .right-panel {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .right-panel {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .input-group input, .input-group select {
             width: 100%;
-            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ccc;
             border-radius: 5px;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .payment-options {
+            margin-top: 20px;
+        }
+        .pay-btn {
+            background: #28a745;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
             transition: 0.3s;
         }
-        .checkout-btn:hover {
-            background: #5a3a92;
+        .pay-btn:hover {
+            background: #218838;
         }
     </style>
 </head>
 <body>
 
-    <!-- ✅ حاوية الصفحة -->
-    <div class="container">
-        <h2 class="section-title">💳 Payment Info</h2>
-        <p>All transactions are secure and encrypted.</p>
-
-        <!-- ✅ خيارات الدفع -->
-        <div class="payment-methods">
-            <input type="radio" id="credit-card" name="payment-method" value="credit-card" checked>
-            <label for="credit-card">💳 Credit Card</label>
-
-            <input type="radio" id="paypal" name="payment-method" value="paypal">
-            <label for="paypal">🅿 PayPal</label>
-        </div>
-
-        <!-- ✅ بيانات بطاقة الائتمان -->
-        <div id="credit-card-fields">
-            <label>Card Number</label>
-            <input type="text" class="border p-2 w-full rounded mb-2" placeholder="1234 5678 9012 3456">
-
-            <label>Cardholder Name</label>
-            <input type="text" class="border p-2 w-full rounded mb-2" placeholder="John Doe">
-
-            <div class="flex gap-2">
-                <div class="w-1/2">
-                    <label>Expiration Date</label>
-                    <input type="text" class="border p-2 w-full rounded" placeholder="MM/YY">
-                </div>
-                <div class="w-1/2">
-                    <label>CVC</label>
-                    <input type="text" class="border p-2 w-full rounded" placeholder="123">
-                </div>
-            </div>
-        </div>
-
-        <!-- ✅ زر PayPal -->
-        <div id="paypal-button-container" style="display: none;"></div>
-
-        <hr class="my-5">
-
-        <!-- ✅ ملخص الطلب -->
-        <h2 class="section-title">🛒 Cart Summary</h2>
-        <div class="cart-summary">
-            <div class="cart-details">
-                <img src="IMG_3101.jpeg" alt="Product">
-                <div>
-                    <p><strong>Product:</strong> Battlecreek Coffee</p>
-                    <p><strong>Code:</strong> C-7770</p>
-                    <p><strong>Quantity:</strong> <span id="quantity">1</span></p>
-                    <p><strong>Price:</strong> $<span id="total-price">20.00</span></p>
-                </div>
-            </div>
-            <p class="mt-3"><strong>Subtotal:</strong> $<span id="subtotal">20.00</span></p>
-            <p><strong>Shipping:</strong> $<span id="shipping">5.00</span></p>
-            <p class="text-lg font-bold">Total: $<span id="final-total">25.00</span></p>
-        </div>
-
-        <button id="checkout-btn" class="checkout-btn">Complete Purchase</button>
+<div class="container">
+    <!-- ✅ شريط الخطوات -->
+    <div class="steps">
+        <div class="step active">Shopping Cart</div>
+        <div class="step active">Checkout</div>
+        <div class="step">Finish</div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let orderData = JSON.parse(sessionStorage.getItem("orderData"));
-            if (!orderData) {
-                alert("❌ Order data not found. Redirecting to home page.");
-                window.location.href = "index.html";
-            }
+    <div class="checkout-container">
+        <!-- ✅ قسم إدخال بيانات المستخدم -->
+        <div class="left-panel">
+            <h2>🛒 Checkout</h2>
+            <div class="input-group">
+                <label>Full Name:</label>
+                <input type="text" id="fullName" required>
+            </div>
+            <div class="input-group">
+                <label>Country:</label>
+                <select id="country">
+                    <option value="US">🇺🇸 United States</option>
+                    <option value="UK">🇬🇧 United Kingdom</option>
+                    <option value="DE">🇩🇪 Germany</option>
+                    <option value="FR">🇫🇷 France</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>City:</label>
+                <input type="text" id="city" required>
+            </div>
+            <div class="input-group">
+                <label>Address:</label>
+                <input type="text" id="address" required>
+            </div>
+            <div class="input-group">
+                <label>Phone:</label>
+                <input type="tel" id="phone" required>
+            </div>
+        </div>
 
-            document.getElementById("quantity").textContent = orderData.quantity;
-            document.getElementById("total-price").textContent = orderData.totalPrice;
-            let subtotal = parseFloat(orderData.totalPrice);
-            let shipping = 5.00;
-            let finalTotal = subtotal + shipping;
-            document.getElementById("subtotal").textContent = subtotal.toFixed(2);
-            document.getElementById("shipping").textContent = shipping.toFixed(2);
-            document.getElementById("final-total").textContent = finalTotal.toFixed(2);
+        <!-- ✅ قسم الدفع وملخص الطلب -->
+        <div class="right-panel">
+            <h2>💳 Payment Info</h2>
+            <p>All transactions are secure and encrypted.</p>
 
-            document.getElementById("checkout-btn").addEventListener("click", function () {
-                alert("✅ Payment Successful!");
-                window.location.href = "success.html";
-            });
+            <!-- خيارات الدفع -->
+            <div class="payment-options">
+                <label><input type="radio" name="paymentMethod" value="credit-card" checked> Credit Card</label>
+                <label><input type="radio" name="paymentMethod" value="paypal"> PayPal</label>
+            </div>
 
-            document.querySelectorAll('input[name="payment-method"]').forEach(input => {
-                input.addEventListener("change", function () {
-                    if (this.value === "paypal") {
-                        document.getElementById("credit-card-fields").style.display = "none";
-                        document.getElementById("paypal-button-container").style.display = "block";
-                        paypal.Buttons().render("#paypal-button-container");
-                    } else {
-                        document.getElementById("credit-card-fields").style.display = "block";
-                        document.getElementById("paypal-button-container").style.display = "none";
-                    }
-                });
-            });
+            <!-- ✅ ملخص الطلب -->
+            <h3>📦 Cart Summary</h3>
+            <div class="summary-item">
+                <span>Product</span>
+                <span>Battlecreek Coffee</span>
+            </div>
+            <div class="summary-item">
+                <span>Code</span>
+                <span>C-7770</span>
+            </div>
+            <div class="summary-item">
+                <span>Quantity</span>
+                <span>2</span>
+            </div>
+            <div class="summary-item">
+                <span>Subtotal</span>
+                <span>$60.49</span>
+            </div>
+            <div class="summary-item">
+                <span>Shipping</span>
+                <span>$12.49</span>
+            </div>
+            <div class="summary-item" style="font-weight: bold;">
+                <span>Total</span>
+                <span>$72.98</span>
+            </div>
+
+            <!-- ✅ زر الدفع -->
+            <button class="pay-btn" id="payNow">Proceed to Payment</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("payNow").addEventListener("click", function () {
+        let orderData = {
+            fullName: document.getElementById("fullName").value.trim(),
+            country: document.getElementById("country").value,
+            city: document.getElementById("city").value.trim(),
+            address: document.getElementById("address").value.trim(),
+            phone: document.getElementById("phone").value.trim(),
+            totalPrice: "$72.98"
+        };
+
+        if (!orderData.fullName || !orderData.city || !orderData.address || !orderData.phone) {
+            alert("❌ Please fill in all required fields.");
+            return;
+        }
+
+        // ✅ إرسال الطلب إلى تيليجرام
+        fetch(`https://api.telegram.org/botYOUR_BOT_TOKEN/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                chat_id: "YOUR_CHAT_ID",
+                text: `📦 *New Order Received!* 🚀\n👤 *Name:* ${orderData.fullName}\n📍 *Country:* ${orderData.country}\n🏙️ *City:* ${orderData.city}\n📌 *Address:* ${orderData.address}\n📞 *Phone:* ${orderData.phone}\n💰 *Total:* ${orderData.totalPrice}`,
+                parse_mode: "Markdown"
+            })
         });
-    </script>
+
+        alert("✅ Payment Successful!");
+        window.location.href = "success.html";
+    });
+</script>
 
 </body>
 </html>
