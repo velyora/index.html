@@ -125,6 +125,14 @@
             }
 
             saveButton.addEventListener("click", function () {
+                let requiredFields = ["firstName", "lastName", "city", "address", "postalCode", "phone"];
+                for (let field of requiredFields) {
+                    if (!document.getElementById(field).value.trim()) {
+                        alert("❌ Please fill in all required fields.");
+                        return;
+                    }
+                }
+
                 saveButton.classList.add("hidden");
                 paymentOptions.classList.remove("hidden");
             });
@@ -141,6 +149,9 @@
                     return actions.order.capture().then(function (details) {
                         alert(`✅ Payment successful! Order ID: ${details.id}`);
                     });
+                },
+                onError: function () {
+                    alert("❌ Please fill in the address form before proceeding.");
                 }
             }).render("#paypal-button-container");
 
