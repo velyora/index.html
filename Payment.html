@@ -3,42 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Secure Payment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #6b46c1;
+            margin-bottom: 15px;
+        }
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .payment-methods label {
+            background: #eee;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+        }
+        .payment-methods label:hover {
+            background: #ddd;
+        }
+        .payment-methods input {
+            display: none;
+        }
+        .payment-methods input:checked + label {
+            background: #6b46c1;
+            color: white;
+        }
+        .cart-summary {
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .cart-summary img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .cart-details {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .checkout-btn {
+            background: #6b46c1;
+            color: white;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .checkout-btn:hover {
+            background: #5a3a92;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="progress-container">
-        <div class="progress-step completed">🛒 Shopping Cart</div>
-        <div class="progress-step completed">💳 Checkout</div>
-        <div class="progress-step active">✔ Finish</div>
-    </div>
+    <!-- ✅ حاوية الصفحة -->
+    <div class="container">
+        <h2 class="section-title">💳 Payment Info</h2>
+        <p>All transactions are secure and encrypted.</p>
 
-    <div class="checkout-container">
-        <div class="order-summary">
-            <h2>Payment Summary</h2>
-            <p>Total Amount: <strong>$72.98</strong></p>
-            <div id="paypal-button-container"></div>
+        <!-- ✅ خيارات الدفع -->
+        <div class="payment-methods">
+            <input type="radio" id="credit-card" name="payment-method" value="credit-card" checked>
+            <label for="credit-card">💳 Credit Card</label>
+
+            <input type="radio" id="paypal" name="payment-method" value="paypal">
+            <label for="paypal">🅿 PayPal</label>
         </div>
+
+        <!-- ✅ بيانات بطاقة الائتمان -->
+        <div id="credit-card-fields">
+            <label>Card Number</label>
+            <input type="text" class="border p-2 w-full rounded mb-2" placeholder="1234 5678 9012 3456">
+
+            <label>Cardholder Name</label>
+            <input type="text" class="border p-2 w-full rounded mb-2" placeholder="John Doe">
+
+            <div class="flex gap-2">
+                <div class="w-1/2">
+                    <label>Expiration Date</label>
+                    <input type="text" class="border p-2 w-full rounded" placeholder="MM/YY">
+                </div>
+                <div class="w-1/2">
+                    <label>CVC</label>
+                    <input type="text" class="border p-2 w-full rounded" placeholder="123">
+                </div>
+            </div>
+        </div>
+
+        <!-- ✅ زر PayPal -->
+        <div id="paypal-button-container" style="display: none;"></div>
+
+        <hr class="my-5">
+
+        <!-- ✅ ملخص الطلب -->
+        <h2 class="section-title">🛒 Cart Summary</h2>
+        <div class="cart-summary">
+            <div class="cart-details">
+                <img src="IMG_3101.jpeg" alt="Product">
+                <div>
+                    <p><strong>Product:</strong> Battlecreek Coffee</p>
+                    <p><strong>Code:</strong> C-7770</p>
+                    <p><strong>Quantity:</strong> <span id="quantity">1</span></p>
+                    <p><strong>Price:</strong> $<span id="total-price">20.00</span></p>
+                </div>
+            </div>
+            <p class="mt-3"><strong>Subtotal:</strong> $<span id="subtotal">20.00</span></p>
+            <p><strong>Shipping:</strong> $<span id="shipping">5.00</span></p>
+            <p class="text-lg font-bold">Total: $<span id="final-total">25.00</span></p>
+        </div>
+
+        <button id="checkout-btn" class="checkout-btn">Complete Purchase</button>
     </div>
 
     <script>
-        paypal.Buttons({
-            createOrder: function (data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: { value: "72.98" }
-                    }]
-                });
-            },
-            onApprove: function (data, actions) {
-                return actions.order.capture().then(function (details) {
-                    alert(`Payment successful! Order ID: ${details.id}`);
-                    window.location.href = "success.html";
-                });
+        document.addEventListener("DOMContentLoaded", function () {
+            let orderData = JSON.parse(sessionStorage.getItem("orderData"));
+            if (!orderData) {
+                alert("❌ Order data not found. Redirecting to home page.");
+                window.location.href = "index.html";
             }
-        }).render("#paypal-button-container");
+
+            document.getElementById("quantity").textContent = orderData.quantity;
+            document.getElementById("total-price").textContent = orderData.totalPrice;
+            let subtotal = parseFloat(orderData.totalPrice);
+            let shipping = 5.00;
+            let finalTotal = subtotal + shipping;
+            document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+            document.getElementById("shipping").textContent = shipping.toFixed(2);
+            document.getElementById("final-total").textContent = finalTotal.toFixed(2);
+
+            document.getElementById("checkout-btn").addEventListener("click", function () {
+                alert("✅ Payment Successful!");
+                window.location.href = "success.html";
+            });
+
+            document.querySelectorAll('input[name="payment-method"]').forEach(input => {
+                input.addEventListener("change", function () {
+                    if (this.value === "paypal") {
+                        document.getElementById("credit-card-fields").style.display = "none";
+                        document.getElementById("paypal-button-container").style.display = "block";
+                        paypal.Buttons().render("#paypal-button-container");
+                    } else {
+                        document.getElementById("credit-card-fields").style.display = "block";
+                        document.getElementById("paypal-button-container").style.display = "none";
+                    }
+                });
+            });
+        });
     </script>
 
 </body>
