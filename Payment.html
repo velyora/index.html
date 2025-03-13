@@ -24,10 +24,10 @@
         <!-- ✅ زر التحكم في الكمية -->
         <div class="flex justify-between items-center mb-4">
             <p class="text-lg font-semibold">Total: $<span id="total-price">20.00</span></p>
-            <div class="flex">
-                <button id="decrease" class="bg-white text-gray-700 px-3 py-1 rounded-l border">-</button>
-                <span id="quantity" class="px-4 text-lg font-bold bg-white border">1</span>
-                <button id="increase" class="bg-white text-gray-700 px-3 py-1 rounded-r border">+</button>
+            <div class="flex bg-white rounded-lg border shadow-sm">
+                <button id="decrease" class="bg-gray-200 text-gray-700 px-3 py-1 rounded-l">-</button>
+                <span id="quantity" class="px-4 text-lg font-bold bg-white text-black">1</span>
+                <button id="increase" class="bg-gray-200 text-gray-700 px-3 py-1 rounded-r">+</button>
             </div>
         </div>
 
@@ -101,34 +101,10 @@
             document.getElementById("total-price").textContent = total.toFixed(2);
         }
 
-        document.getElementById("increase").addEventListener("click", function () {
-            quantity++;
-            document.getElementById("quantity").textContent = quantity;
-            updateTotal();
-        });
-
-        document.getElementById("decrease").addEventListener("click", function () {
-            if (quantity > 1) {
-                quantity--;
-                document.getElementById("quantity").textContent = quantity;
-                updateTotal();
-            }
-        });
-
-        document.getElementById("shipping").addEventListener("change", function () {
-            shippingCost = this.value;
-            updateTotal();
-        });
-
         function updatePhoneCode() {
-            let countrySelect = document.getElementById("country");
-            let phoneCodeSpan = document.getElementById("phone-code");
-            let selectedOption = countrySelect.options[countrySelect.selectedIndex];
-            let phoneCode = selectedOption.getAttribute("data-code");
-            phoneCodeSpan.textContent = phoneCode;
+            let selected = document.getElementById("country").selectedOptions[0];
+            document.getElementById("phone-code").textContent = selected.getAttribute("data-code");
         }
-
-        document.getElementById("country").addEventListener("change", updatePhoneCode);
 
         document.getElementById("saveInfo").addEventListener("click", function () {
             let fields = ["firstName", "lastName", "city", "address", "postalCode", "phone"];
@@ -143,13 +119,16 @@
             document.getElementById("order-summary").classList.remove("hidden");
             document.getElementById("paypal-button-container").classList.remove("hidden");
 
-            paypal.Buttons().render("#paypal-button-container");
+            paypal.Buttons({ 
+                createOrder: (data, actions) => actions.order.create({ 
+                    purchase_units: [{ amount: { value: document.getElementById("total-price").textContent } }] 
+                }) 
+            }).render("#paypal-button-container");
         });
 
         updateTotal();
         updatePhoneCode();
     });
-    </script>
-
+</script>
 </body>
 </html>
