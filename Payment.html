@@ -56,10 +56,17 @@
             <input type="text" id="postalCode" placeholder="Postal Code" class="border border-gray-300 p-2 w-full rounded mb-2">
 
             <!-- 🔹 رقم الهاتف مع مفتاح الدولة التلقائي -->
-            <div class="flex">
+            <div class="flex mb-2">
                 <span id="phone-code" class="bg-gray-300 px-3 py-2 rounded-l">+1</span>
                 <input type="tel" id="phone" placeholder="Phone Number" class="border border-gray-300 p-2 w-full rounded-r">
             </div>
+
+            <!-- ✅ خيار الشحن -->
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Shipping Method</h3>
+            <select id="shipping" class="border border-gray-300 p-2 w-full rounded">
+                <option value="Standard (5-7 Days)">🚚 Standard (5-7 Days) - Free</option>
+                <option value="Express (2-3 Days)">⚡ Express (2-3 Days) - $9.99</option>
+            </select>
         </div>
 
         <!-- ✅ زر حفظ البيانات -->
@@ -73,6 +80,7 @@
             <p><strong>Name:</strong> <span id="summary-name"></span></p>
             <p><strong>Address:</strong> <span id="summary-address"></span></p>
             <p><strong>Phone:</strong> <span id="summary-phone"></span></p>
+            <p><strong>Shipping:</strong> <span id="summary-shipping"></span></p>
             <p><strong>Total:</strong> $<span id="summary-total"></span></p>
         </div>
 
@@ -123,19 +131,14 @@
                     address: document.getElementById("address").value.trim(),
                     postalCode: document.getElementById("postalCode").value.trim(),
                     phone: document.getElementById("phone").value.trim(),
+                    shipping: document.getElementById("shipping").value,
                     total: totalPrice.toFixed(2)
                 };
-
-                for (let key in formData) {
-                    if (!formData[key]) {
-                        alert("❌ Please fill in all required fields.");
-                        return;
-                    }
-                }
 
                 document.getElementById("summary-name").textContent = formData.firstName + " " + formData.lastName;
                 document.getElementById("summary-address").textContent = formData.address + ", " + formData.city + " (" + formData.postalCode + ")";
                 document.getElementById("summary-phone").textContent = phoneCodeElement.textContent + " " + formData.phone;
+                document.getElementById("summary-shipping").textContent = formData.shipping;
                 document.getElementById("summary-total").textContent = formData.total;
 
                 document.getElementById("customer-form").classList.add("hidden");
