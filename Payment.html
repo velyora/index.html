@@ -63,6 +63,13 @@
                 <span id="phone-code" class="bg-gray-300 px-3 py-2 rounded-l">+1</span>
                 <input type="tel" id="phone" placeholder="Phone Number" class="border border-gray-300 p-2 w-full rounded-r">
             </div>
+
+            <!-- ✅ خيار الشحن -->
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Shipping Method</h3>
+            <select id="shipping" class="border border-gray-300 p-2 w-full rounded">
+                <option value="0">🚚 Standard (5-7 Days) - Free</option>
+                <option value="9.99">⚡ Express (2-3 Days) - $9.99</option>
+            </select>
         </div>
 
         <!-- ✅ زر حفظ البيانات -->
@@ -82,13 +89,13 @@
             <p><strong>Address:</strong> <span id="saved-address"></span></p>
             <p><strong>Postal Code:</strong> <span id="saved-postal"></span></p>
             <p><strong>Phone:</strong> <span id="saved-phone"></span></p>
+            <p><strong>Total:</strong> $<span id="final-total"></span></p>
         </div>
 
         <!-- ✅ قسم الدفع -->
         <div id="payment-section" class="hidden mt-6">
             <h3 class="text-lg font-semibold text-purple-700 mb-3">Payment Info</h3>
-            <p>All transactions are secure and encrypted.</p>
-            <div id="paypal-button-container" class="mb-4"></div>
+            <div id="paypal-button-container"></div>
         </div>
 
     </div>
@@ -96,7 +103,6 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let pricePerItem = 20.00;
-            let totalPrice = pricePerItem;
             let quantityElement = document.getElementById("quantity");
             let totalPriceElement = document.getElementById("total-price");
             let saveButton = document.getElementById("saveInfo");
@@ -104,16 +110,18 @@
 
             function updatePrice() {
                 let quantity = parseInt(quantityElement.textContent);
-                totalPrice = pricePerItem * quantity;
+                let shippingCost = parseFloat(document.getElementById("shipping").value);
+                let totalPrice = (pricePerItem * quantity) + shippingCost;
                 totalPriceElement.textContent = totalPrice.toFixed(2);
+                document.getElementById("final-total").textContent = totalPrice.toFixed(2);
             }
 
-            document.getElementById("increase").addEventListener("click", function () {
+            document.getElementById("increase").addEventListener("click", () => {
                 quantityElement.textContent = parseInt(quantityElement.textContent) + 1;
                 updatePrice();
             });
 
-            document.getElementById("decrease").addEventListener("click", function () {
+            document.getElementById("decrease").addEventListener("click", () => {
                 let quantity = parseInt(quantityElement.textContent);
                 if (quantity > 1) {
                     quantityElement.textContent = quantity - 1;
@@ -121,26 +129,10 @@
                 }
             });
 
-            function validateForm() {
-                let requiredFields = ["firstName", "lastName", "city", "address", "postalCode", "phone"];
-                return requiredFields.every(field => document.getElementById(field).value.trim() !== "");
-            }
-
             saveButton.addEventListener("click", function () {
-                if (!validateForm()) {
-                    alert("❌ Please fill in all required fields before saving.");
-                    return;
-                }
-
+                document.getElementById("customer-form").classList.add("hidden");
                 document.getElementById("order-summary").classList.remove("hidden");
                 document.getElementById("payment-section").classList.remove("hidden");
-
-                document.getElementById("saved-name").textContent = document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
-                document.getElementById("saved-country").textContent = document.getElementById("country").options[document.getElementById("country").selectedIndex].text;
-                document.getElementById("saved-city").textContent = document.getElementById("city").value;
-                document.getElementById("saved-address").textContent = document.getElementById("address").value;
-                document.getElementById("saved-postal").textContent = document.getElementById("postalCode").value;
-                document.getElementById("saved-phone").textContent = document.getElementById("phone").value;
             });
 
             paypal.Buttons().render("#paypal-button-container");
