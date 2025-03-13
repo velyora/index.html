@@ -25,9 +25,9 @@
         <div class="flex justify-between items-center mb-4">
             <p class="text-lg font-semibold">Total: $<span id="total-price">20.00</span></p>
             <div class="flex">
-                <button id="decrease" class="bg-gray-300 text-gray-700 px-3 py-1 rounded-l">-</button>
-                <span id="quantity" class="px-4 text-lg font-bold">1</span>
-                <button id="increase" class="bg-gray-300 text-gray-700 px-3 py-1 rounded-r">+</button>
+                <button id="decrease" class="bg-white text-gray-700 px-3 py-1 rounded-l border">-</button>
+                <span id="quantity" class="px-4 text-lg font-bold bg-white border">1</span>
+                <button id="increase" class="bg-white text-gray-700 px-3 py-1 rounded-r border">+</button>
             </div>
         </div>
 
@@ -90,7 +90,6 @@
 
     </div>
 
-    <!-- ✅ سكربت جافاسكريبت -->
     <script>
     document.addEventListener("DOMContentLoaded", function () {
         let pricePerItem = 20.00;
@@ -102,22 +101,16 @@
             document.getElementById("total-price").textContent = total.toFixed(2);
         }
 
-        function updatePhoneCode() {
-            let countrySelect = document.getElementById("country");
-            let phoneCodeSpan = document.getElementById("phone-code");
-            let selectedOption = countrySelect.options[countrySelect.selectedIndex];
-            let phoneCode = selectedOption.getAttribute("data-code");
-            phoneCodeSpan.textContent = phoneCode;
-        }
-
         document.getElementById("increase").addEventListener("click", function () {
             quantity++;
+            document.getElementById("quantity").textContent = quantity;
             updateTotal();
         });
 
         document.getElementById("decrease").addEventListener("click", function () {
             if (quantity > 1) {
                 quantity--;
+                document.getElementById("quantity").textContent = quantity;
                 updateTotal();
             }
         });
@@ -126,6 +119,14 @@
             shippingCost = this.value;
             updateTotal();
         });
+
+        function updatePhoneCode() {
+            let countrySelect = document.getElementById("country");
+            let phoneCodeSpan = document.getElementById("phone-code");
+            let selectedOption = countrySelect.options[countrySelect.selectedIndex];
+            let phoneCode = selectedOption.getAttribute("data-code");
+            phoneCodeSpan.textContent = phoneCode;
+        }
 
         document.getElementById("country").addEventListener("change", updatePhoneCode);
 
@@ -142,11 +143,7 @@
             document.getElementById("order-summary").classList.remove("hidden");
             document.getElementById("paypal-button-container").classList.remove("hidden");
 
-            paypal.Buttons({ 
-                createOrder: (data, actions) => actions.order.create({ 
-                    purchase_units: [{ amount: { value: document.getElementById("total-price").textContent } }] 
-                }) 
-            }).render("#paypal-button-container");
+            paypal.Buttons().render("#paypal-button-container");
         });
 
         updateTotal();
