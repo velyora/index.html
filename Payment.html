@@ -129,6 +129,12 @@
 
         document.getElementById("country").addEventListener("change", updatePhoneCode);
 
+        document.getElementById("saveInfo").addEventListener("click", function () {
+            document.getElementById("customer-form").classList.add("hidden");
+            document.getElementById("order-summary").classList.remove("hidden");
+            document.getElementById("paypal-button-container").classList.remove("hidden");
+        });
+
         updateTotal();
         updatePhoneCode();
     });
