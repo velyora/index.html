@@ -25,9 +25,9 @@
         <div class="flex justify-between items-center mb-4">
             <p class="text-lg font-semibold">Total: $<span id="total-price">20.00</span></p>
             <div class="flex">
-                <button id="decrease" class="bg-white text-black px-3 py-1 border rounded-l">-</button>
+                <button id="decrease" class="bg-white text-black border px-3 py-1 rounded-l">-</button>
                 <span id="quantity" class="px-4 text-lg font-bold">1</span>
-                <button id="increase" class="bg-white text-black px-3 py-1 border rounded-r">+</button>
+                <button id="increase" class="bg-white text-black border px-3 py-1 rounded-r">+</button>
             </div>
         </div>
 
@@ -91,53 +91,51 @@
     </div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let pricePerItem = 20.00;
-        let quantity = 1;
-        let shippingCost = 0;
+        document.addEventListener("DOMContentLoaded", function () {
+            let pricePerItem = 20.00;
+            let quantity = 1;
+            let shippingCost = 0;
 
-        function updateTotal() {
-            let total = (pricePerItem * quantity) + parseFloat(shippingCost);
-            document.getElementById("total-price").textContent = total.toFixed(2);
-        }
+            function updateTotal() {
+                let total = (pricePerItem * quantity) + parseFloat(shippingCost);
+                document.getElementById("total-price").textContent = total.toFixed(2);
+            }
 
-        function updatePhoneCode() {
-            let countrySelect = document.getElementById("country");
-            let phoneCodeSpan = document.getElementById("phone-code");
-            let selectedOption = countrySelect.options[countrySelect.selectedIndex];
-            phoneCodeSpan.textContent = selectedOption.getAttribute("data-code");
-        }
-
-        document.getElementById("increase").addEventListener("click", function () {
-            quantity++;
-            document.getElementById("quantity").textContent = quantity;
-            updateTotal();
-        });
-
-        document.getElementById("decrease").addEventListener("click", function () {
-            if (quantity > 1) {
-                quantity--;
+            document.getElementById("increase").addEventListener("click", function () {
+                quantity++;
                 document.getElementById("quantity").textContent = quantity;
                 updateTotal();
-            }
-        });
+            });
 
-        document.getElementById("shipping").addEventListener("change", function () {
-            shippingCost = this.value;
+            document.getElementById("decrease").addEventListener("click", function () {
+                if (quantity > 1) {
+                    quantity--;
+                    document.getElementById("quantity").textContent = quantity;
+                    updateTotal();
+                }
+            });
+
+            document.getElementById("shipping").addEventListener("change", function () {
+                shippingCost = this.value;
+                updateTotal();
+            });
+
+            document.getElementById("country").addEventListener("change", function () {
+                let selectedOption = this.options[this.selectedIndex];
+                document.getElementById("phone-code").textContent = selectedOption.getAttribute("data-code");
+            });
+
+            document.getElementById("saveInfo").addEventListener("click", function () {
+                document.getElementById("customer-form").classList.add("hidden");
+                document.getElementById("order-summary").classList.remove("hidden");
+                document.getElementById("paypal-button-container").classList.remove("hidden");
+
+                document.getElementById("summary-total").textContent = document.getElementById("total-price").textContent;
+            });
+
             updateTotal();
         });
+    </script>
 
-        document.getElementById("country").addEventListener("change", updatePhoneCode);
-
-        document.getElementById("saveInfo").addEventListener("click", function () {
-            document.getElementById("customer-form").classList.add("hidden");
-            document.getElementById("order-summary").classList.remove("hidden");
-            document.getElementById("paypal-button-container").classList.remove("hidden");
-        });
-
-        updateTotal();
-        updatePhoneCode();
-    });
-</script>
 </body>
 </html>
