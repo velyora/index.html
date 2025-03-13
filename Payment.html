@@ -91,61 +91,75 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let pricePerItem = 20.00;
-            let quantity = 1;
-            let shippingCost = 0;
+    document.addEventListener("DOMContentLoaded", function () {
+        let pricePerItem = 20.00;
+        let quantity = 1;
+        let shippingCost = 0;
 
-            function updateTotal() {
-                let total = (pricePerItem * quantity) + parseFloat(shippingCost);
-                document.getElementById("total-price").textContent = total.toFixed(2);
-            }
+        function updateTotal() {
+            let total = (pricePerItem * quantity) + parseFloat(shippingCost);
+            document.getElementById("total-price").textContent = total.toFixed(2);
+        }
 
-            document.getElementById("increase").addEventListener("click", function () {
-                quantity++;
-                updateTotal();
-            });
-
-            document.getElementById("decrease").addEventListener("click", function () {
-                if (quantity > 1) {
-                    quantity--;
-                    updateTotal();
-                }
-            });
-
-            document.getElementById("shipping").addEventListener("change", function () {
-                shippingCost = this.value;
-                updateTotal();
-            });
-
-            document.getElementById("saveInfo").addEventListener("click", function () {
-                let fields = ["firstName", "lastName", "city", "address", "postalCode", "phone"];
-                for (let field of fields) {
-                    if (!document.getElementById(field).value.trim()) {
-                        alert("❌ Please fill in all required fields.");
-                        return;
-                    }
-                }
-
-                document.getElementById("customer-form").classList.add("hidden");
-                document.getElementById("order-summary").classList.remove("hidden");
-                document.getElementById("paypal-button-container").classList.remove("hidden");
-
-                document.getElementById("summary-name").textContent = document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
-                document.getElementById("summary-country").textContent = document.getElementById("country").value;
-                document.getElementById("summary-city").textContent = document.getElementById("city").value;
-                document.getElementById("summary-address").textContent = document.getElementById("address").value;
-                document.getElementById("summary-postalCode").textContent = document.getElementById("postalCode").value;
-                document.getElementById("summary-phone").textContent = document.getElementById("phone").value;
-                document.getElementById("summary-shipping").textContent = shippingCost;
-                document.getElementById("summary-total").textContent = document.getElementById("total-price").textContent;
-
-                paypal.Buttons({ createOrder: (data, actions) => actions.order.create({ purchase_units: [{ amount: { value: document.getElementById("total-price").textContent } }] }) }).render("#paypal-button-container");
-            });
-
+        document.getElementById("increase").addEventListener("click", function () {
+            quantity++;
             updateTotal();
         });
-    </script>
 
+        document.getElementById("decrease").addEventListener("click", function () {
+            if (quantity > 1) {
+                quantity--;
+                updateTotal();
+            }
+        });
+
+        document.getElementById("shipping").addEventListener("change", function () {
+            shippingCost = this.value;
+            updateTotal();
+        });
+
+        function updatePhoneCode() {
+            let countrySelect = document.getElementById("country");
+            let phoneCodeSpan = document.getElementById("phone-code");
+            let selectedOption = countrySelect.options[countrySelect.selectedIndex];
+            let phoneCode = selectedOption.getAttribute("data-code");
+            phoneCodeSpan.textContent = phoneCode;
+        }
+
+        document.getElementById("country").addEventListener("change", updatePhoneCode);
+
+        document.getElementById("saveInfo").addEventListener("click", function () {
+            let fields = ["firstName", "lastName", "city", "address", "postalCode", "phone"];
+            for (let field of fields) {
+                if (!document.getElementById(field).value.trim()) {
+                    alert("❌ Please fill in all required fields.");
+                    return;
+                }
+            }
+
+            document.getElementById("customer-form").classList.add("hidden");
+            document.getElementById("order-summary").classList.remove("hidden");
+            document.getElementById("paypal-button-container").classList.remove("hidden");
+
+            document.getElementById("summary-name").textContent = document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
+            document.getElementById("summary-country").textContent = document.getElementById("country").value;
+            document.getElementById("summary-city").textContent = document.getElementById("city").value;
+            document.getElementById("summary-address").textContent = document.getElementById("address").value;
+            document.getElementById("summary-postalCode").textContent = document.getElementById("postalCode").value;
+            document.getElementById("summary-phone").textContent = document.getElementById("phone-code").textContent + " " + document.getElementById("phone").value;
+            document.getElementById("summary-shipping").textContent = shippingCost;
+            document.getElementById("summary-total").textContent = document.getElementById("total-price").textContent;
+
+            paypal.Buttons({ 
+                createOrder: (data, actions) => actions.order.create({ 
+                    purchase_units: [{ amount: { value: document.getElementById("total-price").textContent } }] 
+                }) 
+            }).render("#paypal-button-container");
+        });
+
+        updateTotal();
+        updatePhoneCode(); // استدعاء الدالة لتحديث الرمز عند تحميل الصفحة
+    });
+</script>
 </body>
 </html>
