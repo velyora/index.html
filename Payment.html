@@ -8,9 +8,11 @@
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col items-center py-8">
 
-    <!-- 🔹 قسم صورة المنتج وزر التحكم في الكمية -->
+    <!-- 🔹 إطار واحد يجمع كل الأقسام -->
     <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg">
-        <div class="flex items-center justify-between">
+
+        <!-- ✅ صورة المنتج وزر التحكم في الكمية -->
+        <div class="flex items-center justify-between border-b pb-4 mb-4">
             <img src="IMG_3101.jpeg" alt="Product Image" class="w-24 h-24 rounded-lg border">
             <div>
                 <h2 class="text-xl font-semibold">Smart Sponge Cleaner</h2>
@@ -18,7 +20,8 @@
             </div>
         </div>
 
-        <div class="flex justify-between items-center mt-4">
+        <!-- ✅ زر التحكم في الكمية -->
+        <div class="flex justify-between items-center mb-4">
             <p class="text-lg font-semibold">Total: $<span id="total-price">20.00</span></p>
             <div class="flex">
                 <button id="decrease" class="bg-gray-300 text-gray-700 px-3 py-1 rounded-l">-</button>
@@ -26,71 +29,70 @@
                 <button id="increase" class="bg-gray-300 text-gray-700 px-3 py-1 rounded-r">+</button>
             </div>
         </div>
-    </div>
 
-    <!-- 🔹 قسم بيانات العميل -->
-    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg mt-6">
-        <h3 class="text-xl font-semibold text-gray-900 mb-4">Customer Information</h3>
-        <input type="text" id="fullName" placeholder="Full Name" class="border border-gray-300 p-2 w-full rounded mb-2" required>
-        <input type="text" id="address" placeholder="Address" class="border border-gray-300 p-2 w-full rounded mb-2" required>
-        <input type="text" id="phone" placeholder="Phone Number" class="border border-gray-300 p-2 w-full rounded mb-2" required>
-    </div>
+        <!-- ✅ نموذج بيانات العميل -->
+        <div id="customer-form">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Customer Information</h3>
 
-    <!-- 🔹 قسم خيارات الشحن -->
-    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg mt-6">
-        <h3 class="text-xl font-semibold text-gray-900 mb-4">Shipping Options</h3>
-        <label class="flex items-center mb-2">
-            <input type="radio" name="shipping" value="Standard" checked>
-            <span class="ml-2">Standard (5-7 Days) - $5.00</span>
-        </label>
-        <label class="flex items-center">
-            <input type="radio" name="shipping" value="Express">
-            <span class="ml-2">Express (2-3 Days) - $12.00</span>
-        </label>
-    </div>
+            <!-- 🔹 الاسم الأول واسم العائلة بجانب بعض -->
+            <div class="flex space-x-2 mb-2">
+                <input type="text" id="firstName" placeholder="First Name" class="border border-gray-300 p-2 w-1/2 rounded">
+                <input type="text" id="lastName" placeholder="Last Name" class="border border-gray-300 p-2 w-1/2 rounded">
+            </div>
 
-    <!-- 🔹 قسم طرق الدفع -->
-    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg mt-6">
-        <h3 class="text-xl font-semibold text-gray-900 mb-4">Payment Method</h3>
-        <label class="flex items-center mb-2">
-            <input type="radio" name="payment" value="applepay" checked>
-            <span class="ml-2">🍏 Apple Pay</span>
-        </label>
-        <label class="flex items-center mb-2">
-            <input type="radio" name="payment" value="paypal">
-            <span class="ml-2">💳 PayPal</span>
-        </label>
-        <label class="flex items-center mb-2">
-            <input type="radio" name="payment" value="creditcard">
-            <span class="ml-2">💳 Credit Card</span>
-        </label>
-        <label class="flex items-center">
-            <input type="radio" name="payment" value="usdt">
-            <span class="ml-2">🪙 USDT (Crypto)</span>
-        </label>
-    </div>
+            <!-- 🔹 الدولة والمدينة -->
+            <select id="country" class="border border-gray-300 p-2 w-full rounded mb-2" onchange="updatePhoneCode()">
+                <option value="US" data-code="+1">🇺🇸 United States</option>
+                <option value="CA" data-code="+1">🇨🇦 Canada</option>
+                <option value="UK" data-code="+44">🇬🇧 United Kingdom</option>
+                <option value="DE" data-code="+49">🇩🇪 Germany</option>
+                <option value="FR" data-code="+33">🇫🇷 France</option>
+                <option value="BR" data-code="+55">🇧🇷 Brazil</option>
+                <option value="ES" data-code="+34">🇪🇸 Spain</option>
+            </select>
 
-    <!-- 🔹 زر تأكيد الطلب -->
-    <button id="confirmOrder" class="bg-purple-700 text-white py-2 px-4 w-full max-w-lg rounded text-lg font-semibold mt-6">
-        Confirm Order
-    </button>
+            <input type="text" id="city" placeholder="City" class="border border-gray-300 p-2 w-full rounded mb-2">
+            <input type="text" id="address" placeholder="Street Address" class="border border-gray-300 p-2 w-full rounded mb-2">
+            <input type="text" id="postalCode" placeholder="Postal Code" class="border border-gray-300 p-2 w-full rounded mb-2">
+
+            <!-- 🔹 رقم الهاتف مع مفتاح الدولة التلقائي -->
+            <div class="flex">
+                <span id="phone-code" class="bg-gray-300 px-3 py-2 rounded-l">+1</span>
+                <input type="tel" id="phone" placeholder="Phone Number" class="border border-gray-300 p-2 w-full rounded-r">
+            </div>
+        </div>
+
+        <!-- ✅ زر حفظ البيانات -->
+        <button id="saveInfo" class="bg-purple-700 text-white py-2 px-4 w-full rounded text-lg font-semibold mt-4">
+            Save Information
+        </button>
+
+        <!-- ✅ عرض البيانات المحفوظة بعد الحفظ -->
+        <div id="summary" class="hidden mt-6 bg-gray-100 p-4 rounded">
+            <h3 class="text-lg font-semibold">✔ Order Summary</h3>
+            <p><strong>Name:</strong> <span id="summary-name"></span></p>
+            <p><strong>Address:</strong> <span id="summary-address"></span></p>
+            <p><strong>Phone:</strong> <span id="summary-phone"></span></p>
+            <p><strong>Total:</strong> $<span id="summary-total"></span></p>
+        </div>
+
+    </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let pricePerItem = 20.00;
             let totalPrice = pricePerItem;
-            let shippingCost = 5.00;
-
-            const quantityElement = document.getElementById("quantity");
-            const totalPriceElement = document.getElementById("total-price");
-            const increaseButton = document.getElementById("increase");
-            const decreaseButton = document.getElementById("decrease");
-            const shippingOptions = document.querySelectorAll("input[name='shipping']");
-            const confirmOrderButton = document.getElementById("confirmOrder");
+            let quantityElement = document.getElementById("quantity");
+            let totalPriceElement = document.getElementById("total-price");
+            let increaseButton = document.getElementById("increase");
+            let decreaseButton = document.getElementById("decrease");
+            let phoneCodeElement = document.getElementById("phone-code");
+            let saveButton = document.getElementById("saveInfo");
+            let summaryDiv = document.getElementById("summary");
 
             function updatePrice() {
                 let quantity = parseInt(quantityElement.textContent);
-                totalPrice = (pricePerItem * quantity) + shippingCost;
+                totalPrice = pricePerItem * quantity;
                 totalPriceElement.textContent = totalPrice.toFixed(2);
             }
 
@@ -108,22 +110,20 @@
                 }
             });
 
-            shippingOptions.forEach(option => {
-                option.addEventListener("change", function () {
-                    shippingCost = this.value === "Express" ? 12.00 : 5.00;
-                    updatePrice();
-                });
-            });
+            function updatePhoneCode() {
+                let selectedOption = document.getElementById("country").options[document.getElementById("country").selectedIndex];
+                phoneCodeElement.textContent = selectedOption.getAttribute("data-code");
+            }
 
-            confirmOrderButton.addEventListener("click", function () {
+            saveButton.addEventListener("click", function () {
                 let formData = {
-                    fullName: document.getElementById("fullName").value.trim(),
+                    firstName: document.getElementById("firstName").value.trim(),
+                    lastName: document.getElementById("lastName").value.trim(),
+                    city: document.getElementById("city").value.trim(),
                     address: document.getElementById("address").value.trim(),
+                    postalCode: document.getElementById("postalCode").value.trim(),
                     phone: document.getElementById("phone").value.trim(),
-                    quantity: quantityElement.textContent.trim(),
-                    totalPrice: totalPrice.toFixed(2),
-                    shippingMethod: document.querySelector("input[name='shipping']:checked").value,
-                    paymentMethod: document.querySelector("input[name='payment']:checked").value
+                    total: totalPrice.toFixed(2)
                 };
 
                 for (let key in formData) {
@@ -133,9 +133,14 @@
                     }
                 }
 
-                sessionStorage.setItem("orderData", JSON.stringify(formData));
-                alert("✅ Order Confirmed! Redirecting to Payment...");
-                window.location.href = "payment.html";
+                document.getElementById("summary-name").textContent = formData.firstName + " " + formData.lastName;
+                document.getElementById("summary-address").textContent = formData.address + ", " + formData.city + " (" + formData.postalCode + ")";
+                document.getElementById("summary-phone").textContent = phoneCodeElement.textContent + " " + formData.phone;
+                document.getElementById("summary-total").textContent = formData.total;
+
+                document.getElementById("customer-form").classList.add("hidden");
+                saveButton.classList.add("hidden");
+                summaryDiv.classList.remove("hidden");
             });
 
             updatePrice();
