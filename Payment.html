@@ -7,9 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=ATKrzVCARP5-n0VyW8s9T9IOn9IbmHwJKRzC5bo9c7CqJ-5c1Z-g3Q28CNTyAmuluEmBPh54BNHRIP_A&components=buttons"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col items-center py-8">
+<body class="bg-gray-100 min-h-screen flex flex-col items-center py-0"> <!-- ✅ إزالة الفراغ العلوي -->
 
-    <!-- ✅ الهيدر العلوي -->
+    <!-- ✅ الهيدر العلوي بدون فراغ -->
     <header class="bg-purple-800 text-white p-4 w-full flex justify-between items-center">
         <h1 class="text-2xl font-bold">VELYORA</h1>
         <nav>
@@ -23,7 +23,7 @@
     </header>
 
     <!-- ✅ الإطار الرئيسي -->
-    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg mt-6">
+    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg mt-4">
 
         <!-- ✅ صورة المنتج وزر التحكم في الكمية -->
         <div class="flex items-center justify-between border-b pb-4 mb-4">
@@ -72,10 +72,18 @@
                 <input type="tel" id="phone" placeholder="Phone Number" class="border border-gray-300 p-2 w-full rounded-r">
             </div>
 
+            <!-- ✅ خيارات الشحن -->
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Shipping Method</h3>
+            <select id="shipping" class="border border-gray-300 p-2 w-full rounded">
+                <option value="Standard (5-7 Days)">🚚 Standard (5-7 Days) - Free</option>
+                <option value="Express (2-3 Days)">⚡ Express (2-3 Days) - $9.99</option>
+            </select>
+
             <!-- ✅ زر الحفظ -->
             <button id="saveInfo" class="bg-purple-700 text-white py-2 px-4 w-full rounded text-lg font-semibold mt-4">
                 Save Information
             </button>
+            <p class="text-gray-500 text-sm mt-2">You can also fill in your details directly in the payment section by clicking the black payment button.</p> <!-- ✅ الجملة التوضيحية -->
         </div>
 
         <!-- ✅ قسم الدفع -->
@@ -95,8 +103,6 @@
             let totalPrice = pricePerItem;
             let quantityElement = document.getElementById("quantity");
             let totalPriceElement = document.getElementById("total-price");
-            let increaseButton = document.getElementById("increase");
-            let decreaseButton = document.getElementById("decrease");
             let saveButton = document.getElementById("saveInfo");
             let paymentSection = document.getElementById("payment-section");
 
@@ -106,13 +112,12 @@
                 totalPriceElement.textContent = totalPrice.toFixed(2);
             }
 
-            increaseButton.addEventListener("click", function () {
-                let quantity = parseInt(quantityElement.textContent);
-                quantityElement.textContent = quantity + 1;
+            document.getElementById("increase").addEventListener("click", function () {
+                quantityElement.textContent = parseInt(quantityElement.textContent) + 1;
                 updatePrice();
             });
 
-            decreaseButton.addEventListener("click", function () {
+            document.getElementById("decrease").addEventListener("click", function () {
                 let quantity = parseInt(quantityElement.textContent);
                 if (quantity > 1) {
                     quantityElement.textContent = quantity - 1;
@@ -122,33 +127,18 @@
 
             function validateForm() {
                 let requiredFields = ["firstName", "lastName", "city", "address", "postalCode", "phone"];
-                for (let field of requiredFields) {
-                    if (!document.getElementById(field).value.trim()) {
-                        alert("❌ Please fill in all required fields before saving.");
-                        return false;
-                    }
-                }
-                return true;
+                return requiredFields.every(field => document.getElementById(field).value.trim() !== "");
             }
 
             saveButton.addEventListener("click", function () {
-                if (!validateForm()) return;
+                if (!validateForm()) {
+                    alert("❌ Please fill in all required fields before saving.");
+                    return;
+                }
                 paymentSection.classList.remove("hidden");
             });
 
-            paypal.Buttons({
-                createOrder: function (data, actions) {
-                    if (!validateForm()) {
-                        alert("❌ Please complete the form before proceeding to payment.");
-                        return actions.reject();
-                    }
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: { value: totalPrice.toFixed(2) }
-                        }]
-                    });
-                }
-            }).render("#paypal-button-container");
+            paypal.Buttons().render("#paypal-button-container");
 
             updatePrice();
         });
