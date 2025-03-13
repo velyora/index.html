@@ -5,17 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout & Payment</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=ATKrzVCARP5-n0VyW8s9T9IOn9IbmHwJKRzC5bo9c7CqJ-5c1Z-g3Q28CNTyAmuluEmBPh54BNHRIP_A"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=ATKrzVCARP5-n0VyW8s9T9IOn9IbmHwJKRzC5bo9c7CqJ-5c1Z-g3Q28CNTyAmuluEmBPh54BNHRIP_A&components=buttons"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col items-center">
+<body class="bg-gray-100 min-h-screen flex flex-col items-center py-8">
 
-    <!-- ✅ الهيدر بدون مسافة بيضاء أعلاه -->
-    <header class="bg-purple-800 text-white w-full py-4 text-center shadow-lg">
-        <h1 class="text-2xl font-bold">VELYORA</h1>
-    </header>
-
-    <!-- ✅ الحاوية الرئيسية -->
-    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg mt-4">
+    <!-- ✅ الإطار الرئيسي -->
+    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg">
 
         <!-- ✅ صورة المنتج وزر التحكم في الكمية -->
         <div class="flex items-center justify-between border-b pb-4 mb-4">
@@ -30,9 +25,9 @@
         <div class="flex justify-between items-center mb-4">
             <p class="text-lg font-semibold">Total: $<span id="total-price">20.00</span></p>
             <div class="flex">
-                <button id="decrease" class="bg-white border px-3 py-1 rounded-l text-gray-700">-</button>
+                <button id="decrease" class="bg-gray-300 text-gray-700 px-3 py-1 rounded-l">-</button>
                 <span id="quantity" class="px-4 text-lg font-bold">1</span>
-                <button id="increase" class="bg-white border px-3 py-1 rounded-r text-gray-700">+</button>
+                <button id="increase" class="bg-gray-300 text-gray-700 px-3 py-1 rounded-r">+</button>
             </div>
         </div>
 
@@ -76,67 +71,74 @@
         <button id="saveInfo" class="bg-purple-700 text-white py-2 px-4 w-full rounded text-lg font-semibold mt-4">
             Save Information
         </button>
+        <p class="text-gray-500 text-sm mt-2">You can also fill in your details directly in the payment section by clicking the black payment button.</p>
 
-        <!-- ✅ رسالة توضيحية -->
-        <p class="text-sm text-gray-600 mt-2 text-center">You can also enter your information directly in the Visa payment form by clicking the black button below.</p>
-
-        <!-- ✅ بيانات الطلب المطبوعة -->
-        <div id="order-summary" class="hidden bg-gray-50 p-4 mt-4 rounded">
-            <h3 class="text-lg font-semibold text-gray-900">Order Summary</h3>
-            <p><strong>Name:</strong> <span id="saved-name"></span></p>
-            <p><strong>Country:</strong> <span id="saved-country"></span></p>
-            <p><strong>City:</strong> <span id="saved-city"></span></p>
-            <p><strong>Address:</strong> <span id="saved-address"></span></p>
-            <p><strong>Postal Code:</strong> <span id="saved-postal"></span></p>
-            <p><strong>Phone:</strong> <span id="saved-phone"></span></p>
-            <p><strong>Total:</strong> $<span id="final-total"></span></p>
+        <!-- ✅ عرض بيانات الطلب بعد الحفظ -->
+        <div id="order-summary" class="hidden bg-gray-100 p-4 rounded-lg mt-4">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Order Summary</h3>
+            <p><strong>Name:</strong> <span id="summary-name"></span></p>
+            <p><strong>Country:</strong> <span id="summary-country"></span></p>
+            <p><strong>City:</strong> <span id="summary-city"></span></p>
+            <p><strong>Address:</strong> <span id="summary-address"></span></p>
+            <p><strong>Postal Code:</strong> <span id="summary-postalCode"></span></p>
+            <p><strong>Phone:</strong> <span id="summary-phone"></span></p>
+            <p><strong>Shipping:</strong> $<span id="summary-shipping"></span></p>
+            <p><strong>Total:</strong> $<span id="summary-total"></span></p>
         </div>
 
-        <!-- ✅ قسم الدفع -->
-        <div id="payment-section" class="hidden mt-6">
-            <h3 class="text-lg font-semibold text-purple-700 mb-3">Payment Info</h3>
-            <div id="paypal-button-container"></div>
-        </div>
+        <!-- ✅ زر الدفع عبر PayPal -->
+        <div id="paypal-button-container" class="hidden mt-4"></div>
 
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let pricePerItem = 20.00;
-            let quantityElement = document.getElementById("quantity");
-            let totalPriceElement = document.getElementById("total-price");
-            let saveButton = document.getElementById("saveInfo");
-            let paymentSection = document.getElementById("payment-section");
+            let quantity = 1;
+            let shippingCost = 0;
 
-            function updatePrice() {
-                let quantity = parseInt(quantityElement.textContent);
-                let shippingCost = parseFloat(document.getElementById("shipping").value);
-                let totalPrice = (pricePerItem * quantity) + shippingCost;
-                totalPriceElement.textContent = totalPrice.toFixed(2);
-                document.getElementById("final-total").textContent = totalPrice.toFixed(2);
+            function updateTotal() {
+                let total = (pricePerItem * quantity) + parseFloat(shippingCost);
+                document.getElementById("total-price").textContent = total.toFixed(2);
             }
 
-            document.getElementById("increase").addEventListener("click", () => {
-                quantityElement.textContent = parseInt(quantityElement.textContent) + 1;
-                updatePrice();
+            document.getElementById("increase").addEventListener("click", function () {
+                quantity++;
+                updateTotal();
             });
 
-            document.getElementById("decrease").addEventListener("click", () => {
-                let quantity = parseInt(quantityElement.textContent);
+            document.getElementById("decrease").addEventListener("click", function () {
                 if (quantity > 1) {
-                    quantityElement.textContent = quantity - 1;
-                    updatePrice();
+                    quantity--;
+                    updateTotal();
                 }
             });
 
-            saveButton.addEventListener("click", function () {
-                document.getElementById("customer-form").classList.add("hidden");
-                document.getElementById("order-summary").classList.remove("hidden");
-                document.getElementById("payment-section").classList.remove("hidden");
+            document.getElementById("shipping").addEventListener("change", function () {
+                shippingCost = this.value;
+                updateTotal();
             });
 
-            paypal.Buttons().render("#paypal-button-container");
-            updatePrice();
+            document.getElementById("saveInfo").addEventListener("click", function () {
+                let requiredFields = ["firstName", "lastName", "city", "address", "postalCode", "phone"];
+                for (let field of requiredFields) {
+                    if (!document.getElementById(field).value.trim()) {
+                        alert("❌ Please fill in all required fields.");
+                        return;
+                    }
+                }
+
+                document.getElementById("order-summary").classList.remove("hidden");
+                document.getElementById("paypal-button-container").classList.remove("hidden");
+
+                document.getElementById("summary-name").textContent = document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
+                document.getElementById("summary-country").textContent = document.getElementById("country").value;
+                document.getElementById("summary-total").textContent = document.getElementById("total-price").textContent;
+
+                paypal.Buttons().render("#paypal-button-container");
+            });
+
+            updateTotal();
         });
     </script>
 
