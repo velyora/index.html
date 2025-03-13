@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout & Payment</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col items-center py-8">
 
-    <!-- 🔹 إطار واحد يجمع كل الأقسام -->
+    <!-- ✅ الإطار الرئيسي -->
     <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg">
 
         <!-- ✅ صورة المنتج وزر التحكم في الكمية -->
@@ -34,13 +35,11 @@
         <div id="customer-form">
             <h3 class="text-xl font-semibold text-gray-900 mb-4">Customer Information</h3>
 
-            <!-- 🔹 الاسم الأول واسم العائلة بجانب بعض -->
             <div class="flex space-x-2 mb-2">
                 <input type="text" id="firstName" placeholder="First Name" class="border border-gray-300 p-2 w-1/2 rounded">
                 <input type="text" id="lastName" placeholder="Last Name" class="border border-gray-300 p-2 w-1/2 rounded">
             </div>
 
-            <!-- 🔹 الدولة والمدينة -->
             <select id="country" class="border border-gray-300 p-2 w-full rounded mb-2" onchange="updatePhoneCode()">
                 <option value="US" data-code="+1">🇺🇸 United States</option>
                 <option value="CA" data-code="+1">🇨🇦 Canada</option>
@@ -55,7 +54,6 @@
             <input type="text" id="address" placeholder="Street Address" class="border border-gray-300 p-2 w-full rounded mb-2">
             <input type="text" id="postalCode" placeholder="Postal Code" class="border border-gray-300 p-2 w-full rounded mb-2">
 
-            <!-- 🔹 رقم الهاتف مع مفتاح الدولة التلقائي -->
             <div class="flex mb-2">
                 <span id="phone-code" class="bg-gray-300 px-3 py-2 rounded-l">+1</span>
                 <input type="tel" id="phone" placeholder="Phone Number" class="border border-gray-300 p-2 w-full rounded-r">
@@ -74,14 +72,17 @@
             Save Information
         </button>
 
-        <!-- ✅ عرض البيانات المحفوظة بعد الحفظ -->
-        <div id="summary" class="hidden mt-6 bg-gray-100 p-4 rounded">
-            <h3 class="text-lg font-semibold">✔ Order Summary</h3>
-            <p><strong>Name:</strong> <span id="summary-name"></span></p>
-            <p><strong>Address:</strong> <span id="summary-address"></span></p>
-            <p><strong>Phone:</strong> <span id="summary-phone"></span></p>
-            <p><strong>Shipping:</strong> <span id="summary-shipping"></span></p>
-            <p><strong>Total:</strong> $<span id="summary-total"></span></p>
+        <!-- ✅ خيارات الدفع -->
+        <div id="payment-options" class="hidden mt-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Select Payment Method</h3>
+
+            <!-- ✅ PayPal الزر الأصفر -->
+            <div id="paypal-button-container" class="mb-4"></div>
+
+            <!-- ✅ Credit Card الزر الأسود -->
+            <div class="bg-black text-white text-center py-3 rounded cursor-pointer" id="credit-card-payment">
+                <span class="text-lg font-semibold">Pay with Credit Card</span>
+            </div>
         </div>
 
     </div>
@@ -96,7 +97,7 @@
             let decreaseButton = document.getElementById("decrease");
             let phoneCodeElement = document.getElementById("phone-code");
             let saveButton = document.getElementById("saveInfo");
-            let summaryDiv = document.getElementById("summary");
+            let paymentOptions = document.getElementById("payment-options");
 
             function updatePrice() {
                 let quantity = parseInt(quantityElement.textContent);
@@ -124,26 +125,27 @@
             }
 
             saveButton.addEventListener("click", function () {
-                let formData = {
-                    firstName: document.getElementById("firstName").value.trim(),
-                    lastName: document.getElementById("lastName").value.trim(),
-                    city: document.getElementById("city").value.trim(),
-                    address: document.getElementById("address").value.trim(),
-                    postalCode: document.getElementById("postalCode").value.trim(),
-                    phone: document.getElementById("phone").value.trim(),
-                    shipping: document.getElementById("shipping").value,
-                    total: totalPrice.toFixed(2)
-                };
-
-                document.getElementById("summary-name").textContent = formData.firstName + " " + formData.lastName;
-                document.getElementById("summary-address").textContent = formData.address + ", " + formData.city + " (" + formData.postalCode + ")";
-                document.getElementById("summary-phone").textContent = phoneCodeElement.textContent + " " + formData.phone;
-                document.getElementById("summary-shipping").textContent = formData.shipping;
-                document.getElementById("summary-total").textContent = formData.total;
-
-                document.getElementById("customer-form").classList.add("hidden");
                 saveButton.classList.add("hidden");
-                summaryDiv.classList.remove("hidden");
+                paymentOptions.classList.remove("hidden");
+            });
+
+            paypal.Buttons({
+                createOrder: function (data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: { value: totalPrice.toFixed(2) }
+                        }]
+                    });
+                },
+                onApprove: function (data, actions) {
+                    return actions.order.capture().then(function (details) {
+                        alert(`✅ Payment successful! Order ID: ${details.id}`);
+                    });
+                }
+            }).render("#paypal-button-container");
+
+            document.getElementById("credit-card-payment").addEventListener("click", function () {
+                alert("Redirecting to Credit Card Payment...");
             });
 
             updatePrice();
