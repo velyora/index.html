@@ -67,17 +67,12 @@
             </select>
         </div>
 
-        <!-- ✅ زر حفظ البيانات -->
-        <button id="saveInfo" class="bg-purple-700 text-white py-2 px-4 w-full rounded text-lg font-semibold mt-4">
-            Save Information
-        </button>
-
         <!-- ✅ خيارات الدفع -->
-        <div id="payment-options" class="hidden mt-6">
+        <div id="payment-options" class="mt-6">
             <h3 class="text-lg font-semibold text-gray-900 mb-3">Select Payment Method</h3>
 
             <!-- ✅ PayPal الزر الأصفر -->
-            <div id="paypal-button-container" class="mb-4"></div>
+            <div id="paypal-button-container" class="mb-4 cursor-pointer"></div>
 
             <!-- ✅ Credit Card الزر الأسود -->
             <div class="bg-black text-white text-center py-3 rounded cursor-pointer" id="credit-card-payment">
@@ -96,8 +91,6 @@
             let increaseButton = document.getElementById("increase");
             let decreaseButton = document.getElementById("decrease");
             let phoneCodeElement = document.getElementById("phone-code");
-            let saveButton = document.getElementById("saveInfo");
-            let paymentOptions = document.getElementById("payment-options");
 
             function updatePrice() {
                 let quantity = parseInt(quantityElement.textContent);
@@ -124,21 +117,22 @@
                 phoneCodeElement.textContent = selectedOption.getAttribute("data-code");
             }
 
-            saveButton.addEventListener("click", function () {
+            function validateForm() {
                 let requiredFields = ["firstName", "lastName", "city", "address", "postalCode", "phone"];
                 for (let field of requiredFields) {
                     if (!document.getElementById(field).value.trim()) {
-                        alert("❌ Please fill in all required fields.");
-                        return;
+                        alert("❌ Please fill in all required fields before proceeding to payment.");
+                        return false;
                     }
                 }
-
-                saveButton.classList.add("hidden");
-                paymentOptions.classList.remove("hidden");
-            });
+                return true;
+            }
 
             paypal.Buttons({
                 createOrder: function (data, actions) {
+                    if (!validateForm()) {
+                        return actions.reject();
+                    }
                     return actions.order.create({
                         purchase_units: [{
                             amount: { value: totalPrice.toFixed(2) }
@@ -156,6 +150,7 @@
             }).render("#paypal-button-container");
 
             document.getElementById("credit-card-payment").addEventListener("click", function () {
+                if (!validateForm()) return;
                 alert("Redirecting to Credit Card Payment...");
             });
 
