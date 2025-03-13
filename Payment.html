@@ -125,11 +125,25 @@
             });
 
             document.getElementById("saveInfo").addEventListener("click", function () {
+                let fields = ["firstName", "lastName", "city", "address", "postalCode", "phone"];
+                for (let field of fields) {
+                    if (!document.getElementById(field).value.trim()) {
+                        alert("❌ Please fill in all required fields.");
+                        return;
+                    }
+                }
+
                 document.getElementById("customer-form").classList.add("hidden");
                 document.getElementById("order-summary").classList.remove("hidden");
                 document.getElementById("paypal-button-container").classList.remove("hidden");
 
                 document.getElementById("summary-total").textContent = document.getElementById("total-price").textContent;
+
+                paypal.Buttons({
+                    createOrder: (data, actions) => actions.order.create({
+                        purchase_units: [{ amount: { value: document.getElementById("total-price").textContent } }]
+                    })
+                }).render("#paypal-button-container");
             });
 
             updateTotal();
