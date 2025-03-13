@@ -5,12 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout & Payment</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=ATKrzVCARP5-n0VyW8s9T9IOn9IbmHwJKRzC5bo9c7CqJ-5c1Z-g3Q28CNTyAmuluEmBPh54BNHRIP_A&components=buttons"></script>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col items-center py-8">
 
+    <!-- ✅ الهيدر العلوي -->
+    <header class="bg-purple-800 text-white p-4 w-full flex justify-between items-center">
+        <h1 class="text-2xl font-bold">VELYORA</h1>
+        <nav>
+            <ul class="flex space-x-6">
+                <li><a href="index.html" class="hover:underline">Home</a></li>
+                <li><a href="shipping.html" class="hover:underline">Shipping</a></li>
+                <li><a href="track.html" class="hover:underline">Track</a></li>
+                <li><a href="contact.html" class="hover:underline">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <!-- ✅ الإطار الرئيسي -->
-    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg">
+    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-lg mt-6">
 
         <!-- ✅ صورة المنتج وزر التحكم في الكمية -->
         <div class="flex items-center justify-between border-b pb-4 mb-4">
@@ -25,9 +38,9 @@
         <div class="flex justify-between items-center mb-4">
             <p class="text-lg font-semibold">Total: $<span id="total-price">20.00</span></p>
             <div class="flex">
-                <button id="decrease" class="bg-gray-300 text-gray-700 px-3 py-1 rounded-l">-</button>
+                <button id="decrease" class="bg-white border px-3 py-1 rounded-l text-gray-700">-</button>
                 <span id="quantity" class="px-4 text-lg font-bold">1</span>
-                <button id="increase" class="bg-gray-300 text-gray-700 px-3 py-1 rounded-r">+</button>
+                <button id="increase" class="bg-white border px-3 py-1 rounded-r text-gray-700">+</button>
             </div>
         </div>
 
@@ -59,25 +72,19 @@
                 <input type="tel" id="phone" placeholder="Phone Number" class="border border-gray-300 p-2 w-full rounded-r">
             </div>
 
-            <!-- ✅ خيار الشحن -->
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Shipping Method</h3>
-            <select id="shipping" class="border border-gray-300 p-2 w-full rounded">
-                <option value="Standard (5-7 Days)">🚚 Standard (5-7 Days) - Free</option>
-                <option value="Express (2-3 Days)">⚡ Express (2-3 Days) - $9.99</option>
-            </select>
+            <!-- ✅ زر الحفظ -->
+            <button id="saveInfo" class="bg-purple-700 text-white py-2 px-4 w-full rounded text-lg font-semibold mt-4">
+                Save Information
+            </button>
         </div>
 
-        <!-- ✅ خيارات الدفع -->
-        <div id="payment-options" class="mt-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-3">Select Payment Method</h3>
+        <!-- ✅ قسم الدفع -->
+        <div id="payment-section" class="hidden mt-6">
+            <h3 class="text-lg font-semibold text-purple-700 mb-3">Payment Info</h3>
+            <p>All transactions are secure and encrypted.</p>
 
-            <!-- ✅ PayPal الزر الأصفر -->
-            <div id="paypal-button-container" class="mb-4 cursor-pointer"></div>
-
-            <!-- ✅ Credit Card الزر الأسود -->
-            <div class="bg-black text-white text-center py-3 rounded cursor-pointer" id="credit-card-payment">
-                <span class="text-lg font-semibold">Pay with Credit Card</span>
-            </div>
+            <!-- ✅ زر PayPal -->
+            <div id="paypal-button-container" class="mb-4"></div>
         </div>
 
     </div>
@@ -90,7 +97,8 @@
             let totalPriceElement = document.getElementById("total-price");
             let increaseButton = document.getElementById("increase");
             let decreaseButton = document.getElementById("decrease");
-            let phoneCodeElement = document.getElementById("phone-code");
+            let saveButton = document.getElementById("saveInfo");
+            let paymentSection = document.getElementById("payment-section");
 
             function updatePrice() {
                 let quantity = parseInt(quantityElement.textContent);
@@ -112,25 +120,26 @@
                 }
             });
 
-            function updatePhoneCode() {
-                let selectedOption = document.getElementById("country").options[document.getElementById("country").selectedIndex];
-                phoneCodeElement.textContent = selectedOption.getAttribute("data-code");
-            }
-
             function validateForm() {
                 let requiredFields = ["firstName", "lastName", "city", "address", "postalCode", "phone"];
                 for (let field of requiredFields) {
                     if (!document.getElementById(field).value.trim()) {
-                        alert("❌ Please fill in all required fields before proceeding to payment.");
+                        alert("❌ Please fill in all required fields before saving.");
                         return false;
                     }
                 }
                 return true;
             }
 
+            saveButton.addEventListener("click", function () {
+                if (!validateForm()) return;
+                paymentSection.classList.remove("hidden");
+            });
+
             paypal.Buttons({
                 createOrder: function (data, actions) {
                     if (!validateForm()) {
+                        alert("❌ Please complete the form before proceeding to payment.");
                         return actions.reject();
                     }
                     return actions.order.create({
@@ -138,21 +147,8 @@
                             amount: { value: totalPrice.toFixed(2) }
                         }]
                     });
-                },
-                onApprove: function (data, actions) {
-                    return actions.order.capture().then(function (details) {
-                        alert(`✅ Payment successful! Order ID: ${details.id}`);
-                    });
-                },
-                onError: function () {
-                    alert("❌ Please fill in the address form before proceeding.");
                 }
             }).render("#paypal-button-container");
-
-            document.getElementById("credit-card-payment").addEventListener("click", function () {
-                if (!validateForm()) return;
-                alert("Redirecting to Credit Card Payment...");
-            });
 
             updatePrice();
         });
