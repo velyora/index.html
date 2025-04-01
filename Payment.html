@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout & Payment</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center p-4">
+
+  <div class="bg-gray-800 rounded-xl p-6 w-full max-w-md shadow-lg">
+    
+    <h2 class="text-lg font-semibold mb-4">Select Payment Method</h2>
+    <div class="flex gap-2 mb-4">
+      <button id="paypalBtn" class="w-1/2 py-2 rounded bg-blue-500 text-black font-bold">PayPal</button>
+      <button id="cardBtn" class="w-1/2 py-2 rounded bg-gray-700">Card</button>
+    </div>
+
+    <div id="paypalBox" class="bg-gray-700 rounded p-4 mb-4">
+      <p class="mb-2">PayPal selected.</p>
+      <p class="text-sm text-gray-300">After submission, you will be redirected to securely complete next steps.</p>
+    </div>
+
+    <div id="cardBox" class="bg-gray-700 rounded p-4 mb-4 hidden">
+      <input type="text" placeholder="Card number" class="w-full mb-2 p-2 rounded bg-gray-800 text-white" />
+      <div class="flex gap-2 mb-2">
+        <input type="text" placeholder="MM / YY" class="w-1/2 p-2 rounded bg-gray-800 text-white" />
+        <input type="text" placeholder="CVC" class="w-1/2 p-2 rounded bg-gray-800 text-white" />
+      </div>
+    </div>
+
+    <select id="country" class="w-full p-2 rounded mb-4 bg-gray-800 text-white">
+      <option>United States</option>
+      <option>Germany</option>
+      <option>Saudi Arabia</option>
+      <option>UK</option>
+    </select>
+
+    <div class="mb-4">
+      <p class="flex justify-between">1-Month Plan <span>$19.99 / month</span></p>
+      <p class="flex justify-between text-cyan-400">50% Welcome Discount <span>- $10.00</span></p>
+      <hr class="my-2 border-gray-600"/>
+      <p class="flex justify-between font-bold text-lg">Total amount due today <span>$9.99</span></p>
+    </div>
+
+    <div id="paypal-button-container" class="mb-4"></div>
+
+    <button id="confirmBtn" class="w-full py-3 bg-cyan-400 text-black font-bold rounded hidden">Confirm Payment</button>
+
+    <p class="text-xs mt-4 text-gray-400">
+      By clicking "Confirm Payment", you agree that $9.99 will be charged as an introductory offer and then $19.99 will be automatically charged each month until you cancel.
+    </p>
+  </div>
+
+  <script>
+    const paypalBtn = document.getElementById('paypalBtn');
+    const cardBtn = document.getElementById('cardBtn');
+    const paypalBox = document.getElementById('paypalBox');
+    const cardBox = document.getElementById('cardBox');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const paypalContainer = document.getElementById('paypal-button-container');
+
+    paypalBtn.onclick = () => {
+      paypalBtn.classList.add('bg-blue-500', 'text-black');
+      cardBtn.classList.remove('bg-blue-500', 'text-black');
+      cardBtn.classList.add('bg-gray-700');
+      paypalBox.classList.remove('hidden');
+      cardBox.classList.add('hidden');
+      confirmBtn.classList.add('hidden');
+      paypalContainer.classList.remove('hidden');
+    };
+
+    cardBtn.onclick = () => {
+      cardBtn.classList.add('bg-blue-500', 'text-black');
+      paypalBtn.classList.remove('bg-blue-500', 'text-black');
+      paypalBtn.classList.add('bg-gray-700');
+      paypalBox.classList.add('hidden');
+      cardBox.classList.remove('hidden');
+      confirmBtn.classList.remove('hidden');
+      paypalContainer.classList.add('hidden');
+    };
+
+    // PayPal integration
+    paypal.Buttons({
+      style: {
+        color: 'blue',
+        shape: 'pill',
+        label: 'pay',
+        height: 40
+      },
+      createOrder: (data, actions) => {
+        return actions.order.create({
+          purchase_units: [{
+            description: '1-Month Plan',
+            amount: {
+              currency_code: 'USD',
+              value: '9.99'
+            }
+          }]
+        });
+      },
+      onApprove: async (data, actions) => {
+        const order = await actions.order.capture();
+        alert('✅ Payment Successful!');
+        console.log('Order:', order);
+      },
+      onError: err => {
+        console.error(err);
+        alert('❌ Payment failed.');
+      }
+    }).render('#paypal-button-container');
+  </script>
+
+</body>
+</html>
