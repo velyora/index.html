@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>محول PDF إلى Word احترافي - مجاني 100%</title>
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3a0ca3;
+      --accent-color: #7209b7;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --success-color: #38b000;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+      color: var(--dark-color);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    header {
+      background-color: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-icon {
+      margin-left: 8px;
+      font-size: 28px;
+    }
+    
+    .hero {
+      padding: 80px 0;
+      text-align: center;
+    }
+    
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      display: inline-block;
+    }
+    
+    h1::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 2px;
+    }
+    
+    .subheading {
+      font-size: 1.4rem;
+      color: #555;
+      margin-bottom: 40px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .converter-container {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      padding: 40px;
+      max-width: 800px;
+      margin: 0 auto 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .converter-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 150px;
+      height: 150px;
+      background: linear-gradient(135deg, rgba(114, 9, 183, 0.1) 0%, rgba(67, 97, 238, 0.05) 100%);
+      border-radius: 0 0 0 100%;
+      z-index: 0;
+    }
+    
+    .upload-area {
+      border: 2px dashed #ddd;
+      border-radius: 10px;
+      padding: 40px 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      background-color: rgba(245, 247, 250, 0.5);
+      margin-bottom: 30px;
+      cursor: pointer;
+    }
+    
+    .upload-area:hover {
+      border-color: var(--primary-color);
+      background-color: rgba(67, 97, 238, 0.03);
+    }
+    
+    .upload-icon {
+      font-size: 50px;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+    }
+    
+    .upload-text {
+      font-size: 18px;
+      color: #666;
+    }
+    
+    .upload-input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    
+    .cta-button {
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+      color: white;
+      padding: 16px 40px;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 20px rgba(67, 97, 238, 0.4);
+    }
+    
+    .cta-button:active {
+      transform: translateY(1px);
+      box-shadow: 0 3px 10px rgba(67, 97, 238, 0.3);
+    }
+    
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: all 0.6s ease;
+    }
+    
+    .cta-button:hover::before {
+      left: 100%;
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin: 60px 0;
+    }
+    
+    .feature-card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .feature-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+      z-index: -1;
+      transition: width 0.3s ease;
+    }
+    
+    .feature-card:hover::before {
+      width: 100%;
+      opacity: 0.05;
+    }
+    
+    .feature-icon {
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: white;
+      font-size: 24px;
+    }
+    
+    .feature-title {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: var(--dark-color);
+    }
+    
+    .feature-text {
+      color: #666;
+      font-size: 16px;
+    }
+    
+    .testimonials {
+      background-color: white;
+      padding: 80px 0;
+      margin: 60px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .testimonials::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(114, 9, 183, 0.03) 0%, transparent 70%);
+      top: -150px;
+      right: -150px;
+      border-radius: 50%;
+    }
+    
+    .testimonials::after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(67, 97, 238, 0.03) 0%, transparent 70%);
+      bottom: -150px;
+      left: -150px;
+      border-radius: 50%;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: 2.2rem;
+      color: var(--dark-color);
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 2px;
+    }
+    
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .testimonial-card {
+      background-color: #f8f9fa;
+      border-radius: 12px;
+      padding: 30px;
+      position: relative;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      color: #555;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .testimonial-text::before {
+      content: """;
+      font-size: 60px;
+      color: rgba(67, 97, 238, 0.1);
+      position: absolute;
+      top: -20px;
+      right: -5px;
+      font-family: serif;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+    
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    }
+    
+    .author-details {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .author-name {
+      font-weight: 600;
+      color: var(--dark-color);
+    }
+    
+    .author-title {
+      font-size: 14px;
+      color: #777;
+    }
+    
+    .faq {
+      margin: 80px 0;
+    }
+    
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .faq-item {
+      margin-bottom: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+      background-color: white;
+    }
+    
+    .faq-question {
+      padding: 20px;
+      background-color: white;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .faq-question:hover {
+      background-color: rgba(67, 97, 238, 0.03);
+    }
+    
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      background-color: #f8f9fa;
+    }
+    
+    .faq-answer.active {
+      padding: 20px;
+      max-height: 1000px;
+    }
+    
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      padding: 80px 0;
+      text-align: center;
+      border-radius: 15px;
+      margin: 60px 0;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.1;
+    }
+    
+    .cta-title {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .cta-text {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .cta-button-light {
+      background-color: white;
+      color: var(--primary-color);
+      padding: 16px 40px;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .cta-button-light:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    footer {
+      background-color: var(--dark-color);
+      color: white;
+      padding: 60px 0 30px;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-column h3 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-column h3::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+    
+    .footer-column ul {
+      list-style: none;
+    }
+    
+    .footer-column ul li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-column ul li a {
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-column ul li a:hover {
+      color: white;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icon:hover {
+      background-color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+    
+    .footer-bottom {
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      font-size: 14px;
+      color: #aaa;
+    }
+    
+    .footer-logo {
+      margin-bottom: 15px;
+      color: white;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    
+    .footer-logo span {
+      color: var(--primary-color);
+    }
+    
+    /* Counter Animation */
+    .counter-container {
+      display: flex;
+      justify-content: space-around;
+      margin: 60px 0;
+      flex-wrap: wrap;
+    }
+    
+    .counter-item {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .counter-number {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .counter-text {
+      font-size: 18px;
+      color: #555;
+    }
+    
+    /* Trust Badges */
+    .trust-badges {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+    
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      color: #555;
+      font-weight: 500;
+    }
+    
+    .trust-badge-icon {
+      margin-left: 10px;
+      color: var(--success-color);
+      font-size: 24px;
+    }
+    
+    /* File type icons */
+    .file-types {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .file-type {
+      padding: 8px 15px;
+      background-color: rgba(67, 97, 238, 0.1);
+      border-radius: 20px;
+      font-size: 14px;
+      color: var(--primary-color);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+    
+    .file-icon {
+      margin-left: 5px;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .subheading {
+        font-size: 1.1rem;
+      }
+      
+      .converter-container {
+        padding: 30px 20px;
+      }
+      
+      .features {
+        gap: 20px;
+      }
+      
+      .counter-item {
+        flex-basis: 50%;
+      }
+      
+      .cta-title {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .cta-button, .cta-button-light {
+        padding: 14px 28px;
+        font-size: 16px;
+      }
+      
+      .counter-item {
+        flex-basis: 100%;
+      }
+      
+      .upload-area {
+        padding: 30px 15px;
+      }
+      
+      .upload-icon {
+        font-size: 40px;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="#" class="logo">
+          <span class="logo-icon">📄</span>
+          محول بي دي إف
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>حوّل ملفات PDF إلى Word في ثوانٍ معدودة</h1>
+      <p class="subheading">أداة متطورة تحول ملفات PDF إلى مستندات Word قابلة للتحرير بدقة عالية، مجانًا وبدون تسجيل</p>
+      
+      <div class="converter-container">
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-icon">📤</div>
+          <p class="upload-text">اسحب ملف PDF هنا أو انقر للاختيار</p>
+          <input type="file" class="upload-input" accept=".pdf" id="fileInput">
+        </div>
+        
+        <div class="file-types">
+          <div class="file-type"><span class="file-icon">📄</span> PDF</div>
+          <div class="file-type"><span class="file-icon">📝</span> DOCX</div>
+          <div class="file-type"><span class="file-icon">📋</span> TXT</div>
+        </div>
+        
+        <a href="https://your-adsterra-direct-link.com" class="cta-button" target="_blank">تحويل الملف الآن</a>
+        
+        <div class="trust-badges">
+          <div class="trust-badge">
+            <span class="trust-badge-icon">✓</span>
+            آمن 100%
+          </div>
+          <div class="trust-badge">
+            <span class="trust-badge-icon">✓</span>
+            بدون تسجيل
+          </div>
+          <div class="trust-badge">
+            <span class="trust-badge-icon">✓</span>
+            سرعة عالية
+          </div>
+        </div>
+      </div>
+      
+      <div class="counter-container">
+        <div class="counter-item">
+          <div class="counter-number">5M+</div>
+          <div class="counter-text">ملفات تم تحويلها</div>
+        </div>
+        <div class="counter-item">
+          <div class="counter-number">98%</div>
+          <div class="counter-text">دقة التحويل</div>
+        </div>
+        <div class="counter-item">
+          <div class="counter-number">200K+</div>
+          <div class="counter-text">مستخدم راضٍ</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3 class="feature-title">سرعة فائقة</h3>
+        <p class="feature-text">تحويل ملفات PDF إلى Word في ثوانٍ معدودة، بغض النظر عن حجم الملف</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3 class="feature-title">خصوصية تامة</h3>
+        <p class="feature-text">نحن لا نحتفظ بملفاتك، وجميع البيانات مشفرة ومحمية بالكامل</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">💯</div>
+        <h3 class="feature-title">دقة عالية</h3>
+        <p class="feature-text">نحافظ على تنسيق المستند الأصلي بما في ذلك الخطوط والصور والجداول</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3 class="feature-title">تحويل غير محدود</h3>
+        <p class="feature-text">استخدم الأداة بقدر ما تحتاج دون قيود على عدد الملفات أو حجمها</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3 class="feature-title">دعم جميع الأجهزة</h3>
+        <p class="feature-text">يعمل على جميع الأجهزة والمتصفحات - الكمبيوتر، الجوال، اللوحي</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3 class="feature-title">بدون تطبيقات</h3>
+        <p class="feature-text">لا حاجة لتنزيل برامج إضافية، كل شيء يعمل مباشرة من المتصفح</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="container">
+      <h2 class="section-title">ماذا يقول المستخدمون؟</h2>
+      
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <p class="testimonial-text">هذه الأداة أنقذتني! كنت بحاجة لتعديل مستند PDF بشكل عاجل، وتمكنت من تحويله إلى Word في ثوانٍ. النتيجة كانت مذهلة!</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">س</div>
+            <div class="author-details">
+              <div class="author-name">سارة العمري</div>
+              <div class="author-title">طالبة جامعية</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <p class="testimonial-text">كمدير أعمال، أتعامل مع الكثير من المستندات يوميًا. هذه الأداة وفرت علي الكثير من الوقت والجهد. أنصح بها بشدة!</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">م</div>
+            <div class="author-details">
+              <div class="author-name">محمد الهاشمي</div>
+              <div class="author-title">مدير تنفيذي</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <p class="testimonial-text">الأداة الأفضل على الإطلاق! سريعة، دقيقة، وسهلة الاستخدام. والأهم من ذلك أنها مجانية تمامًا!</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">ن</div>
+            <div class="author-details">
+              <div class="author-name">نوف القحطاني</div>
+              <div class="author-title">مصممة جرافيك</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="faq">
+      <h2 class="section-title">أسئلة شائعة</h2>
+      
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            هل الخدمة مجانية حقًا؟
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            نعم، خدمة تحويل PDF إلى Word مجانية 100%. لا توجد رسوم خفية أو مدفوعات مستقبلية.
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            هل يتم الاحتفاظ بملفاتي على الخادم؟
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            لا، نحن نحترم خصوصيتك تمامًا. يتم حذف جميع الملفات تلقائيًا بعد التحويل مباشرة، ولا نحتفظ بأي نسخة منها.
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            ما هو الحد الأقصى لحجم الملف؟
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            يمكنك تحويل ملفات بحجم يصل إلى 50 ميجابايت. هذا يكفي لمعظم المستندات والتقارير.
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            هل أحتاج إلى إنشاء حساب؟
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            لا، لا حاجة للتسجيل أو إنشاء حساب. ما عليك سوى تحميل الملف والحصول على النتيجة فورًا.
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            هل يمكنني تحويل ملفات متعددة في نفس الوقت؟
+            <span>+</span>
+          </div>
+          <div class="faq-answer">
+            حاليًا، يمكنك تحويل ملف واحد في كل مرة. لكن يمكنك استخدام الأداة بقدر ما تحتاج دون قيود.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta-title">ابدأ التحويل الآن وأنجز عملك بسرعة</h2>
+      <p class="cta-text">لا مزيد من العناء مع ملفات PDF. حوّلها إلى Word واستمتع بحرية التحرير الكاملة.</p>
+      <a href="https://your-adsterra-direct-link.com" class="cta-button-light" target="_blank">تحويل PDF إلى Word الآن</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <div class="footer-logo">محول <span>PDF</span></div>
+          <p>أداة احترافية لتحويل ملفات PDF إلى Word بسهولة وسرعة. متاحة مجانًا للجميع.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon">F</a>
+            <a href="#" class="social-icon">T</a>
+            <a href="#" class="social-icon">L</a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3>روابط سريعة</h3>
+          <ul>
+            <li><a href="#">الصفحة الرئيسية</a></li>
+            <li><a href="#">حول الخدمة</a></li>
+            <li><a href="#">خدماتنا</a></li>
+            <li><a href="#">اتصل بنا</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>أدوات أخرى</h3>
+          <ul>
+            <li><a href="#">تحويل Word إلى PDF</a></li>
+            <li><a href="#">ضغط ملفات PDF</a></li>
+            <li><a href="#">دمج ملفات PDF</a></li>
+            <li><a href="#">تقسيم ملفات PDF</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>الدعم</h3>
+          <ul>
+            <li><a href="#">الأسئلة الشائعة</a></li>
+            <li><a href="#">سياسة الخصوصية</a></li>
+            <li><a href="#">شروط الاستخدام</a></li>
+            <li><a href="#">المساعدة</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© 2025 محول PDF إلى Word. جميع الحقوق محفوظة.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Upload area interaction
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    
+    uploadArea.addEventListener('click', () => {
+      fileInput.click();
+    });
+    
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '#4361ee';
+      uploadArea.style.backgroundColor = 'rgba(67, 97, 238, 0.05)';
+    });
+    
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.style.borderColor = '#ddd';
+      uploadArea.style.backgroundColor = 'rgba(245, 247, 250, 0.5)';
+    });
+    
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '#ddd';
+      uploadArea.style.backgroundColor = 'rgba(245, 247, 250, 0.5)';
+      if (e.dataTransfer.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        const fileName = e.dataTransfer.files[0].name;
+        if (fileName.endsWith('.pdf')) {
+          uploadArea.querySelector('.upload-text').textContent = `الملف المختار: ${fileName}`;
+        } else {
+          alert('يرجى اختيار ملف PDF فقط');
+        }
+      }
+    });
+    
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) {
+        const fileName = fileInput.files[0].name;
+        if (fileName.endsWith('.pdf')) {
+          uploadArea.querySelector('.upload-text').textContent = `الملف المختار: ${fileName}`;
+        } else {
+          alert('يرجى اختيار ملف PDF فقط');
+          fileInput.value = '';
+        }
+      }
+    });
+    
+    // FAQ toggle
+    function toggleFaq(element) {
+      const answer = element.nextElementSibling;
+      const isActive = answer.classList.contains('active');
+      
+      // Close all FAQs
+      document.querySelectorAll('.faq-answer').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      document.querySelectorAll('.faq-question span').forEach(span => {
+        span.textContent = '+';
+      });
+      
+      // Open current FAQ if it was closed
+      if (!isActive) {
+        answer.classList.add('active');
+        element.querySelector('span').textContent = '−';
+      }
+    }
+    
+    // Counter animation
+    function animateCounters() {
+      const counters = document.querySelectorAll('.counter-number');
+      
+      counters.forEach(counter => {
+        const target = counter.textContent;
+        const suffix = target.match(/[^0-9]/g) ? target.match(/[^0-9]/g).join('') : '';
+        const targetNumber = parseInt(target.replace(/[^0-9]/g, ''));
+        let count = 0;
+        const duration = 2000; // 2 seconds
+        const increment = targetNumber / (duration / 20);
+        
+        const timer = setInterval(() => {
+          count += increment;
+          if (count >= targetNumber) {
+            counter.textContent = targetNumber + suffix;
+            clearInterval(timer);
+          } else {
+            counter.textContent = Math.floor(count) + suffix;
+          }
+        }, 20);
+      });
+    }
+    
+    // Run counter animation when scrolled into view
+    const counterSection = document.querySelector('.counter-container');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounters();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    observer.observe(counterSection);
+  </script>
+</body>
+</html>
